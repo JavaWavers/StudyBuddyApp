@@ -36,6 +36,6 @@ public class MainTest {
 
         }
 
-        SimulateAnnealing.SchedulResult();
+        SimulateAnnealing.scheduleResult();
     }
 }
