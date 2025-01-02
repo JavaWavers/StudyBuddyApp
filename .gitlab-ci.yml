@@ -6,10 +6,9 @@ stages:
   - deploy
 
 variables:
-  MAVEN_OPTS: "-Dmaven.test.failure.ignore=true"
+  MAVEN_OPTS: "-Xmx2g -Xms512m"
 
 before_script:
-  - 'export MAVEN_OPTS="-Xmx2g -Xms512m"'
   - 'export JAVA_HOME=/usr/lib/jvm/java-11-openjdk-amd64'
   - 'export PATH=$JAVA_HOME/bin:$PATH'
 
@@ -17,6 +16,7 @@ build:
   stage: build
   image: maven:3.8.4-openjdk-11
   script:
+    - echo "Starting Build Stage"
     - mvn clean install -DskipTests
   artifacts:
     paths:
@@ -29,7 +29,8 @@ test:
   stage: test
   image: maven:3.8.4-openjdk-11
   script:
-    - mvn clean test
+    - echo "Running Tests"
+    - mvn clean test -e
   artifacts:
     when: always
     paths:
@@ -44,6 +45,7 @@ checkstyle:
   stage: checkstyle
   image: maven:3.8.4-openjdk-11
   script:
+    - echo "Running Checkstyle"
     - mvn checkstyle:check
   allow_failure: true
   rules:
@@ -53,6 +55,7 @@ pmd:
   stage: pmd
   image: maven:3.8.4-openjdk-11
   script:
+    - echo "Running PMD"
     - mvn pmd:check
   allow_failure: true
   rules:
@@ -64,10 +67,3 @@ deploy:
     - echo "Deploying to production"
   rules:
     - if: '$CI_COMMIT_BRANCH == "main"'
-
-merge_check:
-  stage: test
-  script:
-    - mvn test
-  rules:
-    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
