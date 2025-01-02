@@ -12,6 +12,7 @@ import java.util.Map;
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -93,13 +94,13 @@ public class Calendar extends Application {
         initializeTaskLists(besttask);
 
 // Αρχικοποιουμε ολα τα panel
-        VBox leftPanel = createLeftPanel();
+        //VBox leftPanel = createLeftPanel();
         VBox centerPanel = createCenterPanel();
         VBox rightPanel = createRightPanel();
 
 //  κυριο layout
         BorderPane root = new BorderPane();
-        root.setLeft(leftPanel);
+       // root.setLeft(leftPanel);
         root.setCenter(centerPanel);
         root.setRight(rightPanel);
 
@@ -162,7 +163,7 @@ public class Calendar extends Application {
     }
 
 
-
+/*
 //δημιουργουμε το αριστερο panel
     private VBox createLeftPanel() {
         VBox leftPanel = new VBox(10);
@@ -193,7 +194,7 @@ public class Calendar extends Application {
         leftPanel.getChildren().addAll(userNameLabel, dashboardButton, calendarButton, coursesSection);
         return leftPanel;
     }
-
+*/
 
 
 //μεθοδος για την δημιουργια του κεντρικου panel
@@ -685,6 +686,13 @@ public class Calendar extends Application {
 
         // Show the popup
         popupStage.show();
+    }
+
+    public Node calendar() {
+        HBox calendarPage = new HBox();
+        calendarPage.getChildren().addAll(createCenterPanel(),createRightPanel());
+        return calendarPage;
+
     }
 
 

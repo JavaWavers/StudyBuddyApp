@@ -79,21 +79,30 @@ public class StudyBuddyApp extends Application {
 */
 
 
-import javafx.application.*;
-import javafx.geometry.*;
-import javafx.scene.*;
-import javafx.scene.control.*;
+import javafx.application.Application;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.control.ToggleButton;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.*;
-import javafx.stage.*;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
+import javafx.stage.Screen;
+import javafx.stage.Stage;
 
-/*
+/* 
  * TODO:
  *  fix courses menu (attention Home btn)
  *  scroll bar
  *  username btn alignment
- */
+ */ 
 public class StudyBuddyApp extends Application { //exam page
     ToggleButton btnHome =new ToggleButton("Home");
     ToggleButton btnExam = new ToggleButton("Exam");
@@ -147,6 +156,9 @@ public class StudyBuddyApp extends Application { //exam page
         Dashboard dashboard = new Dashboard();
         StackPane dashBoard = new StackPane();
 
+        Calendar calendar = new Calendar();
+        StackPane calendarPage = new StackPane();
+
         AssignmentPage assignmentPage = new AssignmentPage();
         StackPane assignPage = new StackPane();
 
@@ -166,9 +178,7 @@ public class StudyBuddyApp extends Application { //exam page
                 centerPane.getChildren().setAll(assignmentPage.AssignmentPanel());
                 break;
             case "Calendar":
-                btnCalendar.setStyle("-fx-font-size: 24px;");
-                centerPane.getChildren().clear();
-                centerPane.getChildren().add(btnCalendar);
+                centerPane.getChildren().setAll(calendar.calendar());
                 break;
             case "Dashboard":
                 centerPane.getChildren().setAll(dashboard.createDashboard());
