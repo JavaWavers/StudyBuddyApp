@@ -84,7 +84,7 @@ public class SimulateAnnealing {
     private static int colsize = 0;
 
     // Κατανομή tasks στο πρόγραμμα
-    public static void SchedulResult() {
+    public static void scheduleResult() {
         /*
          * each time the method is called in order to produce the best result
          * the best scoring is set as zero and the list with the best distribution,
