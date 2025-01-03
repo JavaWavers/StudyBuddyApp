@@ -1,4 +1,4 @@
-package org.javawavers.studybuddy.courses;
+/*package org.javawavers.studybuddy.courses;
 
 public class Week {
     Day[] days = new Day[7];
@@ -38,3 +38,4 @@ public class Week {
         return x;
     }
 }
+*/
