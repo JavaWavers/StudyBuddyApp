@@ -19,18 +19,20 @@ public class DataBaseManager {
     }
 
     public static void CreateTables() {
-        CreateUserProfile();
+        CreateUser();
+        CreateAvailability();
+        CreateNonAvDates();
         CreateSubject();
-        CreateSubjectElement();
         CreateAssignment();
         CreateExam();
-        CreateWeek();
+        CreateTask();
         CreateDay();
-        CreateAvailability();
-        CreateScheduledTask();
+       // CreateWeek();
+
+
     }
 
-    public static void CreateUserProfile() {
+    public static void CreateUser() {
         try (Connection c = DataBaseManager.connect();
              Statement s = c.createStatement()) {
             String sql = """
@@ -51,13 +53,13 @@ public class DataBaseManager {
         try (Connection c = DataBaseManager.connect();
              Statement s = c.createStatement()) {
             String sql = """
-                    CREATE TABLE IF NOT EXISTS subject (
+                    CREATE TABLE IF NOT EXISTS Subject (
                     subjectName TEXT PRIMARY KEY,
                     difficultyLevel INTEGER NOT NULL,
                     subjectType TEXT NOT NULL,
-                    studyGoal NOT NULL,
-                    username TEXT NOT NULL,
-                    FOREIGN KEY (username) REFERENCES User (username)
+                    studyGoal TEXT NOT NULL,
+                    name TEXT NOT NULL,
+                    FOREIGN KEY (name) REFERENCES User (name)
                     ) WITHOUT ROWID ;
                     """;
             s.execute(sql);
@@ -71,13 +73,13 @@ public class DataBaseManager {
             String sql = """
                     CREATE TABLE IF NOT EXISTS Assignment (
                     title TEXT PRIMARY KEY,
-                    subjectName TEXT NOT NULL,
                     remainingDays INTEGER NOT NULL,
                     deadline TEXT NOT NULL,
                     estimateHours INTEGER NOT NULL,
-                    completeddDate TEXT NOT NULL,
-                    name TEXT NOT NULL,
-                    FOREIGN KEY (subjectName) REFERENCES subject(subjectName)
+                    description TEXT NOT NULL,
+                    completedDate TEXT NOT NULL,
+                    subjectName TEXT NOT NULL,
+                    FOREIGN KEY (subjectName) REFERENCES Subject(subjectName)
                     );
                     """;
             s.execute(sql);
@@ -93,12 +95,12 @@ public class DataBaseManager {
             String sql = """
                     CREATE TABLE IF NOT EXISTS Exam (
                     name TEXT PRIMARY KEY,
-                    subjectName TEXT NOT NULL,
                     deadline TEXT NOT NULL,
                     pages INT NOT NULL,
                     revisionPerXPages INT NOT NULL,
                     minutesPer20Slides REAL NOT NULL,
-                    FOREIGN KEY (subjectName) REFERENCES subject(subjectName)
+                    subjectName TEXT NOT NULL,
+                    FOREIGN KEY (subjectName) REFERENCES Subject(subjectName)
                     );
                     """;
             s.execute(sql);
@@ -107,7 +109,55 @@ public class DataBaseManager {
         }
     }
 
-    public static void CreateWeek() {
+    public static void CreateTask() {
+        try (Connection c = DataBaseManager.connect();
+             Statement s = c.createStatement()) {
+            String sql = """
+                    CREATE TABLE IF NOT EXISTS Task (
+                    taskType INTEGER NOT NULL,
+                    taskhours REAL NOT NULL,
+                    subjectName TEXT NOT NULL,
+                    FOREIGN KEY (subjectName) REFERENCES Subject (subjectName)
+                    ) WITHOUT ROWID ;
+                    """;
+            s.execute(sql);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static void CreateDay() {
+        try (Connection c = DataBaseManager.connect();
+             Statement s = c.createStatement()) {
+            String sql = """
+                    CREATE TABLE IF NOT EXISTS Day (
+                    availability INTEGER PRIMARY KEY,
+                    name TEXT NOT NULL,
+                    FOREIGN KEY (name) REFERENCES User (name)
+                    ) WITHOUT ROWID ;
+                    """;
+            s.execute(sql);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static void CreateDay() {
+        try (Connection c = DataBaseManager.connect();
+             Statement s = c.createStatement()) {
+            String sql = """
+                    CREATE TABLE IF NOT EXISTS Day (
+                    availability INTEGER PRIMARY KEY,
+                    name TEXT NOT NULL,
+                    FOREIGN KEY (name) REFERENCES User (name)
+                    ) WITHOUT ROWID ;
+                    """;
+            s.execute(sql);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+   /* public static void CreateWeek() {
         try (Connection c = DataBaseManager.connect();
              Statement s = c.createStatement()) {
             String sql = """
@@ -120,40 +170,24 @@ public class DataBaseManager {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
-    }
+    }*/
 
-    public static void CreateDay() {
-        try (Connection c = DataBaseManager.connect();
-             Statement s = c.createStatement()) {
-            String sql = """
-                    CREATE TABLE IF NOT EXISTS day (
-                    name TEXT PRIMARY KEY,
-                    status TEXT,
-                    weekNum INT NOT NULL,
-                    FOREIGN KEY (weekNum)
-                    	REFERENCES week (weekNum)
-                    ) WITHOUT ROWID ;
-                    """;
-            s.execute(sql);
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-    }
+
 
     public static void CreateAvailability() {
         try (Connection c = DataBaseManager.connect();
              Statement s = c.createStatement()) {
             String sql = """
-                    CREATE TABLE IF NOT EXISTS availability (
-                    hoursAvailable REAL NOT NULL,
-                    hoursLeft REAL NOT NULL,
-                    username TEXT NOT NULL,
-                    day TEXT NOT NULL,
-                    PRIMARY KEY (username, day),
-                    FOREIGN KEY (username)
-                    	REFERENCES userProfile (username),
-                    FOREIGN KEY (day)
-                    	REFERENCES day (name)
+                    CREATE TABLE IF NOT EXISTS Αvailability (
+                    mondayAv INTEGER NOT NULL,
+                    tuesdayAv INTEGER NOT NULL,
+                    wednesdayAv INTEGER NOT NULL,
+                    thursdayAv INTEGER NOT NULL,
+                    fridayAv INTEGER NOT NULL,
+                    saturdayAv INTEGER NOT NULL,
+                    sundayAv INTEGER NOT NULL,
+                    name TEXT NOT NULL
+                    FOREIGN KEY (name) REFERENCES User (name)
                     ) WITHOUT ROWID ;
                     """;
             s.execute(sql);
@@ -161,18 +195,14 @@ public class DataBaseManager {
             System.out.println(e.getMessage());
         }
     }
-
-    public static void CreateScheduledTask() {
+    public static void CreateNonAvDates() {
         try (Connection c = DataBaseManager.connect();
              Statement s = c.createStatement()) {
             String sql = """
-                    CREATE TABLE IF NOT EXISTS scheduledTask (
-                    taskName TEXT PRIMARY KEY,
-                    status TEXT NOT NULL,
-                    hours REAL NOT NULL,
-                    day TEXT NOT NULL,
-                    FOREIGN KEY (day)
-                    	REFERENCES day (name)
+                    CREATE TABLE IF NOT EXISTS NonAvDates (
+                    date TEXT NOT NULL,
+                    name TEXT NOT NULL
+                    FOREIGN KEY (name) REFERENCES User (name)
                     ) WITHOUT ROWID ;
                     """;
             s.execute(sql);
