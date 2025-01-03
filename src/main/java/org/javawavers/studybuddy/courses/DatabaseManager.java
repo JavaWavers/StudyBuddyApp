@@ -27,7 +27,7 @@ public class DataBaseManager {
         CreateExam();
         CreateTask();
         CreateDay();
-       // CreateWeek();
+       // CreateWeek(); N
 
 
     }
