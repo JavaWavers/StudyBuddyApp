@@ -1,4 +1,4 @@
-package org.javawavers.studybuddy.courses;
+/*package org.javawavers.studybuddy.courses;
 import org.javawavers.studybuddy.State.UserSession;
 import org.javawavers.studybuddy.calculations.*;
 import org.javawavers.studybuddy.availability.Availability;
@@ -80,5 +80,6 @@ public class CreateDays {
         }
     }
 }
+*/
 
 

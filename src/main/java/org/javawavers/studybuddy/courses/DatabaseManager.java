@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class DataBaseManager {
-    private static final String DATABASE_URL = "jdbc:sqlite:C:\\Users\\ioann\\IdeaProjects\\practiceJavaFx\\src\\main\\resources\\dataBase.db";
+    private static final String DATABASE_URL = "jdbc:sqlite:src/main/resources/org/javawavers/studybuddy/DataBase.db";
 
     public static Connection connect() {
         try {
