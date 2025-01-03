@@ -24,12 +24,11 @@ public class Signup extends Application {
     public static String storedEmail = "";
     public static String storedPassword = "";
     public static String storedUsername = "admin";
+    HBox hBox = new HBox();
 
     @Override
     public void start(Stage primaryStage) {
 
-
-        HBox hBox = new HBox();
         hBox.setSpacing(0);
         hBox.setPadding(new Insets(0, 0, 0, 0));
 
@@ -308,7 +307,6 @@ public class Signup extends Application {
 
         
     }
-
 
     public static void main(String[] args) {
         launch(args);

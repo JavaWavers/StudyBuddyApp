@@ -79,6 +79,10 @@ public class StudyBuddyApp extends Application {
 */
 
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
 import javafx.application.Application;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -97,6 +101,8 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
+
+
 /* 
  * TODO:
  *  fix courses menu (attention Home btn)
@@ -104,36 +110,82 @@ import javafx.stage.Stage;
  *  username btn alignment
  */ 
 public class StudyBuddyApp extends Application { //exam page
+
+    
     ToggleButton btnHome =new ToggleButton("Home");
     ToggleButton btnExam = new ToggleButton("Exam");
     ToggleButton btnAssignment = new ToggleButton("Assignments");
     ToggleButton btnCalendar = new ToggleButton("Calendar");
     ToggleButton btnDashboard = new ToggleButton("Dashboard");
     ToggleButton btnCourses = new ToggleButton("Courses");
+    int count = 0;//μετρητης για το ποσες φορες εχει μπει ο χρηστης στην εφαρμογη (συνδεση με την εφαρμογη)
+
 
     BorderPane borderPane = new BorderPane();
+    Signin signin = new Signin();
 
     @Override
     public void start(Stage stage) {
+        ArrayList<SubjectTest> subject = new ArrayList<>();
+        // Initialize Availability (example)
+        Availability.setAvailability(1, 6); // Monday: 6 available hours
+        Availability.setAvailability(2, 4); // Tuesday: 4 available hours
+        Availability.setAvailability(3, 7); // Wednesday: 5 available hours
+        Availability.setAvailability(4, 4); // Thursday: 3 available hours
+        Availability.setAvailability(5, 6); // Friday: 6 available hours
+        Availability.setAvailability(6, 6); // Saturday: 2 available hours
+        Availability.setAvailability(7, 6); // Sunday: 1 available hour
+
+
+        String color = "red";
+        // Create subjects (example)
+        SubjectTest math = new SubjectTest("Maths", 2.5, 600, LocalDate.now().plusDays(65),color);
+        String color1 = "blue";
+        SubjectTest history = new SubjectTest("History", 1.8, 680, LocalDate.now().plusDays(65), color1);
+
+        // Add subjects to SimulateAnnealing
+        SimulateAnnealing simulateAnnealing = new SimulateAnnealing();
+        simulateAnnealing.addSubject(math);
+        simulateAnnealing.addSubject(history);
+        subject.add(math);
+        subject.add(history);
+        
+        int[][] schedule = SimulateAnnealing.SchedulResult();
+        List<Task> besttask = SimulateAnnealing.getBestTask();
+        Calendar  calendar = new Calendar();
+        calendar.subject = subject;
+        calendar.besttask = besttask;
+        calendar.schedule = schedule;
+        
+        
+      //StackPane signinpage = new StackPane();
+    //signinpage.getChildren().add(signin.signin());
+        //HBox signinPage = (HBox) signin.signin();
+       // Scene scene = new Scene(signinPage, 1024, 600); 
+  //Scene scene = new Scene(signin.signin(), 1024, 600);
+  //signinpage.getChildren().add(signin.signin());
+ // Scene scene = new Scene(signinpage,1024,600);
+        
 
         borderPane.setLeft(leftBoxMenu());
 
 
         borderPane.setTop(topPane());
 
+        
         StackPane centerPane = new StackPane();
         //changeCenterPanel("Home");
         borderPane.setCenter(centerPane);
-        /*CenterPage centerPage = new CenterPage();
-        StackPane centerPane = new StackPane();
-        centerPane.getChildren().add(centerPage.createCenterPanel());*/
+        //CenterPage centerPage = new CenterPage();
+        //StackPane centerPane = new StackPane();
+        //centerPane.getChildren().add(centerPage.createCenterPanel());
 
         centerPane.setMaxWidth(Double.MAX_VALUE);
         centerPane.setMaxHeight(Double.MAX_VALUE);
 
-        borderPane.setCenter(centerPane);
+      borderPane.setCenter(centerPane);
 
-        Scene scene = new Scene(borderPane, 1024, 600);
+      Scene scene = new Scene(borderPane, 1024, 600);
 
         stage.setScene(scene);
         stage.setTitle("StudyBuddy");
@@ -150,6 +202,7 @@ public class StudyBuddyApp extends Application { //exam page
 
     //Method that changes center Panel
     private void changeCenterPanel(String panelName) {
+
         ExamPage examPage = new ExamPage();
         StackPane centerPane = new StackPane();
 
@@ -318,8 +371,10 @@ public class StudyBuddyApp extends Application { //exam page
         dashboardImageView.setFitWidth(20);
         dashboardImageView.setFitHeight(20);
 
+
         //User Img btn
-        Label userNameLbl = new Label("UserName"); // dynamic name
+        String name = Signup.storedUsername;
+        Label userNameLbl = new Label(name); // dynamic name//εβαλα το ονομα
         userNameLbl.setStyle(btnStyle);
 
         HBox userImgBtn = new HBox(10);

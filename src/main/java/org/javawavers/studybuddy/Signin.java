@@ -1,6 +1,7 @@
 package org.javawavers.studybuddy;
 
 import javafx.application.Application;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -16,6 +17,7 @@ import javafx.scene.transform.Scale;
 import javafx.stage.Stage;
 
 public class Signin extends Application {
+    
 
 
     public HBox hBox = new HBox();
@@ -220,6 +222,13 @@ public class Signin extends Application {
         primaryStage.setScene(scene);
         primaryStage.setTitle("Study Buddy - Σύνδεση");
         primaryStage.show();
+    }
+
+    public Node signin() {
+        HBox signinPage = new HBox();
+        signinPage.getChildren().addAll(leftPane, rightPane);
+        return signinPage;
+
     }
 
     public static void main(String[] args) {

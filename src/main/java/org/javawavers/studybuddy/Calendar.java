@@ -17,11 +17,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.effect.DropShadow;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
@@ -41,19 +37,6 @@ import javafx.stage.Stage;
 
 public class Calendar extends Application {
 
-    ListView<ImageView> listView = new ListView<>();
-    
-
-    ImageView imageView = new ImageView();
-    Image image = null;
-    Image image1 = new Image(getClass().getResource("/org/javawavers/studybuddy/eikona3.png").toExternalForm(), 35, 30, false, false);
-    Image image2 = new Image(getClass().getResource("/org/javawavers/studybuddy/eikona2.png").toExternalForm(), 35, 30, false, false);
-    Image image3 = new Image(getClass().getResource("/org/javawavers/studybuddy/eikona1.png").toExternalForm(), 35, 30, false, false);
-    
-    // Δημιουργία ImageView για κάθε εικόνα
-    ImageView imageView1 = new ImageView(image1);
-    ImageView imageView2 = new ImageView(image2);
-    ImageView imageView3 = new ImageView(image3);
 
 
 
@@ -329,15 +312,11 @@ public class Calendar extends Application {
         upcomingTasksButton.setOnAction(event -> showTasksPopup("Upcoming Tasks", notStartedYet));
         completedTasksButton.setOnAction(event -> showTasksPopup("Completed Tasks", completed));
 
-        Button openPopupButton = new Button("Open Popup");
-        openPopupButton.setOnAction(e -> showPopup());
 
-        VBox root = new VBox(openPopupButton);
-        Scene scene = new Scene(root, 20, 100);
 
     
 //προσθετουμε ολα τα κουμπια στο δεξι panel
-        rightPanel.getChildren().addAll(upcomingTasksButton, completedTasksButton, openPopupButton);
+        rightPanel.getChildren().addAll(upcomingTasksButton, completedTasksButton);
     
         return rightPanel;
     }
@@ -383,13 +362,11 @@ public class Calendar extends Application {
         
         return checkBoxBox;
     }
-    
+
 //δημιουργουμε το ημερολογιο
     private void createCalendarGrid(GridPane grid, List<Task> besttask, int[][] schedule) {
         String[] days = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
-        listView.getItems().add(imageView1);
-        listView.getItems().add(imageView2);
-        listView.getItems().add(imageView3);
+
 
 
         //ρυθμιζουμε το πλατος για τις 7 στηλες
@@ -420,15 +397,12 @@ public class Calendar extends Application {
         
         for (int row = 1; row < 11; row++) {
             for (int col = 0; col <= days.length -1; col++) {
-                //Label cell = new Label();
-                /*  cell.setStyle("-fx-border-color: gray; -fx-border-width: 0; -fx-alignment: center;");
-                cell.setFont(Font.font("System", FontWeight.NORMAL, 14));
-                cell.setPrefSize(140, 60);*/
-                image = new Image(getClass().getResource("/org/javawavers/studybuddy/eikona.png").toExternalForm(), 35, 30, false, false);
                 Label cell = new Label();
-                imageView.setFitWidth(60);  // Το πλάτος της εικόνας
-                imageView.setFitHeight(60); // Το ύψος της εικόνας
-                imageView.setPreserveRatio(true); 
+              //  cell.setStyle("-fx-border-color: gray; -fx-border-width: 0; -fx-alignment: center;");
+               // cell.setFont(Font.font("System", FontWeight.NORMAL, 14));
+              //  cell.setPrefSize(140, 60);
+               // Label cell = new Label();
+ 
                 //cell.setGraphic(new ImageView(image));
                 cell.setStyle("-fx-border-color: gray; -fx-border-width: 0; -fx-alignment: center; -fx-pref-width: 140; -fx-pref-height: 60;");
                 cell.setFont(Font.font("System", FontWeight.NORMAL, 14));
@@ -436,7 +410,7 @@ public class Calendar extends Application {
                 //cell.setText(SimulateAnnealing.printSchedule(row, col));
                 //MainTestAlgorithm algorithm = new MainTestAlgorithm();
                 //cell.setText(algorithm.run(row, col));
-                //cell.setText(besttask.get(row).toString());
+               // cell.setText(besttask.get(row).toString());
                 if (schedule != null && besttask != null &&
                     row < schedule.length && col < schedule[row].length &&
                     schedule[row][col] > 0 && schedule[row][col] <= besttask.size()) {
@@ -445,15 +419,14 @@ public class Calendar extends Application {
                     if (taskIndex >= 0 && taskIndex < besttask.size()) {
                         //cell.setText(besttask.get(taskIndex).toString());
                         String taskText = besttask.get(taskIndex).toString();
-                        
-                        //cell.setText(taskText);
+                       // cell.setText(taskText);
                         String firstWord = taskText.split(" ")[0];
                         for (SubjectTest subject : subject) {
                             if (subject.getName().equalsIgnoreCase(firstWord)) {
 
-                                cell.setGraphic(new ImageView(image));
-                               // cell.setStyle("-fx-background-color: " + subject.getColor() + "; " +
-                                    //"-fx-border-color: gray; -fx-border-width: 0; -fx-alignment: center;");
+                                //cell.setGraphic(new ImageView(image));
+                               cell.setStyle("-fx-background-color: " + subject.getColor() + "; " +
+                                    "-fx-border-color: gray; -fx-border-width: 0; -fx-alignment: center;");
                                 break;
                             }
                         }
@@ -628,65 +601,6 @@ public class Calendar extends Application {
         updateCompletedTasks(completedTasksBox);
     }
 
-    private void showPopup() {
-        // Create the pop-up stage
-        Stage popupStage = new Stage();
-        popupStage.initModality(Modality.APPLICATION_MODAL); // Make the popup modal
-        popupStage.setTitle("Select Item");
-
-        // Create a ListView to hold the items
-       // ListView<HBox> listView = new ListView<>();
-        
-        // Add some items to the ListView with ImageViews
-        for (int i = 1; i <= 5; i++) {
-            //Image image = new Image("file:path/to/your/icon" + i + ".png");
-            //mageView imageView = new ImageView(image);
-            imageView.setFitWidth(40);
-            imageView.setFitHeight(40);
-            imageView.setPreserveRatio(true);
-            DropShadow dropShadow = new DropShadow();
-            dropShadow.setColor(Color.BLACK);
-            imageView.setEffect(dropShadow);
-            
-            // Create an HBox to hold the image and additional content (if needed)
-            //HBox listItem = new HBox(10);
-            //listItem.getChildren().add(imageView);
-            // Add the item to the ListView
-            listView.setStyle("-fx-background-color: lightblue; -fx-padding: 10;");
-
-            listView.getItems().add(imageView);
-        }
-
-        // Create the OK button at the bottom of the popup
-        Button okButton = new Button("OK");
-        okButton.setStyle("-fx-background-color: #50D1C6; -fx-background-radius: 30px; -fx-text-fill: white; -fx-font-size: 16px;");
-        okButton.setAlignment(Pos.CENTER);
-        okButton.setOnAction(e -> {
-            //imageView selectedItem = listView.getSelectionModel().getSelectedItem();
-            /*if (selectedItem != null) {
-                // Handle the selection (for example, print something)
-                System.out.println("Selected item: " + selectedItem);
-            }
-            popupStage.close();  // Close the popup*/
-        });
-
-        // Create the layout for the popup
-        VBox popupLayout = new VBox(10);
-        popupLayout.setStyle("-fx-background-color: lightblue; -fx-padding: 10;");
-        popupLayout.getChildren().addAll(listView, okButton);
-        
-        // Add a ScrollPane to allow scrolling
-        ScrollPane scrollPane = new ScrollPane(popupLayout);
-        scrollPane.setFitToWidth(true);
-        scrollPane.setPrefHeight(300); // Set the preferred height of the scrollable area
-        
-        // Set the scene for the popup
-        Scene popupScene = new Scene(scrollPane, 10, 300);
-        popupStage.setScene(popupScene);
-
-        // Show the popup
-        popupStage.show();
-    }
 
     public Node calendar() {
         HBox calendarPage = new HBox();
@@ -694,7 +608,6 @@ public class Calendar extends Application {
         return calendarPage;
 
     }
-
 
 
     public static void main(String[] args) {
