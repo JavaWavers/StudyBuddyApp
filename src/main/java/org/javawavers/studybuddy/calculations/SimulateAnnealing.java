@@ -1,13 +1,13 @@
 package org.javawavers.studybuddy.calculations;
- /*
- * This class distributes three kinds of tasks (studying -1, repetition -2,
- * assignment -3) into the available days randomly. The algorithm produces 50
- *  valid results,where the tasks are distributed into the available studying
- * hours per day differently (although there are chances for the same results).
- * Then, each result gains a score based on certain criteria, described in the
- * README file. The result with the higher score is considered the final result
- * and is given to the user as a recommended studying schedule.
- */
+/*
+* This class distributes three kinds of tasks (studying -1, repetition -2,
+* assignment -3) into the available days randomly. The algorithm produces 50
+*  valid results,where the tasks are distributed into the available studying
+* hours per day differently (although there are chances for the same results).
+* Then, each result gains a score based on certain criteria, described in the
+* README file. The result with the higher score is considered the final result
+* and is given to the user as a recommended studying schedule.
+*/
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -26,17 +26,13 @@ public class SimulateAnnealing {
     private static List<Subject> subjects; // List for subjects
     private static List<Task> tasks; // List for each task that is connected with a subject
     private static List<ExamDates> exams; // List for each exam that is connected with a subject
+    private static List<ScheduleResult> scheduleResults;// List for the valid schedule results
 
     public SimulateAnnealing() {
         this.subjects = new ArrayList<>();
         this.tasks = new ArrayList<>();
         this.exams = new ArrayList<>();
-    }
-
-    // Public getter for the tasks list
-    public List<Task> getTasks() {
-        // Return a copy of the tasks list to maintain encapsulation
-        return new ArrayList<>(this.tasks);
+        this.scheduleResults = new ArrayList<>();
     }
 
     // Add a new Subject
@@ -82,6 +78,7 @@ public class SimulateAnnealing {
     private static int[][] schedule;
     // The column size of the table is determined by the last examination date
     private static int colsize = 0;
+    private static int index;
 
     // Κατανομή tasks στο πρόγραμμα
     public static void scheduleResult() {
@@ -89,8 +86,8 @@ public class SimulateAnnealing {
          * each time the method is called in order to produce the best result
          * the best scoring is set as zero and the list with the best distribution,
          * shuffles an array so that the order of the table elements
-         * differents from the one that is given
-         * The procidure is done 50 times in order to produce 10 possible results
+         * different from the one that is given
+         * The procedure is done 50 times in order to produce 10 possible results
          * Then each list gets a score. The list with the higher score is set as the
          * besttask
          */
@@ -101,21 +98,35 @@ public class SimulateAnnealing {
         exams = ExamDates.sortExam(exams);
         // The column size of the table is determined by the last examination date
         colsize = ExamDates.lastExIsDue(exams);
-
+        List<Task> coppyTask;
         for (int i = 0; i < 50; i++) {
+
+            coppyTask = new ArrayList<>(tasks);
+            ///////////
+            System.out.println("copy tasks in the big of the method" + coppyTask.size());
+            System.out.println("tasks in the big of the method" + coppyTask.size());
 
             double valresultscoring = 0.0;
 
-            schedule = assignTask(tasks);
+            int[][] vschedule = assignTask(coppyTask);
 
             // list scoring
-            valresultscoring = setScore(tasks, schedule);
+            valresultscoring = setScore(coppyTask, vschedule);
             if (i == 0) {
                 bestscoring = valresultscoring;
             }
+            ScheduleResult result = new ScheduleResult(valresultscoring, coppyTask, vschedule);
+            scheduleResults.add(result);
+            System.out.println("done" + i + " " + valresultscoring);
+            /////////////////////////////////////////
+            System.out.println("copy tasks in the big of the method" + coppyTask.size());
+            System.out.println("tasks in the big of the method" + coppyTask.size());
 
-            bestschedule(valresultscoring, tasks, schedule);
         }
+        for (ScheduleResult sr : scheduleResults) {
+            bestschedule(sr.getScore(), sr.getTasks(), sr.getSchedule(), scheduleResults.indexOf(sr));
+        }
+        System.out.println(index);
         PrintSchedule.printSchedule(schedule, besttask, colsize);
 
     }
@@ -125,11 +136,12 @@ public class SimulateAnnealing {
         return Scoring.calculatescore(taskList, sch, colsize);
     }
 
-    public static void bestschedule(double valresultscoring, List<Task> taskList, int[][] sch) {
+    public static void bestschedule(double valresultscoring, List<Task> taskList, int[][] sch, int in) {
         if (valresultscoring >= bestscoring) {
             bestscoring = valresultscoring;
             besttask = taskList;
             schedule = sch;
+            index = in;
         }
     }
 
@@ -149,7 +161,7 @@ public class SimulateAnnealing {
     private static double remainingHours;
 
     /*
-     * Methods in order for other classes to have acess to the
+     * Methods in order for other classes to have access to the
      * remaining hours for a day
      */
     public static double getRemainingHours() {
@@ -160,10 +172,10 @@ public class SimulateAnnealing {
         remainingHours = remHours;
     }
 
-    public static int[][] assignTask(List<Task> tasks) {
-        Collections.shuffle(tasks);
+    public static int[][] assignTask(List<Task> asstasks) {
+        Collections.shuffle(asstasks);
         /*
-         * The table valSchedule stors the index of the task Array list, after the
+         * The table valSchedule stores the index of the task Array list, after the
          * tasks have been distributed into the available hours
          */
         if (colsize == 0) {
@@ -184,17 +196,20 @@ public class SimulateAnnealing {
          * The length of the task list before the tasks of type two
          * are assigned
          */
-        int tasklength = tasks.size() - 1;
+        int tasklength = asstasks.size() - 1;
         // available hours for the day
         for (int col = 0; col < colsize; col++) {
+            if (col == 0) {
+                System.out.println("assined tasks in the big of the method" + asstasks.size());
+            }
             /*
              * checks if there is already a revision assigned
              * & Merge repetition tasks if needed
              */
-            Availability.mergeRepTasks(valSchedule, tasks, col);
+            Availability.mergeRepTasks(valSchedule, asstasks, col);
             remainingHours = (double) Availability.getTotalAvailableHours(col);
             // reduce Availability accordingly to the assigned repetition tasks
-            Availability.reduceRepAvailability(col, tasks);
+            Availability.reduceRepAvailability(col, asstasks);
 
             // check non Availability for a day
             boolean flagNAv;
@@ -211,12 +226,12 @@ public class SimulateAnnealing {
                     if (remainingHours >= 2.0) { // each task requires 2 hours
                         /*
                          * check if the exam date of the subject's task that we want to
-                         * assigne to a day has passed
+                         * assign to a day has passed
                          */
                         boolean flagEx = false;
 
-                        flagEx = ExamDates.checkExamDate(tasks.get(taskIndex), col, exams);
-                        LocalDate exDate = ExamDates.getExDate(tasks.get(taskIndex), col, exams);
+                        flagEx = ExamDates.checkExamDate(asstasks.get(taskIndex), col, exams);
+                        LocalDate exDate = ExamDates.getExDate(asstasks.get(taskIndex), col, exams);
 
                         if (flagEx) {
 
@@ -229,8 +244,9 @@ public class SimulateAnnealing {
                                 remainingHours -= 2.0;
                                 taskIndex++;
                                 // Assign task Type 2 only if task type =1
-                                if (tasks.get(taskIndex).getTaskType() == 1) {
-                                    tasks = Repetition.generateRepetitions(tasks, tasks.get(taskIndex), exDate, col);
+                                if (asstasks.get(taskIndex).getTaskType() == 1) {
+                                    asstasks = Repetition.generateRepetitions(asstasks, asstasks.get(taskIndex), exDate,
+                                            col);
                                 }
 
                             } else {
@@ -247,6 +263,12 @@ public class SimulateAnnealing {
                     }
                 }
             }
+            if (col == colsize - 1) {
+                System.out.println("assined tasks in the end of the method" + asstasks.size());
+                // clear the list
+
+            }
+
         }
 
         // return the table with the valid result
