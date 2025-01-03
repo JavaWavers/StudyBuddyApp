@@ -162,12 +162,13 @@ public class StudyBuddyApp extends Application { //exam page
         AssignmentPage assignmentPage = new AssignmentPage();
         StackPane assignPage = new StackPane();
 
+        HomePage homePage = new HomePage();
+        StackPane homePane = new StackPane();
+
         // Depending on which Menu Button is pressed it changes the center Panel
         switch (panelName) {
             case "Home":
-                btnHome.setStyle("-fx-font-size: 24px;");
-                //centerPane.getChildren().clear();
-                centerPane.getChildren().add(btnHome);
+                centerPane.getChildren().setAll(homePage.home());
                 break;
             case "Courses":
                 break;
