@@ -9,7 +9,7 @@ package org.javawavers.studybuddy.calculations;
  * The maximum score a valid result can achieve is 5.0.
  * -0.2 points are deducted each time the same task type (1-studying,
  * 2-revision, 3-assignment) for the same subject is assigned on the same day.
- * -0.1 points are deducted when a subject is studied two days in a row.
+ * -0.1 points are deducted when a subject is studyied two days in a row.
  */
 
 

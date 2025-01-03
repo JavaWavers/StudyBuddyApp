@@ -27,7 +27,7 @@ public class MainTest {
         // create non Availability
         Availability.setNonAvailability(LocalDate.of(2025, 01, 10));
 
-        Availability.setNonAvailability(LocalDate.of(2025, 01, 02));
+        Availability.setNonAvailability(LocalDate.of(2025, 01, 04));
 
         SimulateAnnealing sAnnealing = new SimulateAnnealing();
 

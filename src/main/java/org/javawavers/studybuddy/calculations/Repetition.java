@@ -27,7 +27,7 @@ public class Repetition {
 
         LocalDate repetitionDate;
         // Add repetition after specific intervals
-        int[] fixedIntervals = { 1, 3, 7, 14, 28 }; // Fixed intervals in days
+        int[] fixedIntervals = { 1, 7, 16, 35 }; // Fixed intervals in days
         for (int f : fixedIntervals) {
             repetitionDate = studyDate.plusDays(f);
             if (repetitionDate.isBefore(examDate)) {
