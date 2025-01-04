@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class DatabaseManager {
+public class DataBaseManager {
     private static final String DATABASE_URL = "jdbc:sqlite:src/main/resources/org/javawavers/studybuddy/DataBase.db";
 
     public static Connection connect() {
@@ -115,7 +115,11 @@ public class DatabaseManager {
                     taskType INTEGER NOT NULL,
                     taskhours REAL NOT NULL,
                     subjectName TEXT NOT NULL,
-                    FOREIGN KEY (subjectName) REFERENCES Subject (subjectName)
+                        FOREIGN KEY (subjectName) REFERENCES Subject (subjectName)
+                    name TEXT NOT NULL,
+                        FOREIGN KEY (name) REFERENCES User (name),
+                    date INTEGER NOT NULL
+                        FOREIGN KEY (date) REFERENCES Day (date)
                     ) WITHOUT ROWID ;
                     """;
             s.execute(sql);
@@ -129,6 +133,7 @@ public class DatabaseManager {
              Statement s = c.createStatement()) {
             String sql = """
                     CREATE TABLE IF NOT EXISTS Day (
+                    date TEXT PRIMARY KEY,
                     availability INTEGER PRIMARY KEY,
                     name TEXT NOT NULL,
                     FOREIGN KEY (name) REFERENCES User (name)

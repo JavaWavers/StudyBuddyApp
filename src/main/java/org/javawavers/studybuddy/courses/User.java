@@ -14,6 +14,9 @@ public class User {
     List<Assignment> assignments;
     List<Exam> exams;
 
+    List<Task> tasks;
+    List<Day> days;
+
     // for the login
     public User(String name, String username, String email, String password, int[] avPerDay, List<Subject> subjects, List<Assignment> assignments, List<Exam> exams) {
         this.name = name;
