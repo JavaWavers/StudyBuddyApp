@@ -25,9 +25,8 @@ public class DataBaseManager {
         CreateSubject();
         CreateAssignment();
         CreateExam();
-        CreateTask();
         CreateDay();
-
+        CreateTask();
     }
 
     public static void CreateUser() {
