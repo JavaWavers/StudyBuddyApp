@@ -12,6 +12,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
+import javafx.stage.Stage;
 
 public class HomePage {
     public Node home() {
@@ -48,6 +49,18 @@ public class HomePage {
         btnLogin.setTextFill(javafx.scene.paint.Color.web("#fcfaf8"));
         btnLogin.setPrefSize(186, 41);
 
+        btnLogin.setOnAction(event -> {
+            Signin signin = new Signin();
+            Stage signinStage = new Stage();
+            signin.start(signinStage);
+            signinStage.setMaximized(true);
+//κλεινουμε το παραθυρο που ειναι ανοιχτο 
+            Stage currentStage = (Stage) btnLogin.getScene().getWindow();
+            currentStage.close();
+            
+            signinStage.show();
+        });
+
         navBar.getChildren().addAll(logo, btnSeeHow, btnNewsTips, btnAboutUs, btnLogin);
 
         // Main content pane
@@ -72,6 +85,18 @@ public class HomePage {
         tryButton.setTextFill(javafx.scene.paint.Color.WHITE);
         tryButton.setLayoutX(154);
         tryButton.setLayoutY(308);
+
+        tryButton.setOnAction(event -> {
+            Signup signup = new Signup();
+            Stage signupStage = new Stage();
+            signup.start(signupStage);
+            signupStage.setMaximized(true);
+//κλεινουμε το παραθυρο που ειναι ανοιχτο 
+            Stage currentStage = (Stage) tryButton.getScene().getWindow();
+            currentStage.close();
+            
+            signupStage.show();
+        });
 
         Label welcomeLabel = new Label("Γεια σου, \nΚαλώς όρισες στο \nStudy Buddy σου!");
         welcomeLabel.setFont(new Font("Arial Narrow Bold Italic", 28));

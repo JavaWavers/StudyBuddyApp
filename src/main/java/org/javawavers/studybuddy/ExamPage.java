@@ -3,7 +3,11 @@ package org.javawavers.studybuddy;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.control.TitledPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
@@ -54,6 +58,7 @@ public class ExamPage {
         Label nameLabel = new Label("Όνομασία Μαθήματος:");
         nameLabel.setStyle(labelStyle());
         TextField nameField = new TextField();
+        String courseName = nameField.getText();
         box.getChildren().addAll(nameLabel, nameField);
         return box;
     }
@@ -68,10 +73,12 @@ public class ExamPage {
         typeCourseList.getItems().addAll("","Θεωρητικό", "Θετικό", "Συνδυασμός");
         typeCourseList.setValue("");
         HBox typeBox = new HBox(10, typeLabel, typeCourseList);
+        String courseType = typeCourseList.getValue();
 
         HBox pageBox = createLabeledField("Σελίδες: ");
         HBox revisionBox = createLabeledField("Επανάληψη ανά (σελίδες): ");
         HBox deadlineBox = createLabeledField("Ημερομηνία Εξέτασης: ");
+
 
         box.getChildren().addAll(typeBox,pageBox,revisionBox,deadlineBox);
         return box;

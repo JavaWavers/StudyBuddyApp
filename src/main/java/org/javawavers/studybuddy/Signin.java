@@ -73,7 +73,7 @@ public class Signin extends Application {
             if (primaryStage.isMaximized()) {
                 signupStage.setMaximized(true);
             }
-        
+            primaryStage.close();
             signupStage.show();
         });
 
@@ -173,14 +173,11 @@ public class Signin extends Application {
                 DialogPane dialogPane = alert.getDialogPane();
                 dialogPane.getStyleClass().add("success-alert");
                 dialogPane.getStylesheets().add(getClass().getResource("success.css").toExternalForm());
-                Calendar calendar = new Calendar();
-                Stage calendarstage = new Stage();
-                calendar.start(calendarstage);
-//ανοιγει σε μεγαλο μεγεθος η οθονη αν ηταν εξερχης maximized μεγεθος
-                if (primaryStage.isMaximized()) {
-                    calendarstage.setMaximized(true);
-                }
-                calendarstage.show();
+            //ανοιγουμε την κυρια οθονη 
+                StudyBuddyApp studyBuddyApp = new StudyBuddyApp();
+                Stage mainStage = new Stage();
+                studyBuddyApp.start(mainStage);
+                
                 alert.showAndWait();
 //εμφανιζουμε μηνυμα σφαλματος αν ο κωδικος και το email δεν ειναι ιδιο με αυτα που εβαλε ο χρηστης 
             } else {
@@ -197,6 +194,7 @@ public class Signin extends Application {
             passwordField.clear();
             textField.clear();
             emailField.clear();
+            primaryStage.close();
             
         });
 

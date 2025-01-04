@@ -157,7 +157,9 @@ public class MenuPage {
             userImgView.setFitWidth(20);
             userImgView.setFitHeight(20);
             //User Img btn
-            Label userNameLbl = new Label("UserName"); // dynamic name
+            Signup sg = new Signup();
+            String name = sg.storedUsername;
+            Label userNameLbl = new Label(name); // dynamic name
             userNameLbl.setStyle(btnStyle);
 
             HBox userImgBtn = new HBox(10);

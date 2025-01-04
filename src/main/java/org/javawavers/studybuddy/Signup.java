@@ -23,7 +23,7 @@ public class Signup extends Application {
 
     public static String storedEmail = "";
     public static String storedPassword = "";
-    public static String storedUsername = "admin";
+    public static String storedUsername = "Quest";
     HBox hBox = new HBox();
 
     @Override
@@ -72,7 +72,7 @@ public class Signup extends Application {
             if (primaryStage.isMaximized()) {
                 signinStage.setMaximized(true);
             }
-        
+            primaryStage.close();
             signinStage.show();
         });
 //αρχικοποιουμε το δεξι pane και οριζουμε το χρωμα
