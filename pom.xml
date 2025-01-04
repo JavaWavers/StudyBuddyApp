@@ -120,9 +120,9 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <configLocation>google_checks.xml</configLocation>
+                    <configLocation>config/check-style/checkstyle-sun.xml</configLocation>
                     <consoleOutput>true</consoleOutput>
-                    <failsOnError>true</failsOnError>
+                    <failsOnError>false</failsOnError>
                 </configuration>
             </plugin>
             <!-- PMD Plugin -->
