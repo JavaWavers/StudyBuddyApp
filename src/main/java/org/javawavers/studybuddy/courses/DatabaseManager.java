@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-public class DataBaseManager {
+public class DatabaseManager {
     private static final String DATABASE_URL = "jdbc:sqlite:src/main/resources/org/javawavers/studybuddy/DataBase.db";
 
     public static Connection connect() {
@@ -27,8 +27,6 @@ public class DataBaseManager {
         CreateExam();
         CreateTask();
         CreateDay();
-       // CreateWeek(); Nhh
-
 
     }
 
@@ -141,38 +139,6 @@ public class DataBaseManager {
             System.out.println(e.getMessage());
         }
     }
-
-    public static void CreateDay() {
-        try (Connection c = DataBaseManager.connect();
-             Statement s = c.createStatement()) {
-            String sql = """
-                    CREATE TABLE IF NOT EXISTS Day (
-                    availability INTEGER PRIMARY KEY,
-                    name TEXT NOT NULL,
-                    FOREIGN KEY (name) REFERENCES User (name)
-                    ) WITHOUT ROWID ;
-                    """;
-            s.execute(sql);
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-   /* public static void CreateWeek() {
-        try (Connection c = DataBaseManager.connect();
-             Statement s = c.createStatement()) {
-            String sql = """
-                    CREATE TABLE IF NOT EXISTS week (
-                    weekNum INT NOT NULL UNIQUE,
-                    totalWeeklyHours
-                    );
-                    """;
-            s.execute(sql);
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-    }*/
-
-
 
     public static void CreateAvailability() {
         try (Connection c = DataBaseManager.connect();
