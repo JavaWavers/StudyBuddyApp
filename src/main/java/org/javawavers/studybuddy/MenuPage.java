@@ -1,5 +1,6 @@
 package org.javawavers.studybuddy;
 
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
@@ -12,6 +13,7 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 
+import java.awt.event.ActionEvent;
 import java.util.Collections;
 
 
@@ -34,13 +36,12 @@ public class MenuPage {
     private String btnInsideStyle;
     private String btnSelected;
     private String btnInsideSelected;
-
+    VBox optionVBox = new VBox(15);
 
     public MenuPage(CenterPanelManager centerPanelManager) {
         this.centerPanelManager = centerPanelManager;
         initVariables();
     }
-
     private void initVariables() {
 
         configMenu();
@@ -125,6 +126,7 @@ public class MenuPage {
             + "fx-alignment: CENTER-LEFT; "
             + " -fx-border-radius: 5px; "
             + "-fx-padding: 10px 20px; ";
+
         //Change Button Colors When Selected
         btnHome.selectedProperty().addListener((obs, wasSelected, isSelected) -> {
             btnHome.setStyle(isSelected ? btnSelected : btnStyle);
@@ -172,14 +174,22 @@ public class MenuPage {
         }
     }
 
+
     private void configNavigationBtns() {
         setButtonGraphs();
+
 
         btnHome.setOnAction(e -> centerPanelManager.changeCenterPanel("Home"));
         btnExam.setOnAction(e -> centerPanelManager.changeCenterPanel("Exam"));
         btnAssignment.setOnAction(e -> centerPanelManager.changeCenterPanel("Assignments"));
-        btnCalendar.setOnAction(e -> centerPanelManager.changeCenterPanel("Calendar"));
-        btnDashboard.setOnAction(e -> centerPanelManager.changeCenterPanel("Dashboard"));
+        btnCalendar.setOnAction(e -> {
+            closeCoursesOption(optionVBox);
+            centerPanelManager.changeCenterPanel("Calendar");
+        });
+        btnDashboard.setOnAction(e -> {
+            closeCoursesOption(optionVBox);
+            centerPanelManager.changeCenterPanel("Dashboard");
+        });
 
         leftBoxMenu.getChildren().addAll(
             btnHome,
@@ -190,7 +200,7 @@ public class MenuPage {
     }
 
     private void configCourses() {
-        VBox optionVBox = new VBox(15);
+
         optionVBox.setVisible(false);
         btnCourses.setOnAction(e -> {
             if (optionVBox.getChildren().isEmpty()) {
@@ -210,8 +220,7 @@ public class MenuPage {
                 arrowIconCourses.setImage(arrowRight);
             }
         });
-        btnCalendar.setOnAction(e -> closeCoursesOption(optionVBox));
-        btnDashboard.setOnAction(e -> closeCoursesOption(optionVBox));
+
 
     }
 
@@ -312,37 +321,6 @@ public class MenuPage {
         btnDashboard.setGraphic(dashboardImg);
 
     }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     public VBox getLeftBoxMenu() {
         return leftBoxMenu;
