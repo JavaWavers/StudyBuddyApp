@@ -57,7 +57,7 @@ public class Exam extends SubjectElement {
         return slidesPerMin;
     }
 
-    public void setMinutesPer20Slides(double slidesPerMin) {
+    public void setSlidesPerMin(double slidesPerMin) {
         this.slidesPerMin = slidesPerMin;
     }
 

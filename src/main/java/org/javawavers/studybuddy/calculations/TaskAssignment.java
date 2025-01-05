@@ -31,8 +31,8 @@ public class TaskAssignment {
         remainingHours = remHours;
     }
 
-    public static int[][] assignTask(List<Task> asstasks, int colSize) {
-        Collections.shuffle(asstasks);
+    public static int[][] assignTask(List<Task> assTasks, int colSize) {
+        Collections.shuffle(assTasks);
         /*
          * The table valSchedule stores the index of the task Array list, after the
          * tasks have been distributed into the available hours
@@ -55,17 +55,17 @@ public class TaskAssignment {
          * The length of the task list before the tasks of type two
          * are assigned
          */
-        int tasklength = asstasks.size() - 1;
+        int taskLength = assTasks.size() - 1;
         // available hours for the day
         for (int col = 0; col < colSize; col++) {
             /*
              * checks if there is already a revision assigned
              * & Merge repetition tasks if needed
              */
-            Availability.mergeRepTasks(valSchedule, asstasks, col);
-            remainingHours = (double) Availability.getTotalAvailableHours(col);
+            Availability.mergeRepTasks(valSchedule, assTasks, col);
+            remainingHours =  Availability.getTotalAvailableHours(col);
             // reduce Availability accordingly to the assigned repetition tasks
-            Availability.reduceRepAvailability(col, asstasks);
+            Availability.reduceRepAvailability(col, assTasks);
 
             // check non Availability for a day
             boolean flagNAv;
@@ -75,7 +75,7 @@ public class TaskAssignment {
 
                 for (int row = 0; row < 12; row++) { // Max 12 tasks per day
                     // the loop ends when every task is assigned to a day
-                    if (taskIndex >= tasklength) {
+                    if (taskIndex >= taskLength) {
                         break;
                     }
 
@@ -84,10 +84,10 @@ public class TaskAssignment {
                          * check if the exam date of the subject's task that we want to
                          * assign to a day has passed
                          */
-                        boolean flagEx = false;
+                        boolean flagEx;
 
-                        flagEx = ExamDates.checkExamDate(asstasks.get(taskIndex), col, SimulateAnnealing.getExams());
-                        LocalDate exDate = ExamDates.getExDate(asstasks.get(taskIndex),
+                        flagEx = ExamDates.checkExamDate(assTasks.get(taskIndex), col, SimulateAnnealing.getExams());
+                        LocalDate exDate = ExamDates.getExDate(assTasks.get(taskIndex),
                                 SimulateAnnealing.getExams());
 
                         if (flagEx) {
@@ -101,14 +101,11 @@ public class TaskAssignment {
                                 remainingHours -= 2.0;
                                 taskIndex++;
                                 // Assign task Type 2 only if task type =1
-                                if (asstasks.get(taskIndex).getTaskType() == 1) {
-                                    asstasks = Repetition.generateRepetitions(asstasks, asstasks.get(taskIndex), exDate,
+                                if (assTasks.get(taskIndex).getTaskType() == 1) {
+                                    assTasks = Repetition.generateRepetitions(assTasks, assTasks.get(taskIndex), exDate,
                                             col);
                                 }
 
-                            } else {
-                                // continues to the next row
-                                continue;
                             }
                         } else {
                             // continue to the next task

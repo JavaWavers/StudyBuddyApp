@@ -27,10 +27,10 @@ public class SimulateAnnealing {
     private static List<ScheduleResult> scheduleResults;// List for the valid schedule results
 
     public SimulateAnnealing() {
-        this.subjects = new ArrayList<>();
-        this.tasks = new ArrayList<>();
-        this.exams = new ArrayList<>();
-        this.scheduleResults = new ArrayList<>();
+        subjects = new ArrayList<>();
+        tasks = new ArrayList<>();
+        exams = new ArrayList<>();
+        scheduleResults = new ArrayList<>();
     }
 
     // Add a new Subject
@@ -48,7 +48,7 @@ public class SimulateAnnealing {
     private void subExams(Subject subject) {
 
         // Create an ExamDates object with the subject name and the exam date
-        ExamDates examDate = new ExamDates(subject, subject.getExams().get(0).getExamDate());
+        ExamDates examDate = new ExamDates(subject, subject.getExams().getFirst().getExamDate());
         // Add the ExamDates object to the list
         exams.add(examDate);
 
@@ -76,12 +76,9 @@ public class SimulateAnnealing {
         return exams;
     }
 
-    private static double bestscoring;
-    private static List<Task> besttask = new ArrayList<>();
+    private static double bestScoring;
+    private static List<Task> bestTask = new ArrayList<>();
     private static int[][] schedule;
-    // The column size of the table is determined by the last examination date
-    private static int colsize = 0;
-    private static int index;
 
     // Κατανομή tasks στο πρόγραμμα
     public static void scheduleResult() {
@@ -92,46 +89,46 @@ public class SimulateAnnealing {
          * different from the one that is given
          * The procedure is done 50 times in order to produce 10 possible results
          * Then each list gets a score. The list with the higher score is set as the
-         * besttask
+         * bestTask
          */
-        bestscoring = 0.0;
-        besttask.clear();
+
+        bestTask.clear();
 
         // sort exams
         exams = ExamDates.sortExam(exams);
         // The column size of the table is determined by the last examination date
-        colsize = ExamDates.lastExIsDue(exams);
-        List<Task> coppyTask;
+        // The column size of the table is determined by the last examination date
+        int colSize = ExamDates.lastExIsDue(exams);
+        List<Task> copyTask;
         for (int i = 0; i < 50; i++) {
 
-            coppyTask = new ArrayList<>(tasks);
-            double valresultscoring = 0.0;
+            copyTask = new ArrayList<>(tasks);
+            double valResultScoring;
 
-            int[][] vschedule = TaskAssignment.assignTask(coppyTask, colsize);
+            int[][] vSchedule = TaskAssignment.assignTask(copyTask, colSize);
 
             // list scoring
-            // calls static method calculatescore
-            valresultscoring = Scoring.calculateScore(coppyTask, vschedule, colsize);
+            // calls static method calculateScore
+            valResultScoring = Scoring.calculateScore(copyTask, vSchedule, colSize);
             if (i == 0) {
-                bestscoring = valresultscoring;
+                bestScoring = valResultScoring;
             }
-            ScheduleResult result = new ScheduleResult(valresultscoring, coppyTask, vschedule);
+            ScheduleResult result = new ScheduleResult(valResultScoring, copyTask, vSchedule);
             scheduleResults.add(result);
 
         }
         for (ScheduleResult sr : scheduleResults) {
-            bestschedule(sr.getScore(), sr.getTasks(), sr.getSchedule(), scheduleResults.indexOf(sr));
+            bestSchedule(sr.getScore(), sr.getTasks(), sr.getSchedule());
         }
-        PrintSchedule.printSchedule(schedule, besttask, colsize);
+        PrintSchedule.printSchedule(schedule, bestTask, colSize);
 
     }
 
-    public static void bestschedule(double valresultscoring, List<Task> taskList, int[][] sch, int in) {
-        if (valresultscoring >= bestscoring) {
-            bestscoring = valresultscoring;
-            besttask = taskList;
+    public static void bestSchedule(double valResultScoring, List<Task> taskList, int[][] sch) {
+        if (valResultScoring >= bestScoring) {
+            bestScoring = valResultScoring;
+            bestTask = taskList;
             schedule = sch;
-            index = in;
         }
     }
 
