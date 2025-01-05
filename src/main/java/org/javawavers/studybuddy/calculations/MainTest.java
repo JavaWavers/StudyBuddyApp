@@ -6,12 +6,12 @@ public class MainTest {
     public static void main(String[] args) {
         // Create subjects
         Subject Maths = new Subject("Maths", 5, null, null);
-        Exam e1 = new Exam(LocalDate.of(2025, 01, 24), 400);
+        Exam e1 = new Exam(LocalDate.of(2025, 1, 24), 400);
         Maths.addExam(e1);
-        Assignment a1 = new Assignment("Ass1", LocalDate.of(2025, 01, 24), 8);
+        Assignment a1 = new Assignment("Ass1", LocalDate.of(2025, 1, 24), 8);
         Maths.addAssignment(a1);
         Subject History = new Subject("History", 4, null, null);
-        Exam e2 = new Exam(LocalDate.of(2025, 01, 26), 300);
+        Exam e2 = new Exam(LocalDate.of(2025, 1, 26), 300);
         History.addExam(e2);
         ArrayList<Subject> subs = new ArrayList<>();
         subs.add(Maths);
@@ -25,9 +25,9 @@ public class MainTest {
         Availability.setAvailability(6, 6); // Saturday: 6 available hours
         Availability.setAvailability(7, 6); // Sunday: 6 available hour
         // create non Availability
-        Availability.setNonAvailability(LocalDate.of(2025, 01, 10));
+        Availability.setNonAvailability(LocalDate.of(2025, 1, 10));
 
-        Availability.setNonAvailability(LocalDate.of(2025, 01, 04));
+        Availability.setNonAvailability(LocalDate.of(2025, 1, 4));
 
         SimulateAnnealing sAnnealing = new SimulateAnnealing();
 

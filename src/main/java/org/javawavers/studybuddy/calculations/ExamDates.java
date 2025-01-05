@@ -57,25 +57,18 @@ public class ExamDates {
         LocalDate today = LocalDate.now();
 
         // Get the date of the last exam (last element of the sorted list)
-        LocalDate lastExamDate = exams.get(exams.size() - 1).getExamDate();
-
-        // Calculate the number of days between today and the last exam date
-        int daysUntilLastExam = (int) ChronoUnit.DAYS.between(today, lastExamDate);
+        LocalDate lastExamDate = exams.getLast().getExamDate();
 
         // Return the calculated days
-        return daysUntilLastExam;
+        return (int) ChronoUnit.DAYS.between(today, lastExamDate);
     }
 
-    // Η μέθοδος δέχεται το τασκ που θέλει να καταχωρηθεί στον πίνακα με τα
-    // αποτελέσματα.
-    // Από αυτό το τασκ παίρνουμε το όνομά του και ελέγχουμε για κάθε αντικείμενο
-    // ExamDates αν η ημέρα που θέλουμε να βάλουμε το τασκ είναι πριν την ημερομηνία
-    // του
-    // του exam
-    // Αν όντως ισχύει η μέθοδος επιστρέφει true αλλιώς επιστρέφει false
-    // δέχεται το τασκ και το σε πόσες μέρες θέλουμε να βάλουμε το ejam ΚΑΙ δέχετα
-    // αι τη λ΄στα με τις
-    // ημερομηνίες των exam
+    // The method accepts the task that needs to be registered in the results table.
+// From this task, we retrieve its name and check, for each ExamDates object,
+// if the day when we want to assign the task is before the exam date.
+// If this condition is met, the method returns true; otherwise, it returns false.
+// It accepts the task, the number of days until the exam, AND the list of exam dates.
+
     public static boolean checkExamDate(Task task, int day, List<ExamDates> exams) {
 
         String subj = task.getSubject(); // keeps the name of the subject in order to find the exam date
@@ -89,15 +82,11 @@ public class ExamDates {
 
         // Ημερομηνία που θέλουμε να βάλουμε το task
         LocalDate dateAssigned = LocalDate.now().plusDays(day);
-        if (dateAssigned.isBefore(exD)) {
-            return true;
-        } else {
-            return false;
-        }
+        return dateAssigned.isBefore(exD);
 
     }
 
-    public static LocalDate getExDate(Task task, int day, List<ExamDates> exams) {
+    public static LocalDate getExDate(Task task, List<ExamDates> exams) {
         String subj = task.getSubject(); // keeps the name of the subject in order to find the exam date
         LocalDate exD = null;// keeps the exam date
         // Iterate through the list of ExamDates to find the exam for the task's subject
