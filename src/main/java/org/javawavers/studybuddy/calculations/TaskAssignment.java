@@ -7,7 +7,7 @@ public class TaskAssignment {
     // table for the task indexes
     private static int[][] valSchedule;
 
-    // Methods in order to have acess to the table for other classes
+    // Methods in order to have access to the table for other classes
     public static void setValSchedule(int[][] sc) {
         valSchedule = sc;
     }
@@ -58,9 +58,6 @@ public class TaskAssignment {
         int tasklength = asstasks.size() - 1;
         // available hours for the day
         for (int col = 0; col < colSize; col++) {
-            if (col == 0) {
-                System.out.println("assined tasks in the big of the method" + asstasks.size());
-            }
             /*
              * checks if there is already a revision assigned
              * & Merge repetition tasks if needed
@@ -90,7 +87,7 @@ public class TaskAssignment {
                         boolean flagEx = false;
 
                         flagEx = ExamDates.checkExamDate(asstasks.get(taskIndex), col, SimulateAnnealing.getExams());
-                        LocalDate exDate = ExamDates.getExDate(asstasks.get(taskIndex), col,
+                        LocalDate exDate = ExamDates.getExDate(asstasks.get(taskIndex),
                                 SimulateAnnealing.getExams());
 
                         if (flagEx) {
@@ -123,12 +120,6 @@ public class TaskAssignment {
                     }
                 }
             }
-            if (col == colSize - 1) {
-                System.out.println("assined tasks in the end of the method" + asstasks.size());
-                // clear the list
-
-            }
-
         }
 
         // return the table with the valid result

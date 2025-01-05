@@ -118,7 +118,7 @@ public class Availability {
                 }
             }
         }
-        SimulateAnnealing.setValSchedule(schedule);
+        TaskAssignment.setValSchedule(schedule);
     }
 
     /*
@@ -126,13 +126,13 @@ public class Availability {
      * scheduled in a given column.
      */
     public static void reduceRepAvailability(int col, List<Task> tasks) {
-        int[][] schedule = SimulateAnnealing.getValSchedule();
+        int[][] schedule = TaskAssignment.getValSchedule();
         for (int row = 0; row < 12; row++) {
             double reducedHours = 0.0;
             if (schedule[row][col] != 0) {
                 reducedHours = tasks.get(schedule[row][col]).getTaskHours();
             }
-            SimulateAnnealing.setRemainingHours(SimulateAnnealing.getRemainingHours() - reducedHours);
+            TaskAssignment.setRemainingHours(TaskAssignment.getRemainingHours() - reducedHours);
         }
     }
 }

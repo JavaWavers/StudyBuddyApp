@@ -52,7 +52,7 @@ public class Repetition {
     // class that assigns the repetition tasks into the schedule
     public static List<Task> assRepetitions(List<RepetitionTask> rep, List<Task> tasks, String subject) {
         // Retrieve the current schedule
-        int[][] schedule = SimulateAnnealing.getValSchedule();
+        int[][] schedule = TaskAssignment.getValSchedule();
         if (schedule == null) {
             throw new IllegalStateException(
                     "Schedule is not initialized.");
@@ -70,7 +70,7 @@ public class Repetition {
                          * Each task of type 1 and 3 takes 2 hours, while each task of type 2 takes 20
                          * minutes
                          */
-                        if (SimulateAnnealing.getRemainingHours() > 1.0 / 3.0) {
+                        if (TaskAssignment.getRemainingHours() > 1.0 / 3.0) {
                             // Add a new repetition task
                             tasks.add(new Task(subject, 2)); // 2 represents a repetition task
                             // Assign the task index to the schedule
@@ -84,7 +84,7 @@ public class Repetition {
         }
 
         // Update the modified schedule
-        SimulateAnnealing.setValSchedule(schedule);
+        TaskAssignment.setValSchedule(schedule);
 
         return tasks;
     }

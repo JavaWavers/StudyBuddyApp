@@ -57,7 +57,7 @@ public class SimulateAnnealing {
     // Creating tasks for each subject
     private void subTasks(Subject subject) {
         // studying tasks
-        int taskType1 = CalculativeAlgorithm.studyingPerweek(subject);
+        int taskType1 = CalculativeAlgorithm.studyingPerWeek(subject);
         // assignment tasks
         int taskType3 = CalculativeAlgorithm.numberOfScheduledTask(subject.getTotalAssHours());
 
@@ -105,32 +105,23 @@ public class SimulateAnnealing {
         for (int i = 0; i < 50; i++) {
 
             coppyTask = new ArrayList<>(tasks);
-            ///////////
-            System.out.println("copy tasks in the big of the method" + coppyTask.size());
-            System.out.println("tasks in the big of the method" + coppyTask.size());
-
             double valresultscoring = 0.0;
 
             int[][] vschedule = TaskAssignment.assignTask(coppyTask, colsize);
 
             // list scoring
             // calls static method calculatescore
-            valresultscoring = Scoring.calculatescore(coppyTask, vschedule, colsize);
+            valresultscoring = Scoring.calculateScore(coppyTask, vschedule, colsize);
             if (i == 0) {
                 bestscoring = valresultscoring;
             }
             ScheduleResult result = new ScheduleResult(valresultscoring, coppyTask, vschedule);
             scheduleResults.add(result);
-            System.out.println("done" + i + " " + valresultscoring);
-            /////////////////////////////////////////
-            System.out.println("copy tasks in the big of the method" + coppyTask.size());
-            System.out.println("tasks in the big of the method" + coppyTask.size());
 
         }
         for (ScheduleResult sr : scheduleResults) {
             bestschedule(sr.getScore(), sr.getTasks(), sr.getSchedule(), scheduleResults.indexOf(sr));
         }
-        System.out.println(index);
         PrintSchedule.printSchedule(schedule, besttask, colsize);
 
     }
