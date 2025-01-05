@@ -112,12 +112,10 @@ public class SimulateAnnealing {
             }
             ScheduleResult result = new ScheduleResult(valResultScoring, copyTask, vSchedule);
             scheduleResults.add(result);
-            System.out.println("done" + i + " " + valResultScoring);
         }
         for (ScheduleResult sr : scheduleResults) {
             bestSchedule(sr.getScore(), sr.getTasks(), sr.getSchedule(), scheduleResults.indexOf(sr));
         }
-        System.out.println(index);
         PrintSchedule.printSchedule(schedule, bestTask, colSize);
 
     }
@@ -190,9 +188,6 @@ public class SimulateAnnealing {
         int taskLength = assTasks.size() - 1;
         // available hours for the day
         for (int col = 0; col < colSize; col++) {
-            if (col == 0) {
-                System.out.println("assigned tasks in the big of the method" + assTasks.size());
-            }
             /*
              * checks if there is already a revision assigned
              * & Merge repetition tasks if needed
@@ -250,11 +245,6 @@ public class SimulateAnnealing {
                         break;
                     }
                 }
-            }
-            if (col == colSize - 1) {
-                System.out.println("assigned tasks in the end of the method" + assTasks.size());
-                // clear the list
-
             }
 
         }
