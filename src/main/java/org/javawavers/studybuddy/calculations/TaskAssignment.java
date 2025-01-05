@@ -81,34 +81,41 @@ public class TaskAssignment {
 
                     if (remainingHours >= 2.0) { // each task requires 2 hours
                         /*
-                         * check if the exam date of the subject's task that we want to
+                         * check if the exam date or the assignment deadline of the subject's task that we want to
                          * assign to a day has passed
                          */
-                        boolean flagEx;
-
-                        flagEx = ExamDates.checkExamDate(assTasks.get(taskIndex), col, SimulateAnnealing.getExams());
-                        LocalDate exDate = ExamDates.getExDate(assTasks.get(taskIndex),
-                                SimulateAnnealing.getExams());
-
-                        if (flagEx) {
-
-                            if (valSchedule[row][col] == 0) {
-                                // corrects the schedule table
-
-                                // store the task index
-                                valSchedule[row][col] = taskIndex;
-                                // The remaining hours is reduced by 2 hours
-                                remainingHours -= 2.0;
-                                taskIndex++;
-                                // Assign task Type 2 only if task type =1
-                                if (assTasks.get(taskIndex).getTaskType() == 1) {
-                                    assTasks = Repetition.generateRepetitions(assTasks, assTasks.get(taskIndex), exDate,
-                                            col);
+                        boolean flagEx=false;
+                        boolean flagAss=false;
+                        if(!SimulateAnnealing.getExams().isEmpty()) {
+                            flagEx = Dates.checkDate(assTasks.get(taskIndex), col, SimulateAnnealing.getExams());
+                        }
+                        if(!SimulateAnnealing.getAssignments().isEmpty()) {
+                            flagAss = Dates.checkDate(assTasks.get(taskIndex), col, SimulateAnnealing.getAssignments());
+                        }
+                        if (flagEx | flagAss) {
+                            if (flagEx && assTasks.get(taskIndex).getTaskType() == 1 ) {
+                                if (valSchedule[row][col] == 0) {
+                                    // stores the task index
+                                    valSchedule[row][col] = taskIndex;
+                                    // reduction of the remaining hours
+                                    remainingHours -= 2.0;
+                                    taskIndex++;
+                                    //creation of task type 1
+                                    // Δημιουργία επαναλήψεων για tasks τύπου 1
+                                    LocalDate exDate = Dates.getExDate(assTasks.get(taskIndex - 1), SimulateAnnealing.getExams());
+                                    assTasks = Repetition.generateRepetitions(assTasks, assTasks.get(taskIndex - 1), exDate, col);
                                 }
-
+                            } else if (flagAss && assTasks.get(taskIndex).getTaskType() == 3) {
+                                if (valSchedule[row][col] == 0) {
+                                    // stores the task index
+                                    valSchedule[row][col] = taskIndex;
+                                    // reduction of the remaining hours
+                                    remainingHours -= 2.0;
+                                    taskIndex++;
+                                }
                             }
                         } else {
-                            // continue to the next task
+                            //continue to the next task
                             taskIndex++;
                         }
                     } else {

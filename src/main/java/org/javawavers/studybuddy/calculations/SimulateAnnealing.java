@@ -23,13 +23,15 @@ public class SimulateAnnealing {
 
     private static List<Subject> subjects; // List for subjects
     private static List<Task> tasks; // List for each task that is connected with a subject
-    private static List<ExamDates> exams; // List for each exam that is connected with a subject
+    private static List<Dates> exams; // List for each exam that is connected with a subject
     private static List<ScheduleResult> scheduleResults;// List for the valid schedule results
+    private static List<Dates> assignments;//List for each assignment that is connected with a subject
 
     public SimulateAnnealing() {
         subjects = new ArrayList<>();
         tasks = new ArrayList<>();
         exams = new ArrayList<>();
+        assignments=new ArrayList<>();
         scheduleResults = new ArrayList<>();
     }
 
@@ -38,6 +40,7 @@ public class SimulateAnnealing {
         subjects.add(subject);
         // Sets exams for the subject
         subExams(subject);
+        subAssignment(subject);
 
         // Creates tasks for the subject
         subTasks(subject);
@@ -46,11 +49,22 @@ public class SimulateAnnealing {
 
     // Setting exams for each subject
     private void subExams(Subject subject) {
+        if(!subject.getExams().isEmpty()) {
+            // Create an ExamDates object with the subject name and the exam date
+            Dates examDate = new Dates(subject, subject.getExams().getFirst().getExamDate());
+            // Add the ExamDates object to the list
+            exams.add(examDate);
+        }
 
-        // Create an ExamDates object with the subject name and the exam date
-        ExamDates examDate = new ExamDates(subject, subject.getExams().getFirst().getExamDate());
-        // Add the ExamDates object to the list
-        exams.add(examDate);
+    }
+    // Setting exams for each subject
+    private void subAssignment(Subject subject) {
+        if(!subject.getAssignments().isEmpty()) {
+            // Create an ExamDates object with the subject name and the exam date
+            Dates assDate = new Dates(subject, subject.getAssignments().getFirst().getDeadline());
+            // Add the ExamDates object to the list
+            assignments.add(assDate);
+        }
 
     }
 
@@ -72,9 +86,14 @@ public class SimulateAnnealing {
     }
 
     // getter for the exam list
-    public static List<ExamDates> getExams() {
+    public static List<Dates> getExams() {
         return exams;
     }
+    // getter for the assignment list
+    public static List<Dates> getAssignments() {
+        return assignments;
+    }
+
 
     private static double bestScoring;
     private static List<Task> bestTask = new ArrayList<>();
@@ -95,10 +114,11 @@ public class SimulateAnnealing {
         bestTask.clear();
 
         // sort exams
-        exams = ExamDates.sortExam(exams);
+        exams = Dates.sortList(exams);
+        assignments=Dates.sortList(assignments);
         // The column size of the table is determined by the last examination date
         // The column size of the table is determined by the last examination date
-        int colSize = ExamDates.lastExIsDue(exams);
+        int colSize = Dates.lastIsDue(exams,assignments);
         List<Task> copyTask;
         for (int i = 0; i < 50; i++) {
 
