@@ -10,7 +10,7 @@ package org.javawavers.studybuddy.calculations;
  * -0.2 points are deducted each time the same task type (1-studying,
  * 2-revision, 3-assignment) for the same subject is assigned on the same day.
  * -0.1 points are deducted when the algorithm suggests that the user
- * should study the same subject two days in a row.
+ * should study the same subject two days in a row
  */
 
 
