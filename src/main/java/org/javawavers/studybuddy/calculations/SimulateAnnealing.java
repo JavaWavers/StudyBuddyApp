@@ -130,12 +130,12 @@ public class SimulateAnnealing {
 
             // list scoring
             // calls static method calculateScore
-            valResultScoring = Scoring.calculateScore(copyTask, vSchedule, colSize);
+            valResultScoring = Scoring.calculateScore(TaskAssignment.getTasks(), vSchedule, colSize);
             if (i == 0) {
                 bestScoring = valResultScoring;
             }
             //method to assign all the unassigned task type 3
-            ScheduleResult result = new ScheduleResult(valResultScoring,copyTask , vSchedule);
+            ScheduleResult result = new ScheduleResult(valResultScoring,TaskAssignment.getTasks() , vSchedule);
             scheduleResults.add(result);
 
         }
