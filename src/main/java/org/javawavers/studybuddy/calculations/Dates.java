@@ -1,13 +1,13 @@
 package org.javawavers.studybuddy.calculations;
-/* 
-* This class is used to store the exam date for each subject.
-* It holds information about the subject and the specific date of the exam.
-* Additionally, this class is responsible for controlling the distribution of tasks
-* for a subject up until the exam date. In other words, the exam date is the last day 
-* by which all tasks must be completed and distributed.
-* 
-* The class provides functionality to sort a list of exam dates in ascending order,
-* with the earliest exam date coming first and the latest coming last.
+/*
+ * This class is used to store the exam date for each subject.
+ * It holds information about the subject and the specific date of the exam.
+ * Additionally, this class is responsible for controlling the distribution of tasks
+ * for a subject up until the exam date. In other words, the exam date is the last day
+ * by which all tasks must be completed and distributed.
+ *
+ * The class provides functionality to sort a list of exam dates in ascending order,
+ * with the earliest exam date coming first and the latest coming last.
  */
 
 import java.time.LocalDate;

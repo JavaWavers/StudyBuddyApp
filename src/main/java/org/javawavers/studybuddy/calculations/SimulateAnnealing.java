@@ -1,13 +1,13 @@
 package org.javawavers.studybuddy.calculations;
 /*
-* This class distributes three kinds of tasks (studying -1, repetition -2,
-* assignment -3) into the available days randomly. The algorithm produces 50
-*  valid results,where the tasks are distributed into the available studying
-* hours per day differently (although there are chances for the same results).
-* Then, each result gains a score based on certain criteria, described in the
-* README file. The result with the higher score is considered the final result
-* and is given to the user as a recommended studying schedule.
-*/
+ * This class distributes three kinds of tasks (studying -1, repetition -2,
+ * assignment -3) into the available days randomly. The algorithm produces 50
+ *  valid results,where the tasks are distributed into the available studying
+ * hours per day differently (although there are chances for the same results).
+ * Then, each result gains a score based on certain criteria, described in the
+ * README file. The result with the higher score is considered the final result
+ * and is given to the user as a recommended studying schedule.
+ */
 
 import java.util.ArrayList;
 import java.util.List;
@@ -71,10 +71,11 @@ public class SimulateAnnealing {
     // Creating tasks for each subject
     private void subTasks(Subject subject) {
         // studying tasks
-        int taskType1 = CalculativeAlgorithm.studyingPerWeek(subject);
+        int taskType1 = CalculativeAlgorithm.studyingTasks(subject);
+        System.out.println("subTasks" +subject.getCourseName()+ taskType1);
         // assignment tasks
         int taskType3 = CalculativeAlgorithm.numberOfScheduledTask(subject.getTotalAssHours());
-
+        System.out.println("subTasks" +subject.getCourseName()+ taskType3);
         // Task creation for each task type
         for (int i = 0; i < taskType1; i++) {
             tasks.add(new Task(subject, 1)); // studying
@@ -133,7 +134,8 @@ public class SimulateAnnealing {
             if (i == 0) {
                 bestScoring = valResultScoring;
             }
-            ScheduleResult result = new ScheduleResult(valResultScoring, copyTask, vSchedule);
+            //method to assign all the unassigned task type 3
+            ScheduleResult result = new ScheduleResult(valResultScoring,copyTask , vSchedule);
             scheduleResults.add(result);
 
         }
@@ -143,7 +145,6 @@ public class SimulateAnnealing {
         PrintSchedule.printSchedule(schedule, bestTask, colSize);
 
     }
-
     public static void bestSchedule(double valResultScoring, List<Task> taskList, int[][] sch) {
         if (valResultScoring >= bestScoring) {
             bestScoring = valResultScoring;

@@ -8,10 +8,13 @@ public class MainTest {
         Subject Maths = new Subject("Maths", 5, null, null);
         Exam e1 = new Exam(LocalDate.of(2025, 1, 24), 400);
         Maths.addExam(e1);
-        Assignment a1 = new Assignment("Ass1", LocalDate.of(2025, 1, 29), 8);
+        Assignment a1 = new Assignment("Ass1", LocalDate.of(2025, 1, 20), 10);
+        //Assignment a2 = new Assignment("Ass1", LocalDate.of(2025, 1, 19), 10);
         Maths.addAssignment(a1);
+        //Maths.addAssignment(a2);
         Subject History = new Subject("History", 4, null, null);
         Exam e2 = new Exam(LocalDate.of(2025, 1, 26), 300);
+
         History.addExam(e2);
         ArrayList<Subject> subs = new ArrayList<>();
         subs.add(Maths);

@@ -40,16 +40,17 @@ public class Scoring {
                 // we check if there is also a same task
                 for (int row = 0; row < 12; row++) {
                     if (sch[row][col] >= 0 && sch[row][col] < taskList.size()) {
-
                         Task t = taskList.get(sch[row][col]);
-
-                        /*
-                         * checks if the subject from the subject list is the same as
-                         * the one from the task list
-                         */
-                        if (u.equals(t.getSubject())) {
-                            score -= 0.2;
+                        if(t.getTaskType()==1){
+                            /*
+                             * checks if the subject from the subject list is the same as
+                             * the one from the task list
+                             */
+                            if (u.equals(t.getSubject())) {
+                                score -= 0.2;
+                            }
                         }
+
 
                     } else {
                         break;
@@ -79,7 +80,8 @@ public class Scoring {
 
                             // If the same subject and the same type of task is scheduled on consecutive
                             // days
-                            if (curSubject.equals(nextSubject) && curType == nextType) {
+                            //except from assignments
+                            if (curSubject.equals(nextSubject) && curType == nextType &&curType==1) {
                                 // Deduct 0.1 points
                                 score -= 0.1;
                                 break;

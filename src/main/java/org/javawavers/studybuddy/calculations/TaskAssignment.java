@@ -1,5 +1,7 @@
 package org.javawavers.studybuddy.calculations;
+import java.lang.reflect.Array;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -30,16 +32,15 @@ public class TaskAssignment {
     public static void setRemainingHours(double remHours) {
         remainingHours = remHours;
     }
-
+    private static List<Task> tasks;
+    public static List<Task> getTasks(){
+        return tasks;
+    }
     public static int[][] assignTask(List<Task> assTasks, int colSize) {
         Collections.shuffle(assTasks);
-        /*
-         * The table valSchedule stores the index of the task Array list, after the
-         * tasks have been distributed into the available hours
-         */
+
         if (colSize == 0) {
-            throw new IllegalStateException(
-                    "Column size is not initialized. ");
+            throw new IllegalStateException("Column size is not initialized.");
         }
 
         valSchedule = new int[12][colSize];
@@ -48,85 +49,105 @@ public class TaskAssignment {
                 valSchedule[i][j] = 0;
             }
         }
-
-        // Index of the tasks Array List
         int taskIndex = 1;
-        /*
-         * The length of the task list before the tasks of type two
-         * are assigned
-         */
+        assTasks.add(assTasks.get(0));
         int taskLength = assTasks.size() - 1;
-        // available hours for the day
+
         for (int col = 0; col < colSize; col++) {
-            /*
-             * checks if there is already a revision assigned
-             * & Merge repetition tasks if needed
-             */
+            // Merge repetition tasks if needed
             Availability.mergeRepTasks(valSchedule, assTasks, col);
-            remainingHours =  Availability.getTotalAvailableHours(col);
-            // reduce Availability accordingly to the assigned repetition tasks
+            remainingHours = Availability.getTotalAvailableHours(col);
+            // Reduce available hours for repetition tasks
             Availability.reduceRepAvailability(col, assTasks);
 
-            // check non Availability for a day
-            boolean flagNAv;
-            flagNAv = Availability.checkAvailability(col);
+            // Check if there is any availability for the day
+            boolean flagNAv = Availability.checkAvailability(col);
 
             if (flagNAv) {
-
                 for (int row = 0; row < 12; row++) { // Max 12 tasks per day
-                    // the loop ends when every task is assigned to a day
-                    if (taskIndex >= taskLength) {
+                    if (taskIndex > taskLength) {
                         break;
                     }
 
-                    if (remainingHours >= 2.0) { // each task requires 2 hours
-                        /*
-                         * check if the exam date or the assignment deadline of the subject's task that we want to
-                         * assign to a day has passed
-                         */
-                        boolean flagEx=false;
-                        boolean flagAss=false;
-                        if(!SimulateAnnealing.getExams().isEmpty()) {
-                            flagEx = Dates.checkDate(assTasks.get(taskIndex), col, SimulateAnnealing.getExams());
-                        }
-                        if(!SimulateAnnealing.getAssignments().isEmpty()) {
-                            flagAss = Dates.checkDate(assTasks.get(taskIndex), col, SimulateAnnealing.getAssignments());
-                        }
-                        if (flagEx | flagAss) {
-                            if (flagEx && assTasks.get(taskIndex).getTaskType() == 1 ) {
+                    if (remainingHours >= 2.0) { // Each task requires 2 hours
+                        //flag for deadlines
+                        boolean flagEx = false;
+                        boolean flagAss = false;
+                        if(assTasks.get(taskIndex).getTaskType() == 1){
+                            // Check exam dates
+                            if (!SimulateAnnealing.getExams().isEmpty()) {
+                                flagEx = Dates.checkDate(assTasks.get(taskIndex), col, SimulateAnnealing.getExams());
+                            }
+                            if(flagEx){
                                 if (valSchedule[row][col] == 0) {
-                                    // stores the task index
+                                    // Store the task index in the schedule
                                     valSchedule[row][col] = taskIndex;
-                                    // reduction of the remaining hours
+                                    // Reduce the remaining hours
                                     remainingHours -= 2.0;
                                     taskIndex++;
-                                    //creation of task type 1
-                                    // Δημιουργία επαναλήψεων για tasks τύπου 1
+
+                                    // Generate repetitions for tasks of type 1
                                     LocalDate exDate = Dates.getExDate(assTasks.get(taskIndex - 1), SimulateAnnealing.getExams());
                                     assTasks = Repetition.generateRepetitions(assTasks, assTasks.get(taskIndex - 1), exDate, col);
                                 }
-                            } else if (flagAss && assTasks.get(taskIndex).getTaskType() == 3) {
+                            }else {
+                                taskIndex++;
+                            }
+
+                        }else if (assTasks.get(taskIndex).getTaskType() == 3){
+                            // Check assignment deadlines
+                            if (!SimulateAnnealing.getAssignments().isEmpty()) {
+                                flagAss = Dates.checkDate(assTasks.get(taskIndex), col, SimulateAnnealing.getAssignments());
+                            }
+                            if(flagAss){
                                 if (valSchedule[row][col] == 0) {
-                                    // stores the task index
+                                    // Store the task index in the schedule
                                     valSchedule[row][col] = taskIndex;
-                                    // reduction of the remaining hours
+                                    // Reduce the remaining hours
                                     remainingHours -= 2.0;
                                     taskIndex++;
                                 }
+                            }else {
+                                taskIndex++;
                             }
-                        } else {
-                            //continue to the next task
-                            taskIndex++;
+
                         }
+
                     } else {
-                        // if there are not enough available hours we continue to the next day
+                        // If there are not enough available hours, continue to the next day
                         break;
                     }
                 }
             }
         }
 
-        // return the table with the valid result
+        /*
+         * Special Check for Type 3 Tasks
+         * If there are not enough days or hours, ensure all type 3 tasks (assignments) are assigned
+         */
+        while (taskIndex <= taskLength) {
+            Task task = assTasks.get(taskIndex);
+            if (task.getTaskType() == 3) {
+                for (int col = 0; col < colSize; col++) {
+                    for (int row = 0; row < 12; row++) {
+                        if (valSchedule[row][col] == 0) {
+                            // Forcefully assign the task in any available time slot
+                            valSchedule[row][col] = taskIndex;
+                            taskIndex++;
+                            break; // Exit the loop after assigning the task
+                        }
+                    }
+                    if (taskIndex > taskLength) {
+                        break; // Exit the loop if all tasks are assigned
+                    }
+                }
+            } else {
+                taskIndex++; // Skip non-type 3 tasks
+            }
+        }
+
         return valSchedule;
     }
+
+
 }

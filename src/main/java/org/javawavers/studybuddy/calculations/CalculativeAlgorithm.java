@@ -30,18 +30,8 @@ public class CalculativeAlgorithm {
     }
 
     // total studying tasks per week
-    public static int studyingPerWeek(Subject s) {
-        // calculates the remaining days until the exam day
-        long weeksUntilExam = ChronoUnit.DAYS.between(LocalDate.now(), s.getExams().getFirst().getExamDate());
-        // casting into double for calculating purposes, converts into weeks as an
-        // integer number
-        int weeks = (int) ((double) weeksUntilExam / 7);
-        // calculating the total time needed to study each week, equally divided for
-        // each
-        // week
-        // The calculation is
-        // Studying hours per week
-        double totalTimeWeek = totalStudyingTime(s) / weeks;
+    public static int studyingTasks(Subject s) {
+        double totalTimeWeek = totalStudyingTime(s) ;
         return numberOfScheduledTask(totalTimeWeek);
     }
 
