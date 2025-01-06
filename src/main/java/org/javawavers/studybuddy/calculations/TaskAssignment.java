@@ -38,7 +38,7 @@ public class TaskAssignment {
     }
     public static int[][] assignTask(List<Task> assTasks, int colSize) {
         Collections.shuffle(assTasks);
-
+        tasks=new ArrayList<>(assTasks);
         if (colSize == 0) {
             throw new IllegalStateException("Column size is not initialized.");
         }
@@ -50,15 +50,15 @@ public class TaskAssignment {
             }
         }
         int taskIndex = 1;
-        assTasks.add(assTasks.get(0));
-        int taskLength = assTasks.size() - 1;
+        tasks.add(tasks.getFirst());
+        int taskLength = tasks.size() - 1;
 
         for (int col = 0; col < colSize; col++) {
             // Merge repetition tasks if needed
-            Availability.mergeRepTasks(valSchedule, assTasks, col);
+            Availability.mergeRepTasks(valSchedule, tasks, col);
             remainingHours = Availability.getTotalAvailableHours(col);
             // Reduce available hours for repetition tasks
-            Availability.reduceRepAvailability(col, assTasks);
+            Availability.reduceRepAvailability(col, tasks);
 
             // Check if there is any availability for the day
             boolean flagNAv = Availability.checkAvailability(col);
@@ -73,10 +73,10 @@ public class TaskAssignment {
                         //flag for deadlines
                         boolean flagEx = false;
                         boolean flagAss = false;
-                        if(assTasks.get(taskIndex).getTaskType() == 1){
+                        if(tasks.get(taskIndex).getTaskType() == 1){
                             // Check exam dates
                             if (!SimulateAnnealing.getExams().isEmpty()) {
-                                flagEx = Dates.checkDate(assTasks.get(taskIndex), col, SimulateAnnealing.getExams());
+                                flagEx = Dates.checkDate(tasks.get(taskIndex), col, SimulateAnnealing.getExams());
                             }
                             if(flagEx){
                                 if (valSchedule[row][col] == 0) {
@@ -87,17 +87,17 @@ public class TaskAssignment {
                                     taskIndex++;
 
                                     // Generate repetitions for tasks of type 1
-                                    LocalDate exDate = Dates.getExDate(assTasks.get(taskIndex - 1), SimulateAnnealing.getExams());
-                                    assTasks = Repetition.generateRepetitions(assTasks, assTasks.get(taskIndex - 1), exDate, col);
+                                    LocalDate exDate = Dates.getExDate(tasks.get(taskIndex - 1), SimulateAnnealing.getExams());
+                                    assTasks = Repetition.generateRepetitions(tasks, assTasks.get(taskIndex - 1), exDate, col);
                                 }
                             }else {
                                 taskIndex++;
                             }
 
-                        }else if (assTasks.get(taskIndex).getTaskType() == 3){
+                        }else if (tasks.get(taskIndex).getTaskType() == 3){
                             // Check assignment deadlines
                             if (!SimulateAnnealing.getAssignments().isEmpty()) {
-                                flagAss = Dates.checkDate(assTasks.get(taskIndex), col, SimulateAnnealing.getAssignments());
+                                flagAss = Dates.checkDate(tasks.get(taskIndex), col, SimulateAnnealing.getAssignments());
                             }
                             if(flagAss){
                                 if (valSchedule[row][col] == 0) {
@@ -126,7 +126,7 @@ public class TaskAssignment {
          * If there are not enough days or hours, ensure all type 3 tasks (assignments) are assigned
          */
         while (taskIndex <= taskLength) {
-            Task task = assTasks.get(taskIndex);
+            Task task = tasks.get(taskIndex);
             if (task.getTaskType() == 3) {
                 for (int col = 0; col < colSize; col++) {
                     for (int row = 0; row < 12; row++) {
