@@ -1,15 +1,25 @@
 package org.javawavers.studybuddy;
 
+
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+
+
 
 /*
 TODO:
@@ -21,6 +31,25 @@ TODO:
  * Add documentation code
 */
 public class ExamPage {
+    SimulateAnnealing simulateAnnealing = new SimulateAnnealing();
+    Subject subjectGeneral = new Subject(null);
+    ArrayList<Subject> subject = new ArrayList<>();
+    ArrayList<Exam> exam = new ArrayList<>();
+    private TextField nameField, pageField, revisionField, difficulty, timePer;
+    public static String courseName = "";
+    public static String pages = "";
+    public static String revision = "";
+    public static String deadline = "";
+    public static String courseType = "";
+    public static String diffi = "0";
+    public static String time = "";
+    int difficul = Integer.parseInt(diffi);
+    Subject coursename = new Subject(courseName, difficul);
+
+    private DatePicker datePicker;
+    private ComboBox<String> typeCourseList;
+    int[][] schedule;
+
     // Exam Page as Node
     public Node createExamPanel() {
         VBox examPanel = new VBox(20);
@@ -39,17 +68,116 @@ public class ExamPage {
         Button okBtn = new Button("OK");
         okBtn.setStyle(btnStyle());
         okBtn.setOnMouseEntered(e -> okBtn.setStyle(btnMouseEntered()));
-        okBtn.setOnMouseClicked(e -> okBtn.setStyle(btnMousePressed()));
+        okBtn.setOnMouseClicked(e -> {
+            courseName = nameField.getText();
+            pages = pageField.getText();
+            revision = revisionField.getText();
+            deadline = datePicker.getValue() != null ? datePicker.getValue().toString() : null;
+            courseType = typeCourseList.getValue();
+            diffi = difficulty.getText();
+            time = timePer.getText();
+
+            List<String> errors = new ArrayList<>();
+
+            if (courseName.isEmpty()) {
+                errors.add("• Εισήγαγε Μάθημα");
+            }
+
+            if (pages.isEmpty() || !pages.matches("\\d+")) {
+                errors.add("• Η παράμετρος 'Σελίδες' πρέπει να είναι ακέραιος αριθμός.");
+            }
+
+            if (revision.isEmpty() || !revision.matches("\\d+")) {
+                errors.add("• Η παράμετρος 'Επανάληψη' πρέπει να είναι ακέραιος αριθμός.");
+            }
+
+            if (deadline == null || LocalDate.parse(deadline).isBefore(LocalDate.now())) {
+                errors.add("• Πρέπει να επιλέξεις ημερομηνία εξέτασης μετά τη σημερινή ημερομηνία.");
+            }
+
+            if (courseType == null || courseType.isEmpty()) {
+                errors.add("• Πρέπει να επιλέξεις το είδος του μαθήματος.");
+            }
+
+            if (diffi.isEmpty() || !diffi.matches("\\d+") || Integer.parseInt(diffi) < 1 || Integer.parseInt(diffi) > 10) {
+                errors.add("• Η δυσκολία πρέπει να είναι αριθμός μεταξύ 1 και 10.");
+            }
+
+            if (time.isEmpty() || !time.matches("\\d+")) {
+                errors.add("• Ο χρόνος ανά 20 διαφάνειες πρέπει να είναι αριθμός.");
+            }
+
+
+
+            if (!errors.isEmpty()) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Η φόρμα δεν έχει ολοκληρωθεί");
+                alert.setHeaderText(null);
+                String errorMessage = String.join("\n", errors);
+                alert.setContentText(errorMessage);
+                alert.getDialogPane().getStylesheets().add(getClass().getResource("alert.css").toExternalForm());
+                alert.showAndWait();
+                return;
+            }
+            difficul = Integer.parseInt(diffi);
+            int page = Integer.parseInt(revision);
+            double minutes = Double.parseDouble(pages);
+            Subject coursename = new Subject(courseName, difficul);
+           // subject.add(coursename);
+
+            LocalDate localDeadline = LocalDate.parse(deadline);
+            //Dates exam = new Dates(coursename, localDeadline);
+            //simulateAnnealing.getExams().add(exam);
+
+             Exam exam1 = new Exam(coursename, localDeadline, page);
+            //subjectGeneral.addExam(exam1);
+             coursename.addExam(exam1);
+             subject.add(coursename);
+             for ( Subject s : subject) {
+                simulateAnnealing.addSubject(s);
+              //  System.out.println(PrintSchedule.printSchedule(schedule, besttask, count));
+            }
+            schedule = simulateAnnealing.scheduleResult();
+            //System.out.println(schedule);
+           // subjectGeneral.getExams(exam1);
+           // exam.add(exam1);
+            nameField.clear();
+            pageField.clear();
+            revisionField.clear();
+            datePicker.setValue(null);
+            typeCourseList.setValue("");
+            difficulty.clear();
+            timePer.clear();
+            Availability.setAvailability(1, 6); // Monday: 6 available hours
+            Availability.setAvailability(2, 4); // Tuesday: 4 available hours
+        Availability.setAvailability(3, 7); // Wednesday: 7 available hours
+        Availability.setAvailability(4, 4); // Thursday: 4 available hours
+        Availability.setAvailability(5, 6); // Friday: 6 available hours
+        Availability.setAvailability(6, 6); // Saturday: 6 available hours
+        Availability.setAvailability(7, 6); // Sunday: 6 available hour
+            //πρεπει αυτο simulateAnnealing.addSubject(coursename);  να δημιουργειτε στο ημερολογιο αφου εχουν εισαχθει ολα τα μαθηματα και οι εργασιιες
+        //αυτο λειτουργει και πρεπει να το βσλω στο calendar 
+        //simulateAnnealing.addSubject(coursename);
+        //for ( Subject s : subject) {
+           // simulateAnnealing.addSubject(s);
+          //  System.out.println(s);
+       // }
+      //  simulateAnnealing.scheduleResult();
+        //System.out.println(schedule);
+        
+            okBtn.setStyle(btnMousePressed());
+        });
+
         okBtn.setAlignment(Pos.CENTER_LEFT);
 
         HBox okBtnHBox = new HBox(10);
         okBtnHBox.setAlignment(Pos.CENTER_LEFT);
         okBtnHBox.getChildren().add(okBtn);
 
-        //adds all the exam page parts to the panel
+
         examPanel.getChildren().addAll(coursePane, infoPane, evalPane, okBtnHBox);
 
-        return examPanel;  //returns the page
+        return examPanel;
     }
 
     // Section for Course name
@@ -57,8 +185,7 @@ public class ExamPage {
         VBox box = new VBox(10);
         Label nameLabel = new Label("Όνομασία Μαθήματος:");
         nameLabel.setStyle(labelStyle());
-        TextField nameField = new TextField();
-        String courseName = nameField.getText();
+        nameField = new TextField();
         box.getChildren().addAll(nameLabel, nameField);
         return box;
     }
@@ -69,37 +196,44 @@ public class ExamPage {
 
         Label typeLabel = new Label("Είδος: ");
         typeLabel.setStyle(labelStyle());
-        ComboBox<String> typeCourseList = new ComboBox<>();
+        typeCourseList = new ComboBox<>();
         typeCourseList.getItems().addAll("","Θεωρητικό", "Θετικό", "Συνδυασμός");
         typeCourseList.setValue("");
+        typeCourseList.setStyle("-fx-font-family: 'Arial';");
         HBox typeBox = new HBox(10, typeLabel, typeCourseList);
-        String courseType = typeCourseList.getValue();
+        pageField = new TextField();
+        revisionField = new TextField();
+        //ημερολογιο για την ημερομηνια τις εξετασης
+        datePicker = new DatePicker();
+        HBox deadlineBox = createLabeledField("Ημερομηνία Εξέτασης: ", datePicker);
 
-        HBox pageBox = createLabeledField("Σελίδες: ");
-        HBox revisionBox = createLabeledField("Επανάληψη ανά (σελίδες): ");
-        HBox deadlineBox = createLabeledField("Ημερομηνία Εξέτασης: ");
+        
+
+        HBox pageBox = createLabeledField("Σελίδες: ", pageField);
+        HBox revisionBox = createLabeledField("Επανάληψη ανά (σελίδες): ", revisionField);
+        //HBox deadlineBox = createLabeledField("Ημερομηνία Εξέτασης: ", deadlineField);
 
 
-        box.getChildren().addAll(typeBox,pageBox,revisionBox,deadlineBox);
+        box.getChildren().addAll(typeBox, pageBox, revisionBox, deadlineBox);
         return box;
     }
 
     // Section for course evaluation
     private VBox createEvalSection() {
         VBox box = new VBox(10);
+        difficulty = new TextField();
+        timePer = new TextField();
         box.getChildren().addAll(
-                createLabeledField("Δυσκολία:"),
-                createLabeledField("Χρόνος ανά 20 διαφάνειες:")
+                createLabeledField("Δυσκολία:", difficulty),
+                createLabeledField("Χρόνος ανά 20 διαφάνειες:", timePer)
         );
         return box;
     }
-
     // Label field
-    private HBox createLabeledField(String labelText) {
+    private HBox createLabeledField(String labelText,  Node node) {
         Label label = new Label(labelText);
         label.setStyle(labelStyle());
-        TextField textField = new TextField();
-        return new HBox(10, label, textField);
+        return new HBox(10, label, node);
     }
 
     //label style
@@ -108,7 +242,8 @@ public class ExamPage {
                 + " -fx-padding: 5;"
                 + " -fx-border-width: 1px;"
                 + " -fx-border-radius: 4px;"
-                + " -fx-background-radius: 4px;";
+                + " -fx-background-radius: 4px;"
+                +"-fx-font-family: Arial;";
     }
 
     //titlePane style
@@ -166,5 +301,13 @@ public class ExamPage {
                 + "-fx-border-color: #D98A4B;"
                 + "-fx-border-radius: 6;"
                 + "-fx-effect: none;";
+    }
+
+    public List<Subject> getSubjects() {
+        return subject;
+    }
+
+    public List<Exam> getExams() {
+        return exam;
     }
 }

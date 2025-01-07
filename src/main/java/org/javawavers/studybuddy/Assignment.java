@@ -1,16 +1,16 @@
 package org.javawavers.studybuddy;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
-import java.util.ArrayList;
 
 
 
     public class Assignment {
+       // private String courseName;
         private String title;
         private long remaingdays;
         private LocalDate deadline;
-        private int estimateHours;
-        private String description;
+       private int estimateHours;
+        private String difficulty;
         private LocalDate completeddDate;
 
 //κατασκευαστης χωρις παραμετρους
@@ -20,13 +20,14 @@ import java.util.ArrayList;
         }
 
 //κατασκευαστης με παραμετρους
-        public Assignment(String title, long remaingdays, LocalDate deadline, int estimateHours, String description, LocalDate completeDate) {
+        public Assignment( String title, LocalDate deadline, int estimateHours) {
+            //this.courseName = courseName;
             this.title = title;
-            this.remaingdays = getRemainingDays(today, deadline);
+            //this.remaingdays = getRemainingDays(today, deadline);
             this.deadline = deadline;
-            this.estimateHours = calculateEstHours();
-            this.description = description;
-            this.completeddDate = completeDate;
+            this.estimateHours = estimateHours;
+            //this.description = description;
+           // this.completeddDate = completeDate;
         }
         
 
@@ -53,7 +54,7 @@ import java.util.ArrayList;
                     }
                 }
 
-
+/* 
         //δημιουργια λιστων με λεξεις κλειδια για τον υπολογισμο της δυσκολιας της καθε εργασιας αναλογα με την εκφωνηση και το επιπεδο δυσκολιας
                 public static final ArrayList<String> keywords1 = new ArrayList<>() {{
                     add("x");
@@ -120,18 +121,22 @@ import java.util.ArrayList;
                     return finascore;
                 }
         
-        
+       
                 
         private int calculateEstHours() {
             double difficulty = difficultyestmator(description);
             //θελουμε μια κλιμακα που να επιστρεφει ωρες αναλογα με την εργασια 
             return 2;
-        }
+        }*/ 
 
 //gettersss
     public String getTitle() {
         return title;
     }
+
+   // public String getCourseName() {
+     //   return courseName;
+   // }
 
     public LocalDate getCompletedDate() {
         return completeddDate;
@@ -145,11 +150,15 @@ import java.util.ArrayList;
         return estimateHours;
     }
 
-    public String getDescription() {
-        return description;
+    public String getDifficulty() {
+        return difficulty;
     }
 
 //setterrss
+   // public void setCourseName(String courseName) {
+       // this.courseName = courseName;
+   // }
+
     public void setTitle(String title) {
         this.title = title;
     }
@@ -166,17 +175,9 @@ import java.util.ArrayList;
         this.estimateHours = estimateHours;
     }
 
-    public void setDescription() {
-        this.description = description;
+    public void setDifficulty() {
+        this.difficulty = difficulty;
     }
-                
-/*Δεν νομιζω πως ειναι εφικτο να προσδιορισουμε ακριβως της ωρες που χρειαζεται ενα μαθημα αναλογα με τις λεξεις κλειδια στην εκφωνηση,για αυτο θα μπορουσαμε να 
-εμφανιζαμε ενα pop up στον χρηστη οταν ολοκληρωση την προσθηκη μιας εργασιας στο οποιο θα απανταγε σε αυτες τις ερωτησεις
-Επιπεδο πολυπλοκοτητας : {εισαγωγικο επιπεδο , Μετριας δυσκολιας, Πολυδιαστατη εργασια} 
-Τυπος εργασιας: {θεωριτικη, ερευνητικη, πρακτικη, συνδυαστικη}
-Κλιμακα εργασιας : {μεγαλη,μεσαια, μικρη}
-Μεθοδος εργασιας: {ατομικη, ομαδικη, πρακτικη }
-Τομεασ σπουδων: {Πληροφορικη, οικονομικα, λογιστικη κ.α}
-*/
+
         
-    }  
+}  

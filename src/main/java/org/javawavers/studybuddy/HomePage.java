@@ -12,7 +12,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
-import javafx.stage.Stage;
 
 public class HomePage {
     public Scene home(SceneManager sceneManager) {
@@ -89,15 +88,8 @@ public class HomePage {
         tryButton.setLayoutY(308);
 
         tryButton.setOnAction(event -> {
-            RegisterPage signup = new RegisterPage();
-            Stage signupStage = new Stage();
-            signup.start(signupStage);
-            signupStage.setMaximized(true);
-//κλεινουμε το παραθυρο που ειναι ανοιχτο 
-            Stage currentStage = (Stage) tryButton.getScene().getWindow();
-            currentStage.close();
-            
-            signupStage.show();
+            RegisterPage register = new RegisterPage();
+            sceneManager.switchScene(register.register(sceneManager));
         });
 
         Label welcomeLabel = new Label("Γεια σου, \nΚαλώς όρισες στο \nStudy Buddy σου!");

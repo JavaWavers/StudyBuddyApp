@@ -1,9 +1,19 @@
 package org.javawavers.studybuddy;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.control.TitledPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
@@ -12,6 +22,16 @@ TODO :
  * same as ExamPage
  */
 public class AssignmentPage {
+    ArrayList<Assignment> assignments = new ArrayList<>();
+    private TextField namField, assignmentField, estimateHours, difficultyField;
+    ComboBox<String> coursesList;
+    private DatePicker datePicker;
+    public static String courseName = "";
+    public static String title = "";
+    public static String estimate = "";
+    public static String difficulty = "";
+    public static String deadline = "";
+    public static String courseType = "";
     // Assignment Page as Node
     public Node AssignmentPanel() {
         VBox assignmentPanel = new VBox(20);
@@ -30,7 +50,76 @@ public class AssignmentPage {
         Button okBtn = new Button("OK");
         okBtn.setStyle(btnStyle());
         okBtn.setOnMouseEntered(e -> okBtn.setStyle(btnMouseEntered()));
-        okBtn.setOnMouseClicked(e -> okBtn.setStyle(btnMousePressed()));
+        okBtn.setOnMouseClicked(e -> {
+            //courseName = namField.getText();
+            title = assignmentField.getText();
+            estimate = estimateHours.getText();
+            difficulty = difficultyField.getText();
+            deadline = datePicker.getValue() != null ? datePicker.getValue().toString() : null;
+            courseType = coursesList.getValue();
+
+            List<String> errors = new ArrayList<>();
+           /*  if (courseName.isEmpty()) {
+                errors.add("• Εισήγαγε Μάθημα");
+            }*/
+
+            if (title.isEmpty()) {
+                errors.add("• Όρισε τον Τίτλο της εργασίας");
+            }
+
+            if (estimate.isEmpty()) {
+                errors.add("• Όρισε εκτιμώμενη ώρα για το μάθημα");
+            }
+
+            if (difficulty.isEmpty() || !difficulty.matches("\\d+") || Integer.parseInt(difficulty) < 1 || Integer.parseInt(difficulty) > 10) {
+                errors.add("• H δυσκολία πρέπει να είναι αριθμός μεταξύ 1 και 10.");
+            }
+
+            if (deadline == null || LocalDate.parse(deadline).isBefore(LocalDate.now())) {
+                errors.add("• Πρέπει να επιλέξεις ημερομηνία εξέτασης μετά τη σημερινή ημερομηνία.");
+            }
+
+            if (courseType == "") {
+                errors.add("• Πρέπει να προσθέσεις ένα μάθημα");
+            }
+
+            if (!errors.isEmpty()) {
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Η φόρμα δεν έχει ολοκληρωθεί");
+                alert.setHeaderText(null);
+                String errorMessage = String.join("\n", errors);
+                alert.setContentText(errorMessage);
+                alert.getDialogPane().getStylesheets().add(getClass().getResource("alert.css").toExternalForm());
+                alert.showAndWait();
+                return;
+            }
+            LocalDate localDeadline = LocalDate.parse(deadline);
+            int estimateHour = Integer.parseInt(estimate);
+
+            Assignment assignment1 = new Assignment(title, localDeadline, estimateHour);
+            ExamPage exampage = new ExamPage();
+            Subject course = exampage.coursename;
+            course.addAssignment(assignment1);
+
+            namField.clear();
+            assignmentField.clear();
+            estimateHours.clear();
+            difficultyField.clear();
+            datePicker.setValue(null);
+            coursesList.setValue("");
+
+            //System.out.println(courseName);
+            System.out.println(title);
+            System.out.println(estimate);
+            System.out.println(difficulty);
+            System.out.println(deadline);
+            System.out.println(courseType);
+
+
+        
+        
+            okBtn.setStyle(btnMousePressed());
+        });
         okBtn.setAlignment(Pos.CENTER_LEFT);
 
         HBox okBtnHBox = new HBox(10);
@@ -48,9 +137,10 @@ public class AssignmentPage {
         VBox box = new VBox(10);
         Label nameLabel = new Label("Μάθημα Εργασίας:");
         nameLabel.setStyle(labelStyle());
+        namField = new TextField();
 
-        ComboBox<String> coursesList = new ComboBox<>();
-        //coursesList.setPromptText(" ");
+        coursesList = new ComboBox<>();
+        coursesList.setPromptText(" ");
         coursesList.getItems().addAll("","Μαθηματικά", "Ιστορία", "Φυσική");
         coursesList.setValue("");
 
@@ -61,30 +151,37 @@ public class AssignmentPage {
 
     // Section for course information
     private VBox createInfoSection() {
+        datePicker = new DatePicker();
+        HBox deadlineBox = createLabeledField("Ημερομηνία Παράδοσης:", datePicker);
+        
+        assignmentField = new TextField();
+        estimateHours = new TextField();
+        
         VBox box = new VBox(10);
         box.getChildren().addAll(
-                createLabeledField("Tίτλος Εργασίας:"),
-                createLabeledField("Ημερομηνία Παράδοσης:"),
-                createLabeledField("Εκτιμώμενες Απαιτούμενες Ώρες:")
+                createLabeledField("Tίτλος Εργασίας:", assignmentField),
+                createLabeledField("Εκτιμώμενες Απαιτούμενες Ώρες:", estimateHours)
         );
+        box.getChildren().addAll(deadlineBox);
         return box;
     }
 
     // Section for course evaluation
     private VBox createEvalSection() {
+        difficultyField = new TextField();
         VBox box = new VBox(10);
         box.getChildren().addAll(
-                createLabeledField("Δυσκολία:")
+                createLabeledField("Δυσκολία:", difficultyField)
         );
         return box;
     }
 
     // Label field
-    private HBox createLabeledField(String labelText) {
+    private HBox createLabeledField(String labelText, Node node) {
         Label label = new Label(labelText);
         label.setStyle(labelStyle());
-        TextField textField = new TextField();
-        return new HBox(10, label, textField);
+        //TextField textField = new TextField();
+        return new HBox(10, label, node);
     }
 
     //label style

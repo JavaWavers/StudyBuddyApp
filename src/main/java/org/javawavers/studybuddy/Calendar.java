@@ -48,10 +48,12 @@ public class Calendar extends Application {
 //StudyBuddyApp st = new StudyBuddyApp();
 //περνουμε την σημερινη ημερα
     LocalDate today = LocalDate.now();
+    SimulateAnnealing simulateAnnealing = new SimulateAnnealing();
+    PrintSchedule printSchedule = new PrintSchedule();
+    
 
 //αρχικοποιουμε την besttask,schedule,subject που τις εχουμε παρει απο την studybuddyapp
-    public static List<Task> besttask = new ArrayList<>();
-    public static int[][] schedule;
+    List<Task> besttask = printSchedule.printSchedule(null, null, 0);
     ArrayList<SubjectTest> subject;
 
 //αρχικοποιουμε τις λιστες και τα vbox τα οποια χρησιμευουν στην δυναμικη επεξεργασια και εμφανιση των task
@@ -59,6 +61,8 @@ public class Calendar extends Application {
     public static List<String> completed = new ArrayList<>();
     private VBox upcomingTasksBox = new VBox(10);
     private VBox completedTasksBox = new VBox(10);
+    
+
 
 
     private LocalDate currentWeekStart;
@@ -211,22 +215,40 @@ public class Calendar extends Application {
         Button prevButton = new Button("<");
         prevButton.setStyle("-fx-background-color: #CF308C; -fx-text-fill: white; -fx-font-size: 14px; -fx-background-radius: 30px;");
         prevButton.setPrefSize(30, 30);
-        
+        ExamPage expage = new ExamPage();
+        //simulateAnnealing.addSubject(expage.coursename);
+       /*  for ( Subject s : expage.subject) {
+            simulateAnnealing.addSubject(s);
+          //  System.out.println(PrintSchedule.printSchedule(schedule, besttask, count));
+        }
+        int[][] schedule = simulateAnnealing.scheduleResult();*/
+        int[][] schedule = expage.schedule;
+       // System.out.println(schedule);
         Button nextButton = new Button(">");
         nextButton.setStyle("-fx-background-color: #CF308C; -fx-text-fill: white; -fx-font-size: 14px; -fx-background-radius: 30px;");
         nextButton.setPrefSize(30, 30);
+        
+        int daysinWeek = 7;
+        List<int[][]> weekschedule = splitSchedule(schedule, daysinWeek);
+        
+        GridPane calendarGrid = new GridPane();
+        calendarGrid.setStyle("-fx-border-color: black;");
+        calendarGrid.setGridLinesVisible(true);
+        createCalendarGrid(calendarGrid, besttask, weekschedule, count);
 //μεταβλητη count η οποια μολις ο χρηστης παταει το κουμπι που παει τις εβδομαδες μπροστα αυξανεται αλλιως μειωνεται οταν count == 0 τοτε θα εεμφανιζετε το κουμπι today
         prevButton.setOnAction(event -> {
             currentWeekStart = currentWeekStart.minusWeeks(1);
             count = count + 1;
-            weekLabel.setText(formatWeekLabel(currentWeekStart, formatter));
+            //weekLabel.setText(formatWeekLabel(currentWeekStart, formatter));
+            //createCalendarGrid(calendarGrid, besttask, weekschedule, count);
             
         });
     
         nextButton.setOnAction(event -> {
             count--;
             currentWeekStart = currentWeekStart.plusWeeks(1);
-            weekLabel.setText(formatWeekLabel(currentWeekStart, formatter));
+           // weekLabel.setText(formatWeekLabel(currentWeekStart, formatter));
+            //createCalendarGrid(calendarGrid, besttask, weekschedule, count);
 
         });
 
@@ -236,10 +258,14 @@ public class Calendar extends Application {
         weekSwitcher.getChildren().addAll(prevButton, weekLabel, nextButton);
         
 //αρχικοποιηση του πινακα και δημιουργια του πινακα
+       /*  int[][] schedule = simulateAnnealing.scheduleResult();
+        int daysinWeek = 7;
+        List<int[][]> weekschedule = splitSchedule(schedule, daysinWeek);
+        
         GridPane calendarGrid = new GridPane();
         calendarGrid.setStyle("-fx-border-color: black;");
         calendarGrid.setGridLinesVisible(true);
-        createCalendarGrid(calendarGrid, besttask, schedule);
+       createCalendarGrid(calendarGrid, besttask, weekschedule, count);*/
 
         Button todayButton = new Button("Today");
         todayButton.setStyle("-fx-background-color: #CF308C; -fx-background-radius: 30px; -fx-border-color: black; -fx-border-radius: 30px;");
@@ -286,8 +312,8 @@ public class Calendar extends Application {
         refreshButton.setGraphic(refreshIcon);
 
         refreshButton.setOnAction(event -> {
-            schedule = SimulateAnnealing.SchedulResult();
-            createCalendarGrid(calendarGrid, besttask, schedule);
+           // schedule = SimulateAnnealing.p();
+            //createCalendarGrid(calendarGrid, besttask, schedule);
         });
         
 //βαζουμε ολα τα στοιχεια του κεντρου μαζι και τα επιστρεφουμε
@@ -364,20 +390,34 @@ public class Calendar extends Application {
     }
 
 //δημιουργουμε το ημερολογιο
-    private void createCalendarGrid(GridPane grid, List<Task> besttask, int[][] schedule) {
+//δεν υπαρχει schedule 
+    private void createCalendarGrid(GridPane grid, List<Task> besttask, List<int[][]> weekschedule, int currentIndex) {
         String[] days = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
+        int[][] selectedWeek = weekschedule.get(currentIndex);
+        grid.getChildren().clear();
+        grid.getColumnConstraints().clear();
+        grid.getRowConstraints().clear();
+        /*int daysinWeek = days.length;
+        int totalDays = schedule[0].length;
+        int weeksCount = totalDays / daysinWeek;
+
+        LocalDate startDay = LocalDate.now();
+        DayOfWeek currentDay = startDay.getDayOfWeek();
+        int currentIndex = currentDay.getValue() -1;
+        int startDayIndex = currentIndex;*/
+        int daysinWeek = days.length;
 
 
 
         //ρυθμιζουμε το πλατος για τις 7 στηλες
-        for (int i = 1; i < days.length + 1; i++) {
+        for (int i = 1; i < daysinWeek ; i++) {
             ColumnConstraints column = new ColumnConstraints();
             column.setPercentWidth(100.0 / 7);
             grid.getColumnConstraints().add(column);
         }
 
 //βαζουμε τους τιτλους για την καθε μερα 
-        for (int i = 0; i < days.length; i++) {
+        for (int i = 0; i < 7; i++) {
             Label dayLabel = new Label(days[i]);
             dayLabel.setStyle("-fx-font-weight: bold; -fx-border-color: gray; -fx-border-width: 0; -fx-alignment: center;");
             dayLabel.setFont(Font.font("System", FontWeight.BOLD, 18));
@@ -388,15 +428,15 @@ public class Calendar extends Application {
         }
 
 //να εχουν ολες γραμμες το ιδιο υψος 
-        for (int i = 0; i < 11; i++) {  // 11 γραμμες για τον πινακα
+        for (int i = 0; i < 12; i++) {  // 11 γραμμες για τον πινακα
             RowConstraints row = new RowConstraints();
             row.setPercentHeight(100.0 / 11);
             grid.getRowConstraints().add(row);
         }
 
         
-        for (int row = 1; row < 11; row++) {
-            for (int col = 0; col <= days.length -1; col++) {
+        for (int row = 1; row < 12; row++) {
+            for (int col = 0; col <= daysinWeek -1; col++) {
                 Label cell = new Label();
               //  cell.setStyle("-fx-border-color: gray; -fx-border-width: 0; -fx-alignment: center;");
                // cell.setFont(Font.font("System", FontWeight.NORMAL, 14));
@@ -411,11 +451,13 @@ public class Calendar extends Application {
                 //MainTestAlgorithm algorithm = new MainTestAlgorithm();
                 //cell.setText(algorithm.run(row, col));
                // cell.setText(besttask.get(row).toString());
-                if (schedule != null && besttask != null &&
-                    row < schedule.length && col < schedule[row].length &&
-                    schedule[row][col] > 0 && schedule[row][col] <= besttask.size()) {
+               //ειναι λιστα το weekschedule οχι δισδιαστατος πινακασ
+                if (selectedWeek != null && besttask != null &&
+                    row < selectedWeek.length && col < selectedWeek[row].length &&
+                    selectedWeek[row][col] > 0 && selectedWeek[row][col] <= besttask.size()) {
 
-                    int taskIndex = schedule[row][col] - 1;
+                    int taskIndex = selectedWeek[row][col] - 1;
+                    
                     if (taskIndex >= 0 && taskIndex < besttask.size()) {
                         //cell.setText(besttask.get(taskIndex).toString());
                         String taskText = besttask.get(taskIndex).toString();
@@ -446,19 +488,21 @@ public class Calendar extends Application {
                     String taskDescription = "κενο";
                     LocalDate examDate = null;
 
-                    if (schedule != null && besttask != null &&
-                        rowFinal < schedule.length && colFinal < schedule[rowFinal].length &&
-                        schedule[rowFinal][colFinal] > 0 && schedule[rowFinal][colFinal] <= besttask.size()) {
+                    if (selectedWeek != null && besttask != null &&
+                        rowFinal < selectedWeek.length && colFinal < selectedWeek[rowFinal].length &&
+                        selectedWeek[rowFinal][colFinal] > 0 &&  selectedWeek[rowFinal][colFinal] <= besttask.size()) {
 
-                        int taskIndex = schedule[rowFinal][colFinal] - 1;
+                        int taskIndex = selectedWeek[rowFinal][colFinal] - 1;
                     if (taskIndex >= 0 && taskIndex < besttask.size()) {
                         taskDescription = besttask.get(taskIndex).toString();
                     }
                 }
-                for (SubjectTest subject : subject) {
-                    if (taskDescription.contains(subject.getName())) {
-                        examDate = subject.getExamDate();
-                        break;
+                if (subject != null) {
+                    for (SubjectTest subject : subject) {
+                        if (taskDescription.contains(subject.getName())) {
+                            examDate = subject.getExamDate();
+                            break;
+                        }
                     }
                 }
 
@@ -599,6 +643,30 @@ public class Calendar extends Application {
 
         updateUpcomingTasks(upcomingTasksBox);
         updateCompletedTasks(completedTasksBox);
+    }
+
+    public List<int[][]> splitSchedule(int[][] schedule, int daysinWeek) {
+        List<int[][]> weekTasks = new ArrayList<>();
+        int totalrow = schedule.length;
+        int totalcol = schedule[0].length;
+        int weeksCount = (int) Math.ceil((double) totalcol / totalrow);
+
+        for (int week = 0; week < weeksCount; week++) {
+            //δημιουργουμε πινακα για την εβδομαδα
+            int[][] scheduleWeek = new int[totalrow][daysinWeek];
+            for (int row = 0; row < totalrow; row++){
+                for (int col = 0; col < totalcol; col++) {
+                    int indexcol = week * daysinWeek + col;
+                    if (indexcol < totalcol) {
+                        scheduleWeek[row][col] = schedule[row][indexcol];
+                    } else {
+                        scheduleWeek[row][col] = 0;
+                    }
+                }
+            }
+            weekTasks.add(scheduleWeek);
+        }
+        return weekTasks;
     }
 
 

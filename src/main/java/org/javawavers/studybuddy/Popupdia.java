@@ -1,12 +1,17 @@
 package org.javawavers.studybuddy;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextFormatter;
@@ -18,6 +23,7 @@ import javafx.util.converter.IntegerStringConverter;
 public class Popupdia extends Application {
     private final Map<String, Integer> availabilityMap = new HashMap<>();
     int[] avperday = new int[8];
+    private  DatePicker datePicker;
 
 
 
@@ -59,9 +65,11 @@ public class Popupdia extends Application {
         TextField saturdayField = createTextField(305);
         TextField sundayField = createTextField(352);
 
-        TextField specificDayField = new TextField();
-        specificDayField.setLayoutX(242);
-        specificDayField.setLayoutY(98);
+        datePicker = new DatePicker();
+        //TextField specificDayField = new TextField();
+        datePicker.setLayoutX(242);
+        datePicker.setLayoutY(98);
+        datePicker.setPromptText("Eπιλεξτε μη-διαθεσιμη ημερομηνια");
         
         //προσθηκη κουμπιου (οκ) για να κλεινει το παραθυρο
         Button okButton = new Button("OK");
@@ -82,6 +90,19 @@ public class Popupdia extends Application {
         avperday[6] = parseTextFieldValue(saturdayField);
         avperday[7] = parseTextFieldValue(sundayField);
 
+        List<String> errors = new ArrayList<>();
+
+        for (int i = 1; i <= 7; i++) {
+            Availability.setAvailability(i, avperday[i]);
+            if (avperday[i] > 7 ) {
+                errors.add("• Oι διαθέσιμες ώρες μέσα σε μια μέρα πρέπει να είναι λιγότερες απο 7");
+            }
+        }
+        LocalDate setNoAvailicility = datePicker.getValue();
+        if (setNoAvailicility != null) {
+            Availability.setNonAvailability(setNoAvailicility);
+        }
+
         availabilityMap.put("Δευτέρα", avperday[1]);
         availabilityMap.put("Τρίτη", avperday[2]);
         availabilityMap.put("Τετάρτη", avperday[3]);
@@ -89,10 +110,27 @@ public class Popupdia extends Application {
         availabilityMap.put("Παρασκευή", avperday[5]);
         availabilityMap.put("Σάββατο", avperday[6]);
         availabilityMap.put("Κυριακή", avperday[7]);
-        availabilityMap.put("Συγκεκριμένη Ημέρα", parseTextFieldValue(specificDayField));
+        //availabilityMap.put("Συγκεκριμένη Ημέρα", setNoAvailicility);
 
 //εκτυπωση των αποτελεσματων των ημερων(για το test)
         System.out.println(Arrays.toString(avperday));
+
+        if(setNoAvailicility == null || setNoAvailicility.isBefore(LocalDate.now())) {
+            errors.add("• Πρέπει να επιλέξεις ημερομηνία μη-διαθεσιμότητας μετά τη σημερινή ημερομηνία.");
+        }
+
+        if (!errors.isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Η φόρμα δεν έχει ολοκληρωθεί");
+            alert.setHeaderText(null);
+            String errorMessage = String.join("\n", errors);
+            alert.setContentText(errorMessage);
+            alert.getDialogPane().getStylesheets().add(getClass().getResource("alert.css").toExternalForm());
+            alert.showAndWait();
+            return;
+        }
+
+
 
 
 // Κλεισιμο παραθυρου
@@ -101,7 +139,7 @@ public class Popupdia extends Application {
 
         root.getChildren().addAll(label1, label2, monday, tuesday, wednesday, thursday, friday, saturday, sunday,
                 mondayField, tuesdayField, wednesdayField, thursdayField, fridayField, saturdayField, sundayField,
-                specificDayField);
+                datePicker);
 
         Scene scene = new Scene(root, 428, 444);
         primaryStage.setTitle("Calendar View");

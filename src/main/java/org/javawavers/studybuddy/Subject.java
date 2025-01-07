@@ -1,29 +1,26 @@
 package org.javawavers.studybuddy;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 public class Subject {
-    // Enum για τους τύπους μαθημάτων
+    // Enum for the course types
     public enum SubjectType {
         THEORETICAL, PRACTICAL, BOTH, UNDEFINED
     }
 
-    // Enum για τον στόχο μελέτης
+    // Enum for the study goal
     public enum StudyGoal {
         AVERAGE, GOOD, EXCELLENT
     }
-    private static final Random random = new Random();
-    private String courseName;
-    private int difficultyLevel; // Επίπεδο δυσκολίας
-    private SubjectType subjectType; // Τύπος μαθήματος
-    private StudyGoal studyGoal; // Στόχος μελέτης
-    private final List<Exam> exams = new ArrayList<>(); // Λίστα εξετάσεων
-    private final List<Assignment> assignments = new ArrayList<>(); // Λίστα εργασιών
-    private String color;//χρωμα που αντιπρωσοπευει το μαθημα
 
-    // Getters και Setters
+    private String courseName;
+    private int difficultyLevel; // Difficulty level of the course
+    private SubjectType subjectType; // Type of the course
+    private StudyGoal studyGoal; // Study goal for the course
+    private List<Exam> exams = new ArrayList<>(); // List of exams
+    private List<Assignment> assignments = new ArrayList<>(); // List of assignments
+
+    // Getters and Setters
     public String getCourseName() {
         return courseName;
     }
@@ -57,61 +54,51 @@ public class Subject {
     }
 
     // Constructors
-    // Κατασκευαστής με όρισμα μόνο το όνομα του μαθήματος
+    // Constructor with just the course name
     public Subject(String courseName) {
         this.courseName = courseName;
-        this.difficultyLevel = 1; // Προεπιλεγμένο επίπεδο δυσκολίας
-        this.subjectType = SubjectType.UNDEFINED; // Προεπιλεγμένος τύπος μαθήματος
-        this.studyGoal = StudyGoal.GOOD; // Προεπιλεγμένος στόχος μελέτης
-        this.color = selectColor();
+        this.difficultyLevel = 1; // Default difficulty level
+        this.subjectType = SubjectType.UNDEFINED; // Default subject type
+        this.studyGoal = StudyGoal.GOOD; // Default study goal
     }
 
-    // Κατασκευαστής με όλα τα πεδία
-    public Subject(String courseName, int difficultyLevel, SubjectType subjectType, StudyGoal studyGoal, String color) {
+    // Constructor with all fields
+    public Subject(String courseName, int difficultyLevel) {
         this.courseName = courseName;
         this.difficultyLevel = difficultyLevel;
-        this.subjectType = subjectType;
-        this.studyGoal = studyGoal;
-        this.color = selectColor();
+        //this.subjectType = subjectType;
+        //this.studyGoal = studyGoal;
     }
 
-    // Μέθοδοι διαχείρισης εξετάσεων
-    public void addExam(Exam exam) { //προσθήκη εξεταστικής
+    // Methods to manage exams
+    public void addExam(Exam exam) { // Add an exam to the course
         exams.add(exam);
+        //System.out.println(exam);
     }
 
-    public List<Exam> getExams() { //μέθοδος για ανάκτηση εξετάσεων
+    public List<Exam> getExams() { // Retrieve the list of exams for the course
+        System.out.println(exams);
         return exams;
     }
 
-    // Μέθοδοι διαχείρισης εργασιών
-    public void addAssignment(Assignment assignment) { //προσθήκη εργασίας
+    // Methods to manage assignments
+    public void addAssignment(Assignment assignment) { // Add an assignment to the course
         assignments.add(assignment);
     }
 
-    public List<Assignment> getAssignments() { //μέθοδος για ανάκτηση εργασιών
+    public List<Assignment> getAssignments() { // Retrieve the list of assignments for the course
         return assignments;
     }
 
-    public String getColor() {
-        return AVAILABLE_COLORS[random.nextInt(AVAILABLE_COLORS.length)];
-    }
+    public double getTotalAssHours() {
+        double sum = 0.0;
 
-    public void setColor(String color) {
-        this.color = color;
-    }
-
-    private static final String[] AVAILABLE_COLORS = {"Red", "Blue", "Green", "Yellow", "Purple", "Orange"};
-    private static final List<String> usedColors = new ArrayList<>(); //λιστα απο τα χρωματα που εχουν χρησιμοποιηθει
-
-    private String selectColor() {
-        for (String availableColor : AVAILABLE_COLORS) {
-            if (!usedColors.contains(availableColor)) {
-                usedColors.add(availableColor);
-                return availableColor;
-            }
+        // Traverse through the assignments list
+        for (Assignment assignment : assignments) {
+            sum += assignment.getEstimateHours(); // Add the estimated hours of the current assignment
         }
-        return "No Color Available"; //αν δεν υπααρχουν διαθεσιμα χρωματα
+
+        return sum;
     }
 
 }

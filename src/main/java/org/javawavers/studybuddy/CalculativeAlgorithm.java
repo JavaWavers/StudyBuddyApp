@@ -3,49 +3,33 @@ package org.javawavers.studybuddy;
  * time into groups (referred also as tasks) equally for each week till the
  * due day
  */
-import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
 
 public class CalculativeAlgorithm {
     // The page number that a user is physically possible to study per min
-    private static double pagespermin = 0.2;
+    private static double pagesPerMin = 0.2;
 
-    // The total studying time required for a subject
-    private static double totaltime;
-
-    // Studying hours per week
-    private static double totaltimeweek;
     // setters & getters
 
     // setter for pages per minute
-    public static void setPagespermin(double ppm) {
-        pagespermin = ppm;
+    public static void setPagesPerMin(double ppm) {
+        pagesPerMin = ppm;
     }
 
     // getter for pages per minute
-    public static double getPagespermin() {
-        return pagespermin;
+    public static double getPagesPerMin() {
+        return pagesPerMin;
     }
 
     // calculates total studying time in hours
-    public static double totalStudyingTime(SubjectTest s) {
-        totaltime = (s.getTotalpagenumber() * s.getDifficultyrange()) / (pagespermin * 60);
-        return totaltime;
+    public static double totalStudyingTime(Subject s) {
+        // The total studying time required for a subject
+        return (s.getExams().get(0).getPages() * s.getDifficultyLevel()) / (pagesPerMin * 60);
     }
 
     // total studying tasks per week
-    public static int studyingPerweek(SubjectTest s) {
-        // calculates the remaining days until the exam day
-        long weeksuntilexam = ChronoUnit.DAYS.between(LocalDate.now(), s.getExamDate());
-        // casting into double for calculating purposes, converts into weeks as an
-        // integer number
-        int weeks = (int) ((double) weeksuntilexam / 7);
-        // calculating the total time needed to study each week, equally divided for
-        // each
-        // week
-        // The calculation is
-        totaltimeweek = totalStudyingTime(s) / weeks;
-        return numberOfScheduledTask(totaltimeweek);
+    public static int studyingTasks(Subject s) {
+        double totalTimeWeek = totalStudyingTime(s) ;
+        return numberOfScheduledTask(totalTimeWeek);
     }
 
     /*
