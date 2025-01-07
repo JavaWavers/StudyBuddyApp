@@ -17,6 +17,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Screen;
+import javafx.stage.Stage;
 
 public class LoginPage {
 
@@ -27,9 +28,11 @@ public class LoginPage {
     private TextField textField;
     private Button loginButton;
     private Button signinButton;
+    private SceneManager sceneManager;
 
     public Scene login(SceneManager sceneManager) {
         HBox loginPage = new HBox();
+        this.sceneManager = sceneManager;
 
         initRightPane();
         initLeftPane();
@@ -213,7 +216,7 @@ public class LoginPage {
         VBox.setVgrow(downSpacer, Priority.ALWAYS);
         leftVBox.getChildren().addAll(upSpacer, joinText, emailLabel, emailField, passwordLabel, passwordBox, loginButton, downSpacer);
 
-        //leftVBox.getChildren().addAll(joinText, emailLabel, emailField, passwordLabel, passwordBox, loginButton);
+
         Region leftSpacer = new Region();
         Region rightSpacer = new Region();
         HBox.setHgrow(leftSpacer, Priority.ALWAYS);
@@ -223,10 +226,10 @@ public class LoginPage {
     }
 
     private void setupEventHandlers() {
-        /*signinButton.setOnAction(event -> {
+        signinButton.setOnAction(event -> {
             RegisterPage registerPage = new RegisterPage();
             sceneManager.switchScene(registerPage.register(sceneManager));
-        });*/
+        });
 
         loginButton.setOnAction(event -> {
             validateLogin();
