@@ -27,9 +27,11 @@ public class LoginPage {
     private TextField textField;
     private Button loginButton;
     private Button signinButton;
+    private SceneManager sceneManager;
 
     public Scene login(SceneManager sceneManager) {
         HBox loginPage = new HBox();
+        this.sceneManager = sceneManager;
 
         initRightPane();
         initLeftPane();
@@ -213,7 +215,7 @@ public class LoginPage {
         VBox.setVgrow(downSpacer, Priority.ALWAYS);
         leftVBox.getChildren().addAll(upSpacer, joinText, emailLabel, emailField, passwordLabel, passwordBox, loginButton, downSpacer);
 
-        //leftVBox.getChildren().addAll(joinText, emailLabel, emailField, passwordLabel, passwordBox, loginButton);
+
         Region leftSpacer = new Region();
         Region rightSpacer = new Region();
         HBox.setHgrow(leftSpacer, Priority.ALWAYS);
@@ -223,10 +225,10 @@ public class LoginPage {
     }
 
     private void setupEventHandlers() {
-        /*signinButton.setOnAction(event -> {
+        signinButton.setOnAction(event -> {
             RegisterPage registerPage = new RegisterPage();
             sceneManager.switchScene(registerPage.register(sceneManager));
-        });*/
+        });
 
         loginButton.setOnAction(event -> {
             validateLogin();
@@ -249,7 +251,7 @@ public class LoginPage {
             alert.showAndWait();
 
             return;
-        } else if (email.equals(rrrr.storedEmail) && password.equals(rrrr.storedPassword)) {
+        } else if (email.equals(RegisterPage.storedEmail) && password.equals(RegisterPage.storedPassword)) {
 
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Σύνδεση Επιτυχής");
