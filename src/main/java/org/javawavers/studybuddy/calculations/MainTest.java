@@ -8,12 +8,15 @@ public class MainTest {
         Subject Maths = new Subject("Maths", 5, null, null);
         Exam e1 = new Exam(LocalDate.of(2025, 2, 24), 400);
         Maths.addExam(e1);
-        Assignment a1 = new Assignment("Ass1", LocalDate.of(2025, 2, 10), 60);
-        //Assignment a2 = new Assignment("Ass1", LocalDate.of(2025, 1, 19), 10);
+        Assignment a1 = new Assignment("Ass1", LocalDate.of(2025, 1, 18),13 );
+
         Maths.addAssignment(a1);
         //Maths.addAssignment(a2);
         Subject History = new Subject("History", 4, null, null);
         Exam e2 = new Exam(LocalDate.of(2025, 2, 28), 300);
+
+        //assignment without any exam
+        Assignment a2 = new Assignment("Ass1", LocalDate.of(2025, 1, 18),13 );
 
         History.addExam(e2);
         ArrayList<Subject> subs = new ArrayList<>();
@@ -39,6 +42,7 @@ public class MainTest {
 
         }
 
+        sAnnealing.subAss2(a2.getName(), a2.getDeadline(), a2.getEstimateHours());
         SimulateAnnealing.scheduleResult();
     }
 }

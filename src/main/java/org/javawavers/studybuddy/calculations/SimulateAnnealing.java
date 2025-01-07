@@ -9,6 +9,7 @@ package org.javawavers.studybuddy.calculations;
  * and is given to the user as a recommended studying schedule.
  */
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -50,14 +51,13 @@ public class SimulateAnnealing {
     // Setting exams for each subject
     private void subExams(Subject subject) {
         if(!subject.getExams().isEmpty()) {
-            // Create an ExamDates object with the subject name and the exam date
+            // Create a Dates object with the subject name and the exam date
             Dates examDate = new Dates(subject, subject.getExams().getFirst().getExamDate());
-            // Add the ExamDates object to the list
+            // Add the Dates object to the list
             exams.add(examDate);
         }
         // Check if the subject or its exams list is null
         if ( subject.getExams() == null || subject.getExams().isEmpty()) {
-            System.out.println("Please enter an exam date for the subject: "+ subject.getCourseName());
             throw new IllegalArgumentException("Subject or exam list is invalid. Exams must not be empty.");
 
         }
@@ -66,22 +66,38 @@ public class SimulateAnnealing {
     // Setting exams for each subject
     private void subAssignment(Subject subject) {
         if(!subject.getAssignments().isEmpty()) {
-            // Create an ExamDates object with the subject name and the exam date
+            // Create a Dates object with the subject name and the exam date
             Dates assDate = new Dates(subject, subject.getAssignments().getFirst().getDeadline());
-            // Add the ExamDates object to the list
+            // Add the Dates object to the list
             assignments.add(assDate);
         }
 
+    }
+    // Setting exams for non-subject related assignments
+    public void subAss2(String name, LocalDate deadline, int estimateHours) {
+            // Create a Dates object with the subject name and the exam date
+            Dates assDate = new Dates(name, deadline);
+            // Add the Dates object to the list
+            assignments.add(assDate);
+            subTask2(name,estimateHours);
+    }
+
+    private void subTask2(String name, int estimateHours){
+        int taskType3 = CalculativeAlgorithm.numberOfScheduledTask(estimateHours);
+
+        // Task creation for each task type
+
+        for (int i = 0; i < taskType3; i++) {
+            tasks.add(new Task(name, 3)); // Assignment
+        }
     }
 
     // Creating tasks for each subject
     private void subTasks(Subject subject) {
         // studying tasks
         int taskType1 = CalculativeAlgorithm.studyingTasks(subject);
-        System.out.println("subTasks" +subject.getCourseName()+ taskType1);
         // assignment tasks
         int taskType3 = CalculativeAlgorithm.numberOfScheduledTask(subject.getTotalAssHours());
-        System.out.println("subTasks" +subject.getCourseName()+ taskType3);
         // Task creation for each task type
         for (int i = 0; i < taskType1; i++) {
             tasks.add(new Task(subject, 1)); // studying

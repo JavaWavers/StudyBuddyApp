@@ -24,6 +24,10 @@ public class Dates {
         this.subjName = subj.getCourseName();
         this.deadLine = deadLine;
     }
+    public Dates(String name, LocalDate deadLine){
+        this.subjName=name;
+        this.deadLine=deadLine;
+    }
 
     // getters
     public String getSubName() {

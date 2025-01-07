@@ -25,9 +25,21 @@ public class Assignment extends SubjectElement {
 
     public Assignment(String title, LocalDate deadline, int estimateHours) {
         super(deadline, title);
-        this.estimateHours = estimateHours;
+        if(validEstHours(estimateHours,deadLine)){
+            this.estimateHours = estimateHours;
+        } else {
+            System.out.println("Οι ώρες πρέπει να είναι μικρότερες από:" + maxHours);
+            throw new IllegalArgumentException("Invalid estimate hours: Hours must fit within the given deadline.");
+        }
+
     }
 
+    private static int maxHours;
+    private static boolean validEstHours(int estimateHours, LocalDate deadLine){
+        LocalDate today = LocalDate.now();
+        maxHours= (int)ChronoUnit.DAYS.between(today, deadLine) *14;
+        return (estimateHours<maxHours);
+    }
     // getters
     public String getTitle() {
         return super.getName();
