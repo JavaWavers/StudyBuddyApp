@@ -12,7 +12,7 @@ public class Validate {
      * return - the validated schedule
      */
     public static int[][] validateSchedule(int[][] validSchedule, List<Task> taskList) {
-        int [][] dValidSchedule = deadlineValidity(validSchedule, taskList);
+        int[][] dValidSchedule = deadlineValidity(validSchedule, taskList);
         int[][] avValidSchedule = availabilityValidity(dValidSchedule, taskList);
         return assignmentsValidity(avValidSchedule, taskList);
     }
@@ -83,16 +83,20 @@ public class Validate {
      * forcefully assigning them if needed.
      */
     private static int[][] assignmentsValidity(int[][] validSchedule, List<Task> taskList) {
+        List<Dates> deadLines=new ArrayList<>(SimulateAnnealing.getAssignments());
         // Create a list of all unassigned tasks of type 3
         List<Integer> unassignedTasks = getIntegers(validSchedule, taskList);
 
-        int col=0;
+        int col = 0;
         // Forcefully assign remaining tasks of type 3 to available slots
         for (int taskIndex : unassignedTasks) {
-            boolean assigned=false;
+            boolean assigned = false;
+            Task currentTask = taskList.get(taskIndex); // Get the current task
+
             while (!assigned) {
                 if (col < validSchedule[0].length) {
-                    if (Availability.checkAvailability(col)) {
+                    // Check if the day is available and before the task's deadline
+                    if (Availability.checkAvailability(col) && Dates.checkDate(currentTask, col, deadLines)) {
                         for (int row = 0; row < 12; row++) {
                             if (validSchedule[row][col] == 0) { // Empty slot found
                                 validSchedule[row][col] = taskIndex; // Assign task
@@ -102,20 +106,19 @@ public class Validate {
                             }
                         }
                     } else {
-                        //continue to the next Available day
+                        // Continue to the next available day
                         col++;
-
                     }
                 }
+
                 if (col == validSchedule[0].length) {
-                    //starts over the procedure
+                    // Restart the procedure if no valid slot is found
                     col = 0;
                 }
             }
         }
         return validSchedule;
     }
-
     private static List<Integer> getIntegers(int[][] validSchedule, List<Task> taskList) {
         List<Integer> unassignedTasks = new ArrayList<>();
         for (int i = 0; i < taskList.size(); i++) {

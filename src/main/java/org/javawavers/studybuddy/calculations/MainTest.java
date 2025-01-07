@@ -8,7 +8,7 @@ public class MainTest {
         Subject Maths = new Subject("Maths", 5, null, null);
         Exam e1 = new Exam(LocalDate.of(2025, 2, 24), 400);
         Maths.addExam(e1);
-        Assignment a1 = new Assignment("Ass1", LocalDate.of(2025, 1, 20), 10);
+        Assignment a1 = new Assignment("Ass1", LocalDate.of(2025, 2, 10), 60);
         //Assignment a2 = new Assignment("Ass1", LocalDate.of(2025, 1, 19), 10);
         Maths.addAssignment(a1);
         //Maths.addAssignment(a2);

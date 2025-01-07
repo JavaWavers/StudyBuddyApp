@@ -8,28 +8,27 @@ public class Assignment extends SubjectElement {
     private String description;
     private LocalDate completeddDate;
 
-    // κατασκευαστης χωρις παραμετρους
+    //different types of constructors
+    // constructor without any parameter
     public Assignment() {
         super(null, null);
 
     }
 
-    // κατασκευαστης με παραμετρους
-    public Assignment(String title, long remaingdays, LocalDate deadline, int estimateHours, String description,
+    // constructor with parameters
+    public Assignment(String title, LocalDate deadline, int estimateHours, String description,
             LocalDate completeDate) {
         super(deadline, title);
         this.estimateHours = calculateEstHours();
         this.description = description;
     }
 
-    // κατασκευαστής μόνο για την ημερομηνία του deadline και τις ώρες που
-    // απαιτούνται για την υλοποιηση
     public Assignment(String title, LocalDate deadline, int estimateHours) {
         super(deadline, title);
         this.estimateHours = estimateHours;
     }
 
-    // gettersss
+    // getters
     public String getTitle() {
         return super.getName();
     }
@@ -50,7 +49,7 @@ public class Assignment extends SubjectElement {
         return description;
     }
 
-    // setterrss
+    // setters
     public void setTitle(String title) {
         super.setName(title);
     }
