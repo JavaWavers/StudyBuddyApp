@@ -7,15 +7,14 @@ import java.util.List;
 public class Validate {
     /**
      * Main method to validate the schedule using multiple validity checks.
-     * @param validSchedule - the 2D array representing the schedule
-     * @param taskList - the list of tasks
-     * @return - the validated schedule
+     * validSchedule - the 2D array representing the schedule
+     * taskList - the list of tasks
+     * return - the validated schedule
      */
     public static int[][] validateSchedule(int[][] validSchedule, List<Task> taskList) {
-        validSchedule = deadlineValidity(validSchedule, taskList);
-        validSchedule = availabilityValidity(validSchedule, taskList);
-        validSchedule = assignmentsValidity(validSchedule, taskList);
-        return validSchedule;
+        int [][] dValidSchedule = deadlineValidity(validSchedule, taskList);
+        int[][] avValidSchedule = availabilityValidity(dValidSchedule, taskList);
+        return assignmentsValidity(avValidSchedule, taskList);
     }
 
     /**
@@ -39,9 +38,7 @@ public class Validate {
                     }
 
                     // Check if the task is scheduled after the exam date
-                    if (examDate.isAfter(LocalDate.now().plusDays(col))) {
-                        continue;
-                    } else {
+                    if (!examDate.isAfter(LocalDate.now().plusDays(col))) {
                         validSchedule[row][col] = 0; // Clear invalid task
                     }
                 }
@@ -87,35 +84,20 @@ public class Validate {
      */
     private static int[][] assignmentsValidity(int[][] validSchedule, List<Task> taskList) {
         // Create a list of all unassigned tasks of type 3
-        List<Integer> unassignedTasks = new ArrayList<>();
-        for (int i = 0; i < taskList.size(); i++) {
-            if (taskList.get(i).getTaskType() == 3) {
-                unassignedTasks.add(i);
-            }
-        }
-
-        // Check if tasks are already scheduled, and remove them from unassignedTasks
-        for (int col = 0; col < validSchedule[0].length; col++) {
-            for (int row = 0; row < 12; row++) {
-                int taskIndex = validSchedule[row][col];
-                if (unassignedTasks.contains(taskIndex)) {
-                    unassignedTasks.remove(Integer.valueOf(taskIndex)); // Task already scheduled
-                }
-            }
-        }
+        List<Integer> unassignedTasks = getIntegers(validSchedule, taskList);
 
         int col=0;
         // Forcefully assign remaining tasks of type 3 to available slots
         for (int taskIndex : unassignedTasks) {
-            boolean assinged=false;
-            while (!assinged) {
+            boolean assigned=false;
+            while (!assigned) {
                 if (col < validSchedule[0].length) {
                     if (Availability.checkAvailability(col)) {
                         for (int row = 0; row < 12; row++) {
                             if (validSchedule[row][col] == 0) { // Empty slot found
                                 validSchedule[row][col] = taskIndex; // Assign task
                                 col++;
-                                assinged = true;
+                                assigned = true;
                                 break; // Exit inner loop
                             }
                         }
@@ -132,5 +114,25 @@ public class Validate {
             }
         }
         return validSchedule;
+    }
+
+    private static List<Integer> getIntegers(int[][] validSchedule, List<Task> taskList) {
+        List<Integer> unassignedTasks = new ArrayList<>();
+        for (int i = 0; i < taskList.size(); i++) {
+            if (taskList.get(i).getTaskType() == 3) {
+                unassignedTasks.add(i);
+            }
+        }
+
+        // Check if tasks are already scheduled, and remove them from unassignedTasks
+        for (int col = 0; col < validSchedule[0].length; col++) {
+            for (int row = 0; row < 12; row++) {
+                int taskIndex = validSchedule[row][col];
+                if (unassignedTasks.contains(taskIndex)) {
+                    unassignedTasks.remove(Integer.valueOf(taskIndex)); // Task already scheduled
+                }
+            }
+        }
+        return unassignedTasks;
     }
 }
