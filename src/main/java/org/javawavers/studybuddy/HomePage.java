@@ -2,7 +2,7 @@ package org.javawavers.studybuddy;
 
 import javafx.geometry.Insets;
 import javafx.scene.Cursor;
-import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.effect.SepiaTone;
@@ -12,9 +12,10 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
+import javafx.stage.Stage;
 
 public class HomePage {
-    public Node home() {
+    public Scene home(SceneManager sceneManager) {
         VBox home = new VBox();
         // Navigation Bar
         HBox navBar = new HBox(10);
@@ -48,6 +49,20 @@ public class HomePage {
         btnLogin.setTextFill(javafx.scene.paint.Color.web("#fcfaf8"));
         btnLogin.setPrefSize(186, 41);
 
+        btnLogin.setOnAction(event -> {
+            LoginPage login = new LoginPage();
+            //Stage loginStage = new Stage();
+            sceneManager.switchScene(login.login(sceneManager));
+            //loginStage.setMaximized(true);
+
+
+//κλεινουμε το παραθυρο που ειναι ανοιχτο 
+            //Stage currentStage = (Stage) btnLogin.getScene().getWindow();
+            //currentStage.close();
+            
+            //loginStage.show();
+        });
+
         navBar.getChildren().addAll(logo, btnSeeHow, btnNewsTips, btnAboutUs, btnLogin);
 
         // Main content pane
@@ -73,6 +88,18 @@ public class HomePage {
         tryButton.setLayoutX(154);
         tryButton.setLayoutY(308);
 
+        tryButton.setOnAction(event -> {
+            RegisterPage signup = new RegisterPage();
+            Stage signupStage = new Stage();
+            signup.start(signupStage);
+            signupStage.setMaximized(true);
+//κλεινουμε το παραθυρο που ειναι ανοιχτο 
+            Stage currentStage = (Stage) tryButton.getScene().getWindow();
+            currentStage.close();
+            
+            signupStage.show();
+        });
+
         Label welcomeLabel = new Label("Γεια σου, \nΚαλώς όρισες στο \nStudy Buddy σου!");
         welcomeLabel.setFont(new Font("Arial Narrow Bold Italic", 28));
         welcomeLabel.setLayoutX(46);
@@ -93,6 +120,6 @@ public class HomePage {
 
         // Add components to root
         home.getChildren().addAll(navBar,mainPane);
-        return home;
+        return new Scene(home, 1024, 600);
     }
 }

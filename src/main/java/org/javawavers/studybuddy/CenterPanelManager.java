@@ -1,5 +1,6 @@
 package org.javawavers.studybuddy;
 
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 
 /**
@@ -30,12 +31,13 @@ public class CenterPanelManager {
         Calendar calendar = new Calendar();
         AssignmentPage assignmentPage = new AssignmentPage();
         HomePage homePage = new HomePage();
+        LoginPage loginPage = new LoginPage();
 
         // Depending on which Menu Button is pressed it changes the center Panel
         switch (panelName) {
-            case "Home":
-                centerPane.getChildren().setAll(homePage.home());
-                break;
+            //case "Home":
+                //centerPane.getChildren().setAll(loginPage.login());
+                //break;
             case "Courses":
                 break;
             case "Exam":

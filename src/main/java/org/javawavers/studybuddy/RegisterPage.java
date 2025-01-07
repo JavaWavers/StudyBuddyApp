@@ -19,11 +19,11 @@ import javafx.scene.text.Text;
 import javafx.scene.transform.Scale;
 import javafx.stage.Stage;
 
-public class Signup extends Application {
+public class RegisterPage extends Application {
 
     public static String storedEmail = "";
     public static String storedPassword = "";
-    public static String storedUsername = "admin";
+    public static String storedUsername = "Quest";
     HBox hBox = new HBox();
 
     @Override
@@ -64,15 +64,15 @@ public class Signup extends Application {
 //οταν ο χρηστης παταει το κουμπι ανοιγει την σελισα συνδεσης 
         loginButton.setOnAction(event ->  {
 
-            Signin signin = new Signin();
+            LoginPage login = new LoginPage();
             Stage signinStage = new Stage();
-            signin.start(signinStage);
+            //login.start(signinStage);
             
 //ελενχουμε αν το παραθυρο ειναι maximized 
             if (primaryStage.isMaximized()) {
                 signinStage.setMaximized(true);
             }
-        
+            primaryStage.close();
             signinStage.show();
         });
 //αρχικοποιουμε το δεξι pane και οριζουμε το χρωμα

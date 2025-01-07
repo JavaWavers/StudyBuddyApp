@@ -100,8 +100,11 @@ public class StudyBuddyApp extends Application { //exam page
 
     @Override
     public void start(Stage stage) {
+        SceneManager sceneManager = new SceneManager(stage);
 
-        BorderPane borderPane = new BorderPane();
+        HomePage homePage = new HomePage();
+        Scene homeScene = homePage.home(sceneManager);
+        /*BorderPane borderPane = new BorderPane();
 
         CenterPanelManager centerPanelManager = new CenterPanelManager();
         borderPane.setCenter(centerPanelManager.getCenterPane());
@@ -117,7 +120,8 @@ public class StudyBuddyApp extends Application { //exam page
 
         Scene scene = new Scene(borderPane, 1024, 600);
 
-        stage.setScene(scene);
+        stage.setScene(scene);*/
+        stage.setScene(homeScene);
         stage.setTitle("StudyBuddy");
         stage.setX((Screen.getPrimary().getVisualBounds().getWidth()-1024)/2);
         stage.setX((Screen.getPrimary().getVisualBounds().getHeight()-768)/2);
