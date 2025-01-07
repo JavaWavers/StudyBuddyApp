@@ -55,6 +55,12 @@ public class SimulateAnnealing {
             // Add the ExamDates object to the list
             exams.add(examDate);
         }
+        // Check if the subject or its exams list is null
+        if ( subject.getExams() == null || subject.getExams().isEmpty()) {
+            System.out.println("Please enter an exam date for the subject: "+ subject.getCourseName());
+            throw new IllegalArgumentException("Subject or exam list is invalid. Exams must not be empty.");
+
+        }
 
     }
     // Setting exams for each subject
@@ -142,6 +148,7 @@ public class SimulateAnnealing {
         for (ScheduleResult sr : scheduleResults) {
             bestSchedule(sr.getScore(), sr.getTasks(), sr.getSchedule());
         }
+        schedule=Validate.validateSchedule(schedule,bestTask);
         PrintSchedule.printSchedule(schedule, bestTask, colSize);
 
     }

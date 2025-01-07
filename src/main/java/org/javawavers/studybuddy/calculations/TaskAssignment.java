@@ -38,7 +38,7 @@ public class TaskAssignment {
     }
     public static int[][] assignTask(List<Task> assTasks, int colSize) {
         Collections.shuffle(assTasks);
-        tasks=new ArrayList<>(assTasks);
+        tasks = new ArrayList<>(assTasks);
         if (colSize == 0) {
             throw new IllegalStateException("Column size is not initialized.");
         }
@@ -73,12 +73,12 @@ public class TaskAssignment {
                         //flag for deadlines
                         boolean flagEx = false;
                         boolean flagAss = false;
-                        if(tasks.get(taskIndex).getTaskType() == 1){
+                        if (tasks.get(taskIndex).getTaskType() == 1) {
                             // Check exam dates
                             if (!SimulateAnnealing.getExams().isEmpty()) {
                                 flagEx = Dates.checkDate(tasks.get(taskIndex), col, SimulateAnnealing.getExams());
                             }
-                            if(flagEx){
+                            if (flagEx) {
                                 if (valSchedule[row][col] == 0) {
                                     // Store the task index in the schedule
                                     valSchedule[row][col] = taskIndex;
@@ -90,16 +90,16 @@ public class TaskAssignment {
                                     LocalDate exDate = Dates.getExDate(tasks.get(taskIndex - 1), SimulateAnnealing.getExams());
                                     assTasks = Repetition.generateRepetitions(tasks, assTasks.get(taskIndex - 1), exDate, col);
                                 }
-                            }else {
+                            } else {
                                 taskIndex++;
                             }
 
-                        }else if (tasks.get(taskIndex).getTaskType() == 3){
+                        } else if (tasks.get(taskIndex).getTaskType() == 3) {
                             // Check assignment deadlines
                             if (!SimulateAnnealing.getAssignments().isEmpty()) {
                                 flagAss = Dates.checkDate(tasks.get(taskIndex), col, SimulateAnnealing.getAssignments());
                             }
-                            if(flagAss){
+                            if (flagAss) {
                                 if (valSchedule[row][col] == 0) {
                                     // Store the task index in the schedule
                                     valSchedule[row][col] = taskIndex;
@@ -107,7 +107,7 @@ public class TaskAssignment {
                                     remainingHours -= 2.0;
                                     taskIndex++;
                                 }
-                            }else {
+                            } else {
                                 taskIndex++;
                             }
 
@@ -123,31 +123,37 @@ public class TaskAssignment {
 
         /*
          * Special Check for Type 3 Tasks
-         * If there are not enough days or hours, ensure all type 3 tasks (assignments) are assigned
+         * Ensure all type 3 tasks (assignments) are assigned, even if no dedicated time slot exists.
          */
-        while (taskIndex <= taskLength) {
+        while (taskIndex < taskLength) {
             Task task = tasks.get(taskIndex);
+
+            // Process only Type 3 tasks
             if (task.getTaskType() == 3) {
-                for (int col = 0; col < colSize; col++) {
+                boolean taskAssigned = false;
+
+                // Iterate over all columns (days) and rows (slots)
+                for (int col = 0; col < colSize && !taskAssigned; col++) {
                     for (int row = 0; row < 12; row++) {
-                        if (valSchedule[row][col] == 0) {
-                            // Forcefully assign the task in any available time slot
-                            valSchedule[row][col] = taskIndex;
-                            taskIndex++;
-                            break; // Exit the loop after assigning the task
+                        if (valSchedule[row][col] == 0) { // Check if the slot is empty
+                            valSchedule[row][col] = taskIndex; // Assign the task
+                            taskAssigned = true; // Mark as assigned
+                            break; // Exit the inner loop after assigning the task
                         }
                     }
-                    if (taskIndex > taskLength) {
-                        break; // Exit the loop if all tasks are assigned
-                    }
                 }
-            } else {
-                taskIndex++; // Skip non-type 3 tasks
+
+                // If no slot is available, you might log a warning or take additional action
+                if (!taskAssigned) {
+                    System.out.println("Warning: Could not assign Task ID " + taskIndex);
+                }
             }
+
+            // Move to the next task
+            taskIndex++;
         }
 
         return valSchedule;
     }
-
 
 }
