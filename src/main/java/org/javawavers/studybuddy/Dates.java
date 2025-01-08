@@ -57,23 +57,23 @@ public class Dates {
             // Get the current date
             LocalDate today = LocalDate.now();
             // Get the date of the last assignment deadline (last element of the sorted list)
-            LocalDate lastAssDate = assignments.getLast().getDate();
+            LocalDate lastAssDate = assignments.get(assignments.size() - 1).getDate();
             // Return the calculated days
             return (int) ChronoUnit.DAYS.between(today, lastAssDate);
         }else if (!exams.isEmpty() &&assignments.isEmpty()) {
             // Get the current date
             LocalDate today = LocalDate.now();
             // Get the date of the last exam (last element of the sorted list)
-            LocalDate lastExamDate = exams.getLast().getDate();
+            LocalDate lastExamDate = exams.get(exams.size() - 1).getDate();
             // Return the calculated days
             return (int) ChronoUnit.DAYS.between(today, lastExamDate);
         }else if(!exams.isEmpty() && !assignments.isEmpty()){
             // Get the current date
             LocalDate today = LocalDate.now();
             // Get the date of the last assignment deadline (last element of the sorted list)
-            LocalDate lastAssDate = assignments.getLast().getDate();
+            LocalDate lastAssDate = assignments.get(assignments.size() - 1).getDate();
             // Get the date of the last exam (last element of the sorted list)
-            LocalDate lastExamDate = exams.getLast().getDate();
+            LocalDate lastExamDate = exams.get(exams.size() - 1).getDate();
             //return the deadline which is most faraway
             if(lastAssDate.isBefore(lastExamDate)){
                 return (int) ChronoUnit.DAYS.between(today, lastExamDate);

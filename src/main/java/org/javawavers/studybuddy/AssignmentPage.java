@@ -98,8 +98,8 @@ public class AssignmentPage {
 
             Assignment assignment1 = new Assignment(title, localDeadline, estimateHour);
             ExamPage exampage = new ExamPage();
-            Subject course = exampage.coursename;
-            course.addAssignment(assignment1);
+            //Subject course = exampage.coursename;
+            //course.addAssignment(assignment1);
 
             namField.clear();
             assignmentField.clear();

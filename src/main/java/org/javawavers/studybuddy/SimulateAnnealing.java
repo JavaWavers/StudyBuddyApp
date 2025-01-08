@@ -52,10 +52,18 @@ public class SimulateAnnealing {
     // Setting exams for each subject
     private void subExams(Subject subject) {
         if(!subject.getExams().isEmpty()) {
+            System.out.println("mphkaa");
+            //ExamPage examPage = new ExamPage();
             // Create a Dates object with the subject name and the exam date
-            Dates examDate = new Dates(subject, subject.getExams().getFirst().getExamDate());
+            Dates examDate = new Dates(subject, subject.getExams().get(0).getExamDate());
+            //List<Exam> exam1 = examPage.getExams(); 
+          //  for (Exam exam : exam1) {
+                //LocalDate exam2 = exam.getExamDate();
+                //Dates examDate = new Dates(subject, exam2 );
             // Add the Dates object to the list
-            exams.add(examDate);
+                exams.add(examDate);
+                //System.out.println(examDate);
+           // }
         }
         // Check if the subject or its exams list is null
         if ( subject.getExams() == null || subject.getExams().isEmpty()) {
@@ -68,7 +76,7 @@ public class SimulateAnnealing {
     private void subAssignment(Subject subject) {
         if(!subject.getAssignments().isEmpty()) {
             // Create a Dates object with the subject name and the exam date
-            Dates assDate = new Dates(subject, subject.getAssignments().getFirst().getDeadline());
+            Dates assDate = new Dates(subject, subject.getAssignments().get(0).getDeadline());
             // Add the Dates object to the list
             assignments.add(assDate);
         }

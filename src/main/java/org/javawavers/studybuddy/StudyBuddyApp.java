@@ -102,7 +102,7 @@ public class StudyBuddyApp extends Application { //exam page
     public void start(Stage stage) {
         SceneManager sceneManager = new SceneManager(stage);
 
-        HomePage homePage = new HomePage();
+       // HomePage homePage = new HomePage();
         //Scene homeScene = homePage.home(sceneManager);
         BorderPane borderPane = new BorderPane();
 

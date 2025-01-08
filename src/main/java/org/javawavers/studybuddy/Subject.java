@@ -64,11 +64,11 @@ public class Subject {
     }
 
     // Constructor with all fields
-    public Subject(String courseName, int difficultyLevel, SubjectType subjectType, StudyGoal studyGoal) {
+    public Subject(String courseName, int difficultyLevel) {
         this.courseName = courseName;
         this.difficultyLevel = difficultyLevel;
-        this.subjectType = subjectType;
-        this.studyGoal = studyGoal;
+        //this.subjectType = subjectType;
+        //this.studyGoal = studyGoal;
     }
 
     // Methods to manage exams

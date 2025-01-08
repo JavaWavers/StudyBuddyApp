@@ -32,13 +32,17 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class Calendar {
+    ExamPage exam = new ExamPage();
 
-
+    //περνουμε την σημερινη ημερα
+    LocalDate today = LocalDate.now();
 
     private LocalDate currentWeekStart;
     //αρχικοποιουμε την μεταβλητη count
     int count = 0;
 
+    //List<Task> besttask = printSchedule.printSchedule(null, null, 0);
+    List<Task> besttask = null;
 
     //αρχικοποιουμε τις λιστες και τα vbox τα οποια χρησιμευουν στην δυναμικη επεξεργασια και εμφανιση των task
     public static List<String> notStartedYet = new ArrayList<>();
@@ -46,7 +50,9 @@ public class Calendar {
     private VBox upcomingTasksBox = new VBox(10);
     private VBox completedTasksBox = new VBox(10);
 
-
+   // List<Subject> subject = exam.getSubjects();
+    List<Exam> exams = exam.getExams();
+    SimulateAnnealing simulateAnnealing = new SimulateAnnealing();
     
 
 
@@ -55,11 +61,23 @@ public class Calendar {
         VBox centerPanel = createCenterPanel();
         centerPanel.setPadding(new Insets(20));
         return centerPanel;
-
     }
 
 //μεθοδος για την δημιουργια του κεντρικου panel
     private VBox createCenterPanel() {
+        //ExamPage expage = new ExamPage();
+        //SimulateAnnealing simulateAnnealing = new SimulateAnnealing();
+        for ( Subject s : exam.subject) {
+            simulateAnnealing.addSubject(s);
+        }
+        simulateAnnealing.scheduleResult();
+        int[][] schedule = simulateAnnealing.getSchedule();
+        System.out.println(schedule);
+        besttask = simulateAnnealing.getBestTask();
+        //System.out.println(schedule);
+        //int[][] schedule = expage.getSchedule();
+        int daysinWeek = 7;
+        List<int[][]> weekschedule = splitSchedule(schedule, daysinWeek);
         VBox centerPanel = new VBox(10);
         centerPanel.setPadding(new Insets(20));
         centerPanel.setStyle("-fx-background-color: white;");
@@ -99,17 +117,18 @@ public class Calendar {
         calendarGrid.setGridLinesVisible(true);
 //μεταβλητη count η οποια μολις ο χρηστης παταει το κουμπι που παει τις εβδομαδες μπροστα αυξανεται αλλιως μειωνεται οταν count == 0 τοτε θα εεμφανιζετε το κουμπι today
         prevButton.setOnAction(event -> {
-            count = count + 1;
             currentWeekStart = currentWeekStart.minusWeeks(1);
-            weekLabel.setText(formatWeekLabel(currentWeekStart, formatter));
-   
+            count = count + 1;
+            //weekLabel.setText(formatWeekLabel(currentWeekStart, formatter));
+            //createCalendarGrid(calendarGrid, besttask, weekschedule, count);     
         });
     
         nextButton.setOnAction(event -> {
-            count = count - 1;
+            count--;
             currentWeekStart = currentWeekStart.plusWeeks(1);
-            weekLabel.setText(formatWeekLabel(currentWeekStart, formatter));
-
+            
+           // weekLabel.setText(formatWeekLabel(currentWeekStart, formatter));
+            //createCalendarGrid(calendarGrid, besttask, weekschedule, count);
         });
 
 
@@ -128,7 +147,7 @@ public class Calendar {
         } else {
             todayButton.setVisible(false);
         }
-        createCalendarGrid(calendarGrid);
+        createCalendarGrid(calendarGrid, besttask, weekschedule, count, schedule);
 
 //κουμπι για να βαζει ο χρηστης την διαθεσημοτητα
         Button availabilityButton = new Button("Availiability");
@@ -211,60 +230,117 @@ public class Calendar {
 
 //δημιουργουμε το ημερολογιο
 //δεν υπαρχει schedule 
-private void createCalendarGrid(GridPane grid) {
-    String[] days = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
+    private void createCalendarGrid(GridPane grid, List<Task> besttask, List<int[][]> weekschedule, int count , int[][] schedule) {
+        String[] days = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
+        int[][] selectedWeek = weekschedule.get(count);
+        grid.getChildren().clear();
+        grid.getColumnConstraints().clear();
+        grid.getRowConstraints().clear();
+
+        int daysinWeek = days.length;
 
 
-//ρυθμιζουμε το πλατος για τις 7 στηλες
-    for (int i = 0; i < days.length; i++) {
-        ColumnConstraints column = new ColumnConstraints();
-        column.setPercentWidth(100.0 / 7);
-        grid.getColumnConstraints().add(column);
-    }
+
+        //ρυθμιζουμε το πλατος για τις 7 στηλες
+        for (int i = 1; i < daysinWeek ; i++) {
+            ColumnConstraints column = new ColumnConstraints();
+            column.setPercentWidth(100.0 / 7);
+            grid.getColumnConstraints().add(column);
+        }
 
 //βαζουμε τους τιτλους για την καθε μερα 
-    for (int i = 0; i < days.length; i++) {
-        Label dayLabel = new Label(days[i]);
-        dayLabel.setStyle("-fx-font-weight: bold; -fx-border-color: gray; -fx-border-width: 0; -fx-alignment: center;");
-        dayLabel.setFont(Font.font("System", FontWeight.BOLD, 18));
-        dayLabel.setPrefHeight(60);
-        dayLabel.setPrefWidth(140);
-        GridPane.setConstraints(dayLabel, i, 0);
-        grid.getChildren().add(dayLabel);
-    }
+        for (int i = 0; i < 7; i++) {
+            Label dayLabel = new Label(days[i]);
+            dayLabel.setStyle("-fx-font-weight: bold; -fx-border-color: gray; -fx-border-width: 0; -fx-alignment: center;");
+            dayLabel.setFont(Font.font("System", FontWeight.BOLD, 18));
+            dayLabel.setPrefHeight(60);
+            dayLabel.setPrefWidth(140);
+            GridPane.setConstraints(dayLabel, i, 0);
+            grid.getChildren().add(dayLabel);
+        }
 
 //να εχουν ολες γραμμες το ιδιο υψος 
-    for (int i = 0; i < 11; i++) {  // 11 γραμμες για τον πινακα
-        RowConstraints row = new RowConstraints();
-        row.setPercentHeight(100.0 / 11);
-        grid.getRowConstraints().add(row);
-    }
+        for (int i = 0; i < 12; i++) {  // 11 γραμμες για τον πινακα
+            RowConstraints row = new RowConstraints();
+            row.setPercentHeight(100.0 / 11);
+            grid.getRowConstraints().add(row);
+        }
 
+        
+        for (int row = 1; row < 12; row++) {
+            for (int col = 0; col <= daysinWeek -1; col++) {
+                Label cell = new Label();
 
-    for (int row = 1; row <= 10; row++) {
-        for (int col = 0; col < days.length; col++) {
-            Label cell = new Label();
-            cell.setStyle("-fx-border-color: gray; -fx-border-width: 0; -fx-alignment: center;");
-            cell.setFont(Font.font("System", FontWeight.NORMAL, 14));
-            cell.setPrefSize(140, 60);
-            //cell.setText(SimulateAnnealing.printSchedule(row, col));
-          //  MainTestAlgorithm algorithm = new MainTestAlgorithm();
-            //cell.setText(algorithm.run(row, col));
+                cell.setStyle("-fx-border-color: gray; -fx-border-width: 0; -fx-alignment: center; -fx-pref-width: 140; -fx-pref-height: 60;");
+                cell.setFont(Font.font("System", FontWeight.NORMAL, 14));
+               //ειναι λιστα το weekschedule οχι δισδιαστατος πινακασ
+                if (selectedWeek != null && besttask != null && row >= 0 && row < selectedWeek.length 
+                && col >= 0 && col < selectedWeek[row].length) {
 
+                    int taskIndex = selectedWeek[row][col] - 1;
+                    
+                    if (taskIndex >= 0 && taskIndex < besttask.size()) {
+                        //cell.setText(besttask.get(taskIndex).toString());
+                        String taskText = besttask.get(taskIndex).toString();
+                       // cell.setText(taskText);
+                        String firstWord = taskText.split(" ")[0];
+                        for (Subject subject : subject) {
+                            if (subject.getCourseName().equalsIgnoreCase(firstWord)) {
+
+                                //cell.setGraphic(new ImageView(image));
+                               cell.setStyle("-fx-border-color: gray; -fx-border-width: 0; -fx-alignment: center;");
+                                break;
+                            }
+                        }
+                    }else {
+                        cell.setText(""); 
+                    }
+                } else {
+                    cell.setText("");
+                }
+
+                final int rowFinal = row;
+                final int colFinal = col;
 
 //οταν ο χρηστης παταει πανω σε οποιδηποτε κελη τοτε του εμφανιζεται η σελιδα popupdiathesimotita
-            cell.setOnMouseClicked(event -> {
+                cell.setOnMouseClicked(event -> {
+                    
+                    String taskDescription = "κενο";
+                    LocalDate examDate = null;
 
-                Popupdiathesimotita popup = new Popupdiathesimotita();
-                Stage popupStage = new Stage();
-                popup.start(popupStage);
-            });
-        
-            GridPane.setConstraints(cell, col, row);
-            grid.getChildren().add(cell);
+                    if (selectedWeek != null && besttask != null &&
+                        rowFinal < selectedWeek.length && colFinal < selectedWeek[rowFinal].length &&
+                        selectedWeek[rowFinal][colFinal] > 0 &&  selectedWeek[rowFinal][colFinal] <= besttask.size()) {
+
+                        int taskIndex = selectedWeek[rowFinal][colFinal] - 1;
+                    if (taskIndex >= 0 && taskIndex < besttask.size()) {
+                        taskDescription = besttask.get(taskIndex).toString();
+                    }
+                }
+                if (subject != null) {
+                    for (Subject subject : subject) {
+                        if (taskDescription.contains(subject.getCourseName())) {
+                            for (Exam exam : exams) {
+                                examDate = exam.getExamDate();
+                            }
+                            break;
+                        }
+                    }
+                }
+
+
+                    Popupdiathesimotita popup = new Popupdiathesimotita();
+                    popup.setTaskLists(notStartedYet, completed);
+                    popup.setTaskDescription(taskDescription, examDate);
+                    Stage popupStage = new Stage();
+                    popup.start(popupStage);
+                });
+            
+                GridPane.setConstraints(cell, col, row );
+                grid.getChildren().add(cell);
+            }
         }
     }
-}
 //οποτε καλειτε ανανεωνονται αναλογα με εκεινα τα δεδομενα το popup που εμφανιζετε
     private void updateUpcomingTasks(VBox upcomingTasksBox) {
         upcomingTasksBox.getChildren().clear();

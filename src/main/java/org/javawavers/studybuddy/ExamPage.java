@@ -31,20 +31,20 @@ TODO:
  * Add documentation code
 */
 public class ExamPage {
-    SimulateAnnealing simulateAnnealing = new SimulateAnnealing();
-    Subject subjectGeneral = new Subject(null);
+    //SimulateAnnealing simulateAnnealing = new SimulateAnnealing();
+   // Subject subjectGeneral = new Subject(null);
     ArrayList<Subject> subject = new ArrayList<>();
-    ArrayList<Exam> exam = new ArrayList<>();
-    private TextField nameField, pageField, revisionField, difficulty, timePer;
+   // ArrayList<Exam> exam = new ArrayList<>();
+    private TextField nameField, pageField, revisionField, difficulty, timePer20Slides;
     public static String courseName = "";
-    public static String pages = "";
+    public static int  pages = 0;
     public static String revision = "";
     public static String deadline = "";
     public static String courseType = "";
-    public static String diffi = "0";
+    public static int diffi = 0;
     public static String time = "";
-    int difficul = Integer.parseInt(diffi);
-    Subject subject1 = new Subject(courseName, difficul);
+    
+   // Subject subject1 = new Subject(courseName, difficul);
 
     private DatePicker datePicker;
     private ComboBox<String> typeCourseList;
@@ -70,12 +70,17 @@ public class ExamPage {
         okBtn.setOnMouseEntered(e -> okBtn.setStyle(btnMouseEntered()));
         okBtn.setOnMouseClicked(e -> {
             courseName = nameField.getText();
-            pages = pageField.getText();
+            String value = pageField.getText();
+            pages = Integer.parseInt(value);
             revision = revisionField.getText();
             deadline = datePicker.getValue() != null ? datePicker.getValue().toString() : null;
             courseType = typeCourseList.getValue();
-            diffi = difficulty.getText();
-            time = timePer.getText();
+           // diffi = difficulty.getText();
+            String value2 = difficulty.getText();
+            int difficul = Integer.parseInt(value2);
+            Subject subject1 = new Subject(courseName, difficul);
+
+            time = timePer20Slides.getText();
 
             List<String> errors = new ArrayList<>();
 
@@ -83,9 +88,9 @@ public class ExamPage {
                 errors.add("• Εισήγαγε Μάθημα");
             }
 
-            if (pages.isEmpty() || !pages.matches("\\d+")) {
-                errors.add("• Η παράμετρος 'Σελίδες' πρέπει να είναι ακέραιος αριθμός.");
-            }
+           // if (pages.isEmpty() || !pages.matches("\\d+")) {
+              //  errors.add("• Η παράμετρος 'Σελίδες' πρέπει να είναι ακέραιος αριθμός.");
+            //}
 
             if (revision.isEmpty() || !revision.matches("\\d+")) {
                 errors.add("• Η παράμετρος 'Επανάληψη' πρέπει να είναι ακέραιος αριθμός.");
@@ -99,9 +104,9 @@ public class ExamPage {
                 errors.add("• Πρέπει να επιλέξεις το είδος του μαθήματος.");
             }
 
-            if (diffi.isEmpty() || !diffi.matches("\\d+") || Integer.parseInt(diffi) < 1 || Integer.parseInt(diffi) > 10) {
-                errors.add("• Η δυσκολία πρέπει να είναι αριθμός μεταξύ 1 και 10.");
-            }
+           // if (diffi.isEmpty() || !diffi.matches("\\d+") || Integer.parseInt(diffi) < 1 || Integer.parseInt(diffi) > 10) {
+                //errors.add("• Η δυσκολία πρέπει να είναι αριθμός μεταξύ 1 και 10.");
+           // }
 
             if (time.isEmpty() || !time.matches("\\d+")) {
                 errors.add("• Ο χρόνος ανά 20 διαφάνειες πρέπει να είναι αριθμός.");
@@ -119,27 +124,25 @@ public class ExamPage {
                 alert.showAndWait();
                 return;
             }
-            difficul = Integer.parseInt(diffi);
+           // difficul = Integer.parseInt(diffi);
             int page = Integer.parseInt(revision);
-            double minutes = Double.parseDouble(pages);
+            //double minutes = Double.parseDouble(pages);
             //Subject subject1 = new Subject(courseName, difficul);
            // subject.add(coursename);
 
             LocalDate localDeadline = LocalDate.parse(deadline);
             //Dates exam = new Dates(coursename, localDeadline);
             //simulateAnnealing.getExams().add(exam);
+            SimulateAnnealing simulateAnnealing = new SimulateAnnealing();
 
-             Exam exam1 = new Exam(localDeadline, page);
+            Exam exam1 = new Exam(localDeadline, page);
             //subjectGeneral.addExam(exam1);
-             subject1.addExam(exam1);
-             subject.add(subject1);
-             for ( Subject s : subject) {
-                simulateAnnealing.addSubject(s);
-              //  System.out.println(PrintSchedule.printSchedule(schedule, besttask, count));
-            }
-            simulateAnnealing.scheduleResult();
+            subject1.addExam(exam1);
+            simulateAnnealing.addSubject(subject1);
+             
+           /*  simulateAnnealing.scheduleResult();
             schedule = simulateAnnealing.getSchedule();
-            System.out.println(schedule);
+            System.out.println(schedule);*/
             if (schedule == null) {
                 System.out.println("Schedule is null!");
             } else {
@@ -155,14 +158,14 @@ public class ExamPage {
             datePicker.setValue(null);
             typeCourseList.setValue("");
             difficulty.clear();
-            timePer.clear();
+            timePer20Slides.clear();
             Availability.setAvailability(1, 6); // Monday: 6 available hours
             Availability.setAvailability(2, 4); // Tuesday: 4 available hours
-        Availability.setAvailability(3, 7); // Wednesday: 7 available hours
-        Availability.setAvailability(4, 4); // Thursday: 4 available hours
-        Availability.setAvailability(5, 6); // Friday: 6 available hours
-        Availability.setAvailability(6, 6); // Saturday: 6 available hours
-        Availability.setAvailability(7, 6); // Sunday: 6 available hour
+            Availability.setAvailability(3, 7); // Wednesday: 7 available hours
+            Availability.setAvailability(4, 4); // Thursday: 4 available hours
+            Availability.setAvailability(5, 6); // Friday: 6 available hours
+            Availability.setAvailability(6, 6); // Saturday: 6 available hours
+            Availability.setAvailability(7, 6); // Sunday: 6 available hour
             //πρεπει αυτο simulateAnnealing.addSubject(coursename);  να δημιουργειτε στο ημερολογιο αφου εχουν εισαχθει ολα τα μαθηματα και οι εργασιιες
         //αυτο λειτουργει και πρεπει να το βσλω στο calendar 
         //simulateAnnealing.addSubject(coursename);
@@ -172,6 +175,7 @@ public class ExamPage {
        // }
       //  simulateAnnealing.scheduleResult();
         //System.out.println(schedule);
+           // simulateAnnealing.scheduleResult();
         
             okBtn.setStyle(btnMousePressed());
         });
@@ -230,10 +234,10 @@ public class ExamPage {
     private VBox createEvalSection() {
         VBox box = new VBox(10);
         difficulty = new TextField();
-        timePer = new TextField();
+        timePer20Slides = new TextField();
         box.getChildren().addAll(
                 createLabeledField("Δυσκολία:", difficulty),
-                createLabeledField("Χρόνος ανά 20 διαφάνειες:", timePer)
+                createLabeledField("Χρόνος ανά 20 διαφάνειες:", timePer20Slides)
         );
         return box;
     }
@@ -315,9 +319,9 @@ public class ExamPage {
         return subject;
     }
 
-    public List<Exam> getExams() {
-        return exam;
-    }
+   // public List<Exam> getExams() {
+       // return exam;
+   // }
     public int[][] getSchedule() {
         //System.out.println(schedule);
         return schedule;
