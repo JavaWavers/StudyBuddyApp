@@ -1,5 +1,6 @@
-package org.javawavers.studybuddy;
 
+package org.javawavers.studybuddy.calculations;
+import java.lang.reflect.Array;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -50,7 +51,7 @@ public class TaskAssignment {
             }
         }
         int taskIndex = 1;
-        tasks.add(tasks.get(0));
+        tasks.add(tasks.getFirst());
         int taskLength = tasks.size() - 1;
 
         for (int col = 0; col < colSize; col++) {
