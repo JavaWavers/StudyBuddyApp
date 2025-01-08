@@ -4,8 +4,6 @@ package org.javawavers.studybuddy.calculations;
  * time into groups (referred also as tasks) equally for each week till the
  * due day
  */
-import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
 
 public class CalculativeAlgorithm {
     // The page number that a user is physically possible to study per min

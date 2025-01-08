@@ -126,9 +126,9 @@ public class Dates {
         return exD;
     }
     public static LocalDate getAssDate(Task task, List<Dates> assignments) {
-        String subj = task.getSubject(); // keeps the name of the subject in order to find the exam date
-        LocalDate assD = null;// keeps the exam date
-        // Iterate through the list of exams to find the exam for the task's subject
+        String subj = task.getSubject(); // keeps the name of the subject in order to find the deadline
+        LocalDate assD = null;// keeps the exam deadline
+        // Iterate through the list of assignments to find the one that matches for the task's subject
         for (Dates assDate : assignments) {
             if (subj.equals(assDate.getSubName())) {
                 assD = assDate.getDate();

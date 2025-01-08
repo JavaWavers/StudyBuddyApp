@@ -11,10 +11,9 @@ public class Repetition {
      * A repetition task is scheduled for:
      * - The next day after the study task.
      * -After 1 day
-     * -After 3 days
      * - After 7 days.
-     * - After 14 days.
-     * - After 28 days.
+     * - After 16 days.
+     * - After 35 days.
      * - Then it doubles the interval days till the exam date.
      */
     public static List<Task> generateRepetitions(List<Task> tasks, Task studyTask, LocalDate examDate, int day) {

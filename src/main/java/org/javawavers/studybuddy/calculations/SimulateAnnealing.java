@@ -73,7 +73,7 @@ public class SimulateAnnealing {
         }
 
     }
-    // Setting exams for non-subject related assignments
+    // Setting assignments for non-subject related assignments
     public void subAss2(String name, LocalDate deadline, int estimateHours) {
             // Create a Dates object with the subject name and the exam date
             Dates assDate = new Dates(name, deadline);
@@ -82,6 +82,7 @@ public class SimulateAnnealing {
             subTask2(name,estimateHours);
     }
 
+    //Creating tasks for non-subject related assignments
     private void subTask2(String name, int estimateHours){
         int taskType3 = CalculativeAlgorithm.numberOfScheduledTask(estimateHours);
 
