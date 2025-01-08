@@ -1,5 +1,6 @@
-package org.javawavers.studybuddy;
- /*
+
+package org.javawavers.studybuddy.calculations;
+/*
  * This class distributes three kinds of tasks (studying -1, repetition -2,
  * assignment -3) into the available days randomly. The algorithm produces 50
  *  valid results,where the tasks are distributed into the available studying
@@ -11,17 +12,7 @@ package org.javawavers.studybuddy;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-
-import org.javawavers.studybuddy.calculations.Availability;
-import org.javawavers.studybuddy.calculations.CalculativeAlgorithm;
-import org.javawavers.studybuddy.calculations.ExamDates;
-import org.javawavers.studybuddy.calculations.PrintSchedule;
-import org.javawavers.studybuddy.calculations.Repetition;
-import org.javawavers.studybuddy.calculations.Scoring;
-import org.javawavers.studybuddy.calculations.Subject;
-import org.javawavers.studybuddy.calculations.Task;
 
 public class SimulateAnnealing {
     /*
@@ -34,18 +25,16 @@ public class SimulateAnnealing {
 
     private static List<Subject> subjects; // List for subjects
     private static List<Task> tasks; // List for each task that is connected with a subject
-    private static List<ExamDates> exams; // List for each exam that is connected with a subject
+    private static List<Dates> exams; // List for each exam that is connected with a subject
+    private static List<ScheduleResult> scheduleResults;// List for the valid schedule results
+    private static List<Dates> assignments;//List for each assignment that is connected with a subject
 
     public SimulateAnnealing() {
-        this.subjects = new ArrayList<>();
-        this.tasks = new ArrayList<>();
-        this.exams = new ArrayList<>();
-    }
-
-    // Public getter for the tasks list
-    public List<Task> getTasks() {
-        // Return a copy of the tasks list to maintain encapsulation
-        return new ArrayList<>(this.tasks);
+        subjects = new ArrayList<>();
+        tasks = new ArrayList<>();
+        exams = new ArrayList<>();
+        assignments=new ArrayList<>();
+        scheduleResults = new ArrayList<>();
     }
 
     // Add a new Subject
@@ -53,6 +42,7 @@ public class SimulateAnnealing {
         subjects.add(subject);
         // Sets exams for the subject
         subExams(subject);
+        subAssignment(subject);
 
         // Creates tasks for the subject
         subTasks(subject);
@@ -61,21 +51,54 @@ public class SimulateAnnealing {
 
     // Setting exams for each subject
     private void subExams(Subject subject) {
+        if(!subject.getExams().isEmpty()) {
+            // Create a Dates object with the subject name and the exam date
+            Dates examDate = new Dates(subject, subject.getExams().getFirst().getExamDate());
+            // Add the Dates object to the list
+            exams.add(examDate);
+        }
+        // Check if the subject or its exams list is null
+        if ( subject.getExams() == null || subject.getExams().isEmpty()) {
+            throw new IllegalArgumentException("Subject or exam list is invalid. Exams must not be empty.");
 
-        // Create an ExamDates object with the subject name and the exam date
-        ExamDates examDate = new ExamDates(subject, subject.getExams().get(0).getExamDate());
-        // Add the ExamDates object to the list
-        exams.add(examDate);
+        }
 
+    }
+    // Setting exams for each subject
+    private void subAssignment(Subject subject) {
+        if(!subject.getAssignments().isEmpty()) {
+            // Create a Dates object with the subject name and the exam date
+            Dates assDate = new Dates(subject, subject.getAssignments().getFirst().getDeadline());
+            // Add the Dates object to the list
+            assignments.add(assDate);
+        }
+
+    }
+    // Setting exams for non-subject related assignments
+    public void subAss2(String name, LocalDate deadline, int estimateHours) {
+            // Create a Dates object with the subject name and the exam date
+            Dates assDate = new Dates(name, deadline);
+            // Add the Dates object to the list
+            assignments.add(assDate);
+            subTask2(name,estimateHours);
+    }
+
+    private void subTask2(String name, int estimateHours){
+        int taskType3 = CalculativeAlgorithm.numberOfScheduledTask(estimateHours);
+
+        // Task creation for each task type
+
+        for (int i = 0; i < taskType3; i++) {
+            tasks.add(new Task(name, 3)); // Assignment
+        }
     }
 
     // Creating tasks for each subject
     private void subTasks(Subject subject) {
         // studying tasks
-        int taskType1 = CalculativeAlgorithm.studyingPerweek(subject);
+        int taskType1 = CalculativeAlgorithm.studyingTasks(subject);
         // assignment tasks
         int taskType3 = CalculativeAlgorithm.numberOfScheduledTask(subject.getTotalAssHours());
-
         // Task creation for each task type
         for (int i = 0; i < taskType1; i++) {
             tasks.add(new Task(subject, 1)); // studying
@@ -86,179 +109,79 @@ public class SimulateAnnealing {
         }
     }
 
-    private static double bestscoring;
-    private static List<Task> besttask = new ArrayList<>();
-    private static int[][] schedule;
-    // The column size of the table is determined by the last examination date
-    private static int colsize = 0;
+    // getter for the exam list
+    public static List<Dates> getExams() {
+        return exams;
+    }
+    // getter for the assignment list
+    public static List<Dates> getAssignments() {
+        return assignments;
+    }
 
+
+    private static double bestScoring;
+    private static List<Task> bestTask = new ArrayList<>();
+    private static int[][] schedule;
+
+    //getters
+    public static int [][] getSchedule(){
+        return  schedule;
+    }
+    public static List<Task> getBestTask(){
+        return bestTask;
+    }
     // Κατανομή tasks στο πρόγραμμα
     public static void scheduleResult() {
         /*
          * each time the method is called in order to produce the best result
          * the best scoring is set as zero and the list with the best distribution,
          * shuffles an array so that the order of the table elements
-         * differents from the one that is given
-         * The procidure is done 50 times in order to produce 10 possible results
+         * different from the one that is given
+         * The procedure is done 50 times in order to produce 10 possible results
          * Then each list gets a score. The list with the higher score is set as the
-         * besttask
+         * bestTask
          */
-        bestscoring = 0.0;
-        besttask.clear();
+
+        bestTask.clear();
 
         // sort exams
-        exams = ExamDates.sortExam(exams);
+        exams = Dates.sortList(exams);
+        assignments=Dates.sortList(assignments);
         // The column size of the table is determined by the last examination date
-        colsize = ExamDates.lastExIsDue(exams);
-
+        // The column size of the table is determined by the last examination date
+        int colSize = Dates.lastIsDue(exams,assignments);
+        List<Task> copyTask;
         for (int i = 0; i < 50; i++) {
 
-            double valresultscoring = 0.0;
+            copyTask = new ArrayList<>(tasks);
+            double valResultScoring;
 
-            schedule = assignTask(tasks);
+            int[][] vSchedule = TaskAssignment.assignTask(copyTask, colSize);
 
             // list scoring
-            valresultscoring = setScore(tasks, schedule);
+            // calls static method calculateScore
+            valResultScoring = Scoring.calculateScore(TaskAssignment.getTasks(), vSchedule, colSize);
             if (i == 0) {
-                bestscoring = valresultscoring;
+                bestScoring = valResultScoring;
             }
+            //method to assign all the unassigned task type 3
+            ScheduleResult result = new ScheduleResult(valResultScoring,TaskAssignment.getTasks() , vSchedule);
+            scheduleResults.add(result);
 
-            bestschedule(valresultscoring, tasks, schedule);
         }
-        PrintSchedule.printSchedule(schedule, besttask, colsize);
+        for (ScheduleResult sr : scheduleResults) {
+            bestSchedule(sr.getScore(), sr.getTasks(), sr.getSchedule());
+        }
+        schedule=Validate.validateSchedule(schedule,bestTask);
+        //PrintSchedule.printSchedule(schedule, bestTask, colSize);
 
     }
-
-    // calls static method calculatescore
-    public static double setScore(List<Task> taskList, int[][] sch) {
-        return Scoring.calculatescore(taskList, sch, colsize);
-    }
-
-    public static void bestschedule(double valresultscoring, List<Task> taskList, int[][] sch) {
-        if (valresultscoring >= bestscoring) {
-            bestscoring = valresultscoring;
-            besttask = taskList;
+    public static void bestSchedule(double valResultScoring, List<Task> taskList, int[][] sch) {
+        if (valResultScoring >= bestScoring) {
+            bestScoring = valResultScoring;
+            bestTask = taskList;
             schedule = sch;
         }
     }
 
-    // table for the task indexes
-    private static int[][] valSchedule;
-
-    // Methods in order to have acess to the table for other classes
-    public static void setValSchedule(int[][] sc) {
-        valSchedule = sc;
-    }
-
-    public static int[][] getValSchedule() {
-        return valSchedule;
-    }
-
-    // stores the remaining hours for the day
-    private static double remainingHours;
-
-    /*
-     * Methods in order for other classes to have acess to the
-     * remaining hours for a day
-     */
-    public static double getRemainingHours() {
-        return remainingHours;
-    }
-
-    public static void setRemainingHours(double remHours) {
-        remainingHours = remHours;
-    }
-
-    public static int[][] assignTask(List<Task> tasks) {
-        Collections.shuffle(tasks);
-        /*
-         * The table valSchedule stors the index of the task Array list, after the
-         * tasks have been distributed into the available hours
-         */
-        if (colsize == 0) {
-            throw new IllegalStateException(
-                    "Column size is not initialized. ");
-        }
-
-        valSchedule = new int[12][colsize];
-        for (int i = 0; i < 12; i++) {
-            for (int j = 0; j < colsize; j++) {
-                valSchedule[i][j] = 0;
-            }
-        }
-
-        // Index of the tasks Array List
-        int taskIndex = 1;
-        /*
-         * The length of the task list before the tasks of type two
-         * are assigned
-         */
-        int tasklength = tasks.size() - 1;
-        // available hours for the day
-        for (int col = 0; col < colsize; col++) {
-            /*
-             * checks if there is already a revision assigned
-             * & Merge repetition tasks if needed
-             */
-            Availability.mergeRepTasks(valSchedule, tasks, col);
-            remainingHours = (double) Availability.getTotalAvailableHours(col);
-            // reduce Availability accordingly to the assigned repetition tasks
-            Availability.reduceRepAvailability(col, tasks);
-
-            // check non Availability for a day
-            boolean flagNAv;
-            flagNAv = Availability.checkAvailability(col);
-
-            if (flagNAv) {
-
-                for (int row = 0; row < 12; row++) { // Max 12 tasks per day
-                    // the loop ends when every task is assigned to a day
-                    if (taskIndex >= tasklength) {
-                        break;
-                    }
-
-                    if (remainingHours >= 2.0) { // each task requires 2 hours
-                        /*
-                         * check if the exam date of the subject's task that we want to
-                         * assigne to a day has passed
-                         */
-                        boolean flagEx = false;
-
-                        flagEx = ExamDates.checkExamDate(tasks.get(taskIndex), col, exams);
-                        LocalDate exDate = ExamDates.getExDate(tasks.get(taskIndex), col, exams);
-
-                        if (flagEx) {
-
-                            if (valSchedule[row][col] == 0) {
-                                // corrects the schedule table
-
-                                // store the task index
-                                valSchedule[row][col] = taskIndex;
-                                // The remaining hours is reduced by 2 hours
-                                remainingHours -= 2.0;
-                                taskIndex++;
-                                // Assign task Type 2 only if task type =1
-                                if (tasks.get(taskIndex).getTaskType() == 1) {
-                                    tasks = Repetition.generateRepetitions(tasks, tasks.get(taskIndex), exDate, col);
-                                }
-
-                            } else {
-                                // continues to the next row
-                                continue;
-                            }
-                        } else {
-                            // continue to the next task
-                            taskIndex++;
-                        }
-                    } else {
-                        // if there are not enough available hours we continue to the next day
-                        break;
-                    }
-                }
-            }
-        }
-
-        // return the table with the valid result
-        return valSchedule;
-    }
 }
