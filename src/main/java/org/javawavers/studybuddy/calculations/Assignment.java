@@ -3,75 +3,104 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 
-public class Assignment {
-    private String title;
-    private long remaingdays;
-    private LocalDate deadline;
+public class Assignment extends SubjectElement {
     private int estimateHours;
     private String description;
     private LocalDate completeddDate;
 
-    /*
-     * //θεωρω πως εχουμε παρει απο την βαση δεδομενων ειτε απο την μνημη της
-     * εφαρμογης : μια λιστα με τις εργασιες που εχει ο χρηστης , μια λιστα με τα
-     * deadllines της καθε εργασιας και την εκφωνηση της ασκησης
-     *
-     * ListAssignment listassignment = new ListAssignment();
-     * //περνουμε απο την κλαση listAssignment τις λιστες για τις προθεσμιες και για
-     * τα μαθηατα και τις εργασιες . στην πραγματικοτητα αυτη η κλαση θα ειναι η
-     * σελιδα που θα εισαγει ο χρηστης τα μαθηματα
-     * ArrayList<ArrayList<String>> assigment = listassignment.getAssigments();
-     * ArrayList<ArrayList<LocalDate>> deadline = listassignment.getDeadline();
-     * //λιστα για της εκφωνησης
-     * ArrayList<ArrayList<String>> description = listassignment.getDescription();
-     * ArrayList<ArrayList<Integer>> remaingdays = new ArrayList<>(); //δημιουργια
-     * νεας λιστας η οποια θα εχει τις μερες που απομενουν μεσα
-     * //παιρνουμε την σημερινη ημερα
-     */
-
-    // κατασκευαστης χωρις παραμετρους
+    //different types of constructors
+    // constructor without any parameter
     public Assignment() {
-        this.completeddDate = null;
+        super(null, null);
 
     }
 
-    // κατασκευαστης με παραμετρους
-    public Assignment(String title, long remaingdays, LocalDate deadline, int estimateHours, String description,
-                      LocalDate completeDate) {
-        this.title = title;
-        this.remaingdays = getRemainingDays(today, deadline);
-        this.deadline = deadline;
+    // constructor with parameters
+    public Assignment(String title, LocalDate deadline, int estimateHours, String description,
+            LocalDate completeDate) {
+        super(deadline, title);
         this.estimateHours = calculateEstHours();
         this.description = description;
-        this.completeddDate = completeDate;
     }
-    // κατασκευαστής μόνο για την ημερομηνία του deadline και τις ώρες που
-    // απαιτούνται για την υλοποιηση
+
     public Assignment(String title, LocalDate deadline, int estimateHours) {
-        this.title = title;
-        this.deadline = deadline;
+        super(deadline, title);
+        if(validEstHours(estimateHours,deadLine)){
+            this.estimateHours = estimateHours;
+        } else {
+            System.out.println("Οι ώρες πρέπει να είναι μικρότερες από:" + maxHours);
+            throw new IllegalArgumentException("Invalid estimate hours: Hours must fit within the given deadline.");
+        }
+
+    }
+
+    private static int maxHours;
+    private static boolean validEstHours(int estimateHours, LocalDate deadLine){
+        LocalDate today = LocalDate.now();
+        maxHours= (int)ChronoUnit.DAYS.between(today, deadLine) *14;
+        return (estimateHours<maxHours);
+    }
+    // getters
+    public String getTitle() {
+        return super.getName();
+    }
+
+    public LocalDate getCompletedDate() {
+        return completeddDate;
+    }
+
+    public LocalDate getDeadline() {
+        return super.getDate();
+    }
+
+    public int getEstimateHours() {
+        return estimateHours;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    // setters
+    public void setTitle(String title) {
+        super.setName(title);
+    }
+
+    public void setCompletedDate(LocalDate completeddDate) {
+        this.completeddDate = completeddDate;
+    }
+
+    public void setDeadline(LocalDate deadLine) {
+        super.setDate(deadLine);
+    }
+
+    public void setEstimateHours(int estimateHours) {
         this.estimateHours = estimateHours;
     }
-    LocalDate today = LocalDate.now();
 
-    public long getRemainingDays(LocalDate today, LocalDate deadline) { // μεθοδος υπολογισμου ποσες μερες μενουν ακομα
-        // για την ληξη της προθεσμιας
-
-        long daysremaining = ChronoUnit.DAYS.between(today, deadline);// με αυτην την εντολη η βιβλιοθηκη chronounit
-        // επιστρεφει τις μερες που εχουν διαφορα δυο
-        // ημερομηνιες
-        return daysremaining;
-
+    public void setDescription(String description) {
+        this.description = description;
     }
 
-    // μεθοδος υπολογισμου αν για καποια εργασια σε συγκεκριμενο μαθημα ειναι κοντα
-    // στην προθεσμαι (δηλαδη λιγοτερο απο 10 μερες)
-    public boolean isDuesoon() {
-        if (getRemainingDays(today, deadline) > 10) {
-            return false;
-        } else {
-            return true;
+    @Override
+    public void isDeadLineSoonMessage() {
+        // Calculate the remaining days until the exam date
+        long remainingDays = ChronoUnit.DAYS.between(LocalDate.now(), getDeadline());
+
+        if (remainingDays <= 10 && remainingDays > 0) {
+            System.out.println("Απομένουν μόνο " + remainingDays + " ημέρες μέχρι την εξέταση!");
+        } else if (remainingDays == 0) {
+            System.out.println("Η εξέταση είναι σήμερα! Καλή επιτυχία!");
+        } else if (remainingDays < 0) {
+            System.out.println("Η εξέταση έχει ήδη περάσει.");
         }
+    }
+
+    @Override
+    // returns true if the deadline is in less than 5 days
+    public boolean isDeadLineSoon() {
+        long remainingDays = ChronoUnit.DAYS.between(LocalDate.now(), getDeadline());
+        return remainingDays <= 5;
     }
 
     // δημιουργια λιστων με λεξεις κλειδια για τον υπολογισμο της δυσκολιας της καθε
@@ -154,45 +183,3 @@ public class Assignment {
         return 2;
     }
 
-    // gettersss
-    public String getTitle() {
-        return title;
-    }
-
-    public LocalDate getCompletedDate() {
-        return completeddDate;
-    }
-
-    public LocalDate getDeadline() {
-        return deadline;
-    }
-
-    public int getEstimateHours() {
-        return estimateHours;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    // setterrss
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public void setCompletedDate() {
-        this.completeddDate = completeddDate;
-    }
-
-    public void setDeadline() {
-        this.deadline = deadline;
-    }
-
-    public void setEstimateHours() {
-        this.estimateHours = estimateHours;
-    }
-
-    public void setDescription() {
-        this.description = description;
-    }
-}
