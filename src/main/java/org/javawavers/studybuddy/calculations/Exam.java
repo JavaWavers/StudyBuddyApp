@@ -6,7 +6,7 @@ public class Exam extends SubjectElement {
 
     private int pages;
     private int revisionPerXPages;
-    private double slidesPerMin;
+    private double timePer20Slides;
 
     // Constructors for different versions of Exam class
     public Exam(LocalDate examDate, int pages) {
@@ -24,6 +24,21 @@ public class Exam extends SubjectElement {
         this.pages = pages;
         this.name = name;
 
+    }
+    public Exam(Subject subject, LocalDate examDate, int pages, String name, int revisionPerXPages, int timePer20Slides) {
+        super(examDate, subject.getCourseName());
+        this.pages = pages;
+        this.name = name;
+        this.revisionPerXPages=revisionPerXPages;
+        this.timePer20Slides=timePer20Slides;
+
+    }
+
+    public Exam(int pages,int revisionPerXPages, LocalDate examDate, int timePer20Slides){
+        super(examDate,null);
+        this.pages=pages;
+        this.revisionPerXPages=revisionPerXPages;
+        this.timePer20Slides=timePer20Slides;
     }
 
     // getters & setters
@@ -52,12 +67,12 @@ public class Exam extends SubjectElement {
         this.revisionPerXPages = revisionPerXPages;
     }
 
-    public double getSlidesPerMin() {
-        return slidesPerMin;
+    public double getTimePer20Slides() {
+        return timePer20Slides;
     }
 
-    public void setSlidesPerMin(double slidesPerMin) {
-        this.slidesPerMin = slidesPerMin;
+    public void setTimePer20Slides(double timePer20Slides) {
+        this.timePer20Slides = timePer20Slides;
     }
 
     // toString (we can use it with ui)
@@ -82,9 +97,9 @@ public class Exam extends SubjectElement {
                     .append("σελίδες'");
         }
 
-        if (slidesPerMin != 0.0) {
+        if (timePer20Slides != 0.0) {
             builder.append("\nΑπαιτούμενα λεπτά για 20 διαφάνειες: '")
-                    .append(slidesPerMin)
+                    .append(timePer20Slides)
                     .append("'");
         }
 

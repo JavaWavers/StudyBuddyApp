@@ -97,8 +97,12 @@ public class SimulateAnnealing {
 
     // Creating tasks for each subject
     private void subTasks(Subject subject) {
+        //setting the difficulty level
+
+        CalculativeAlgorithm.setPagesPerMin(subject.getExams().getFirst().getTimePer20Slides());
         // studying tasks
         int taskType1 = CalculativeAlgorithm.studyingTasks(subject);
+
         // assignment tasks
         int taskType3 = CalculativeAlgorithm.numberOfScheduledTask(subject.getTotalAssHours());
         // Task creation for each task type
@@ -177,7 +181,7 @@ public class SimulateAnnealing {
             bestSchedule(sr.getScore(), sr.getTasks(), sr.getSchedule());
         }
         schedule = Validate.validateSchedule(schedule, bestTask);
-        // PrintSchedule.printSchedule(schedule, bestTask, colSize);
+        //PrintSchedule.printSchedule(schedule, bestTask, colSize);
 
     }
 

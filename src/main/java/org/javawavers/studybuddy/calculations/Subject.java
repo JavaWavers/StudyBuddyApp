@@ -71,6 +71,12 @@ public class Subject {
         this.studyGoal = studyGoal;
     }
 
+    public Subject (String courseName, SubjectType subjectType, int difficultyLevel){
+        this.courseName = courseName;
+        this.difficultyLevel = difficultyLevel;
+        this.subjectType = subjectType;
+    }
+
     // Methods to manage exams
     public void addExam(Exam exam) { // Add an exam to the course
         exams.add(exam);
