@@ -13,8 +13,9 @@ public class CalculativeAlgorithm {
     // setters & getters
 
     // setter for pages per minute
-    public static void setPagesPerMin(double ppm) {
-        pagesPerMin = ppm;
+    public static void setPagesPerMin(double timePer20Slides) {
+
+        pagesPerMin = 20 / timePer20Slides;
     }
 
     // getter for pages per minute

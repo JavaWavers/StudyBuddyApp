@@ -97,8 +97,12 @@ public class SimulateAnnealing {
 
     // Creating tasks for each subject
     private void subTasks(Subject subject) {
+        // setting the difficulty level
+
+        CalculativeAlgorithm.setPagesPerMin(subject.getExams().getFirst().getTimePer20Slides());
         // studying tasks
         int taskType1 = CalculativeAlgorithm.studyingTasks(subject);
+
         // assignment tasks
         int taskType3 = CalculativeAlgorithm.numberOfScheduledTask(subject.getTotalAssHours());
         // Task creation for each task type
