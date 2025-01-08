@@ -1,4 +1,5 @@
-package org.javawavers.studybuddy;
+
+package org.javawavers.studybuddy.calculations;
 /* This class is used to assign a score to each valid result
  * that could be used as a recommended study schedule for the user.
  * The SimulateAnnealing class produces 50 valid results.
@@ -10,7 +11,7 @@ package org.javawavers.studybuddy;
  * -0.2 points are deducted each time the same task type (1-studying,
  * 2-revision, 3-assignment) for the same subject is assigned on the same day.
  * -0.1 points are deducted when the algorithm suggests that the user
- * should study the same subject two days in a row.
+ * should study the same subject two days in a row
  */
 
 
@@ -40,16 +41,17 @@ public class Scoring {
                 // we check if there is also a same task
                 for (int row = 0; row < 12; row++) {
                     if (sch[row][col] >= 0 && sch[row][col] < taskList.size()) {
-
                         Task t = taskList.get(sch[row][col]);
-
-                        /*
-                         * checks if the subject from the subject list is the same as
-                         * the one from the task list
-                         */
-                        if (u.equals(t.getSubject())) {
-                            score -= 0.2;
+                        if(t.getTaskType()==1){
+                            /*
+                             * checks if the subject from the subject list is the same as
+                             * the one from the task list
+                             */
+                            if (u.equals(t.getSubject())) {
+                                score -= 0.2;
+                            }
                         }
+
 
                     } else {
                         break;
@@ -79,7 +81,8 @@ public class Scoring {
 
                             // If the same subject and the same type of task is scheduled on consecutive
                             // days
-                            if (curSubject.equals(nextSubject) && curType == nextType) {
+                            //except from assignments
+                            if (curSubject.equals(nextSubject) && curType == nextType &&curType==1) {
                                 // Deduct 0.1 points
                                 score -= 0.1;
                                 break;
