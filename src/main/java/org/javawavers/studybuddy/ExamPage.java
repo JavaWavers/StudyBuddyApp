@@ -44,7 +44,7 @@ public class ExamPage {
     public static String diffi = "0";
     public static String time = "";
     int difficul = Integer.parseInt(diffi);
-    Subject coursename = new Subject(courseName, difficul);
+    Subject subject1 = new Subject(courseName, difficul);
 
     private DatePicker datePicker;
     private ComboBox<String> typeCourseList;
@@ -122,22 +122,30 @@ public class ExamPage {
             difficul = Integer.parseInt(diffi);
             int page = Integer.parseInt(revision);
             double minutes = Double.parseDouble(pages);
-            Subject coursename = new Subject(courseName, difficul);
+            //Subject subject1 = new Subject(courseName, difficul);
            // subject.add(coursename);
 
             LocalDate localDeadline = LocalDate.parse(deadline);
             //Dates exam = new Dates(coursename, localDeadline);
             //simulateAnnealing.getExams().add(exam);
 
-             Exam exam1 = new Exam(coursename, localDeadline, page);
+             Exam exam1 = new Exam(localDeadline, page);
             //subjectGeneral.addExam(exam1);
-             coursename.addExam(exam1);
-             subject.add(coursename);
+             subject1.addExam(exam1);
+             subject.add(subject1);
              for ( Subject s : subject) {
                 simulateAnnealing.addSubject(s);
               //  System.out.println(PrintSchedule.printSchedule(schedule, besttask, count));
             }
-            schedule = simulateAnnealing.scheduleResult();
+            simulateAnnealing.scheduleResult();
+            schedule = simulateAnnealing.getSchedule();
+            System.out.println(schedule);
+            if (schedule == null) {
+                System.out.println("Schedule is null!");
+            } else {
+                System.out.println("Schedule contents: " + java.util.Arrays.deepToString(schedule));
+            }
+            //System.out.println(schedule);
             //System.out.println(schedule);
            // subjectGeneral.getExams(exam1);
            // exam.add(exam1);
@@ -309,5 +317,9 @@ public class ExamPage {
 
     public List<Exam> getExams() {
         return exam;
+    }
+    public int[][] getSchedule() {
+        //System.out.println(schedule);
+        return schedule;
     }
 }

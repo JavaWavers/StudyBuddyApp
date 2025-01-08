@@ -54,6 +54,8 @@ public class Calendar extends Application {
 
 //αρχικοποιουμε την besttask,schedule,subject που τις εχουμε παρει απο την studybuddyapp
     List<Task> besttask = printSchedule.printSchedule(null, null, 0);
+    //List<Task> besttask = null;
+    //System.out.println(besttask);
     ArrayList<SubjectTest> subject;
 
 //αρχικοποιουμε τις λιστες και τα vbox τα οποια χρησιμευουν στην δυναμικη επεξεργασια και εμφανιση των task
@@ -186,6 +188,10 @@ public class Calendar extends Application {
 
 //μεθοδος για την δημιουργια του κεντρικου panel
     private VBox createCenterPanel() {
+        ExamPage expage = new ExamPage();
+        int[][] schedule = expage.getSchedule();
+        int daysinWeek = 7;
+        List<int[][]> weekschedule = splitSchedule(schedule, daysinWeek);
         VBox centerPanel = new VBox(10);
         centerPanel.setPadding(new Insets(20));
         centerPanel.setStyle("-fx-background-color: white;");
@@ -215,26 +221,23 @@ public class Calendar extends Application {
         Button prevButton = new Button("<");
         prevButton.setStyle("-fx-background-color: #CF308C; -fx-text-fill: white; -fx-font-size: 14px; -fx-background-radius: 30px;");
         prevButton.setPrefSize(30, 30);
-        ExamPage expage = new ExamPage();
+      //  ExamPage expage = new ExamPage();
         //simulateAnnealing.addSubject(expage.coursename);
        /*  for ( Subject s : expage.subject) {
             simulateAnnealing.addSubject(s);
           //  System.out.println(PrintSchedule.printSchedule(schedule, besttask, count));
         }
         int[][] schedule = simulateAnnealing.scheduleResult();*/
-        int[][] schedule = expage.schedule;
+       // int[][] schedule = expage.getSchedule();
        // System.out.println(schedule);
         Button nextButton = new Button(">");
         nextButton.setStyle("-fx-background-color: #CF308C; -fx-text-fill: white; -fx-font-size: 14px; -fx-background-radius: 30px;");
         nextButton.setPrefSize(30, 30);
         
-        int daysinWeek = 7;
-        List<int[][]> weekschedule = splitSchedule(schedule, daysinWeek);
         
         GridPane calendarGrid = new GridPane();
         calendarGrid.setStyle("-fx-border-color: black;");
         calendarGrid.setGridLinesVisible(true);
-        createCalendarGrid(calendarGrid, besttask, weekschedule, count);
 //μεταβλητη count η οποια μολις ο χρηστης παταει το κουμπι που παει τις εβδομαδες μπροστα αυξανεται αλλιως μειωνεται οταν count == 0 τοτε θα εεμφανιζετε το κουμπι today
         prevButton.setOnAction(event -> {
             currentWeekStart = currentWeekStart.minusWeeks(1);
@@ -277,6 +280,7 @@ public class Calendar extends Application {
         } else {
             todayButton.setVisible(false);
         }
+        createCalendarGrid(calendarGrid, besttask, weekschedule, count, schedule);
 
 //κουμπι για να βαζει ο χρηστης την διαθεσημοτητα
         Button availabilityButton = new Button("Availiability");
@@ -391,9 +395,9 @@ public class Calendar extends Application {
 
 //δημιουργουμε το ημερολογιο
 //δεν υπαρχει schedule 
-    private void createCalendarGrid(GridPane grid, List<Task> besttask, List<int[][]> weekschedule, int currentIndex) {
+    private void createCalendarGrid(GridPane grid, List<Task> besttask, List<int[][]> weekschedule, int count , int[][] schedule) {
         String[] days = {"Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"};
-        int[][] selectedWeek = weekschedule.get(currentIndex);
+        int[][] selectedWeek = weekschedule.get(count);
         grid.getChildren().clear();
         grid.getColumnConstraints().clear();
         grid.getRowConstraints().clear();
@@ -467,8 +471,7 @@ public class Calendar extends Application {
                             if (subject.getName().equalsIgnoreCase(firstWord)) {
 
                                 //cell.setGraphic(new ImageView(image));
-                               cell.setStyle("-fx-background-color: " + subject.getColor() + "; " +
-                                    "-fx-border-color: gray; -fx-border-width: 0; -fx-alignment: center;");
+                               cell.setStyle("-fx-border-color: gray; -fx-border-width: 0; -fx-alignment: center;");
                                 break;
                             }
                         }

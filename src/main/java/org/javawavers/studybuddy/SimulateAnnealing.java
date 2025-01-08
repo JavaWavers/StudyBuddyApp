@@ -76,6 +76,7 @@ public class SimulateAnnealing {
 
     // Creating tasks for each subject
     private void subTasks(Subject subject) {
+        //System.out.println("mphka");
         // studying tasks
         int taskType1 = CalculativeAlgorithm.studyingTasks(subject);
         System.out.println("subTasks" +subject.getCourseName()+ taskType1);
@@ -148,9 +149,11 @@ public class SimulateAnnealing {
         for (ScheduleResult sr : scheduleResults) {
             bestSchedule(sr.getScore(), sr.getTasks(), sr.getSchedule());
         }
-        //schedule = Validate.validateSchedule(schedule,bestTask);
+        System.out.println("mphka");
+       // schedule = Validate.validateSchedule(schedule,bestTask);
        // PrintSchedule.printSchedule(schedule, bestTask, colSize);
-       PrintSchedule.printSchedule(schedule, bestTask, colSize);
+       //PrintSchedule.printSchedule(schedule, bestTask, colSize); λειτουργει σωστα
+      // System.out.println(schedule);
         return schedule;
 
 

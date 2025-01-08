@@ -103,8 +103,8 @@ public class StudyBuddyApp extends Application { //exam page
         SceneManager sceneManager = new SceneManager(stage);
 
         HomePage homePage = new HomePage();
-        Scene homeScene = homePage.home(sceneManager);
-        /*BorderPane borderPane = new BorderPane();
+        //Scene homeScene = homePage.home(sceneManager);
+        BorderPane borderPane = new BorderPane();
 
         CenterPanelManager centerPanelManager = new CenterPanelManager();
         borderPane.setCenter(centerPanelManager.getCenterPane());
@@ -116,12 +116,13 @@ public class StudyBuddyApp extends Application { //exam page
         topPane.setPadding(new Insets(0, 0, 50, 212));
         topPane.setStyle("-fx-background-color: #60f7b3; ");
         borderPane.setTop(topPane);
+        //Scene menupagScene = menuPage.MenuPage(sceneManager);
 
 
         Scene scene = new Scene(borderPane, 1024, 600);
 
-        stage.setScene(scene);*/
-        stage.setScene(homeScene);
+        stage.setScene(scene);
+       // stage.setScene(homeScene);
         stage.setTitle("StudyBuddy");
         stage.setX((Screen.getPrimary().getVisualBounds().getWidth()-1024)/2);
         stage.setX((Screen.getPrimary().getVisualBounds().getHeight()-768)/2);

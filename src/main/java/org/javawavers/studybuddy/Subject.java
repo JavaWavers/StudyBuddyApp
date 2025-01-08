@@ -77,7 +77,7 @@ public class Subject {
     }
 
     public List<Exam> getExams() { // Retrieve the list of exams for the course
-        System.out.println(exams);
+        //System.out.println(exams);
         return exams;
     }
 
