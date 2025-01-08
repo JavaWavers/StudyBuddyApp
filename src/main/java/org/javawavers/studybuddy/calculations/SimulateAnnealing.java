@@ -122,6 +122,13 @@ public class SimulateAnnealing {
     private static List<Task> bestTask = new ArrayList<>();
     private static int[][] schedule;
 
+    //getters
+    public static int [][] getSchedule(){
+        return  schedule;
+    }
+    public static List<Task> getBestTask(){
+        return bestTask;
+    }
     // Κατανομή tasks στο πρόγραμμα
     public static void scheduleResult() {
         /*
@@ -165,7 +172,7 @@ public class SimulateAnnealing {
             bestSchedule(sr.getScore(), sr.getTasks(), sr.getSchedule());
         }
         schedule=Validate.validateSchedule(schedule,bestTask);
-        PrintSchedule.printSchedule(schedule, bestTask, colSize);
+        //PrintSchedule.printSchedule(schedule, bestTask, colSize);
 
     }
     public static void bestSchedule(double valResultScoring, List<Task> taskList, int[][] sch) {
