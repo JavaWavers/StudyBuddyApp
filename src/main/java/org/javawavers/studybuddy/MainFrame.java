@@ -4,6 +4,7 @@ import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
+import javafx.stage.Screen;
 
 public class MainFrame {
 
@@ -30,7 +31,9 @@ public class MainFrame {
     rightPanel.CoursesList();
     borderPane.setRight(rightPanel.getRightPanel());
 
-    Scene scene = new Scene(borderPane, 1024,768);
+    Scene scene = new Scene(borderPane,
+        Screen.getPrimary().getVisualBounds().getWidth(),
+        Screen.getPrimary().getVisualBounds().getHeight());
 
     return scene;
   }

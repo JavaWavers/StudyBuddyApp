@@ -112,13 +112,13 @@ public class StudyBuddyApp extends Application { //exam page
         stage.setScene(scene);*/
         stage.setScene(homeScene);
         stage.setTitle("StudyBuddy");
-        stage.setX((Screen.getPrimary().getVisualBounds().getWidth()-1024)/2);
-        stage.setX((Screen.getPrimary().getVisualBounds().getHeight()-768)/2);
+        stage.setX((Screen.getPrimary().getVisualBounds().getWidth()) / 2);
+        stage.setX((Screen.getPrimary().getVisualBounds().getHeight()) / 2);
         stage.setWidth(1024);
         stage.setHeight(768);
         stage.setMaximized(true);
-        stage.setMinWidth(800);
-        stage.setMinHeight(600);
+        stage.setMinWidth(1024);
+        stage.setMinHeight(768);
 
         stage.show();
     }

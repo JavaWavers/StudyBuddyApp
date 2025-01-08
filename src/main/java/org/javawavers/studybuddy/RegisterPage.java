@@ -52,17 +52,19 @@ public class RegisterPage {
         HBox.setHgrow(rightPane, Priority.ALWAYS);
         leftPane.setMinWidth(300);
         rightPane.setMinWidth(300);
-        leftPane.setPrefWidth((Screen.getPrimary().getVisualBounds().getWidth() - 1024) / 2);
-        rightPane.setPrefWidth((Screen.getPrimary().getVisualBounds().getWidth() - 768) / 2);
+        leftPane.setPrefWidth((Screen.getPrimary().getVisualBounds().getWidth()) / 2);
+        rightPane.setPrefWidth((Screen.getPrimary().getVisualBounds().getWidth()) / 2);
 
-        Scene scene = new Scene(registerPage, 1024, 768);
+        Scene scene = new Scene(registerPage,
+            Screen.getPrimary().getVisualBounds().getWidth(),
+            Screen.getPrimary().getVisualBounds().getHeight());
 
         return scene;
     }
 
     private void initRightPane() {
         rightPane = new HBox();
-        rightPane.setStyle("-fx-background-color: #CF7330;");
+        rightPane.setStyle("-fx-background-color: #B563F1;");
         rightPane.setPrefWidth(Screen.getPrimary().getVisualBounds().getWidth() / 2);
 
         VBox rightVBox = new VBox(15);
@@ -72,7 +74,7 @@ public class RegisterPage {
         rightVBox.setMaxHeight(Double.MAX_VALUE);
 
         Text joinText = new Text("Έλα στην παρέα μας");
-        joinText.setFont(Font.font(28));
+        joinText.setFont(new Font("System Bold", 28));
 
         Label nameLabel = new Label("Name:");
         nameLabel.setFont(new Font("System Bold", 14));
@@ -136,12 +138,12 @@ public class RegisterPage {
 
         rightPane.widthProperty().addListener((obs, oldVal, newVal) -> {
             double newSize = newVal.doubleValue() / 30;
-            joinText.setFont(Font.font("Arial", newSize));
+            joinText.setFont(Font.font("Arial",FontWeight.BOLD, newSize));
             nameField.setFont(Font.font("Arial", newSize));
             nameLabel.setFont(Font.font("Arial", newSize));
             emailField.setFont(Font.font("Arial", newSize));
             emailLabel.setFont(Font.font("Arial", newSize));
-            passwordField.setFont(Font.font("Arial", FontWeight.BOLD, newSize));
+            passwordField.setFont(Font.font("Arial",  newSize));
             passwordLabel.setFont(Font.font("Arial", newSize));
             textField.setFont(Font.font("Arial", newSize));
             toggleButton.setFont(Font.font("Arial", newSize));
@@ -150,7 +152,8 @@ public class RegisterPage {
             registerButton.setStyle("-fx-font-family: 'System';  " + 
             "-fx-font-size: " + newSize + "px; " +
             "-fx-font-weight: bold; " +
-            "-fx-background-color: #30CFC2; " +
+                "-fx-text-fill: white; " +
+                "-fx-background-color: rgba(14, 164, 43, 0.81); " +
             "-fx-background-radius: 30px; " +
             "-fx-font-size: " + newSize + "px; " +
             "-fx-border-radius: 30px;" + 
@@ -159,12 +162,12 @@ public class RegisterPage {
 
         rightPane.heightProperty().addListener((obs, oldVal, newVal) -> {
             double newSize = newVal.doubleValue() / 30;
-            joinText.setFont(Font.font("Arial", newSize));
+            joinText.setFont(Font.font("Arial", FontWeight.BOLD, newSize));
             nameField.setFont(Font.font("Arial", newSize));
             nameLabel.setFont(Font.font("Arial", newSize));
             emailField.setFont(Font.font("Arial", newSize));
             emailLabel.setFont(Font.font("Arial", newSize));
-            passwordField.setFont(Font.font("Arial", FontWeight.BOLD, newSize));
+            passwordField.setFont(Font.font("Arial", newSize));
             passwordLabel.setFont(Font.font("Arial", newSize));
             textField.setFont(Font.font("Arial", newSize));
             toggleButton.setFont(Font.font("Arial", newSize));
@@ -173,7 +176,8 @@ public class RegisterPage {
             registerButton.setStyle("-fx-font-family: 'System'; " +
                 "-fx-font-size: " + newSize + "px; " +
                 "-fx-font-weight: bold; " +
-                "-fx-background-color: #CF308C; " +
+                "-fx-text-fill: white; " +
+                "-fx-background-color: rgba(14, 164, 43, 0.81); " +
                 "-fx-background-radius: 30px; " +
                 "-fx-border-radius: 30px; " +
                 "-fx-border-color: black;");
@@ -197,7 +201,7 @@ public class RegisterPage {
 
     private void initLeftPane() {
         leftPane = new HBox();
-        leftPane.setStyle("-fx-background-color: #30CFC2;");
+        leftPane.setStyle("-fx-background-color: #65E165CF;");
         leftPane.setPrefWidth(Screen.getPrimary().getVisualBounds().getWidth() / 2);
 
         VBox leftVBox = new VBox(15);
@@ -207,29 +211,30 @@ public class RegisterPage {
         leftVBox.setMaxHeight(Double.MAX_VALUE);
 
         Text welcomeText = new Text("Καλώς ήρθες ξανά!");
-        welcomeText.setFont(Font.font(28));
+        welcomeText.setFont(new Font("System Bold", 28));
 
         Text messageText1 = new Text("Ας οργανώσουμε ξανά μαζί");
         messageText1.setFont(new Font(14));
 
         Text messageText2 = new Text("το χρόνο σου.");
-        messageText2.setFont(Font.font("Arial", FontWeight.BOLD, 14));
+        messageText2.setFont(new Font(14));
 
 //κουμπι logon
         loginButton = new Button("Συνδέσου εδώ");
         loginButton.setFont(new Font("System Bold", 14));
-        loginButton.setStyle("-fx-background-color: #CF7330; -fx-background-radius: 30px; "
+        loginButton.setStyle("-fx-background-color: #801EC8E6; -fx-background-radius: 30px; "
                 + "-fx-border-radius: 30px; -fx-border-color: black;");
 
         leftPane.widthProperty().addListener((obs, oldVal, newVal) -> {
             double newSize = newVal.doubleValue() / 30;
             welcomeText.setFont(Font.font("Arial", FontWeight.BOLD, newSize));
-            messageText1.setFont(Font.font("Arial", FontWeight.BOLD, newSize));
-            messageText2.setStyle("-fx-font-size: " + newSize + "px;");
-            loginButton.setStyle("-fx-background-color: #CF7330; " +
+            messageText1.setFont(Font.font("Arial", newSize));
+            messageText2.setFont(Font.font("Arial", newSize));
+            loginButton.setStyle("-fx-background-color: #801EC8E6; " +
             "-fx-background-radius: 30px; " +
-            "-fx-border-radius: 30px; "+
-            "-fx-border-color: black;" +
+            "-fx-border-radius: 30px; " +
+                    "-fx-text-fill: white; " +
+                    "-fx-border-color: black;" +
             "-fx-font-family: 'System'; " +
             "-fx-font-size: " + newSize + "px; " +
             "-fx-font-weight: bold; " 
@@ -239,12 +244,13 @@ public class RegisterPage {
         leftPane.heightProperty().addListener((obs, oldVal, newVal) -> {
             double newSize = newVal.doubleValue() / 30;
             welcomeText.setFont(Font.font("Arial", FontWeight.BOLD, newSize));
-            messageText1.setFont(Font.font("Arial", FontWeight.BOLD, newSize));
-            messageText2.setStyle("-fx-font-size: " + newSize + "px;");
-            loginButton.setStyle("-fx-background-color: #CF7330; " +
+            messageText1.setFont(Font.font("Arial", newSize));
+            messageText2.setFont(Font.font("Arial", newSize));
+            loginButton.setStyle("-fx-background-color: #801EC8E6; " +
             "-fx-background-radius: 30px; " +
             "-fx-border-radius: 30px; "+
-            "-fx-border-color: black;" +
+                    "-fx-text-fill: white; " +
+                    "-fx-border-color: black;" +
             "-fx-font-family: 'System'; " +
             "-fx-font-size: " + newSize + "px; " +
             "-fx-font-weight: bold; " 

@@ -44,7 +44,7 @@ public class CenterPanelManager {
                 centerPane.getChildren().setAll(examPage.createExamPanel());
                 break;
             case "Assignments":
-                centerPane.getChildren().setAll(assignmentPage.AssignmentPanel());
+                centerPane.getChildren().setAll(assignmentPage.assignmentPanel());
                 break;
             case "Calendar":
                 centerPane.getChildren().setAll(calendar.calendar());
