@@ -1,5 +1,5 @@
 
-package org.javawavers.studybuddy.calculations;
+package org.javawavers.studybuddy;
 /* This class is used to assign a score to each valid result
  * that could be used as a recommended study schedule for the user.
  * The SimulateAnnealing class produces 50 valid results.

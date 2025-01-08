@@ -1,4 +1,4 @@
-package org.javawavers.studybuddy.calculations;
+package org.javawavers.studybuddy;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
