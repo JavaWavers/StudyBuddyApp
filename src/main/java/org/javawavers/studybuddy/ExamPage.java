@@ -9,6 +9,7 @@ import java.util.List;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -18,7 +19,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-
+import javafx.stage.Screen;
 
 
 /*
@@ -49,6 +50,7 @@ public class ExamPage {
     private DatePicker datePicker;
     private ComboBox<String> typeCourseList;
     int[][] schedule;
+
 
     // Exam Page as Node
     public Node createExamPanel() {
@@ -325,5 +327,35 @@ public class ExamPage {
     public int[][] getSchedule() {
         //System.out.println(schedule);
         return schedule;
+    }
+
+    public Scene examStartingPage(SceneManager sceneManager) {
+        VBox examViewWithBtn = new VBox();
+
+        HBox nameLbl = new HBox(20);
+        Label name = new Label("Εισαγωγή Μαθημάτων");
+        name.setStyle(labelStyle());
+        nameLbl.getChildren().add(name);
+        nameLbl.setPadding(new Insets(20));
+        examViewWithBtn.getChildren().add(nameLbl);
+
+        VBox examView = (VBox) createExamPanel();
+        examViewWithBtn.getChildren().add(examView);
+
+        HBox btnBox = new HBox(20);
+        btnBox.setPadding(new Insets(20));
+        Button nextBtn = new Button("Επόμενο");
+        nextBtn.setStyle(btnStyle());
+        nextBtn.setOnAction(e -> {
+            AssignmentPage assignPage = new AssignmentPage();
+            sceneManager.switchScene(assignPage.assignmentStartingPage(sceneManager));
+        });
+        btnBox.getChildren().add(nextBtn);
+        examViewWithBtn.getChildren().add(btnBox);
+
+        Scene scene = new Scene(examViewWithBtn,
+            Screen.getPrimary().getVisualBounds().getWidth(),
+            Screen.getPrimary().getVisualBounds().getHeight());
+        return scene;
     }
 }

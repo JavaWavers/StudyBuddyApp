@@ -16,19 +16,19 @@ public class StudyBuddyApp extends Application {
     public void start(Stage primaryStage) {
  */
 /*
-//ΤO DO: οταν ανοιγει μια σελιδα θελουμε η αλλη να κλεινει αυτο για ολες τις σελιδες εκτος απο τα popups 
+//ΤO DO: οταν ανοιγει μια σελιδα θελουμε η αλλη να κλεινει αυτο για ολες τις σελιδες εκτος απο τα popups
 //ανοιγουμε αρχικα την σελιδα εγγραφης
         Signup signup = new Signup();
         Stage signupStage = new Stage();
         signup.start(signupStage);
-            
+
 //αν ο χρηστης εχει maximize την οθονη τοτε του εμφανιζεται maximize και η νεα οθονη
         if (primaryStage.isMaximized()) {
             signupStage.setMaximized(true);
         }
-        
+
         signupStage.show();
-        
+
  */
  /*       ArrayList<SubjectTest> subject = new ArrayList<>();
         // Initialize Availability (example)
@@ -53,84 +53,69 @@ public class StudyBuddyApp extends Application {
         simulateAnnealing.addSubject(history);
         subject.add(math);
         subject.add(history);
-        
+
         int[][] schedule = SimulateAnnealing.SchedulResult();
         List<Task> besttask = SimulateAnnealing.getBestTask();
-        
+
         Calendar  calendar = new Calendar();
         calendar.subject = subject;
         calendar.besttask = besttask;
         calendar.schedule = schedule;
         Stage calendarStage = new Stage();
         calendar.start(calendarStage);
-        
+
 
     }
 
-    
-    
+
+
 
 
     public static void main(String[] args) {
         launch(args);
     }
-    
+
 }
 */
 
 
 import javafx.application.Application;
-import javafx.geometry.Insets;
 import javafx.scene.Scene;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 
-/* 
+/*
  * TODO:
  *  fix courses menu (attention Home btn)
  *  scroll bar
  *  username btn alignment
- */ 
+ */
 public class StudyBuddyApp extends Application { //exam page
 
-    CenterPanelManager sceneChange = new CenterPanelManager();
+
 
 
     @Override
     public void start(Stage stage) {
         SceneManager sceneManager = new SceneManager(stage);
 
-       // HomePage homePage = new HomePage();
-        //Scene homeScene = homePage.home(sceneManager);
-        BorderPane borderPane = new BorderPane();
-
-        CenterPanelManager centerPanelManager = new CenterPanelManager();
-        borderPane.setCenter(centerPanelManager.getCenterPane());
-
-        MenuPage menuPage = new MenuPage(centerPanelManager);
-        borderPane.setLeft(menuPage.getLeftBoxMenu());
-
-        HBox topPane = new HBox();
-        topPane.setPadding(new Insets(0, 0, 50, 212));
-        topPane.setStyle("-fx-background-color: #60f7b3; ");
-        borderPane.setTop(topPane);
-        //Scene menupagScene = menuPage.MenuPage(sceneManager);
+        HomePage homePage = new HomePage();
+        Scene homeScene = homePage.home(sceneManager);
+        /*
 
 
         Scene scene = new Scene(borderPane, 1024, 600);
 
-        stage.setScene(scene);
-       // stage.setScene(homeScene);
+        stage.setScene(scene);*/
+        stage.setScene(homeScene);
         stage.setTitle("StudyBuddy");
-        stage.setX((Screen.getPrimary().getVisualBounds().getWidth()-1024)/2);
-        stage.setX((Screen.getPrimary().getVisualBounds().getHeight()-768)/2);
+        stage.setX((Screen.getPrimary().getVisualBounds().getWidth()) / 2);
+        stage.setX((Screen.getPrimary().getVisualBounds().getHeight()) / 2);
         stage.setWidth(1024);
         stage.setHeight(768);
         stage.setMaximized(true);
-        stage.setMinWidth(800);
-        stage.setMinHeight(600);
+        stage.setMinWidth(1024);
+        stage.setMinHeight(768);
 
         stage.show();
     }

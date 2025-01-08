@@ -7,6 +7,7 @@ import java.util.List;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -16,6 +17,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Screen;
 
 /*
 TODO :
@@ -32,8 +34,9 @@ public class AssignmentPage {
     public static String difficulty = "";
     public static String deadline = "";
     public static String courseType = "";
+
     // Assignment Page as Node
-    public Node AssignmentPanel() {
+    public Node assignmentPanel() {
         VBox assignmentPanel = new VBox(20);
         assignmentPanel.setPadding(new Insets(20));
 
@@ -248,5 +251,43 @@ public class AssignmentPage {
                 + "-fx-border-color: #D98A4B;"
                 + "-fx-border-radius: 6;"
                 + "-fx-effect: none;";
+    }
+
+    public Scene assignmentStartingPage(SceneManager sceneManager) {
+        VBox assignViewWithBtn = new VBox();
+
+        HBox nameLbl = new HBox(20);
+        Label name = new Label("Εισαγωγή Εργασιών");
+        name.setStyle(labelStyle());
+        nameLbl.getChildren().add(name);
+        nameLbl.setPadding(new Insets(20));
+        assignViewWithBtn.getChildren().add(nameLbl);
+
+        VBox examView = (VBox) assignmentPanel();
+        assignViewWithBtn.getChildren().add(examView);
+
+        HBox btns = new HBox(15);
+        btns.setPadding(new Insets(20));
+        Button prevBtn = new Button("Προηγούμενο");
+        prevBtn.setStyle(btnStyle());
+        prevBtn.setOnAction(e -> {
+            ExamPage examPage = new ExamPage();
+            sceneManager.switchScene(examPage.examStartingPage(sceneManager));
+        });
+
+        Button nextBtn = new Button("Επόμενο");
+        nextBtn.setStyle(btnStyle());
+        nextBtn.setOnAction(e -> {
+           // System.out.println("Το κουμπί πατήθηκε!");
+           MainFrame mainframe = new MainFrame();
+           sceneManager.switchScene(mainframe.mainFrame(sceneManager));
+        });
+        btns.getChildren().addAll(prevBtn, nextBtn);
+        assignViewWithBtn.getChildren().add(btns);
+
+        Scene scene = new Scene(assignViewWithBtn,
+            Screen.getPrimary().getVisualBounds().getWidth(),
+            Screen.getPrimary().getVisualBounds().getHeight());
+        return scene;
     }
 }

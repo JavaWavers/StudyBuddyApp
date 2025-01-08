@@ -3,12 +3,7 @@ package org.javawavers.studybuddy;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.DialogPane;
-import javafx.scene.control.Label;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
@@ -20,13 +15,14 @@ import javafx.stage.Screen;
 
 public class LoginPage {
 
+
     private HBox rightPane;
     private HBox leftPane;
     private TextField emailField;
     private PasswordField passwordField;
     private TextField textField;
     private Button loginButton;
-    private Button signinButton;
+    private Button signupButton;
     private SceneManager sceneManager;
 
     public Scene login(SceneManager sceneManager) {
@@ -42,17 +38,19 @@ public class LoginPage {
         HBox.setHgrow(rightPane, Priority.ALWAYS);
         leftPane.setMinWidth(300);
         rightPane.setMinWidth(300);
-        leftPane.setPrefWidth((Screen.getPrimary().getVisualBounds().getWidth() - 1024) / 2);
-        rightPane.setPrefWidth((Screen.getPrimary().getVisualBounds().getWidth() - 768) / 2);
+        leftPane.setPrefWidth((Screen.getPrimary().getVisualBounds().getWidth()) / 2);
+        rightPane.setPrefWidth((Screen.getPrimary().getVisualBounds().getWidth()) / 2);
 
-        Scene scene = new Scene(loginPage, 1024, 768);
+        Scene scene = new Scene(loginPage,
+            Screen.getPrimary().getVisualBounds().getWidth(),
+            Screen.getPrimary().getVisualBounds().getHeight());
 
         return scene;
     }
 
     private void initRightPane() {
         rightPane = new HBox();
-        rightPane.setStyle("-fx-background-color:#30CFC2;");
+        rightPane.setStyle("-fx-background-color: #65E165CF;");
         rightPane.setPrefWidth(Screen.getPrimary().getVisualBounds().getWidth() / 2);
 
         VBox rightVBox = new VBox(15);
@@ -71,11 +69,12 @@ public class LoginPage {
         Text messageLine2 = new Text("έξυπνο και αποτελεσματικό;");
         messageLine2.setFont(Font.font("Arial", 14));
 
-        signinButton = new Button("Εγγραφή εδώ");
-        signinButton.setStyle("-fx-font-family: 'System'; " +
+        signupButton = new Button("Εγγραφή εδώ");
+        signupButton.setStyle("-fx-font-family: 'System'; " +
             "-fx-font-size: 14px; " +
             "-fx-font-weight: bold; " +
-            "-fx-background-color: #CF308C; " +
+            "-fx-text-fill: white; " +
+            "-fx-background-color: #801EC8E6; " +
             "-fx-background-radius: 30px; " +
             "-fx-border-radius: 30px; " +
             "-fx-border-color: black;");
@@ -85,10 +84,11 @@ public class LoginPage {
             messageLine2.setFont(Font.font("Arial", newSize));
             messageLine1.setFont(Font.font("Arial", newSize));
             welcomeText.setFont(Font.font("Arial", FontWeight.BOLD, newSize));
-            signinButton.setStyle("-fx-font-family: 'System'; " +
+            signupButton.setStyle("-fx-font-family: 'System'; " +
                 "-fx-font-size: " + newSize + "px; " +
                 "-fx-font-weight: bold; " +
-                "-fx-background-color: #CF308C; " +
+                "-fx-text-fill: white; " +
+                "-fx-background-color: #801EC8E6; " +
                 "-fx-background-radius: 30px; " +
                 "-fx-border-radius: 30px; " +
                 "-fx-border-color: black;");
@@ -99,10 +99,11 @@ public class LoginPage {
             messageLine2.setFont(Font.font("Arial", newSize));
             messageLine1.setFont(Font.font("Arial", newSize));
             welcomeText.setFont(Font.font("Arial", FontWeight.BOLD, newSize));
-            signinButton.setStyle("-fx-font-family: 'System'; " +
+            signupButton.setStyle("-fx-font-family: 'System'; " +
                 "-fx-font-size: " + newSize + "px; " +
                 "-fx-font-weight: bold; " +
-                "-fx-background-color: #CF308C; " +
+                "-fx-text-fill: white; " +
+                "-fx-background-color: #801EC8E6; " +
                 "-fx-background-radius: 30px; " +
                 "-fx-border-radius: 30px; " +
                 "-fx-border-color: black;");
@@ -113,7 +114,7 @@ public class LoginPage {
         Region downSpacer = new Region();
         VBox.setVgrow(upSpacer, Priority.ALWAYS);
         VBox.setVgrow(downSpacer, Priority.ALWAYS);
-        rightVBox.getChildren().addAll(upSpacer, welcomeText, messageLine1, messageLine2, signinButton, downSpacer);
+        rightVBox.getChildren().addAll(upSpacer, welcomeText, messageLine1, messageLine2, signupButton, downSpacer);
 
 
         Region leftSpacer = new Region();
@@ -128,7 +129,7 @@ public class LoginPage {
 
     private void initLeftPane() {
         leftPane = new HBox();
-        leftPane.setStyle("-fx-background-color: #CF308C;");
+        leftPane.setStyle("-fx-background-color: #B563F1;");
         leftPane.setPrefWidth(Screen.getPrimary().getVisualBounds().getWidth() / 2);
 
         VBox leftVBox = new VBox(15);
@@ -141,13 +142,13 @@ public class LoginPage {
         joinText.setFont(Font.font("Arial", FontWeight.BOLD, 60));
 
         Label emailLabel = new Label("Email:");
-        emailLabel.setFont(new Font("System Bold", 14));
+        emailLabel.setFont(new Font( 14));
 
         emailField = new TextField();
         emailField.setPromptText("Enter your email");
 
         Label passwordLabel = new Label("Password:");
-        passwordLabel.setFont(new Font("System Bold", 14));
+        passwordLabel.setFont(new Font( 14));
 
         passwordField = new PasswordField();
         passwordField.setPromptText("Enter your password");
@@ -166,7 +167,8 @@ public class LoginPage {
         loginButton.setStyle("-fx-font-family: 'System'; " +
             "-fx-font-size: 14px; " +
             "-fx-font-weight: bold; " +
-            "-fx-background-color: #30CFC2; " +
+            "-fx-text-fill: white; " +
+            "-fx-background-color:  rgba(14, 164, 43, 0.81); " +
             "-fx-background-radius: 30px; " +
             "-fx-border-radius: 30px; " +
             "-fx-border-color: black;");
@@ -174,7 +176,7 @@ public class LoginPage {
         leftPane.widthProperty().addListener((obs, oldVal, newVal) -> {
             double newSize = newVal.doubleValue() / 30;
             joinText.setFont(Font.font("Arial", FontWeight.BOLD, newSize));
-            emailLabel.setFont(Font.font("Arial", FontWeight.BOLD, newSize));
+            emailLabel.setFont(Font.font("Arial",  newSize));
             emailField.setStyle("-fx-font-size: " + newSize + "px;");
             passwordLabel.setFont(Font.font("Arial", newSize));
             passwordField.setStyle("-fx-font-size: " + newSize + "px;");
@@ -184,7 +186,8 @@ public class LoginPage {
             loginButton.setStyle("-fx-font-family: 'System'; " +
                 "-fx-font-size: " + newSize + "px; " +
                 "-fx-font-weight: bold; " +
-                "-fx-background-color: #30CFC2; " +
+                "-fx-background-color:  rgba(14, 164, 43, 0.81); " +
+                "-fx-text-fill: white; " +
                 "-fx-background-radius: 30px; " +
                 "-fx-border-radius: 30px; " +
                 "-fx-border-color: black;");
@@ -193,7 +196,7 @@ public class LoginPage {
         leftPane.heightProperty().addListener((obs, oldVal, newVal) -> {
             double newSize = newVal.doubleValue() / 30;
             joinText.setFont(Font.font("Arial", FontWeight.BOLD, newSize));
-            emailLabel.setFont(Font.font("Arial", FontWeight.BOLD, newSize));
+            emailLabel.setFont(Font.font("Arial",  newSize));
             emailField.setStyle("-fx-font-size: " + newSize + "px;");
             passwordLabel.setFont(Font.font("Arial", newSize));
             passwordField.setStyle("-fx-font-size: " + newSize + "px;");
@@ -203,7 +206,8 @@ public class LoginPage {
             loginButton.setStyle("-fx-font-family: 'System'; " +
                 "-fx-font-size: " + newSize + "px; " +
                 "-fx-font-weight: bold; " +
-                "-fx-background-color: #30CFC2; " +
+                "-fx-text-fill: white; " +
+                "-fx-background-color:  rgba(14, 164, 43, 0.81); " +
                 "-fx-background-radius: 30px; " +
                 "-fx-border-radius: 30px; " +
                 "-fx-border-color: black;");
@@ -225,18 +229,21 @@ public class LoginPage {
     }
 
     private void setupEventHandlers() {
-        signinButton.setOnAction(event -> {
+        signupButton.setOnAction(event -> {
             RegisterPage registerPage = new RegisterPage();
             sceneManager.switchScene(registerPage.register(sceneManager));
         });
 
         loginButton.setOnAction(event -> {
             validateLogin();
-            clearFields();
+            if(validateLogin()) {
+                MainFrame mainFrame = new MainFrame();
+                sceneManager.switchScene(mainFrame.mainFrame(sceneManager));
+            }
         });
     }
 
-    private void validateLogin() {
+    private boolean validateLogin() {
         String email = emailField.getText();
         String password = passwordField.getText();
 
@@ -250,7 +257,7 @@ public class LoginPage {
             alert.getDialogPane().setMinHeight(300);
             alert.showAndWait();
 
-            return;
+            return false;
         } else if (email.equals(RegisterPage.storedEmail) && password.equals(RegisterPage.storedPassword)) {
 
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -261,7 +268,7 @@ public class LoginPage {
             dialogPane.getStyleClass().add("success-alert");
             dialogPane.getStylesheets().add(getClass().getResource("success.css").toExternalForm());
 
-            //sceneManager.switchScene(new StudyBuddyApp().home(sceneManager));
+            return true;
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Σφάλμα σύνδεσης");
@@ -271,6 +278,7 @@ public class LoginPage {
             alert.getDialogPane().setMinWidth(500);
             alert.getDialogPane().setMinHeight(300);
             alert.showAndWait();
+            return false;
         }
 
     }
