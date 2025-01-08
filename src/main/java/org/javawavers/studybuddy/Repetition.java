@@ -1,50 +1,117 @@
-
-package org.javawavers.studybuddy;
+package org.javawavers.studybuddy.calculations;
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.List;
 
-public class MainTest {
-    public static void main(String[] args) {
-        // Create subjects
-        Subject Maths = new Subject("Maths", 5, null, null);
-        Exam e1 = new Exam(LocalDate.of(2025, 2, 24), 400);
-        Maths.addExam(e1);
-        Assignment a1 = new Assignment("Mathsασσ", LocalDate.of(2025, 1, 18),13 );
+public class Repetition {
 
-        Maths.addAssignment(a1);
-        //Maths.addAssignment(a2);
-        Subject History = new Subject("History", 4, null, null);
-        Exam e2 = new Exam(LocalDate.of(2025, 2, 28), 300);
+    /*
+     * This method generates a schedule for repetitions based on the study task.
+     * A repetition task is scheduled for:
+     * - The next day after the study task.
+     * -After 1 day
+     * -After 3 days
+     * - After 7 days.
+     * - After 14 days.
+     * - After 28 days.
+     * - Then it doubles the interval days till the exam date.
+     */
+    public static List<Task> generateRepetitions(List<Task> tasks, Task studyTask, LocalDate examDate, int day) {
 
-        //assignment without any exam
-        Assignment a2 = new Assignment("Ass1", LocalDate.of(2025, 1, 18),13 );
-        Assignment a3 = new Assignment("Ass1", LocalDate.of(2025, 1, 18),13 );
-        History.addExam(e2);
-        ArrayList<Subject> subs = new ArrayList<>();
-        subs.add(Maths);
-        subs.add(History);
-        // create Availability
-        Availability.setAvailability(1, 6); // Monday: 6 available hours
-        Availability.setAvailability(2, 4); // Tuesday: 4 available hours
-        Availability.setAvailability(3, 7); // Wednesday: 7 available hours
-        Availability.setAvailability(4, 4); // Thursday: 4 available hours
-        Availability.setAvailability(5, 6); // Friday: 6 available hours
-        Availability.setAvailability(6, 6); // Saturday: 6 available hours
-        Availability.setAvailability(7, 6); // Sunday: 6 available hour
-        // create non Availability
-        Availability.setNonAvailability(LocalDate.of(2025, 1, 10));
+        List<RepetitionTask> repetitions = new ArrayList<>();
 
-        Availability.setNonAvailability(LocalDate.of(2025, 1, 4));
+        // Get the date of the study task
+        LocalDate studyDate = LocalDate.now().plusDays(day);
+        String subject = studyTask.getSubject();
 
-        SimulateAnnealing sAnnealing = new SimulateAnnealing();
-
-        for (Subject s : subs) {
-            sAnnealing.addSubject(s);
-
+        LocalDate repetitionDate;
+        // Add repetition after specific intervals
+        int[] fixedIntervals = { 1, 7, 16, 35 }; // Fixed intervals in days
+        for (int f : fixedIntervals) {
+            repetitionDate = studyDate.plusDays(f);
+            if (repetitionDate.isBefore(examDate)) {
+                repetitions.add(new RepetitionTask(subject, repetitionDate));
+            }
         }
 
-        sAnnealing.subAss2(a2.getName(), a2.getDeadline(), a2.getEstimateHours());
-        sAnnealing.subAss2(a3.getName(), a3.getDeadline(), a3.getEstimateHours());
-        SimulateAnnealing.scheduleResult();
+        // Add repetitions with doubling intervals until the exam date
+        int interval = 35;
+        while (true) {
+            interval *= 2; // Double the interval
+            repetitionDate = studyDate.plusDays(interval);
+            if (repetitionDate.isBefore(examDate)) {
+                repetitions.add(new RepetitionTask(subject, repetitionDate));
+            } else {
+                break; // Stop if the date exceeds the exam date
+            }
+        }
+        return assRepetitions(repetitions, tasks, subject);
     }
+
+    // class that assigns the repetition tasks into the schedule
+    public static List<Task> assRepetitions(List<RepetitionTask> rep, List<Task> tasks, String subject) {
+        // Retrieve the current schedule
+        int[][] schedule = TaskAssignment.getValSchedule();
+        if (schedule == null) {
+            throw new IllegalStateException(
+                    "Schedule is not initialized.");
+        }
+
+        for (RepetitionTask r : rep) {
+            LocalDate today = LocalDate.now();
+            int daysBetween = (int) ChronoUnit.DAYS.between(today, r.getDate());
+
+            if (daysBetween >= 0 && daysBetween < schedule[0].length) { // Ensure daysBetween is within bounds
+                for (int i = 0; i < 12; i++) { // Iterate through rows (max 12 tasks per day)
+                    // check for an unassigned slot and if the day is available
+                    if (schedule[i][daysBetween] == 0 && Availability.checkAvailability(daysBetween)) {
+                        /*
+                         * Each task of type 1 and 3 takes 2 hours, while each task of type 2 takes 20
+                         * minutes
+                         */
+                        if (TaskAssignment.getRemainingHours() > 1.0 / 3.0) {
+                            // Add a new repetition task
+                            tasks.add(new Task(subject, 2)); // 2 represents a repetition task
+                            // Assign the task index to the schedule
+                            schedule[i][daysBetween] = tasks.size() - 1;
+                            break; // Exit loop after assigning the task
+                        }
+
+                    }
+                }
+            }
+        }
+
+        // Update the modified schedule
+        TaskAssignment.setValSchedule(schedule);
+
+        return tasks;
+    }
+
+    // Helper class to represent a repetition task
+    public static class RepetitionTask {
+        private String subject;
+        private LocalDate date;
+
+        public RepetitionTask(String subject, LocalDate date) {
+            this.subject = subject;
+            this.date = date;
+        }
+
+        public String getSubject() {
+            return subject;
+        }
+        public void setSubject(String subject){
+            this.subject=subject;
+        }
+
+        public LocalDate getDate() {
+            return date;
+        }
+        public void setDate(LocalDate date){
+            this.date=date;
+        }
+    }
+
 }
