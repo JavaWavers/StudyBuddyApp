@@ -1,5 +1,6 @@
 package org.javawavers.studybuddy.calculations;
 
+
 /*This class is responsible for calculating and dividing the total studying
  * time into groups (referred also as tasks) equally for each week till the
  * due day
@@ -29,7 +30,7 @@ public class CalculativeAlgorithm {
 
     // total studying tasks per week
     public static int studyingTasks(Subject s) {
-        double totalTimeWeek = totalStudyingTime(s) ;
+        double totalTimeWeek = totalStudyingTime(s);
         return numberOfScheduledTask(totalTimeWeek);
     }
 

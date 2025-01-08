@@ -26,13 +26,13 @@ public class SimulateAnnealing {
     private static List<Task> tasks; // List for each task that is connected with a subject
     private static List<Dates> exams; // List for each exam that is connected with a subject
     private static List<ScheduleResult> scheduleResults;// List for the valid schedule results
-    private static List<Dates> assignments;//List for each assignment that is connected with a subject
+    private static List<Dates> assignments;// List for each assignment that is connected with a subject
 
     public SimulateAnnealing() {
         subjects = new ArrayList<>();
         tasks = new ArrayList<>();
         exams = new ArrayList<>();
-        assignments=new ArrayList<>();
+        assignments = new ArrayList<>();
         scheduleResults = new ArrayList<>();
     }
 
@@ -50,22 +50,23 @@ public class SimulateAnnealing {
 
     // Setting exams for each subject
     private void subExams(Subject subject) {
-        if(!subject.getExams().isEmpty()) {
+        if (!subject.getExams().isEmpty()) {
             // Create a Dates object with the subject name and the exam date
             Dates examDate = new Dates(subject, subject.getExams().getFirst().getExamDate());
             // Add the Dates object to the list
             exams.add(examDate);
         }
         // Check if the subject or its exams list is null
-        if ( subject.getExams() == null || subject.getExams().isEmpty()) {
+        if (subject.getExams() == null || subject.getExams().isEmpty()) {
             throw new IllegalArgumentException("Subject or exam list is invalid. Exams must not be empty.");
 
         }
 
     }
+
     // Setting exams for each subject
     private void subAssignment(Subject subject) {
-        if(!subject.getAssignments().isEmpty()) {
+        if (!subject.getAssignments().isEmpty()) {
             // Create a Dates object with the subject name and the exam date
             Dates assDate = new Dates(subject, subject.getAssignments().getFirst().getDeadline());
             // Add the Dates object to the list
@@ -73,17 +74,18 @@ public class SimulateAnnealing {
         }
 
     }
+
     // Setting assignments for non-subject related assignments
     public void subAss2(String name, LocalDate deadline, int estimateHours) {
-            // Create a Dates object with the subject name and the exam date
-            Dates assDate = new Dates(name, deadline);
-            // Add the Dates object to the list
-            assignments.add(assDate);
-            subTask2(name,estimateHours);
+        // Create a Dates object with the subject name and the exam date
+        Dates assDate = new Dates(name, deadline);
+        // Add the Dates object to the list
+        assignments.add(assDate);
+        subTask2(name, estimateHours);
     }
 
-    //Creating tasks for non-subject related assignments
-    private void subTask2(String name, int estimateHours){
+    // Creating tasks for non-subject related assignments
+    private void subTask2(String name, int estimateHours) {
         int taskType3 = CalculativeAlgorithm.numberOfScheduledTask(estimateHours);
 
         // Task creation for each task type
@@ -113,23 +115,25 @@ public class SimulateAnnealing {
     public static List<Dates> getExams() {
         return exams;
     }
+
     // getter for the assignment list
     public static List<Dates> getAssignments() {
         return assignments;
     }
 
-
     private static double bestScoring;
     private static List<Task> bestTask = new ArrayList<>();
     private static int[][] schedule;
 
-    //getters
-    public static int [][] getSchedule(){
-        return  schedule;
+    // getters
+    public static int[][] getSchedule() {
+        return schedule;
     }
-    public static List<Task> getBestTask(){
+
+    public static List<Task> getBestTask() {
         return bestTask;
     }
+
     // Κατανομή tasks στο πρόγραμμα
     public static void scheduleResult() {
         /*
@@ -146,10 +150,10 @@ public class SimulateAnnealing {
 
         // sort exams
         exams = Dates.sortList(exams);
-        assignments=Dates.sortList(assignments);
+        assignments = Dates.sortList(assignments);
         // The column size of the table is determined by the last examination date
         // The column size of the table is determined by the last examination date
-        int colSize = Dates.lastIsDue(exams,assignments);
+        int colSize = Dates.lastIsDue(exams, assignments);
         List<Task> copyTask;
         for (int i = 0; i < 50; i++) {
 
@@ -164,18 +168,19 @@ public class SimulateAnnealing {
             if (i == 0) {
                 bestScoring = valResultScoring;
             }
-            //method to assign all the unassigned task type 3
-            ScheduleResult result = new ScheduleResult(valResultScoring,TaskAssignment.getTasks() , vSchedule);
+            // method to assign all the unassigned task type 3
+            ScheduleResult result = new ScheduleResult(valResultScoring, TaskAssignment.getTasks(), vSchedule);
             scheduleResults.add(result);
 
         }
         for (ScheduleResult sr : scheduleResults) {
             bestSchedule(sr.getScore(), sr.getTasks(), sr.getSchedule());
         }
-        schedule=Validate.validateSchedule(schedule,bestTask);
-        //PrintSchedule.printSchedule(schedule, bestTask, colSize);
+        schedule = Validate.validateSchedule(schedule, bestTask);
+        // PrintSchedule.printSchedule(schedule, bestTask, colSize);
 
     }
+
     public static void bestSchedule(double valResultScoring, List<Task> taskList, int[][] sch) {
         if (valResultScoring >= bestScoring) {
             bestScoring = valResultScoring;

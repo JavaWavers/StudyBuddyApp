@@ -1,6 +1,5 @@
 package org.javawavers.studybuddy.calculations;
 
-
 public class Task {
     private String subjName;
     private int taskType; // 1: Studying , 2: revision, 3: assignment

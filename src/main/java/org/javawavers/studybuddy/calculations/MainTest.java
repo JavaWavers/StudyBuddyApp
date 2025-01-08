@@ -1,4 +1,5 @@
 package org.javawavers.studybuddy.calculations;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -8,16 +9,16 @@ public class MainTest {
         Subject Maths = new Subject("Maths", 5, null, null);
         Exam e1 = new Exam(LocalDate.of(2025, 2, 24), 400);
         Maths.addExam(e1);
-        Assignment a1 = new Assignment("Mathsασσ", LocalDate.of(2025, 1, 18),13 );
+        Assignment a1 = new Assignment("Mathsασσ", LocalDate.of(2025, 1, 18), 13);
 
         Maths.addAssignment(a1);
-        //Maths.addAssignment(a2);
+        // Maths.addAssignment(a2);
         Subject History = new Subject("History", 4, null, null);
         Exam e2 = new Exam(LocalDate.of(2025, 2, 28), 300);
 
-        //assignment without any exam
-        Assignment a2 = new Assignment("Ass1", LocalDate.of(2025, 1, 18),13 );
-        Assignment a3 = new Assignment("Ass1", LocalDate.of(2025, 1, 18),13 );
+        // assignment without any exam
+        Assignment a2 = new Assignment("Ass1", LocalDate.of(2025, 1, 18), 13);
+        Assignment a3 = new Assignment("Ass1", LocalDate.of(2025, 1, 18), 13);
         History.addExam(e2);
         ArrayList<Subject> subs = new ArrayList<>();
         subs.add(Maths);

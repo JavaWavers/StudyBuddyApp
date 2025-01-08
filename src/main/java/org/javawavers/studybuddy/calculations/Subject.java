@@ -1,4 +1,5 @@
 package org.javawavers.studybuddy.calculations;
+
 import java.util.ArrayList;
 import java.util.List;
 

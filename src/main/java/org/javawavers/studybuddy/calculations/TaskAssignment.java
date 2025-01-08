@@ -1,4 +1,5 @@
 package org.javawavers.studybuddy.calculations;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -31,10 +32,13 @@ public class TaskAssignment {
     public static void setRemainingHours(double remHours) {
         remainingHours = remHours;
     }
+
     private static List<Task> tasks;
-    public static List<Task> getTasks(){
+
+    public static List<Task> getTasks() {
         return tasks;
     }
+
     public static int[][] assignTask(List<Task> assTasks, int colSize) {
         Collections.shuffle(assTasks);
         tasks = new ArrayList<>(assTasks);
@@ -69,7 +73,7 @@ public class TaskAssignment {
                     }
 
                     if (remainingHours >= 2.0) { // Each task requires 2 hours
-                        //flag for deadlines
+                        // flag for deadlines
                         boolean flagEx = false;
                         boolean flagAss = false;
                         if (tasks.get(taskIndex).getTaskType() == 1) {
@@ -86,8 +90,10 @@ public class TaskAssignment {
                                     taskIndex++;
 
                                     // Generate repetitions for tasks of type 1
-                                    LocalDate exDate = Dates.getExDate(tasks.get(taskIndex - 1), SimulateAnnealing.getExams());
-                                    assTasks = Repetition.generateRepetitions(tasks, assTasks.get(taskIndex - 1), exDate, col);
+                                    LocalDate exDate = Dates.getExDate(tasks.get(taskIndex - 1),
+                                            SimulateAnnealing.getExams());
+                                    assTasks = Repetition.generateRepetitions(tasks, assTasks.get(taskIndex - 1),
+                                            exDate, col);
                                 }
                             } else {
                                 taskIndex++;
@@ -96,7 +102,8 @@ public class TaskAssignment {
                         } else if (tasks.get(taskIndex).getTaskType() == 3) {
                             // Check assignment deadlines
                             if (!SimulateAnnealing.getAssignments().isEmpty()) {
-                                flagAss = Dates.checkDate(tasks.get(taskIndex), col, SimulateAnnealing.getAssignments());
+                                flagAss = Dates.checkDate(tasks.get(taskIndex), col,
+                                        SimulateAnnealing.getAssignments());
                             }
                             if (flagAss) {
                                 if (valSchedule[row][col] == 0) {
@@ -122,7 +129,8 @@ public class TaskAssignment {
 
         /*
          * Special Check for Type 3 Tasks
-         * Ensure all type 3 tasks (assignments) are assigned, even if no dedicated time slot exists.
+         * Ensure all type 3 tasks (assignments) are assigned, even if no dedicated time
+         * slot exists.
          */
         while (taskIndex < taskLength) {
             Task task = tasks.get(taskIndex);

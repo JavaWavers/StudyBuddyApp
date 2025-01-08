@@ -1,4 +1,5 @@
 package org.javawavers.studybuddy.calculations;
+
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
@@ -101,15 +102,17 @@ public class Repetition {
         public String getSubject() {
             return subject;
         }
-        public void setSubject(String subject){
-            this.subject=subject;
+
+        public void setSubject(String subject) {
+            this.subject = subject;
         }
 
         public LocalDate getDate() {
             return date;
         }
-        public void setDate(LocalDate date){
-            this.date=date;
+
+        public void setDate(LocalDate date) {
+            this.date = date;
         }
     }
 

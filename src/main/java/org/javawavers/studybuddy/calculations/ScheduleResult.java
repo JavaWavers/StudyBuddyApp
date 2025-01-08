@@ -1,10 +1,10 @@
 package org.javawavers.studybuddy.calculations;
 /*
  * The ScheduleResult class represents the result of a scheduling process.
- * It stores the score of the schedule, the list of tasks assigned, 
+ * It stores the score of the schedule, the list of tasks assigned,
  * and the schedule itself in the form of an array.
- * 
- * This class is used to encapsulate and manage the outcome of a 
+ *
+ * This class is used to encapsulate and manage the outcome of a
  * scheduling attempt for easy comparison and evaluation.
  */
 import java.util.List;

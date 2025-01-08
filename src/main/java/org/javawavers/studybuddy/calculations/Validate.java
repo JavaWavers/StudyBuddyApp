@@ -83,7 +83,7 @@ public class Validate {
      * forcefully assigning them if needed.
      */
     private static int[][] assignmentsValidity(int[][] validSchedule, List<Task> taskList) {
-        List<Dates> deadLines=new ArrayList<>(SimulateAnnealing.getAssignments());
+        List<Dates> deadLines = new ArrayList<>(SimulateAnnealing.getAssignments());
         // Create a list of all unassigned tasks of type 3
         List<Integer> unassignedTasks = getIntegers(validSchedule, taskList);
 
@@ -119,6 +119,7 @@ public class Validate {
         }
         return validSchedule;
     }
+
     private static List<Integer> getIntegers(int[][] validSchedule, List<Task> taskList) {
         List<Integer> unassignedTasks = new ArrayList<>();
         for (int i = 0; i < taskList.size(); i++) {

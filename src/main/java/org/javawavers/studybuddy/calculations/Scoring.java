@@ -13,7 +13,6 @@ package org.javawavers.studybuddy.calculations;
  * should study the same subject two days in a row
  */
 
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,13 +34,13 @@ public class Scoring {
         for (int col = 0; col < colSize; col++) {
 
             // for each individual subject
-            for(String u :uniqueS){
+            for (String u : uniqueS) {
 
                 // we check if there is also a same task
                 for (int row = 0; row < 12; row++) {
                     if (sch[row][col] >= 0 && sch[row][col] < taskList.size()) {
                         Task t = taskList.get(sch[row][col]);
-                        if(t.getTaskType()==1){
+                        if (t.getTaskType() == 1) {
                             /*
                              * checks if the subject from the subject list is the same as
                              * the one from the task list
@@ -50,7 +49,6 @@ public class Scoring {
                                 score -= 0.2;
                             }
                         }
-
 
                     } else {
                         break;
@@ -80,8 +78,8 @@ public class Scoring {
 
                             // If the same subject and the same type of task is scheduled on consecutive
                             // days
-                            //except from assignments
-                            if (curSubject.equals(nextSubject) && curType == nextType &&curType==1) {
+                            // except from assignments
+                            if (curSubject.equals(nextSubject) && curType == nextType && curType == 1) {
                                 // Deduct 0.1 points
                                 score -= 0.1;
                                 break;

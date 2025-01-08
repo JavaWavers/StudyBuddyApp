@@ -1,4 +1,5 @@
 package org.javawavers.studybuddy.calculations;
+
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
@@ -7,7 +8,7 @@ public class Assignment extends SubjectElement {
     private String description;
     private LocalDate completedDate;
 
-    //different types of constructors
+    // different types of constructors
     // constructor without any parameter
     public Assignment() {
         super(null, null);
@@ -16,7 +17,7 @@ public class Assignment extends SubjectElement {
 
     // constructor with parameters
     public Assignment(String title, LocalDate deadline, int estimateHours, String description,
-            LocalDate completeDate) {
+                      LocalDate completeDate) {
         super(deadline, title);
         this.estimateHours = estimateHours;
         this.description = description;
@@ -24,7 +25,7 @@ public class Assignment extends SubjectElement {
 
     public Assignment(String title, LocalDate deadline, int estimateHours) {
         super(deadline, title);
-        if(validEstHours(estimateHours,deadLine)){
+        if (validEstHours(estimateHours, deadLine)) {
             this.estimateHours = estimateHours;
         } else {
             System.out.println("Οι ώρες πρέπει να είναι μικρότερες από:" + maxHours);
@@ -34,11 +35,13 @@ public class Assignment extends SubjectElement {
     }
 
     private static int maxHours;
-    private static boolean validEstHours(int estimateHours, LocalDate deadLine){
+
+    private static boolean validEstHours(int estimateHours, LocalDate deadLine) {
         LocalDate today = LocalDate.now();
-        maxHours= (int)ChronoUnit.DAYS.between(today, deadLine) *14;
-        return (estimateHours<maxHours);
+        maxHours = (int) ChronoUnit.DAYS.between(today, deadLine) * 14;
+        return (estimateHours < maxHours);
     }
+
     // getters
     public String getTitle() {
         return super.getName();
@@ -101,6 +104,5 @@ public class Assignment extends SubjectElement {
         long remainingDays = ChronoUnit.DAYS.between(LocalDate.now(), getDeadline());
         return remainingDays <= 5;
     }
-
 
 }
