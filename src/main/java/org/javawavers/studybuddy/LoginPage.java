@@ -233,13 +233,14 @@ public class LoginPage {
 
         loginButton.setOnAction(event -> {
             validateLogin();
-            //clearFields();
-            MainFrame mainFrame = new MainFrame();
-            sceneManager.switchScene(mainFrame.mainFrame(sceneManager));
+            if(validateLogin()) {
+                MainFrame mainFrame = new MainFrame();
+                sceneManager.switchScene(mainFrame.mainFrame(sceneManager));
+            }
         });
     }
 
-    private void validateLogin() {
+    private boolean validateLogin() {
         String email = emailField.getText();
         String password = passwordField.getText();
 
@@ -253,7 +254,7 @@ public class LoginPage {
             alert.getDialogPane().setMinHeight(300);
             alert.showAndWait();
 
-            return;
+            return false;
         } else if (email.equals(RegisterPage.storedEmail) && password.equals(RegisterPage.storedPassword)) {
 
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
@@ -264,7 +265,7 @@ public class LoginPage {
             dialogPane.getStyleClass().add("success-alert");
             dialogPane.getStylesheets().add(getClass().getResource("success.css").toExternalForm());
 
-            //sceneManager.switchScene(new StudyBuddyApp().home(sceneManager));
+            return true;
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Σφάλμα σύνδεσης");
@@ -274,6 +275,7 @@ public class LoginPage {
             alert.getDialogPane().setMinWidth(500);
             alert.getDialogPane().setMinHeight(300);
             alert.showAndWait();
+            return false;
         }
 
     }

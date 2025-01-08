@@ -26,6 +26,10 @@ public class MainFrame {
     topPane.setStyle("-fx-background-color: #60f7b3; ");
     borderPane.setTop(topPane);
 
+    RightPanel rightPanel = new RightPanel();
+    rightPanel.CoursesList();
+    borderPane.setRight(rightPanel.getRightPanel());
+
     Scene scene = new Scene(borderPane, 1024,768);
 
     return scene;
