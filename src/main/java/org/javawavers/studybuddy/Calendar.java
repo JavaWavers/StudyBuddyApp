@@ -53,8 +53,8 @@ public class Calendar extends Application {
     
 
 //αρχικοποιουμε την besttask,schedule,subject που τις εχουμε παρει απο την studybuddyapp
-    List<Task> besttask = printSchedule.printSchedule(null, null, 0);
-    //List<Task> besttask = null;
+    //List<Task> besttask = printSchedule.printSchedule(null, null, 0);
+    List<Task> besttask = null;
     //System.out.println(besttask);
     ArrayList<SubjectTest> subject;
 
@@ -80,7 +80,7 @@ public class Calendar extends Application {
     public void start(Stage primaryStage) {
 
 //αρχικοποιουμε τα task
-        initializeTaskLists(besttask);
+      //  initializeTaskLists(besttask);
 
 // Αρχικοποιουμε ολα τα panel
         //VBox leftPanel = createLeftPanel();
