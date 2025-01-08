@@ -1,8 +1,11 @@
-package org.javawavers.studybuddy;
+package org.javawavers.studybuddy.calculations;
+
 /*This class is responsible for calculating and dividing the total studying
  * time into groups (referred also as tasks) equally for each week till the
  * due day
  */
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 
 public class CalculativeAlgorithm {
     // The page number that a user is physically possible to study per min
@@ -23,7 +26,7 @@ public class CalculativeAlgorithm {
     // calculates total studying time in hours
     public static double totalStudyingTime(Subject s) {
         // The total studying time required for a subject
-        return (s.getExams().get(0).getPages() * s.getDifficultyLevel()) / (pagesPerMin * 60);
+        return (s.getExams().getFirst().getPages() * s.getDifficultyLevel()) / (pagesPerMin * 60);
     }
 
     // total studying tasks per week
