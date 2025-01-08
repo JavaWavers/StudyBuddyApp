@@ -273,11 +273,14 @@ public class RegisterPage {
 
          registerButton.setOnAction(event -> {
             validateLogin();
-            clearFields();
+            if(validateLogin()){
+                ExamPage examPage = new ExamPage();
+                sceneManager.switchScene(examPage.examStartingPage(sceneManager));
+            }
         });
     }
 
-    private void validateLogin() {
+    private boolean validateLogin() {
             storedUsername = nameField.getText();
             storedEmail = emailField.getText();
             storedPassword = passwordField.getText();
@@ -286,18 +289,22 @@ public class RegisterPage {
 //error αν το ονομα ειναι λιγοτερο απο 4 χαρακτηρες
             if (storedUsername.isEmpty() || storedUsername.length() <= 4) {
                 errors.add("• Το όνομα πρέπει να έχει πάνω από 4 χαρακτήρες");
+                return false;
             }
 //error αν το email δεν περιεχει το @
             if (storedEmail.isEmpty() || !storedEmail.contains("@")) {
                 errors.add("• Εισήγαγε ένα έγκυρο email");
+                return false;
             }
 //error αν ο κωδικος ειναι μικροτερος απο 6 χαρακτηρες
             if (storedPassword.isEmpty() || storedPassword.length() < 6) {
                 errors.add("• Ο κωδικός πρόσβασης πρέπει να έχει πάνω από 6 χαρακτήρες");
+                return false;
             }
 //error αν ο κωδικος και ο κωδικος επιβεβαιωσης δεν ειναι ιδιος
             if (!storedPassword.equals(confirmPassword)) {
                 errors.add("• Οι κωδικοί που έβαλες δεν είναι ίδιοι");
+                return false;
             }
 //αν υπαρχουν error εμφανιζει την λισατ στον χρηστη 
             if (!errors.isEmpty()) {
@@ -308,7 +315,7 @@ public class RegisterPage {
                 alert.setContentText(errorMessage);
                 alert.getDialogPane().getStylesheets().add(getClass().getResource("alert.css").toExternalForm());
                 alert.showAndWait();
-                return;
+                return false;
             }
 //μηνυμα επιτυχιας αν δεν υπαρχουν errors
             Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
@@ -319,6 +326,7 @@ public class RegisterPage {
             dialogPane.getStyleClass().add("success-alert");
             dialogPane.getStylesheets().add(getClass().getResource("success.css").toExternalForm());
             successAlert.showAndWait();
+            return true;
 
     }
 

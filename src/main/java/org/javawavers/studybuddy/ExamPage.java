@@ -9,6 +9,7 @@ import java.util.List;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -49,6 +50,7 @@ public class ExamPage {
     private DatePicker datePicker;
     private ComboBox<String> typeCourseList;
     int[][] schedule;
+
 
     // Exam Page as Node
     public Node createExamPanel() {
@@ -309,5 +311,21 @@ public class ExamPage {
 
     public List<Exam> getExams() {
         return exam;
+    }
+
+    public Scene examStartingPage(SceneManager sceneManager) {
+        VBox examViewWithBtn = new VBox(20);
+        VBox examView = (VBox) createExamPanel();
+        examViewWithBtn.getChildren().add(examView);
+
+        Button nextBtn = new Button("Επόμενο");
+        nextBtn.setStyle(btnStyle());
+        nextBtn.setOnAction(e -> {
+            System.out.println("Το κουμπί πατήθηκε!");
+        });
+        examViewWithBtn.getChildren().add(nextBtn);
+
+        Scene scene = new Scene(examViewWithBtn, 1024, 768);
+        return scene;
     }
 }
