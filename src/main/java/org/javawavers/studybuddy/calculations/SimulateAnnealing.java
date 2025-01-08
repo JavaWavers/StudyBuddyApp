@@ -1,4 +1,4 @@
-package org.javawavers.studybuddy;
+package org.javawavers.studybuddy.calculations;
  /*
  * This class distributes three kinds of tasks (studying -1, repetition -2,
  * assignment -3) into the available days randomly. The algorithm produces 50
@@ -13,15 +13,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
-import org.javawavers.studybuddy.calculations.Availability;
-import org.javawavers.studybuddy.calculations.CalculativeAlgorithm;
-import org.javawavers.studybuddy.calculations.ExamDates;
-import org.javawavers.studybuddy.calculations.PrintSchedule;
-import org.javawavers.studybuddy.calculations.Repetition;
-import org.javawavers.studybuddy.calculations.Scoring;
-import org.javawavers.studybuddy.calculations.Subject;
-import org.javawavers.studybuddy.calculations.Task;
 
 public class SimulateAnnealing {
     /*

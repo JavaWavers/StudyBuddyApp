@@ -24,6 +24,10 @@ package org.javawavers.studybuddy;
          this.subjName = subj.getCourseName();
          this.deadLine = deadLine;
      }
+     public Dates(String name, LocalDate deadLine){
+         this.subjName=name;
+         this.deadLine=deadLine;
+     }
  
      // getters
      public String getSubName() {
@@ -52,23 +56,23 @@ package org.javawavers.studybuddy;
              // Get the current date
              LocalDate today = LocalDate.now();
              // Get the date of the last assignment deadline (last element of the sorted list)
-             LocalDate lastAssDate = assignments.get(assignments.size() - 1).getDate();
+             LocalDate lastAssDate = assignments.getLast().getDate();
              // Return the calculated days
              return (int) ChronoUnit.DAYS.between(today, lastAssDate);
          }else if (!exams.isEmpty() &&assignments.isEmpty()) {
              // Get the current date
              LocalDate today = LocalDate.now();
              // Get the date of the last exam (last element of the sorted list)
-             LocalDate lastExamDate = exams.get(exams.size() - 1).getDate();
+             LocalDate lastExamDate = exams.getLast().getDate();
              // Return the calculated days
              return (int) ChronoUnit.DAYS.between(today, lastExamDate);
          }else if(!exams.isEmpty() && !assignments.isEmpty()){
              // Get the current date
              LocalDate today = LocalDate.now();
              // Get the date of the last assignment deadline (last element of the sorted list)
-             LocalDate lastAssDate = assignments.get(assignments.size() - 1).getDate();
+             LocalDate lastAssDate = assignments.getLast().getDate();
              // Get the date of the last exam (last element of the sorted list)
-             LocalDate lastExamDate = exams.get(exams.size() - 1).getDate();
+             LocalDate lastExamDate = exams.getLast().getDate();
              //return the deadline which is most faraway
              if(lastAssDate.isBefore(lastExamDate)){
                  return (int) ChronoUnit.DAYS.between(today, lastExamDate);
