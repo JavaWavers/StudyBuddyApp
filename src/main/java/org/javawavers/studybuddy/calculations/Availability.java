@@ -4,7 +4,6 @@ import java.time.format.TextStyle;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
-import java.util.stream.Collectors;
 
 public class Availability {
     /*
@@ -12,7 +11,7 @@ public class Availability {
      * The first element of the table is never used.
      * Each number from 1 to 7 represents a day of the week starting with Monday
      */
-    private static int[] avperday = new int[8];
+    private static int[] avPerDay = new int[8];
 
     /*
      * Gives the ability to the user to insert certain dates that there
@@ -32,7 +31,7 @@ public class Availability {
         if (i <= 0 || i > 7) {
             throw new IllegalArgumentException(" Ο αριθμός πρέπει να είναι μεταξύ του 1και του 7");
         }
-        avperday[i] = av;
+        avPerDay[i] = av;
     }
 
     // insert a day that there is no availability for studying
@@ -48,8 +47,8 @@ public class Availability {
     }
 
     /*
-     * checks if the day that the program asserts a task to the user is set as non
-     * available
+     * checks if the day that the program asserts a task to the user is set as
+     * non-available
      * and returns true if the day is Available
      */
 
@@ -60,31 +59,23 @@ public class Availability {
 
     // returns the total available hours for the day that is asked
     public static int getTotalAvailableHours(int i) {
-        LocalDate today = LocalDate.now();// The date of the day that we curently are
+        LocalDate today = LocalDate.now();// The date of the day that we currently are
         // The date that we want to assert the tasks
         LocalDate examDate = today.plusDays(i);
 
         // Name of the day as a String type Data
         String dayName = examDate.getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.forLanguageTag("el"));
 
-        switch (dayName) {
-            case "Δευτέρα":
-                return avperday[1];
-            case "Τρίτη":
-                return avperday[2];
-            case "Τετάρτη":
-                return avperday[3];
-            case "Πέμπτη":
-                return avperday[4];
-            case "Παρασκευή":
-                return avperday[5];
-            case "Σάββατο":
-                return avperday[6];
-            case "Κυριακή":
-                return avperday[7];
-            default:
-                throw new IllegalArgumentException("Ημέρα μη έγκυρη: " + dayName);
-        }
+        return switch (dayName) {
+            case "Δευτέρα" -> avPerDay[1];
+            case "Τρίτη" -> avPerDay[2];
+            case "Τετάρτη" -> avPerDay[3];
+            case "Πέμπτη" -> avPerDay[4];
+            case "Παρασκευή" -> avPerDay[5];
+            case "Σάββατο" -> avPerDay[6];
+            case "Κυριακή" -> avPerDay[7];
+            default -> throw new IllegalArgumentException("Ημέρα μη έγκυρη: " + dayName);
+        };
 
     }
 
@@ -92,7 +83,7 @@ public class Availability {
         // Get a list of subject names from the tasks
         List<String> subjectNames = tasks.stream()
                 .map(Task::getSubject) // Apply the getSubject() method on each Task to extract the subject name
-                .collect(Collectors.toList()); // Collect the results into a new list
+                .toList(); // Collect the results into a new list
         int[] rowsInd = new int[2];
         for (String s : subjectNames) {
             int num = 0;
@@ -122,13 +113,12 @@ public class Availability {
                             // continues to the next rows in case there are more revision tasks that can be
                             // merged
                             num = 0;
-                            continue;
                         }
                     }
                 }
             }
         }
-        SimulateAnnealing.setValSchedule(schedule);
+        TaskAssignment.setValSchedule(schedule);
     }
 
     /*
@@ -136,13 +126,13 @@ public class Availability {
      * scheduled in a given column.
      */
     public static void reduceRepAvailability(int col, List<Task> tasks) {
-        int[][] schedule = SimulateAnnealing.getValSchedule();
+        int[][] schedule = TaskAssignment.getValSchedule();
         for (int row = 0; row < 12; row++) {
             double reducedHours = 0.0;
             if (schedule[row][col] != 0) {
                 reducedHours = tasks.get(schedule[row][col]).getTaskHours();
             }
-            SimulateAnnealing.setRemainingHours(SimulateAnnealing.getRemainingHours() - reducedHours);
+            TaskAssignment.setRemainingHours(TaskAssignment.getRemainingHours() - reducedHours);
         }
     }
 }
