@@ -1,11 +1,11 @@
-package org.javawavers.studybuddy;
 
+package org.javawavers.studybuddy.calculations;
 import java.time.LocalDate;
 import java.util.List;
-//τι και αν παρω αυτην την κλαση και την αλλαξω και να κανει μεσα εδω το splitweek και να καλειται και να επιστρεφει 
+
 public class PrintSchedule {
     // The below method prints the schedule to the user
-    public static List<Task> printSchedule(int[][] schedule, List<Task> bestTask, int colSize) {
+    public static void printSchedule(int[][] schedule, List<Task> bestTask, int colSize) {
 
         System.out.println("Προτεινόμενο πρόγραμμα");
 
@@ -35,9 +35,6 @@ public class PrintSchedule {
                 break;
             }
         }
-        //ExamPage examPage = new ExamPage();
-       // System.out.println(examPage.getSchedule());
-        return bestTask;
 
     }
 
