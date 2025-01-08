@@ -1,5 +1,5 @@
 
-package org.javawavers.studybuddy.calculations;
+package org.javawavers.studybuddy;
 
 
 public class Task {
