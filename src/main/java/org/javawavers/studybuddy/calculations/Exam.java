@@ -1,4 +1,5 @@
 package org.javawavers.studybuddy.calculations;
+
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
@@ -25,20 +26,22 @@ public class Exam extends SubjectElement {
         this.name = name;
 
     }
-    public Exam(Subject subject, LocalDate examDate, int pages, String name, int revisionPerXPages, int timePer20Slides) {
+
+    public Exam(Subject subject, LocalDate examDate, int pages, String name, int revisionPerXPages,
+                int timePer20Slides) {
         super(examDate, subject.getCourseName());
         this.pages = pages;
         this.name = name;
-        this.revisionPerXPages=revisionPerXPages;
-        this.timePer20Slides=timePer20Slides;
+        this.revisionPerXPages = revisionPerXPages;
+        this.timePer20Slides = timePer20Slides;
 
     }
 
-    public Exam(int pages,int revisionPerXPages, LocalDate examDate, int timePer20Slides){
-        super(examDate,null);
-        this.pages=pages;
-        this.revisionPerXPages=revisionPerXPages;
-        this.timePer20Slides=timePer20Slides;
+    public Exam(int pages, int revisionPerXPages, LocalDate examDate, int timePer20Slides) {
+        super(examDate, null);
+        this.pages = pages;
+        this.revisionPerXPages = revisionPerXPages;
+        this.timePer20Slides = timePer20Slides;
     }
 
     // getters & setters
