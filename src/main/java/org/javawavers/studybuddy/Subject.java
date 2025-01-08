@@ -1,4 +1,5 @@
-package org.javawavers.studybuddy;
+
+package org.javawavers.studybuddy.calculations;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -63,21 +64,19 @@ public class Subject {
     }
 
     // Constructor with all fields
-    public Subject(String courseName, int difficultyLevel) {
+    public Subject(String courseName, int difficultyLevel, SubjectType subjectType, StudyGoal studyGoal) {
         this.courseName = courseName;
         this.difficultyLevel = difficultyLevel;
-        //this.subjectType = subjectType;
-        //this.studyGoal = studyGoal;
+        this.subjectType = subjectType;
+        this.studyGoal = studyGoal;
     }
 
     // Methods to manage exams
     public void addExam(Exam exam) { // Add an exam to the course
         exams.add(exam);
-        //System.out.println(exam);
     }
 
     public List<Exam> getExams() { // Retrieve the list of exams for the course
-        //System.out.println(exams);
         return exams;
     }
 
