@@ -1,5 +1,5 @@
 
-package org.javawavers.studybuddy.calculations;
+package org.javawavers.studybuddy;
 import java.util.ArrayList;
 import java.util.List;
 
