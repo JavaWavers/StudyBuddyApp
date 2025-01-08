@@ -1,0 +1,33 @@
+package org.javawavers.studybuddy;
+
+import javafx.geometry.Insets;
+import javafx.scene.Scene;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+
+public class MainFrame {
+
+  SceneManager sceneManager;
+
+  public Scene mainFrame(SceneManager sceneManager) {
+    this.sceneManager = sceneManager;
+
+    BorderPane borderPane = new BorderPane();
+
+    CenterPanelManager centerPanelManager = new CenterPanelManager();
+    centerPanelManager.changeCenterPanel("Exam");
+    borderPane.setCenter(centerPanelManager.getCenterPane());
+
+    MenuPage menuPage = new MenuPage(centerPanelManager);
+    borderPane.setLeft(menuPage.getLeftBoxMenu());
+
+    HBox topPane = new HBox();
+    topPane.setPadding(new Insets(0, 0, 50, 212));
+    topPane.setStyle("-fx-background-color: #60f7b3; ");
+    borderPane.setTop(topPane);
+
+    Scene scene = new Scene(borderPane, 1024,768);
+
+    return scene;
+  }
+}

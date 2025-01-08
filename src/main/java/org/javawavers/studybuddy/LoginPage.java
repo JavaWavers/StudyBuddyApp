@@ -233,7 +233,9 @@ public class LoginPage {
 
         loginButton.setOnAction(event -> {
             validateLogin();
-            clearFields();
+            //clearFields();
+            MainFrame mainFrame = new MainFrame();
+            sceneManager.switchScene(mainFrame.mainFrame(sceneManager));
         });
     }
 
@@ -252,7 +254,7 @@ public class LoginPage {
             alert.showAndWait();
 
             return;
-        } else if (email.equals(rrrr.storedEmail) && password.equals(rrrr.storedPassword)) {
+        } else if (email.equals(RegisterPage.storedEmail) && password.equals(RegisterPage.storedPassword)) {
 
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Σύνδεση Επιτυχής");

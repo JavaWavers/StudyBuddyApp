@@ -95,7 +95,7 @@ import javafx.stage.Stage;
  */ 
 public class StudyBuddyApp extends Application { //exam page
 
-    CenterPanelManager sceneChange = new CenterPanelManager();
+
 
 
     @Override
@@ -104,18 +104,7 @@ public class StudyBuddyApp extends Application { //exam page
 
         HomePage homePage = new HomePage();
         Scene homeScene = homePage.home(sceneManager);
-        /*BorderPane borderPane = new BorderPane();
-
-        CenterPanelManager centerPanelManager = new CenterPanelManager();
-        borderPane.setCenter(centerPanelManager.getCenterPane());
-
-        MenuPage menuPage = new MenuPage(centerPanelManager);
-        borderPane.setLeft(menuPage.getLeftBoxMenu());
-
-        HBox topPane = new HBox();
-        topPane.setPadding(new Insets(0, 0, 50, 212));
-        topPane.setStyle("-fx-background-color: #60f7b3; ");
-        borderPane.setTop(topPane);
+        /*
 
 
         Scene scene = new Scene(borderPane, 1024, 600);
