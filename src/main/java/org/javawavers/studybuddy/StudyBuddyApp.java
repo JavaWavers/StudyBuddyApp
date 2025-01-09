@@ -1,4 +1,4 @@
-package org.javawavers.studybuddy;
+package main.java.org.javawavers.studybuddy;
 
 
 /*
