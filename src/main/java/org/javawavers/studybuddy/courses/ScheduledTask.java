@@ -1,4 +1,4 @@
-package main.java.org.javawavers.studybuddy.courses;
+package org.javawavers.studybuddy.courses;
 
 import java.time.LocalDate;
 import java.time.LocalTime;

@@ -1,4 +1,4 @@
-package main.java.org.javawavers.studybuddy.database;
+package org.javawavers.studybuddy.database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

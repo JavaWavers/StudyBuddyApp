@@ -1,4 +1,4 @@
-package main.java.org.javawavers.studybuddy.ui_ux;
+package org.javawavers.studybuddy.ui_ux;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;

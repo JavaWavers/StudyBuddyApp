@@ -1,4 +1,4 @@
-package main.java.org.javawavers.studybuddy.calculations;
+package org.javawavers.studybuddy.calculations;
 
 import org.javawavers.studybuddy.courses.Subject;
 

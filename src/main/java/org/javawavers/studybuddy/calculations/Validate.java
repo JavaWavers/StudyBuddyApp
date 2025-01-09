@@ -1,7 +1,7 @@
-package main.java.org.javawavers.studybuddy.calculations;
+package org.javawavers.studybuddy.calculations;
 
-import main.java.org.javawavers.studybuddy.calculations.Availability;
-import main.java.org.javawavers.studybuddy.calculations.Dates;
+import org.javawavers.studybuddy.calculations.Availability;
+import org.javawavers.studybuddy.calculations.Dates;
 
 import java.time.LocalDate;
 import java.util.ArrayList;

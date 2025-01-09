@@ -1,4 +1,4 @@
-package main.java.org.javawavers.studybuddy.calculations;
+package org.javawavers.studybuddy.calculations;
 
 import java.time.LocalDate;
 import java.time.format.TextStyle;

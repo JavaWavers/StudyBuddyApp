@@ -1,4 +1,4 @@
-package main.java.org.javawavers.studybuddy.ui_ux;
+package org.javawavers.studybuddy.ui_ux;
 import  org.javawavers.studybuddy.courses.Assignment;
 
 import java.time.LocalDate;
