@@ -42,9 +42,9 @@ public class TaskAssignment {
     public static int[][] assignTask(List<Task> assTasks, int colSize) {
         Collections.shuffle(assTasks);
         tasks = new ArrayList<>(assTasks);
-        if (colSize == 0) {
-            throw new IllegalStateException("Column size is not initialized.");
-        }
+        //if (colSize == 0) {
+            //throw new IllegalStateException("Column size is not initialized.");
+        //}
 
         valSchedule = new int[12][colSize];
         for (int i = 0; i < 12; i++) {
@@ -53,7 +53,11 @@ public class TaskAssignment {
             }
         }
         int taskIndex = 1;
-        tasks.add(tasks.get(0));
+        if (!tasks.isEmpty()) {
+            tasks.add(tasks.get(0));
+        } else {
+            throw new IllegalStateException("Η λίστα tasks είναι κενή και δεν μπορεί να προστεθεί το πρώτο στοιχείο.");
+        }
         int taskLength = tasks.size() - 1;
 
         for (int col = 0; col < colSize; col++) {

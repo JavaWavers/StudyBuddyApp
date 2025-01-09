@@ -1,20 +1,28 @@
 package org.javawavers.studybuddy.ui_ux;
 
 
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.Node;
-import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-import javafx.stage.Screen;
-import org.javawavers.studybuddy.courses.*;
-import org.javawavers.studybuddy.calculations.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+
+import org.javawavers.studybuddy.courses.Exam;
+import org.javawavers.studybuddy.courses.Subject;
+
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Node;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.control.TitledPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.stage.Screen;
 
 
 /*
@@ -43,10 +51,16 @@ public class ExamPage {
     private ComboBox<Subject.SubjectType> typeCourseList;
 
     //List with subjects
-    private ArrayList<Subject> subjects= new ArrayList();
+    private static List<Subject> subjects = new ArrayList<Subject>();
+
+
+    public void add(Subject subject) {
+        subjects.add(subject);  // Προσθέτουμε το subject στην λίστα
+        System.out.println("Added subject: " + subject.getCourseName());  // Προαιρετική εκτύπωση για έλεγχο
+    }
 
     //subject list getter
-    public ArrayList<Subject> getSubjects(){
+    public List<Subject> getSubjects(){
       return subjects;
     }
 
@@ -82,10 +96,22 @@ public class ExamPage {
             //create a subject object
             Subject subject1 = new Subject(courseName,courseType, diffi);
             //create an exam object
-            Exam e1= new Exam(pages,revision,deadline,time);
-            subject1.addExam(e1);
 
+            System.out.print("is subject null " + subject1.getCourseName());
+            System.out.print("is subject null " + subject1.getSubjectType());
+            System.out.print("is subject null " + subject1.getDifficultyLevel());
+            Exam e1= new Exam(pages,revision,deadline,time);
+           // System.out.println("is pages" + e1.getName());
+            System.out.println("is pageeeeeeeeeeeees" + e1.getDate());
+            System.out.println("is pageees" + e1.getPages());
+            subject1.addExam(e1);
+            
+
+            System.out.print("object:"+ subject1);
+            System.out.println("Adding subject: " + subject1.getCourseName());
             subjects.add(subject1);
+            //add(subject1);
+            System.out.println("Subjects in ExamPage after add: " + getSubjects().size());
             List<String> errors = new ArrayList<>();
 
             if (courseName.isEmpty()) {

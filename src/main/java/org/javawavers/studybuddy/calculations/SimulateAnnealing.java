@@ -9,12 +9,11 @@ package org.javawavers.studybuddy.calculations;
  * and is given to the user as a recommended studying schedule.
  */
 
-import org.javawavers.studybuddy.calculations.*;
-import org.javawavers.studybuddy.courses.*;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.javawavers.studybuddy.courses.Subject;
 
 public class SimulateAnnealing {
     /*
@@ -37,6 +36,7 @@ public class SimulateAnnealing {
         exams = new ArrayList<>();
         assignments = new ArrayList<>();
         scheduleResults = new ArrayList<>();
+        System.out.println("okkkkkkkkkk");
     }
 
     // Add a new Subject
@@ -48,6 +48,7 @@ public class SimulateAnnealing {
 
         // Creates tasks for the subject
         subTasks(subject);
+        System.out.println("Okkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk");
 
     }
 
@@ -141,6 +142,7 @@ public class SimulateAnnealing {
         return bestTask;
     }
 
+    public static List<Subject> getSubjects() {return subjects; }
     // Κατανομή tasks στο πρόγραμμα
     public static void scheduleResult() {
         /*
