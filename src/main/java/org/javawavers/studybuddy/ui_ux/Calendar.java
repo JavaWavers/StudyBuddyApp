@@ -187,6 +187,7 @@ public class Calendar {
       int daysinWeek = 7;
       List<int[][]> weekschedule = splitSchedule(SimulateAnnealing.getSchedule(), daysinWeek);
       List<Task> besttask = SimulateAnnealing.getBestTask();
+      System.out.println(besttask.size());
       createCalendarGrid(calendarGrid, SimulateAnnealing.getBestTask(), weekschedule, count, besttask, subject);
 
     });
@@ -239,10 +240,11 @@ public class Calendar {
     String[] days = {"Δευτέρα", "Τρίτη", "Τετάρτη", "Πέμπτη", "Παρασκευή", "Σαββάτο", "Κυριακή"};
    // Exam exam = new Exam();
     int[][] selectedWeek = weekSchedule.get(count);
+    System.out.println(selectedWeek + "ggggggggggggggggggggggggg");
     int daysinWeek = 7;
 
 
-    for (int i = 1; i < daysinWeek ; i++) {
+    for (int i = 0; i < daysinWeek  ; i++) {
       ColumnConstraints column = new ColumnConstraints();
       column.setPercentWidth(100.0 / 7);
       grid.getColumnConstraints().add(column);
@@ -267,10 +269,11 @@ public class Calendar {
     }
 
 
-    for (int row = 1; row < 12; row++) {
-      for (int col = 0; col <= daysinWeek -1; col++) {
+    for (int row = 1; row < 11; row++) {
+      for (int col = 0; col <= daysinWeek-1; col++) {
         Label cell = new Label();
-        //  cell.setStyle("-fx-border-color: gray; -fx-border-width: 0; -fx-alignment: center;");
+        System.out.println("scheduuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu");
+            //  cell.setStyle("-fx-border-color: gray; -fx-border-width: 0; -fx-alignment: center;");
         // cell.setFont(Font.font("System", FontWeight.NORMAL, 14));
         //  cell.setPrefSize(140, 60);
         // Label cell = new Label();
@@ -287,6 +290,7 @@ public class Calendar {
         if (selectedWeek != null && besttask != null &&
             row < selectedWeek.length && col < selectedWeek[row].length &&
             selectedWeek[row][col] > 0 && selectedWeek[row][col] <= besttask.size()) {
+          System.out.println("scheduleweek" + selectedWeek[row][col]);
 
           int taskIndex = selectedWeek[row][col] - 1;
 
@@ -299,6 +303,7 @@ public class Calendar {
               if (subje.getCourseName().equalsIgnoreCase(firstWord)) {
 
                 //cell.setGraphic(new ImageView(image));
+                cell.setText(firstWord);
                 cell.setStyle("-fx-border-color: gray; -fx-border-width: 0; -fx-alignment: center;");
                 break;
               }
@@ -471,20 +476,18 @@ public class Calendar {
 
   public List<int[][]> splitSchedule(int[][] schedule, int daysInWeek) {
     List<int[][]> weekTasks = new ArrayList<>();
-    int totalRows = schedule.length; // Πλήθος tasks
-    int totalCols = schedule[0].length; // Πλήθος ημερών (στήλες)
+    int totalRows = schedule.length;
+    int totalCols = schedule[0].length;
 
-    // Υπολογισμός της τρέχουσας ημέρας της εβδομάδας
-    int currentDayOfWeek = java.time.LocalDate.now().getDayOfWeek().getValue() % daysInWeek;
+   // int currentDayOfWeek = java.time.LocalDate.now().getDayOfWeek().getValue() % daysInWeek;
+    int currentDayOfWeek = (java.time.LocalDate.now().getDayOfWeek().getValue() - 1) % daysInWeek;
 
-    // Υπολογισμός εβδομάδων
     int weeksCount = (int) Math.ceil((double) (totalCols + currentDayOfWeek) / daysInWeek);
 
     for (int week = 0; week < weeksCount; week++) {
-      // Δημιουργούμε τον πίνακα για την εβδομάδα
       int[][] scheduleWeek = new int[totalRows][daysInWeek];
-      for (int row = 0; row < totalRows; row++) {
-        for (int col = 0; col < daysInWeek; col++) {
+      for (int row = 0; row < totalRows  ; row++) {
+        for (int col = 0; col < daysInWeek ; col++) {
           // Υπολογίζουμε τη στήλη στον αρχικό πίνακα
           int indexCol = week * daysInWeek + col - currentDayOfWeek;
           if (indexCol >= 0 && indexCol < totalCols) {
