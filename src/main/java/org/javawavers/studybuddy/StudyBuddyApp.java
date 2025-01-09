@@ -108,7 +108,6 @@ import javafx.scene.Scene;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import org.javawavers.studybuddy.ui_ux.HomePage;
-import org.javawavers.studybuddy.ui_ux.Popupdia;
 import org.javawavers.studybuddy.ui_ux.SceneManager;
 
 /*

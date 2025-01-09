@@ -14,7 +14,8 @@ import javafx.stage.Stage;
 import javafx.util.converter.IntegerStringConverter;
 import java.time.LocalDate;
 import java.util.*;
-import org.javawavers.studybuddy.calculations.*;
+
+import org.javawavers.studybuddy.calculations.Availability;
 
 public class Popupdia extends Application {
     private final Map<String, Integer> availabilityMap = new HashMap<>();

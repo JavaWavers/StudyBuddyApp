@@ -1,5 +1,7 @@
 package org.javawavers.studybuddy.calculations;
 
+import org.javawavers.studybuddy.calculations.Availability;
+
 import java.time.LocalDate;
 import java.util.List;
 
