@@ -1,4 +1,4 @@
-package org.javawavers.studybuddy.ui_ux;
+package main.java.org.javawavers.studybuddy.ui_ux;
 
 import javafx.geometry.Insets;
 import javafx.scene.Node;

@@ -1,4 +1,4 @@
-package org.javawavers.studybuddy.calculations;
+package main.java.org.javawavers.studybuddy.calculations;
 
 
 /*This class is responsible for calculating and dividing the total studying

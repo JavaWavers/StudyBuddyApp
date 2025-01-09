@@ -1,4 +1,4 @@
-package org.javawavers.studybuddy.ui_ux;
+package main.java.org.javawavers.studybuddy.ui_ux;
 
 import javafx.application.Application;
 import javafx.geometry.Insets;
@@ -14,7 +14,8 @@ import javafx.stage.Stage;
 import javafx.util.converter.IntegerStringConverter;
 import java.time.LocalDate;
 import java.util.*;
-import org.javawavers.studybuddy.calculations.*;
+
+import main.java.org.javawavers.studybuddy.calculations.Availability;
 
 public class Popupdia extends Application {
     private final Map<String, Integer> availabilityMap = new HashMap<>();

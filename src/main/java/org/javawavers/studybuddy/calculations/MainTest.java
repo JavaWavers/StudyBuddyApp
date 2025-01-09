@@ -1,5 +1,6 @@
-package org.javawavers.studybuddy.calculations;
+package main.java.org.javawavers.studybuddy.calculations;
 
+import main.java.org.javawavers.studybuddy.calculations.Availability;
 import org.javawavers.studybuddy.courses.*;
 
 

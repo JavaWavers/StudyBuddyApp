@@ -1,4 +1,6 @@
-package org.javawavers.studybuddy.calculations;
+package main.java.org.javawavers.studybuddy.calculations;
+
+import main.java.org.javawavers.studybuddy.calculations.Availability;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;

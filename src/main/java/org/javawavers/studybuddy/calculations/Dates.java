@@ -1,4 +1,4 @@
-package org.javawavers.studybuddy.calculations;
+package main.java.org.javawavers.studybuddy.calculations;
 /*
  * This class is used to store the exam date for each subject.
  * It holds information about the subject and the specific date of the exam.
