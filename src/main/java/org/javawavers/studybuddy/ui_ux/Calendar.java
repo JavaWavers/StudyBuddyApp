@@ -243,8 +243,8 @@ public class Calendar {
     System.out.println(selectedWeek + "ggggggggggggggggggggggggg");
     int daysinWeek = 7;
 
-
-    for (int i = 0; i < daysinWeek  ; i++) {
+// 0 7
+    for (int i = 0; i < daysinWeek ; i++) {
       ColumnConstraints column = new ColumnConstraints();
       column.setPercentWidth(100.0 / 7);
       grid.getColumnConstraints().add(column);
