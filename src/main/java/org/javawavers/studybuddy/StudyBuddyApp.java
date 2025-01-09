@@ -1,5 +1,6 @@
 package org.javawavers.studybuddy;
 
+<<<<<<< HEAD
 
 /*
 import java.time.LocalDate;
@@ -75,6 +76,30 @@ public class StudyBuddyApp extends Application {
         launch(args);
     }
 
+=======
+import java.io.IOException;
+
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+//import org.javawavers.studybuddy.database.DatabaseManager;
+
+public class StudyBuddyApp extends Application {
+    @Override
+    public void start(Stage stage) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(StudyBuddyApp.class.getResource("hello-view.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 320, 240);
+        stage.setTitle("Hello!");
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public static void main(String[] args) {
+       // DatabaseManager.CreateTables();
+        launch(args);
+    }
+>>>>>>> 89a5bd7f0f8c995119e068b6f432a6dbcf80352d
 }
 */
 
@@ -83,6 +108,8 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import org.javawavers.studybuddy.ui_ux.HomePage;
+import org.javawavers.studybuddy.ui_ux.Popupdia;
 
 /*
  * TODO:
@@ -97,7 +124,7 @@ public class StudyBuddyApp extends Application { //exam page
 
     @Override
     public void start(Stage stage) {
-        SceneManager sceneManager = new SceneManager(stage);
+        Popupdia.SceneManager sceneManager = new Popupdia.SceneManager(stage);
 
         HomePage homePage = new HomePage();
         Scene homeScene = homePage.home(sceneManager);
