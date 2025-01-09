@@ -14,7 +14,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
 public class HomePage {
-    public Scene home(Popupdia.SceneManager sceneManager) {
+    public Scene home(SceneManager sceneManager) {
         VBox home = new VBox();
         // Navigation Bar
         HBox navBar = new HBox(10);
@@ -49,7 +49,7 @@ public class HomePage {
         btnLogin.setPrefSize(186, 41);
 
         btnLogin.setOnAction(event -> {
-            Popupdia.LoginPage login = new Popupdia.LoginPage();
+            LoginPage login = new LoginPage();
             //Stage loginStage = new Stage();
             sceneManager.switchScene(login.login(sceneManager));
             //loginStage.setMaximized(true);
@@ -88,7 +88,7 @@ public class HomePage {
         tryButton.setLayoutY(308);
 
         tryButton.setOnAction(event -> {
-            Popupdia.RegisterPage register = new Popupdia.RegisterPage();
+            RegisterPage register = new RegisterPage();
             sceneManager.switchScene(register.register(sceneManager));
         });
 

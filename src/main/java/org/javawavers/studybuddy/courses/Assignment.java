@@ -1,6 +1,5 @@
-package org.javawavers.studybuddy;
 
-import org.javawavers.studybuddy.courses.SubjectElement;
+package org.javawavers.studybuddy.courses;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;

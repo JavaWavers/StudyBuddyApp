@@ -1,6 +1,5 @@
 package org.javawavers.studybuddy;
 
-<<<<<<< HEAD
 
 /*
 import java.time.LocalDate;
@@ -110,6 +109,7 @@ import javafx.stage.Screen;
 import javafx.stage.Stage;
 import org.javawavers.studybuddy.ui_ux.HomePage;
 import org.javawavers.studybuddy.ui_ux.Popupdia;
+import org.javawavers.studybuddy.ui_ux.SceneManager;
 
 /*
  * TODO:
@@ -124,7 +124,7 @@ public class StudyBuddyApp extends Application { //exam page
 
     @Override
     public void start(Stage stage) {
-        Popupdia.SceneManager sceneManager = new Popupdia.SceneManager(stage);
+        SceneManager sceneManager = new SceneManager(stage);
 
         HomePage homePage = new HomePage();
         Scene homeScene = homePage.home(sceneManager);

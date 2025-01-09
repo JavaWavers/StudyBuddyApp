@@ -11,7 +11,7 @@ public class Task {
     private double taskHours;
 
     // constructor with the Subject object
-    public Task(Subject.Subject subj, int taskType) {
+    public Task(Subject subj, int taskType) {
         subjName = subj.getCourseName();
         this.taskType = taskType;
         if (taskType == 1 || taskType == 3) {

@@ -53,7 +53,7 @@ public class TaskAssignment {
             }
         }
         int taskIndex = 1;
-        tasks.add(tasks.getFirst());
+        tasks.add(tasks.get(0));
         int taskLength = tasks.size() - 1;
 
         for (int col = 0; col < colSize; col++) {

@@ -101,7 +101,7 @@ public class AssignmentPage {
             int estimateHour = Integer.parseInt(estimate);
 
             Assignment assignment1 = new Assignment(title, localDeadline, estimateHour);
-            Popupdia.ExamPage exampage = new Popupdia.ExamPage();
+            ExamPage exampage = new ExamPage();
             //Subject course = exampage.coursename;
             //course.addAssignment(assignment1);
 
@@ -254,7 +254,7 @@ public class AssignmentPage {
                 + "-fx-effect: none;";
     }
 
-    public Scene assignmentStartingPage(Popupdia.SceneManager sceneManager) {
+    public Scene assignmentStartingPage(SceneManager sceneManager) {
         VBox assignViewWithBtn = new VBox();
 
         HBox nameLbl = new HBox(20);
@@ -272,7 +272,7 @@ public class AssignmentPage {
         Button prevBtn = new Button("Προηγούμενο");
         prevBtn.setStyle(btnStyle());
         prevBtn.setOnAction(e -> {
-            Popupdia.ExamPage examPage = new Popupdia.ExamPage();
+            ExamPage examPage = new ExamPage();
             sceneManager.switchScene(examPage.examStartingPage(sceneManager));
         });
 

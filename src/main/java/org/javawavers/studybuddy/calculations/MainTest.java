@@ -1,7 +1,7 @@
 package org.javawavers.studybuddy.calculations;
 
-import org.javawavers.studybuddy.courses.Assignment;
-import org.javawavers.studybuddy.courses.Subject;
+import org.javawavers.studybuddy.courses.*;
+
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -9,21 +9,21 @@ import java.util.ArrayList;
 public class MainTest {
     public static void main(String[] args) {
         // Create subjects
-        org.javawavers.studybuddy.courses.Subject.Subject Maths = new org.javawavers.studybuddy.courses.Subject.Subject("Maths", null,4);
-        org.javawavers.studybuddy.courses.Subject.Exam e1 = new org.javawavers.studybuddy.courses.Subject.Exam(400,20,LocalDate.of(2025, 2, 24),50);
+        Subject Maths = new Subject("Maths", null,4);
+        Exam e1 = new Exam(400,20,LocalDate.of(2025, 2, 24),50);
         Maths.addExam(e1);
-        org.javawavers.studybuddy.courses.Assignment.Assignment a1 = new org.javawavers.studybuddy.courses.Assignment.Assignment("Mathsασσ", LocalDate.of(2025, 2, 18), 13);
+        Assignment a1 = new Assignment("Mathsασσ", LocalDate.of(2025, 2, 18), 13);
 
         Maths.addAssignment(a1);
         // Maths.addAssignment(a2);
-        org.javawavers.studybuddy.courses.Subject.Subject History = new org.javawavers.studybuddy.courses.Subject.Subject("History", 4, null, null);
-        org.javawavers.studybuddy.courses.Subject.Exam e2 = new org.javawavers.studybuddy.courses.Subject.Exam(100,30,LocalDate.of(2025, 2, 1),90);
+       Subject History = new Subject("History", 4, null, null);
+        Exam e2 = new Exam(100,30,LocalDate.of(2025, 2, 1),90);
 
         // assignment without any exam
-        org.javawavers.studybuddy.courses.Assignment.Assignment a2 = new org.javawavers.studybuddy.courses.Assignment.Assignment("Ass1", LocalDate.of(2025, 1, 18), 13);
-        org.javawavers.studybuddy.courses.Assignment.Assignment a3 = new Assignment.Assignment("Ass1", LocalDate.of(2025, 1, 18), 13);
+        Assignment a2 = new Assignment("Ass1", LocalDate.of(2025, 1, 18), 13);
+        Assignment a3 = new Assignment("Ass1", LocalDate.of(2025, 1, 18), 13);
         History.addExam(e2);
-        ArrayList<org.javawavers.studybuddy.courses.Subject.Subject> subs = new ArrayList<>();
+        ArrayList<Subject> subs = new ArrayList<>();
         subs.add(Maths);
         subs.add(History);
         // create Availability
@@ -41,13 +41,13 @@ public class MainTest {
 
         SimulateAnnealing sAnnealing = new SimulateAnnealing();
 
-        for (Subject.Subject s : subs) {
+        for (Subject s : subs) {
             sAnnealing.addSubject(s);
 
         }
 
-        sAnnealing.subAss2(a2.getName(), a2.getDeadline(), a2.getEstimateHours());
-        sAnnealing.subAss2(a3.getName(), a3.getDeadline(), a3.getEstimateHours());
+        sAnnealing.subAss2(a2.getTitle(), a2.getDeadline(), a2.getEstimateHours());
+        sAnnealing.subAss2(a3.getTitle(), a3.getDeadline(), a3.getEstimateHours());
         SimulateAnnealing.scheduleResult();
     }
 }

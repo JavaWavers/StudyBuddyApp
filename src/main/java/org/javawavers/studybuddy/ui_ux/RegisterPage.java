@@ -15,6 +15,7 @@ import javafx.stage.Screen;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class RegisterPage {
 
@@ -325,7 +326,7 @@ public class RegisterPage {
             successAlert.setContentText("Η εγγραφή ολοκληρώθηκε με επιτυχία!");
             DialogPane dialogPane = successAlert.getDialogPane();
             dialogPane.getStyleClass().add("success-alert");
-            dialogPane.getStylesheets().add(getClass().getResource("success.css").toExternalForm());
+            dialogPane.getStylesheets().add(Objects.requireNonNull(getClass().getResource("success.css")).toExternalForm());
             successAlert.showAndWait();
             return true;
 

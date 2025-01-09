@@ -9,7 +9,8 @@ package org.javawavers.studybuddy.calculations;
  * and is given to the user as a recommended studying schedule.
  */
 
-import org.javawavers.studybuddy.courses.Subject;
+import org.javawavers.studybuddy.calculations.*;
+import org.javawavers.studybuddy.courses.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -24,7 +25,7 @@ public class SimulateAnnealing {
      * with a value of zero.
      */
 
-    private static List<org.javawavers.studybuddy.courses.Subject.Subject> subjects; // List for subjects
+    private static List<Subject> subjects; // List for subjects
     private static List<Task> tasks; // List for each task that is connected with a subject
     private static List<Dates> exams; // List for each exam that is connected with a subject
     private static List<ScheduleResult> scheduleResults;// List for the valid schedule results
@@ -39,7 +40,7 @@ public class SimulateAnnealing {
     }
 
     // Add a new Subject
-    public void addSubject(org.javawavers.studybuddy.courses.Subject.Subject subject) {
+    public void addSubject(Subject subject) {
         subjects.add(subject);
         // Sets exams for the subject
         subExams(subject);
@@ -51,10 +52,10 @@ public class SimulateAnnealing {
     }
 
     // Setting exams for each subject
-    private void subExams(org.javawavers.studybuddy.courses.Subject.Subject subject) {
+    private void subExams(Subject subject) {
         if (!subject.getExams().isEmpty()) {
             // Create a Dates object with the subject name and the exam date
-            Dates examDate = new Dates(subject, subject.getExams().getFirst().getExamDate());
+            Dates examDate = new Dates(subject, subject.getExams().get(0).getExamDate());
             // Add the Dates object to the list
             exams.add(examDate);
         }
@@ -67,10 +68,10 @@ public class SimulateAnnealing {
     }
 
     // Setting exams for each subject
-    private void subAssignment(org.javawavers.studybuddy.courses.Subject.Subject subject) {
+    private void subAssignment(Subject subject) {
         if (!subject.getAssignments().isEmpty()) {
             // Create a Dates object with the subject name and the exam date
-            Dates assDate = new Dates(subject, subject.getAssignments().getFirst().getDeadline());
+            Dates assDate = new Dates(subject, subject.getAssignments().get(0).getDeadline());
             // Add the Dates object to the list
             assignments.add(assDate);
         }
@@ -98,10 +99,10 @@ public class SimulateAnnealing {
     }
 
     // Creating tasks for each subject
-    private void subTasks(Subject.Subject subject) {
+    private void subTasks(Subject subject) {
         // setting the difficulty level
 
-        CalculativeAlgorithm.setPagesPerMin(subject.getExams().getFirst().getTimePer20Slides());
+        CalculativeAlgorithm.setPagesPerMin(subject.getExams().get(0).getTimePer20Slides());
         // studying tasks
         int taskType1 = CalculativeAlgorithm.studyingTasks(subject);
 
@@ -183,7 +184,7 @@ public class SimulateAnnealing {
             bestSchedule(sr.getScore(), sr.getTasks(), sr.getSchedule());
         }
         schedule = Validate.validateSchedule(schedule, bestTask);
-        // PrintSchedule.printSchedule(schedule, bestTask, colSize);
+         PrintSchedule.printSchedule(schedule, bestTask, colSize);
 
     }
 

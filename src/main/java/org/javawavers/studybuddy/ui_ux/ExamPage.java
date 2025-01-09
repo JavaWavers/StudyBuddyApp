@@ -9,10 +9,12 @@ import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
-
+import org.javawavers.studybuddy.courses.*;
+import org.javawavers.studybuddy.calculations.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 
 /*
@@ -25,25 +27,28 @@ TODO:
  * Add documentation code
 */
 public class ExamPage {
-    //SimulateAnnealing simulateAnnealing = new SimulateAnnealing();
-   // Subject subjectGeneral = new Subject(null);
-    ArrayList<Subject> subject = new ArrayList<>();
-   // ArrayList<Exam> exam = new ArrayList<>();
+    //create field for inputs
     private TextField nameField, pageField, revisionField, difficulty, timePer20Slides;
-    public static String courseName = "";
-    public static int  pages = 0;
-    public static String revision = "";
-    public static String deadline = "";
-    public static String courseType = "";
-    public static int diffi = 0;
-    public static String time = "";
-    
-   // Subject subject1 = new Subject(courseName, difficul);
+    //crete static variables for the use of inputs
+    private static String courseName = "";
+    private static int  pages = 0;
+    private static int revision = 0;
+    private static LocalDate deadline ;
+    private static Subject.SubjectType courseType ;
+    private static int diffi = 0;
+    private static double time = 0.0;
 
+    //variables for storing inputs for calendar class use
     private DatePicker datePicker;
-    private ComboBox<String> typeCourseList;
-    int[][] schedule;
+    private ComboBox<Subject.SubjectType> typeCourseList;
 
+    //List with subjects
+    private ArrayList<Subject> subjects= new ArrayList();
+
+    //subject list getter
+    public ArrayList<Subject> getSubjects(){
+      return subjects;
+    }
 
     // Exam Page as Node
     public Node createExamPanel() {
@@ -67,46 +72,49 @@ public class ExamPage {
             courseName = nameField.getText();
             String value = pageField.getText();
             pages = Integer.parseInt(value);
-            revision = revisionField.getText();
-            deadline = datePicker.getValue() != null ? datePicker.getValue().toString() : null;
+            revision = Integer.parseInt(revisionField.getText());
+            deadline = datePicker.getValue() != null ? LocalDate.parse(datePicker.getValue().toString()) : null;
             courseType = typeCourseList.getValue();
-           // diffi = difficulty.getText();
             String value2 = difficulty.getText();
-            int difficul = Integer.parseInt(value2);
-            Subject subject1 = new Subject(courseName, difficul);
+            diffi = Integer.parseInt(value2);
+            time =Double.parseDouble(timePer20Slides.getText());
 
-            time = timePer20Slides.getText();
+            //create a subject object
+            Subject subject1 = new Subject(courseName,courseType, diffi);
+            //create an exam object
+            Exam e1= new Exam(pages,revision,deadline,time);
+            subject1.addExam(e1);
 
+            subjects.add(subject1);
             List<String> errors = new ArrayList<>();
 
             if (courseName.isEmpty()) {
-                errors.add("• Εισήγαγε Μάθημα");
+                errors.add("• Εισήγαγε όνομα μαθήματος");
             }
 
-           // if (pages.isEmpty() || !pages.matches("\\d+")) {
-              //  errors.add("• Η παράμετρος 'Σελίδες' πρέπει να είναι ακέραιος αριθμός.");
-            //}
-
-            if (revision.isEmpty() || !revision.matches("\\d+")) {
-                errors.add("• Η παράμετρος 'Επανάληψη' πρέπει να είναι ακέραιος αριθμός.");
+            if (pages <= 0 ) {
+                errors.add("• Η παράμετρος 'Σελίδες' πρέπει να είναι θετικός αριθμός.");
             }
 
-            if (deadline == null || LocalDate.parse(deadline).isBefore(LocalDate.now())) {
+            if (revision < 0) {
+                errors.add("• Η παράμετρος 'Επανάληψη ανά (σελίδες): ' πρέπει να είναι μη αρνητικός αριθμός.");
+            }
+
+            if (deadline == null || deadline.isBefore(LocalDate.now())) {
                 errors.add("• Πρέπει να επιλέξεις ημερομηνία εξέτασης μετά τη σημερινή ημερομηνία.");
             }
 
-            if (courseType == null || courseType.isEmpty()) {
+            if (courseType == null ) {
                 errors.add("• Πρέπει να επιλέξεις το είδος του μαθήματος.");
             }
 
-           // if (diffi.isEmpty() || !diffi.matches("\\d+") || Integer.parseInt(diffi) < 1 || Integer.parseInt(diffi) > 10) {
-                //errors.add("• Η δυσκολία πρέπει να είναι αριθμός μεταξύ 1 και 10.");
-           // }
-
-            if (time.isEmpty() || !time.matches("\\d+")) {
-                errors.add("• Ο χρόνος ανά 20 διαφάνειες πρέπει να είναι αριθμός.");
+            if ( diffi < 1 || diffi > 10) {
+                errors.add("• Η δυσκολία πρέπει να είναι αριθμός μεταξύ 1 και 10.");
             }
 
+            if (time <= 0 ) {
+                errors.add("• Ο χρόνος ανά 20 διαφάνειες πρέπει να είναι θετικός αριθμός.");
+            }
 
 
             if (!errors.isEmpty()) {
@@ -115,63 +123,19 @@ public class ExamPage {
                 alert.setHeaderText(null);
                 String errorMessage = String.join("\n", errors);
                 alert.setContentText(errorMessage);
-                alert.getDialogPane().getStylesheets().add(getClass().getResource("alert.css").toExternalForm());
+                alert.getDialogPane().getStylesheets().add(Objects.requireNonNull(getClass()
+                    .getResource("alert.css")).toExternalForm());
                 alert.showAndWait();
                 return;
             }
-           // difficul = Integer.parseInt(diffi);
-            int page = Integer.parseInt(revision);
-            //double minutes = Double.parseDouble(pages);
-            //Subject subject1 = new Subject(courseName, difficul);
-           // subject.add(coursename);
 
-            LocalDate localDeadline = LocalDate.parse(deadline);
-            //Dates exam = new Dates(coursename, localDeadline);
-            //simulateAnnealing.getExams().add(exam);
-            SimulateAnnealing simulateAnnealing = new SimulateAnnealing();
-
-            Exam exam1 = new Exam(localDeadline, page);
-            //subjectGeneral.addExam(exam1);
-            subject1.addExam(exam1);
-            simulateAnnealing.addSubject(subject1);
-             
-           /*  simulateAnnealing.scheduleResult();
-            schedule = simulateAnnealing.getSchedule();
-            System.out.println(schedule);*/
-            if (schedule == null) {
-                System.out.println("Schedule is null!");
-            } else {
-                System.out.println("Schedule contents: " + java.util.Arrays.deepToString(schedule));
-            }
-            //System.out.println(schedule);
-            //System.out.println(schedule);
-           // subjectGeneral.getExams(exam1);
-           // exam.add(exam1);
             nameField.clear();
             pageField.clear();
             revisionField.clear();
             datePicker.setValue(null);
-            typeCourseList.setValue("");
+            typeCourseList.setValue(null);
             difficulty.clear();
             timePer20Slides.clear();
-            Availability.setAvailability(1, 6); // Monday: 6 available hours
-            Availability.setAvailability(2, 4); // Tuesday: 4 available hours
-            Availability.setAvailability(3, 7); // Wednesday: 7 available hours
-            Availability.setAvailability(4, 4); // Thursday: 4 available hours
-            Availability.setAvailability(5, 6); // Friday: 6 available hours
-            Availability.setAvailability(6, 6); // Saturday: 6 available hours
-            Availability.setAvailability(7, 6); // Sunday: 6 available hour
-            //πρεπει αυτο simulateAnnealing.addSubject(coursename);  να δημιουργειτε στο ημερολογιο αφου εχουν εισαχθει ολα τα μαθηματα και οι εργασιιες
-        //αυτο λειτουργει και πρεπει να το βσλω στο calendar 
-        //simulateAnnealing.addSubject(coursename);
-        //for ( Subject s : subject) {
-           // simulateAnnealing.addSubject(s);
-          //  System.out.println(s);
-       // }
-      //  simulateAnnealing.scheduleResult();
-        //System.out.println(schedule);
-           // simulateAnnealing.scheduleResult();
-        
             okBtn.setStyle(btnMousePressed());
         });
 
@@ -204,13 +168,14 @@ public class ExamPage {
         Label typeLabel = new Label("Είδος: ");
         typeLabel.setStyle(labelStyle());
         typeCourseList = new ComboBox<>();
-        typeCourseList.getItems().addAll("","Θεωρητικό", "Θετικό", "Συνδυασμός");
-        typeCourseList.setValue("");
+        Subject s = new Subject("Βοηθητικό");
+        typeCourseList.getItems().addAll(s.getSubjectType());
+        typeCourseList.setValue(null);
         typeCourseList.setStyle("-fx-font-family: 'Arial';");
         HBox typeBox = new HBox(10, typeLabel, typeCourseList);
         pageField = new TextField();
         revisionField = new TextField();
-        //ημερολογιο για την ημερομηνια τις εξετασης
+        //calendar for the exam date
         datePicker = new DatePicker();
         HBox deadlineBox = createLabeledField("Ημερομηνία Εξέτασης: ", datePicker);
 
@@ -218,8 +183,6 @@ public class ExamPage {
 
         HBox pageBox = createLabeledField("Σελίδες: ", pageField);
         HBox revisionBox = createLabeledField("Επανάληψη ανά (σελίδες): ", revisionField);
-        //HBox deadlineBox = createLabeledField("Ημερομηνία Εξέτασης: ", deadlineField);
-
 
         box.getChildren().addAll(typeBox, pageBox, revisionBox, deadlineBox);
         return box;
@@ -310,17 +273,6 @@ public class ExamPage {
                 + "-fx-effect: none;";
     }
 
-    public List<Subject> getSubjects() {
-        return subject;
-    }
-
-   // public List<Exam> getExams() {
-       // return exam;
-   // }
-    public int[][] getSchedule() {
-        //System.out.println(schedule);
-        return schedule;
-    }
 
     public Scene examStartingPage(SceneManager sceneManager) {
         VBox examViewWithBtn = new VBox();

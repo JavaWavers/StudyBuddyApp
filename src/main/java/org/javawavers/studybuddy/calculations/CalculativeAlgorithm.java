@@ -26,13 +26,13 @@ public class CalculativeAlgorithm {
     }
 
     // calculates total studying time in hours
-    public static double totalStudyingTime(org.javawavers.studybuddy.courses.Subject.Subject s) {
+    public static double totalStudyingTime(Subject s) {
         // The total studying time required for a subject
-        return (s.getExams().getFirst().getPages() * s.getDifficultyLevel()) / (pagesPerMin * 60);
+        return (s.getExams().get(0).getPages() * s.getDifficultyLevel()) / (pagesPerMin * 60);
     }
 
     // total studying tasks per week
-    public static int studyingTasks(Subject.Subject s) {
+    public static int studyingTasks(Subject s) {
         double totalTimeWeek = totalStudyingTime(s);
         return numberOfScheduledTask(totalTimeWeek);
     }

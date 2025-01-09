@@ -27,7 +27,7 @@ public class CenterPanelManager {
 
         ExamPage examPage = new ExamPage();
         Dashboard dashboard = new Dashboard();
-        Popupdia.Calendar calendar = new Popupdia.Calendar();
+        Calendar calendar = new Calendar();
         AssignmentPage assignmentPage = new AssignmentPage();
         HomePage homePage = new HomePage();
         LoginPage loginPage = new LoginPage();
