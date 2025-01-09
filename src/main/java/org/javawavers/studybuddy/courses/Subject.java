@@ -1,4 +1,4 @@
-package org.javawavers.studybuddy.courses;
+package main.java.org.javawavers.studybuddy.courses;
 
 
 import java.util.ArrayList;
