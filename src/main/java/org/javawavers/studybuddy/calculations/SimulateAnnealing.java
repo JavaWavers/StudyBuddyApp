@@ -36,7 +36,6 @@ public class SimulateAnnealing {
         exams = new ArrayList<>();
         assignments = new ArrayList<>();
         scheduleResults = new ArrayList<>();
-        System.out.println("okkkkkkkkkk");
     }
 
     // Add a new Subject
@@ -48,34 +47,27 @@ public class SimulateAnnealing {
 
         // Creates tasks for the subject
         subTasks(subject);
-        System.out.println("Okkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk");
 
     }
 
     // Setting exams for each subject
     private void subExams(Subject subject) {
-        if (!subject.getExams().isEmpty()) {
-            // Create a Dates object with the subject name and the exam date
-            Dates examDate = new Dates(subject, subject.getExams().get(0).getExamDate());
-            // Add the Dates object to the list
-            exams.add(examDate);
-        }
         // Check if the subject or its exams list is null
         if (subject.getExams() == null || subject.getExams().isEmpty()) {
             throw new IllegalArgumentException("Subject or exam list is invalid. Exams must not be empty.");
-
         }
+        Dates examDate = new Dates(subject, subject.getExams().get(0).getExamDate());
+        exams.add(examDate);
 
     }
 
     // Setting exams for each subject
     private void subAssignment(Subject subject) {
-        if (!subject.getAssignments().isEmpty()) {
-            // Create a Dates object with the subject name and the exam date
-            Dates assDate = new Dates(subject, subject.getAssignments().get(0).getDeadline());
-            // Add the Dates object to the list
-            assignments.add(assDate);
+        if (subject.getAssignments() == null || subject.getAssignments().isEmpty()) {
+            return; // No assignments, skip further processing
         }
+        Dates assDate = new Dates(subject, subject.getAssignments().get(0).getDeadline());
+        assignments.add(assDate);
 
     }
 
@@ -101,6 +93,9 @@ public class SimulateAnnealing {
 
     // Creating tasks for each subject
     private void subTasks(Subject subject) {
+        if (subject.getExams() == null || subject.getExams().isEmpty()) {
+            throw new IllegalArgumentException("Cannot create tasks: No exams found for the subject.");
+        }
         // setting the difficulty level
 
         CalculativeAlgorithm.setPagesPerMin(subject.getExams().get(0).getTimePer20Slides());
@@ -154,7 +149,7 @@ public class SimulateAnnealing {
          * Then each list gets a score. The list with the higher score is set as the
          * bestTask
          */
-
+        scheduleResults.clear();
         bestTask.clear();
 
         // sort exams
@@ -193,9 +188,11 @@ public class SimulateAnnealing {
     }
 
     public static void bestSchedule(double valResultScoring, List<Task> taskList, int[][] sch) {
+        // Update best scoring and schedule only if the new score is equal or better
         if (valResultScoring >= bestScoring) {
             bestScoring = valResultScoring;
-            bestTask = taskList;
+            // Create a new list to avoid reference issues
+            bestTask = new ArrayList<>(taskList);
             schedule = sch;
         }
     }
