@@ -123,14 +123,13 @@ public class ScheduledTask {
     // toString method
     @Override
     public String toString() {
-        return ", ScheduledTask{" +
-                ", Όνομα Task: " + taskName  +
-                ", Τύπος Task: " + taskType +
-                ", Συνιστώμενες ώρες μελέτης: " + hoursAllocated +
+        return " Όνομα Task: " + taskName  +
+                ",\nΤύπος Task: " + taskType +
+                ",\nΣυνιστώμενες ώρες μελέτης: " + hoursAllocated
               //  ", Ώρα Έναρξης: " + (timeStarted != null ? timeStarted.toString() : "δεν έχει οριστεί") +
               //  ", Ώρα Ολοκλήρωσης: " + (timeCompleted != null ? timeCompleted.toString() : "δεν έχει οριστεί") +
                // ", Κατάσταση Εργασίας: " + taskStatus +
                // ", Αφορά το μάθημα: " + subjectName +
-                '}';
+                ;
     }
 }

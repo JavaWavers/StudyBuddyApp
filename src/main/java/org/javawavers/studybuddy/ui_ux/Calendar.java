@@ -43,6 +43,11 @@ public class Calendar {
   private LocalDate currentWeekStart;
   // αρχικοποιουμε την μεταβλητη count
   int count = 0;
+  //private ArrayList<Week> totalWeek;
+  //public void setTotalWeek(ArrayList<Week> totalWeek) {
+  //  this.totalWeek = totalWeek;
+ // }
+
 
 
 
@@ -85,9 +90,9 @@ public class Calendar {
     final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d MMM yyyy");
 
     //αρχικοποιουμε την μεταβλητη weeklabel
-    //Label weekLabel = new Label(formatWeekLabel(currentWeekStart, formatter));
-    //weekLabel.setFont(Font.font("System", FontWeight.BOLD, 16));
-    //weekLabel.setStyle("-fx-text-fill: black;");
+    Label weekLabel = new Label(formatWeekLabel(currentWeekStart, formatter));
+    weekLabel.setFont(Font.font("System", FontWeight.BOLD, 16));
+    weekLabel.setStyle("-fx-text-fill: black;");
 
     //HBox.setHgrow(weekLabel, Priority.ALWAYS);
     //βαζουμε τα κουμπια για να πλοηγειτε ο χρηστης στις εβδομαδες
@@ -107,60 +112,21 @@ public class Calendar {
     prevButton.setOnAction(event -> {
       count = count - 1;
       currentWeekStart = currentWeekStart.minusWeeks(1);
-      //weekLabel.setText(formatWeekLabel(currentWeekStart, formatter));
-      SimulateAnnealing sAnnealing = new SimulateAnnealing();
-      System.out.println("s");
-      ExamPage exPage=new ExamPage();
-      if(!exPage.getSubjects().isEmpty()){
-        System.out.print("Not empty subject list");
-      } else {
-        System.out.println("empty");
-      }
-      System.out.println("Subjects in ExamPage: " + exPage.getSubjects().size());
-      for (Subject s : exPage.getSubjects()) {
-        sAnnealing.addSubject(s);
-        System.out.println("////////////");
-      }
-      List<Subject> subject = SimulateAnnealing.getSubjects();
-      SimulateAnnealing.scheduleResult();
-      int daysinWeek = 7;
-      //List<int[][]> weekschedule = splitSchedule(SimulateAnnealing.getSchedule(), daysinWeek);
-      List<Task> besttask = SimulateAnnealing.getBestTask();
-      System.out.println(besttask.size());
-      //createCalendarGrid(calendarGrid, SimulateAnnealing.getBestTask(), weekschedule, count, besttask, subject);
+      weekLabel.setText(formatWeekLabel(currentWeekStart, formatter));
 
     });
 
     nextButton.setOnAction(event -> {
+      count = count + 1;
       currentWeekStart = currentWeekStart.plusWeeks(1);
-      //weekLabel.setText(formatWeekLabel(currentWeekStart, formatter));
-      SimulateAnnealing sAnnealing = new SimulateAnnealing();
-      System.out.println("s");
-      ExamPage exPage=new ExamPage();
-      if(!exPage.getSubjects().isEmpty()){
-        System.out.print("Not empty subject list");
-      } else {
-        System.out.println("empty");
-      }
-      System.out.println("Subjects in ExamPage: " + exPage.getSubjects().size());
-      for (Subject s : exPage.getSubjects()) {
-        sAnnealing.addSubject(s);
-        System.out.println("////////////");
-      }
-      List<Subject> subject = SimulateAnnealing.getSubjects();
-      SimulateAnnealing.scheduleResult();
-      int daysinWeek = 7;
-      //List<int[][]> weekschedule = splitSchedule(SimulateAnnealing.getSchedule(), daysinWeek);
-      List<Task> besttask = SimulateAnnealing.getBestTask();
-      System.out.println(besttask.size());
-      //createCalendarGrid(calendarGrid, SimulateAnnealing.getBestTask(), weekschedule, count, besttask, subject);
+      weekLabel.setText(formatWeekLabel(currentWeekStart, formatter));
 
     });
 
 
     weekSwitcher.setTranslateY(40);
     weekSwitcher.setAlignment(Pos.CENTER);
-    //weekSwitcher.getChildren().addAll(prevButton, weekLabel, nextButton);
+    weekSwitcher.getChildren().addAll(prevButton, weekLabel, nextButton);
 
 
     Button todayButton = new Button("Today");
@@ -209,6 +175,7 @@ public class Calendar {
     refreshButton.setGraphic(refreshIcon);
 
     refreshButton.setOnAction(event -> {
+
       SimulateAnnealing sAnnealing = new SimulateAnnealing();
       System.out.println("s");
       ExamPage exPage=new ExamPage();
@@ -229,9 +196,9 @@ public class Calendar {
       //List<Task> besttask = SimulateAnnealing.getBestTask();
       //System.out.println(besttask.size());
       CreateWeekDay createWeekDay = new CreateWeekDay();
-      ArrayList<Week> weeks = createWeekDay.getTotalWeeks();
+     // ArrayList<Week> weeks = createWeekDay.getTotalWeeks();
 
-      System.out.println("this week problem: upppp" + weeks.isEmpty());
+     // System.out.println("this week problem: upppp" + weeks.isEmpty());
      //System.out.println('EBDOMADAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' + weeks.get());
 
       //edoooo
@@ -302,9 +269,10 @@ public class Calendar {
     //βαζουμε ολα τα στοιχεια του κεντρου μαζι και τα επιστρεφουμε
     centerPanel.getChildren().addAll(weekSwitcher, todayButton, calendarGrid, availabilityPane, refreshButton);
 
-
     return centerPanel;
+
   }
+
 
   //δημιουργουμε τα checkbox
  /* private HBox createCheckBox(String taskName) {
@@ -406,6 +374,30 @@ public class Calendar {
           // Add the task to the grid
           GridPane.setConstraints(cell, dayCount, rowCount);
           grid.getChildren().add(cell);
+          cell.setOnMouseClicked(event -> {
+            String taskDescription = "κενο";
+            taskDescription = s.toString();
+            LocalDate examDate = null;
+            List<Exam> exams = Subject.getExams();
+
+            if (subject != null) {
+              for (Subject subj : subject) {
+                if (taskDescription.contains(subj.getCourseName())) {
+                  for (Exam exam : exams) {
+                    examDate = exam.getExamDate();
+                  }
+                  break;
+                }
+              }
+            }
+            Popupdiathesimotita popup = new Popupdiathesimotita();
+            popup.setTaskLists(notStartedYet, completed);
+            popup.setTaskDescription(taskDescription, examDate);
+            Stage popupStage = new Stage();
+            popup.start(popupStage);
+
+
+          });
           rowCount++;
         }
         dayCount++;
@@ -433,7 +425,11 @@ public class Calendar {
         //GridPane.setConstraints(taskLabel, dayIndex, rowIndex + taskIndex);
         //grid.getChildren().add(taskLabel);
       }
-    }
+  private String formatWeekLabel(LocalDate weekStart, DateTimeFormatter formatter) {
+    LocalDate weekEnd = weekStart.plusDays(6);
+    return String.format("%s - %s", formatter.format(weekStart), formatter.format(weekEnd));
+  }
+}
 
     //for (int col = 1; col <= daysinWeek; col++) {
         //for (int row = 1; row < 14; row++) {
