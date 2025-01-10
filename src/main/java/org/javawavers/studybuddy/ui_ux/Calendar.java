@@ -235,7 +235,67 @@ public class Calendar {
      //System.out.println('EBDOMADAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' + weeks.get());
 
       //edoooo
+      int [][] schedule = SimulateAnnealing.getSchedule();
+      int colSize = schedule[0].length;
+      ArrayList<Task> bestTask = new ArrayList<>(SimulateAnnealing.getBestTask());
+      ArrayList<Week> totalWeeks=new ArrayList<>();
+      LocalDate today2 = LocalDate.now(); // Today's date
+      DayOfWeek currentDayOfWeek = today2.getDayOfWeek();
+      int daysUntilMonday = currentDayOfWeek.getValue() - DayOfWeek.MONDAY.getValue();
 
+      // Initialize the first week
+      Week currentWeek = new Week();
+
+      // Fill days before today with empty tasks
+      for (int i = 0; i < daysUntilMonday; i++) {
+        Day emptyDay = new Day(); // Day with no tasks
+        currentWeek.getDaysOfWeek().add(emptyDay);
+      }
+
+      List<ScheduledTask> scheduledTasksForDay = new ArrayList<>();
+
+      for (int dayIndex = 0; dayIndex < colSize; dayIndex++) {
+        LocalDate currentDate = today2.plusDays(dayIndex - daysUntilMonday); // Calculate current date
+
+        // Clear the scheduled tasks for the day
+        scheduledTasksForDay.clear();
+        for (int taskIndex = 0; taskIndex < schedule.length; taskIndex++) {
+          int taskId = schedule[taskIndex][dayIndex];
+          String taskType = " ";
+          if (taskId > 0) { // If there is a task for the specific slot
+            Task task = bestTask.get(taskId); // Retrieve the Task from the list
+            if (task.getTaskType() == 1) {
+              taskType = "Διάβασμα";
+            } else if (task.getTaskType() == 2) {
+              taskType = "Επανάληψη";
+            } else {
+              taskType = "Εργασία";
+            }
+
+            ScheduledTask scheduledTask = new ScheduledTask(
+                    task.getSubject(), taskType,
+                    (int) Math.ceil(task.getTaskHours()),
+                    currentDate,
+                    new Subject(task.getSubject()) // Create Subject from the Task
+            );
+            scheduledTasksForDay.add(scheduledTask);
+          }
+        }
+
+        // Create a Day object for the current day
+        Day currentDay = new Day();
+        currentDay.todayTasks.addAll(scheduledTasksForDay);
+
+        // Add the day to the week
+        currentWeek.getDaysOfWeek().add(currentDay);
+
+        // If the week is complete or it's the last day, save it
+        if (currentWeek.getDaysOfWeek().size() == 7 || dayIndex == colSize - 1) {
+          totalWeeks.add(currentWeek);
+          currentWeek = new Week(); // Start a new week
+        }
+      }
+      createCalendarGrid(calendarGrid, 0, subject, totalWeeks);
 
     });
 
