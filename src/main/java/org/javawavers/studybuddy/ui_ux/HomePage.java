@@ -14,6 +14,7 @@ import javafx.scene.text.Font;
 import javafx.stage.Screen;
 
 
+
 public class HomePage {
     private SceneManager sceneManager;
     private HBox navBar;
