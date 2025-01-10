@@ -1,6 +1,6 @@
-package org.javawavers.studybuddy.calculations;
 
-import org.javawavers.studybuddy.courses.ScheduledTask;
+
+package org.javawavers.studybuddy.calculations;
 
 import java.util.ArrayList;
 import java.util.List;
