@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Day {
-    private List<ScheduledTask> todayTasks;
+    List<ScheduledTask> todayTasks;
 
     //constructor
     public Day (){

@@ -188,6 +188,8 @@ public class SimulateAnnealing {
         }
         schedule = Validate.validateSchedule(schedule, bestTask);
          PrintSchedule.printSchedule(schedule, bestTask, colSize);
+         CreateWeekDay createWeekDay = new CreateWeekDay();
+         createWeekDay.managerWeekDay(schedule, bestTask,colSize);
 
     }
 
