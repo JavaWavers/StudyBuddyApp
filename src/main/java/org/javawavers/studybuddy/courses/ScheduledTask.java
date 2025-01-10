@@ -1,8 +1,8 @@
 package org.javawavers.studybuddy.courses;
 
+import java.time.Duration;
 import java.time.LocalDate;
 import java.time.LocalTime;
-import java.time.Duration;
 
 public class ScheduledTask {
 
@@ -14,6 +14,7 @@ public class ScheduledTask {
     private TaskStatus taskStatus;
     private LocalDate taskDate;
     private String subjectName;
+    private String taskType;
 
     // Enum for Task Status
     public enum TaskStatus {
@@ -24,9 +25,10 @@ public class ScheduledTask {
     }
 
     // Constructor
-    public ScheduledTask(String taskName, int hoursAllocated, TaskStatus taskStatus, LocalTime timeStarted,
+    public ScheduledTask(String taskName, String taskType, int hoursAllocated, TaskStatus taskStatus, LocalTime timeStarted,
                          LocalTime timeCompleted, LocalDate taskDate, Subject subject) {
         this.taskName = taskName;
+        this.taskType = taskType;
         this.hoursAllocated = hoursAllocated;
         this.taskStatus = taskStatus;
         this.timeStarted = timeStarted;
@@ -36,8 +38,8 @@ public class ScheduledTask {
     }
 
     // Constructor with default settings
-    public ScheduledTask(String taskName, int hoursAllocated, LocalDate taskDate, Subject subject) {
-        this(taskName,hoursAllocated,TaskStatus.UPCOMING,null,null,taskDate, subject);
+    public ScheduledTask(String taskName, String taskType, int hoursAllocated, LocalDate taskDate, Subject subject) {
+        this(taskName,taskType,hoursAllocated, TaskStatus.UPCOMING,null,null,taskDate, subject);
     }
 
 
@@ -121,14 +123,14 @@ public class ScheduledTask {
     // toString method
     @Override
     public String toString() {
-        return "ScheduledTask{" +
-                "Όνομα Εργασίας= " + taskName  +
-                ", Ώρες Διατεθειμένες=" + hoursAllocated +
-                ", Ώρα Έναρξης=" + (timeStarted != null ? timeStarted.toString() : "δεν έχει οριστεί") +
-                ", Ώρα Ολοκλήρωσης=" + (timeCompleted != null ? timeCompleted.toString() : "δεν έχει οριστεί") +
-                ", Κατάσταση Εργασίας=" + taskStatus +
-                ", Αφορά το μάθημα=" + subjectName +
+        return ", ScheduledTask{" +
+                ", Όνομα Task: " + taskName  +
+                ", Τύπος Task: " + taskType +
+                ", Συνιστώμενες ώρες μελέτης: " + hoursAllocated +
+                ", Ώρα Έναρξης: " + (timeStarted != null ? timeStarted.toString() : "δεν έχει οριστεί") +
+                ", Ώρα Ολοκλήρωσης: " + (timeCompleted != null ? timeCompleted.toString() : "δεν έχει οριστεί") +
+                ", Κατάσταση Εργασίας: " + taskStatus +
+                ", Αφορά το μάθημα: " + subjectName +
                 '}';
     }
 }
-
