@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Day {
-    List<ScheduledTask> todayTasks;
+    public List<ScheduledTask> todayTasks;
 
     //constructor
     public Day (){
@@ -13,11 +13,11 @@ public class Day {
     }
 
     //returns the whole list
-    private List<ScheduledTask> getTodayTasks(){
+    public List<ScheduledTask> getTodayTasks(){
         return todayTasks;
     }
     //returns the specified task from the list
-    private ScheduledTask getTodayScheduledTask(int index){
+    public ScheduledTask getTodayScheduledTask(int index){
         return todayTasks.get(index);
     }
 }

@@ -2,6 +2,7 @@
 package org.javawavers.studybuddy.calculations;
 
 import java.util.List;
+import org.javawavers.studybuddy.courses.*;
 public class PrintWeeks {
     public void printWeeks(List<Week> weekList) {
         int weekNumber = 1; // Μετρητής για τον αριθμό εβδομάδας

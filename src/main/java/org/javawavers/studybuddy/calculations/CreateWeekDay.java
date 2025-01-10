@@ -5,6 +5,7 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import org.javawavers.studybuddy.courses.*;
 
 public class CreateWeekDay {
     private List<Week> totalWeeks; // The list containing all weeks
