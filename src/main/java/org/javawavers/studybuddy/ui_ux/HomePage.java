@@ -1,4 +1,4 @@
-package org.javawavers.studybuddy;
+package org.javawavers.studybuddy.ui_ux;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
