@@ -11,7 +11,7 @@ public class PrintWeeks {
             int dayNumber = 1; // Μετρητής για τον αριθμό ημέρας
 
             // Εκτύπωση των ημερών της εβδομάδας
-            for (Day day : week.daysOfWeek) {
+            for (Day day : week.getDaysOfWeek()) {
                 System.out.println("  Day " + dayNumber + ":");
                 if (day.todayTasks.isEmpty()) {
                     System.out.println("    No tasks scheduled.");

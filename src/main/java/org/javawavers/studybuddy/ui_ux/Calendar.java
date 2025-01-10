@@ -1,5 +1,6 @@
 package org.javawavers.studybuddy.ui_ux;
 
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoField;
@@ -227,7 +228,14 @@ public class Calendar {
       //List<int[][]> weekschedule = splitSchedule(SimulateAnnealing.getSchedule(), daysinWeek);
       //List<Task> besttask = SimulateAnnealing.getBestTask();
       //System.out.println(besttask.size());
-      createCalendarGrid(calendarGrid, 0, subject);
+      CreateWeekDay createWeekDay = new CreateWeekDay();
+      ArrayList<Week> weeks = createWeekDay.getTotalWeeks();
+
+      System.out.println("this week problem: upppp" + weeks.isEmpty());
+     //System.out.println('EBDOMADAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' + weeks.get());
+
+      //edoooo
+
 
     });
 
@@ -239,7 +247,7 @@ public class Calendar {
   }
 
   //δημιουργουμε τα checkbox
-  private HBox createCheckBox(String taskName) {
+ /* private HBox createCheckBox(String taskName) {
     HBox checkBoxBox = new HBox(10);
     checkBoxBox.setAlignment(Pos.CENTER_LEFT);
 
@@ -271,18 +279,19 @@ public class Calendar {
 
     return checkBoxBox;
   }
-
+*/
   //δημιουργουμε το ημερολογιο
   //δεν υπαρχει schedule
 
-  private void createCalendarGrid(GridPane grid, int weeknumber, List<Subject> subject) {
+  private void createCalendarGrid(GridPane grid, int weeknumber, List<Subject> subject, List<Week> weeks) {
     String[] days = {"Δευτέρα", "Τρίτη", "Τετάρτη", "Πέμπτη", "Παρασκευή", "Σάββατο", "Κυριακή"};
 // Get the list of weeks
     CreateWeekDay createWeekDay = new CreateWeekDay();
-    ArrayList<Week> weeks = new ArrayList<>(createWeekDay.getTotalWeeks());
 
 // Select the current week (adjust "weeknumber" based on your logic)
     Week thisWeek = weeks.get(weeknumber);
+    System.out.println("this week problem:" + weeks.isEmpty());
+    System.out.println(thisWeek.getTheDay(0));
 
 // Define grid dimensions
     int daysInWeek = 7;
@@ -317,21 +326,32 @@ public class Calendar {
     int dayCount=0;
     for (Day d: thisWeek.getDaysOfWeek()){
       int rowCount=1;
-      for (ScheduledTask s: d.getTodayTasks()){
+      if (!d.getTodayTasks().isEmpty()) {
+        for (ScheduledTask s : d.getTodayTasks()) {
+          Label cell = new Label();
+          cell.setStyle("-fx-border-color: gray; -fx-border-width: 0; -fx-alignment: center;");
+          cell.setFont(Font.font("System", FontWeight.NORMAL, 14));
+          cell.setPrefSize(140, 60);
 
-        // Create a label for each task
-        Label taskLabel = new Label(s.getSubjectName() + ": " + s.getTaskName());
-        taskLabel.setStyle("-fx-border-color: gray; -fx-border-width: 0; -fx-padding: 5;");
-        taskLabel.setFont(Font.font("System", FontWeight.NORMAL, 14));
-        taskLabel.setPrefHeight(50);
-        taskLabel.setPrefWidth(140);
+          // Create a label for each task
+          // Label taskLabel = new Label();
+          //  taskLabel.setStyle("-fx-border-color: gray; -fx-border-width: 0; -fx-padding: 5;");
+          //  taskLabel.setFont(Font.font("System", FontWeight.NORMAL, 14));
+          // taskLabel.setPrefHeight(50);
+          // taskLabel.setPrefWidth(140);
+          String taskText = s.getSubjectName() + ": " + s.getTaskName();
+          cell.setText(taskText);
 
-        // Add the task to the grid
-        GridPane.setConstraints(taskLabel, dayCount, rowCount);
-        grid.getChildren().add(taskLabel);
-        rowCount++;
+
+          // Add the task to the grid
+          GridPane.setConstraints(cell, dayCount, rowCount);
+          grid.getChildren().add(cell);
+          rowCount++;
+        }
+        dayCount++;
+      }else{
+        dayCount++;
       }
-      dayCount++;
     }
     //int rowIndex = 1; // Start from the second row
     //for (int dayIndex = 0; dayIndex < thisWeek.daysOfWeek.size(); dayIndex++) {

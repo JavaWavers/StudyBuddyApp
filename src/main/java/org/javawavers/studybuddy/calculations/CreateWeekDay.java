@@ -8,13 +8,13 @@ import java.util.List;
 import org.javawavers.studybuddy.courses.*;
 
 public class CreateWeekDay {
-    private List<Week> totalWeeks; // The list containing all weeks
+    private ArrayList<Week> totalWeeks; // The list containing all weeks
 
     public CreateWeekDay() {
         totalWeeks = new ArrayList<>();
     }
 
-    public List<Week> getTotalWeeks() {
+    public ArrayList<Week> getTotalWeeks() {
         return totalWeeks;
     }
 
@@ -30,6 +30,7 @@ public class CreateWeekDay {
      *  colSize   The number of days (columns) in the schedule.
      */
     public void managerWeekDay(int[][] schedule, List<Task> bestTask, int colSize) {
+        ArrayList<Week> totalWeeks=new ArrayList<>();
         LocalDate today = LocalDate.now(); // Today's date
         DayOfWeek currentDayOfWeek = today.getDayOfWeek();
         int daysUntilMonday = currentDayOfWeek.getValue() - DayOfWeek.MONDAY.getValue();
@@ -40,7 +41,7 @@ public class CreateWeekDay {
         // Fill days before today with empty tasks
         for (int i = 0; i < daysUntilMonday; i++) {
             Day emptyDay = new Day(); // Day with no tasks
-            currentWeek.daysOfWeek.add(emptyDay);
+            currentWeek.getDaysOfWeek().add(emptyDay);
         }
 
         List<ScheduledTask> scheduledTasksForDay = new ArrayList<>();
@@ -78,10 +79,10 @@ public class CreateWeekDay {
             currentDay.todayTasks.addAll(scheduledTasksForDay);
 
             // Add the day to the week
-            currentWeek.daysOfWeek.add(currentDay);
+            currentWeek.getDaysOfWeek().add(currentDay);
 
             // If the week is complete or it's the last day, save it
-            if (currentWeek.daysOfWeek.size() == 7 || dayIndex == colSize - 1) {
+            if (currentWeek.getDaysOfWeek().size() == 7 || dayIndex == colSize - 1) {
                 totalWeeks.add(currentWeek);
                 currentWeek = new Week(); // Start a new week
             }
@@ -89,5 +90,6 @@ public class CreateWeekDay {
 
         PrintWeeks printWeeks = new PrintWeeks();
         printWeeks.printWeeks(totalWeeks);
+
     }
 }

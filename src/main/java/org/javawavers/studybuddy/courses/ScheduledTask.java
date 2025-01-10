@@ -127,10 +127,10 @@ public class ScheduledTask {
                 ", Όνομα Task: " + taskName  +
                 ", Τύπος Task: " + taskType +
                 ", Συνιστώμενες ώρες μελέτης: " + hoursAllocated +
-                ", Ώρα Έναρξης: " + (timeStarted != null ? timeStarted.toString() : "δεν έχει οριστεί") +
-                ", Ώρα Ολοκλήρωσης: " + (timeCompleted != null ? timeCompleted.toString() : "δεν έχει οριστεί") +
-                ", Κατάσταση Εργασίας: " + taskStatus +
-                ", Αφορά το μάθημα: " + subjectName +
+              //  ", Ώρα Έναρξης: " + (timeStarted != null ? timeStarted.toString() : "δεν έχει οριστεί") +
+              //  ", Ώρα Ολοκλήρωσης: " + (timeCompleted != null ? timeCompleted.toString() : "δεν έχει οριστεί") +
+               // ", Κατάσταση Εργασίας: " + taskStatus +
+               // ", Αφορά το μάθημα: " + subjectName +
                 '}';
     }
 }
