@@ -10,8 +10,6 @@ package org.javawavers.studybuddy.calculations;
  * with the earliest exam date coming first and the latest coming last.
  */
 
-import org.javawavers.studybuddy.courses.Subject;
-
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.Comparator;
