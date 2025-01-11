@@ -5,10 +5,12 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoField;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
+import javafx.scene.Scene;
+import javafx.stage.Modality;
+import javafx.stage.Screen;
+import javafx.stage.StageStyle;
 import org.javawavers.studybuddy.calculations.*;
 import org.javawavers.studybuddy.courses.Exam;
 import org.javawavers.studybuddy.courses.ScheduledTask;
@@ -17,15 +19,11 @@ import org.javawavers.studybuddy.courses.Subject;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -33,7 +31,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.SVGPath;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class Calendar {
@@ -150,10 +147,25 @@ public class Calendar {
 
     //οριζουμε οταν ο ζρηστης παταει πανω στο κουμπι να ανοιγει την σελιδα popupdia
     availabilityButton.setOnAction(event ->  {
-      Popupdia popup1 = new Popupdia();
-      Stage popup1Stage = new Stage();
-      popup1.start(popup1Stage);
+      AvailabilityPage availabilityPage = new AvailabilityPage();
+      VBox availPageLayout = availabilityPage.availabilityPage();
 
+      Stage popUpStage = new Stage();
+      popUpStage.initStyle(StageStyle.UTILITY);
+      popUpStage.initModality(Modality.APPLICATION_MODAL);
+      Stage parentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+
+      double centerX = parentStage.getX() + parentStage.getWidth() / 2 - 300;
+      double centerY = parentStage.getY() + parentStage.getHeight() / 2 - 200;
+
+
+      popUpStage.setX(centerX);
+      popUpStage.setY(centerY);
+
+      Scene popUpScene = new Scene(availPageLayout, 600, 400);
+      popUpStage.setScene(popUpScene);
+      popUpStage.show();
 
     });
 

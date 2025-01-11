@@ -16,7 +16,7 @@ public class MainFrame {
     BorderPane borderPane = new BorderPane();
 
     CenterPanelManager centerPanelManager = new CenterPanelManager();
-    centerPanelManager.changeCenterPanel("Exam");
+    centerPanelManager.changeCenterPanel("Calendar");
     borderPane.setCenter(centerPanelManager.getCenterPane());
 
     MenuPage menuPage = new MenuPage(centerPanelManager);
