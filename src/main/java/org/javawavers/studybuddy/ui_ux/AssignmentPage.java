@@ -1,9 +1,9 @@
 package org.javawavers.studybuddy.ui_ux;
-import  org.javawavers.studybuddy.courses.Assignment;
-
-import java.time.LocalDate;
+import  java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.javawavers.studybuddy.courses.Assignment;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -25,7 +25,7 @@ TODO :
  * same as ExamPage
  */
 public class AssignmentPage {
-    ArrayList<Assignment> assignments = new ArrayList<>();
+    public static ArrayList<Assignment> assignments = new ArrayList<>();
     private TextField namField, assignmentField, estimateHours, difficultyField;
     ComboBox<String> coursesList;
     private DatePicker datePicker;
@@ -35,6 +35,8 @@ public class AssignmentPage {
     public static String difficulty = "";
     public static String deadline = "";
     public static String courseType = "";
+    static LocalDate localDeadline;
+    static int estimateHour;
 
     // Assignment Page as Node
     public Node assignmentPanel() {
@@ -97,11 +99,16 @@ public class AssignmentPage {
                 alert.showAndWait();
                 return;
             }
-            LocalDate localDeadline = LocalDate.parse(deadline);
-            int estimateHour = Integer.parseInt(estimate);
+            localDeadline = LocalDate.parse(deadline);
+            estimateHour = Integer.parseInt(estimate);
+           // SimulateAnnealing simulateAnnealing = new SimulateAnnealing();
+           //Subject sub = new Subject();
 
+            //simulateAnnealing.subAss2(title, localDeadline, estimateHour);
             Assignment assignment1 = new Assignment(title, localDeadline, estimateHour);
-            ExamPage exampage = new ExamPage();
+            assignments.add(assignment1);
+            
+            //ExamPage exampage = new ExamPage();
             //Subject course = exampage.coursename;
             //course.addAssignment(assignment1);
 
@@ -290,5 +297,19 @@ public class AssignmentPage {
             Screen.getPrimary().getVisualBounds().getWidth(),
             Screen.getPrimary().getVisualBounds().getHeight());
         return scene;
+    }
+
+    public ArrayList<Assignment> getAssignments() {
+        return assignments;
+    }
+
+    public String getTitle() {
+        return  title;
+    }
+    public LocalDate getDeadline() {
+        return localDeadline;   
+    }
+    public int getEstimateHours() {
+        return estimateHour;
     }
 }
