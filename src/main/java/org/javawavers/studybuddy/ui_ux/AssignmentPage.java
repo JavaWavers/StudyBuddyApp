@@ -277,7 +277,7 @@ public class AssignmentPage {
         nextBtn.setStyle(btnStyle());
         nextBtn.setOnAction(e -> {
            // System.out.println("Το κουμπί πατήθηκε!");
-           AvailabilityPage availabilityPage = new AvailabilityPage();
+           AvailabilityPage availabilityPage = new AvailabilityPage(sceneManager);
            sceneManager.switchScene(availabilityPage.availStartingPage(sceneManager));
         });
         btns.getChildren().addAll(prevBtn, nextBtn);

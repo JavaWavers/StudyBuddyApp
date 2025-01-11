@@ -315,7 +315,7 @@ public class RegisterPage {
                 alert.setHeaderText(null);
                 String errorMessage = String.join("\n", errors);
                 alert.setContentText(errorMessage);
-                alert.getDialogPane().getStylesheets().add(getClass().getResource("alert.css").toExternalForm());
+                alert.getDialogPane().getStylesheets().add(getClass().getResource("/alert.css").toExternalForm());
                 alert.showAndWait();
                 return false;
             }
@@ -326,7 +326,7 @@ public class RegisterPage {
             successAlert.setContentText("Η εγγραφή ολοκληρώθηκε με επιτυχία!");
             DialogPane dialogPane = successAlert.getDialogPane();
             dialogPane.getStyleClass().add("success-alert");
-            dialogPane.getStylesheets().add(Objects.requireNonNull(getClass().getResource("success.css")).toExternalForm());
+            dialogPane.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/success.css")).toExternalForm());
             successAlert.showAndWait();
             return true;
 

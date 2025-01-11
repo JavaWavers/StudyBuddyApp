@@ -28,10 +28,13 @@ public class AvailabilityPage {
     private Stage popUpStage;
     private SceneManager sceneManager;
 
-    public void setPopUpStage(Stage popUpStage) {
+    public AvailabilityPage(Stage popUpStage) {
         this.popUpStage = popUpStage;
     }
 
+    public AvailabilityPage(SceneManager sceneManager) {
+        this.sceneManager = sceneManager;
+    }
     public VBox availabilityPage() {
 
         VBox availPage = new VBox();
@@ -71,14 +74,12 @@ public class AvailabilityPage {
 
     private VBox rightFrame() {
 
-        Label dayLabel = new Label("Συγκεκριμένη Ημέρα");
+        Label dayLabel = new Label("Μη Διαθέσιμες Ημέρες");
         dayLabel.setAlignment(Pos.CENTER);
         dayLabel.setStyle("-fx-background-color: #50D1C6;");
         dayLabel.setFont(new Font("System Bold", 14));
 
         datePicker = new DatePicker();
-        //datePicker.setLayoutX(242);
-        //datePicker.setLayoutY(98);
         datePicker.setPromptText("Eπιλεξτε μη-διαθεσιμη ημερομηνια");
 
         rightPane.getChildren().addAll(dayLabel, datePicker);
@@ -122,8 +123,8 @@ public class AvailabilityPage {
 
             for (int i = 0; i < dayFields.length; i++) {
                 avPerDay[i] = parseTextFieldValue(dayFields[i]);
-                if (avPerDay[i] > 7) {
-                    errors.add("• Oι διαθέσιμες ώρες μέσα σε μια μέρα πρέπει να είναι λιγότερες απο 7");
+                if (avPerDay[i] > 10) {
+                    errors.add("• Oι διαθέσιμες ώρες μέσα σε μια μέρα πρέπει να είναι λιγότερες απο 10");
                 }
             }
             LocalDate setNoAvailability = datePicker.getValue();
@@ -136,7 +137,7 @@ public class AvailabilityPage {
                 alert.setHeaderText(null);
                 String errorMessage = String.join("\n", errors);
                 alert.setContentText(errorMessage);
-                alert.getDialogPane().getStylesheets().add(getClass().getResource("alert.css").toExternalForm());
+                alert.getDialogPane().getStylesheets().add(getClass().getResource("/alert.css").toExternalForm());
                 alert.showAndWait();
             }
 
@@ -146,7 +147,8 @@ public class AvailabilityPage {
             if (setNoAvailability != null) {
                 Availability.setNonAvailability(setNoAvailability);
             }
-            if (popUpStage != null) {
+
+            if (popUpStage.isShowing()) {
                 popUpStage.close();
             }
 

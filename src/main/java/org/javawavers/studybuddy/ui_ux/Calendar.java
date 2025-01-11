@@ -147,10 +147,11 @@ public class Calendar {
 
     //οριζουμε οταν ο ζρηστης παταει πανω στο κουμπι να ανοιγει την σελιδα popupdia
     availabilityButton.setOnAction(event ->  {
-      AvailabilityPage availabilityPage = new AvailabilityPage();
+      Stage popUpStage = new Stage();
+      AvailabilityPage availabilityPage = new AvailabilityPage(popUpStage);
       VBox availPageLayout = availabilityPage.availabilityPage();
 
-      Stage popUpStage = new Stage();
+
       popUpStage.initStyle(StageStyle.UTILITY);
       popUpStage.initModality(Modality.APPLICATION_MODAL);
       Stage parentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
