@@ -107,6 +107,16 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>3.6.0</version>
+                <configuration>
+                    <configLocation>config/check-style/google_checks.xml</configLocation>
+                    <consoleOutput>true</consoleOutput>
+                    <failsOnError>true</failsOnError>
+                </configuration>
+            </plugin>
             <!--<plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-checkstyle-plugin</artifactId>
@@ -142,11 +152,11 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <configLocation>config/check-style/checkstyle-sun.xml</configLocation>
+                    <configLocation>config/check-style/google_checks.xml</configLocation>
                     <consoleOutput>true</consoleOutput>
                     <failsOnError>true</failsOnError>
                 </configuration>
-            </plugin>-->
+            </plugin> -->
             <!-- PMD Plugin -->
            <!-- <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
