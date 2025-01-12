@@ -1,8 +1,12 @@
 package org.javawavers.studybuddy.database;
 
+import org.javawavers.studybuddy.calculations.Day;
 import org.javawavers.studybuddy.calculations.Week;
+import org.javawavers.studybuddy.courses.ScheduledTask;
 
 import java.util.ArrayList;
+
+import static org.javawavers.studybuddy.courses.StaticUser.staticUser;
 
 public class DataDashboard {
     /*δέχεται τη συνολική λίστα με τις βδομάδες
@@ -12,8 +16,98 @@ public class DataDashboard {
      */
     private static ArrayList<Week> totalWeeks ;
 
-    public static void setTotalWeeks(ArrayList<Week> tw){
-        totalWeeks = new ArrayList<>(tw);
+    private static void setTotalWeeks(){
+        totalWeeks = new ArrayList<>(staticUser.getTotalWeeks());
+    }
+
+    public static double percentageCalculatorGoals(){
+        setTotalWeeks();
+        int totalsum = 0;
+        int sum = 0;
+        for (Week w : totalWeeks){
+            for (Day d: w.getDaysOfWeek()){
+                for (ScheduledTask s:d.getTodayTasks()){
+                    totalsum++;
+                    if(s.getTaskStatus()== ScheduledTask.TaskStatus.COMPLETED){
+                        sum++;
+                    }
+                }
+            }
+        }
+        if (totalsum == 0){
+            return 0.0;
+        }else{
+            return ( (double) sum / totalsum ) * 100;
+        }
+    }
+
+    public static double percentageCalculatorStudying(){
+        setTotalWeeks();
+        int totalsum = 0;
+        int sum = 0;
+        for (Week w : totalWeeks){
+            for (Day d: w.getDaysOfWeek()){
+                for (ScheduledTask s:d.getTodayTasks()){
+                    if (s.getTaskType().equals("Διάβασμα")){
+                        totalsum++;
+                        if(s.getTaskStatus()== ScheduledTask.TaskStatus.COMPLETED){
+                            sum++;
+                        }
+                    }
+                }
+            }
+        }
+        if (totalsum == 0){
+            return 0.0;
+        }else{
+            return ( (double) sum / totalsum ) * 100;
+        }
+    }
+
+    public static double percentageCalculatorAssignments(){
+        setTotalWeeks();
+        int totalsum = 0;
+        int sum = 0;
+        for (Week w : totalWeeks){
+            for (Day d: w.getDaysOfWeek()){
+                for (ScheduledTask s:d.getTodayTasks()){
+                    if (s.getTaskType().equals("Εργασία")){
+                        totalsum++;
+                        if(s.getTaskStatus()== ScheduledTask.TaskStatus.COMPLETED){
+                            sum++;
+                        }
+                    }
+                }
+            }
+        }
+        if (totalsum == 0){
+            return 0.0;
+        }else{
+            return ( (double) sum / totalsum ) * 100;
+        }
+    }
+
+    public static double percentageCalculatorRevision(){
+        setTotalWeeks();
+        int totalsum = 0;
+        int sum = 0;
+        for (Week w : totalWeeks){
+            for (Day d: w.getDaysOfWeek()){
+                for (ScheduledTask s:d.getTodayTasks()){
+                    if (s.getTaskType().equals("Επανάληψη")){
+                        totalsum++;
+                        if(s.getTaskStatus()== ScheduledTask.TaskStatus.COMPLETED){
+                            sum++;
+                        }
+                    }
+                }
+            }
+        }
+        if (totalsum == 0){
+            return 0.0;
+        }else{
+            return ( (double) sum / totalsum ) * 100;
+        }
     }
 
 }

@@ -98,6 +98,10 @@ public class ScheduledTask {
         return subjectName;
     }
 
+    public String getTaskType(){
+        return taskType;
+    }
+
     // Method to check if the task is complete, return true when task is completed
     public boolean isComplete() {
         return taskStatus == TaskStatus.COMPLETED;

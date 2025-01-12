@@ -9,6 +9,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import org.javawavers.studybuddy.database.DataDashboard;
 
 public class DashboardPage {
     // Center panel
@@ -24,10 +25,10 @@ public class DashboardPage {
         // Summary Boxes
         HBox summaryBox = new HBox(10);
         summaryBox.getChildren().addAll(
-                createSummaryBox("Goals Completed", "57.5%", "#57C4E5"),
-                createSummaryBox("Study Completed", "50%", "#D4915D"),
-                createSummaryBox("Assignment Completed", "65%", "#57C4E5"),
-                createSummaryBox("Revision Completed", "65%", "#D4915D")
+                createSummaryBox("Goals Completed", DataDashboard.percentageCalculatorGoals(), "#57C4E5"),
+                createSummaryBox("Study Completed", DataDashboard.percentageCalculatorStudying(), "#D4915D"),
+                createSummaryBox("Assignment Completed", DataDashboard.percentageCalculatorAssignments(), "#57C4E5"),
+                createSummaryBox("Revision Completed", DataDashboard.percentageCalculatorRevision(), "#D4915D")
         );
 
         // Charts
@@ -40,11 +41,12 @@ public class DashboardPage {
 
 
     // Summary box
-    private VBox createSummaryBox(String title, String percentage, String color) {
+    private VBox createSummaryBox(String title, double percentage, String color) {
         VBox box = new VBox(5);
         box.setStyle("-fx-background-color: " + color + "; -fx-padding: 10;");
         Label titleLabel = new Label(title);
-        Label percentageLabel = new Label(percentage);
+        String value = String.valueOf(percentage);
+        Label percentageLabel = new Label(value);
         percentageLabel.setStyle("-fx-font-size: 20px; -fx-font-weight: bold;");
         box.getChildren().addAll(titleLabel, percentageLabel);
         return box;
