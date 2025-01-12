@@ -126,9 +126,6 @@ public class AssignmentPage {
             System.out.println(deadline);
             System.out.println(courseType);
 
-
-        
-        
             okBtn.setStyle(btnMousePressed());
         });
         okBtn.setAlignment(Pos.CENTER_LEFT);
@@ -287,8 +284,8 @@ public class AssignmentPage {
         nextBtn.setStyle(btnStyle());
         nextBtn.setOnAction(e -> {
            // System.out.println("Το κουμπί πατήθηκε!");
-           Popupdia.MainFrame mainframe = new Popupdia.MainFrame();
-           sceneManager.switchScene(mainframe.mainFrame(sceneManager));
+           AvailabilityPage availabilityPage = new AvailabilityPage();
+           sceneManager.switchScene(availabilityPage.availStartingPage(sceneManager));
         });
         btns.getChildren().addAll(prevBtn, nextBtn);
         assignViewWithBtn.getChildren().add(btns);
