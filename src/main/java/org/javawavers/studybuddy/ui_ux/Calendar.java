@@ -1,3 +1,4 @@
+
 package org.javawavers.studybuddy.ui_ux;
 
 import java.time.DayOfWeek;
@@ -7,11 +8,12 @@ import java.time.temporal.ChronoField;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.javawavers.studybuddy.calculations.CreateWeekDay;
-import org.javawavers.studybuddy.calculations.Day;
-import org.javawavers.studybuddy.calculations.SimulateAnnealing;
-import org.javawavers.studybuddy.calculations.Task;
-import org.javawavers.studybuddy.calculations.Week;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.stage.Modality;
+import javafx.stage.Screen;
+import javafx.stage.StageStyle;
+import org.javawavers.studybuddy.calculations.*;
 import org.javawavers.studybuddy.courses.Assignment;
 import org.javawavers.studybuddy.courses.Exam;
 import org.javawavers.studybuddy.courses.ScheduledTask;
@@ -20,7 +22,6 @@ import org.javawavers.studybuddy.courses.Subject;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.ColumnConstraints;
@@ -33,32 +34,19 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.SVGPath;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
-import  javafx.stage.Stage;
+import javafx.stage.Stage;
 
 public class Calendar {
-
-
-
   private LocalDate currentWeekStart;
   // αρχικοποιουμε την μεταβλητη count
   int count = 0;
   private ArrayList<Week> totalWeeks = new ArrayList<>();
-  //public void setTotalWeek(ArrayList<Week> totalWeek) {
-  //  this.totalWeek = totalWeek;
- // }
-
-
-
 
   //αρχικοποιουμε τις λιστες και τα vbox τα οποια χρησιμευουν στην δυναμικη επεξεργασια και εμφανιση των task
   public static List<String> notStartedYet = new ArrayList<>();
   public static List<String> completed = new ArrayList<>();
   private VBox upcomingTasksBox = new VBox(10);
   private VBox completedTasksBox = new VBox(10);
-
-
-
-
 
   public Node calendar() {
     // Αρχικοποιουμε ολα τα panel
@@ -116,13 +104,13 @@ public class Calendar {
         createCalendarGrid(calendarGrid, count , SimulateAnnealing.getSubjects(), totalWeeks);
       } else {
         Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("oupss!");
-            alert.setHeaderText(null);
-            alert.setContentText("Δεν υπάρχουν προηγούμενες εβδομάδες");
-            alert.getDialogPane().getStylesheets().add(getClass().getResource("alert.css").toExternalForm());
-            alert.getDialogPane().setMinWidth(500);
-            alert.getDialogPane().setMinHeight(300);
-            alert.showAndWait();
+        alert.setTitle("oupss!");
+        alert.setHeaderText(null);
+        alert.setContentText("Δεν υπάρχουν προηγούμενες εβδομάδες");
+        alert.getDialogPane().getStylesheets().add(getClass().getResource("alert.css").toExternalForm());
+        alert.getDialogPane().setMinWidth(500);
+        alert.getDialogPane().setMinHeight(300);
+        alert.showAndWait();
       }
 
     });
@@ -133,19 +121,20 @@ public class Calendar {
         createCalendarGrid(calendarGrid, count, SimulateAnnealing.getSubjects(), totalWeeks);
       } else {
         Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("oupss!");
-            alert.setHeaderText(null);
-            alert.setContentText("Το πρόγραμμα της εξεταστικής σταματάει εδώ");
-            alert.getDialogPane().getStylesheets().add(getClass().getResource("alert.css").toExternalForm());
-            alert.getDialogPane().setMinWidth(500);
-            alert.getDialogPane().setMinHeight(300);
-            alert.showAndWait();
+        alert.setTitle("oupss!");
+        alert.setHeaderText(null);
+        alert.setContentText("Το πρόγραμμα της εξεταστικής σταματάει εδώ");
+        alert.getDialogPane().getStylesheets().add(getClass().getResource("alert.css").toExternalForm());
+        alert.getDialogPane().setMinWidth(500);
+        alert.getDialogPane().setMinHeight(300);
+        alert.showAndWait();
 
       }
       currentWeekStart = currentWeekStart.plusWeeks(1);
       weekLabel.setText(formatWeekLabel(currentWeekStart, formatter));
 
     });
+
 
 
     weekSwitcher.setTranslateY(40);
@@ -157,16 +146,9 @@ public class Calendar {
     todayButton.setStyle("-fx-background-color: #CF308C; -fx-background-radius: 30px; -fx-border-color: black; -fx-border-radius: 30px;");
     todayButton.setFont(Font.font("System", FontWeight.BOLD, 14));
     todayButton.setTextFill(Color.WHITE);
-
-    if (count == 0) {
-      todayButton.setVisible(true);
-    } else {
-      todayButton.setVisible(false);
-    }
     todayButton.setOnAction(event -> {
       createCalendarGrid(calendarGrid, 0, SimulateAnnealing.getSubjects(), totalWeeks);
     });
-    //createCalendarGrid(calendarGrid,null,null, 0, null, null);
 
     //κουμπι για να βαζει ο χρηστης την διαθεσημοτητα
     Button availabilityButton = new Button("Availiability");
@@ -177,11 +159,23 @@ public class Calendar {
 
     //οριζουμε οταν ο ζρηστης παταει πανω στο κουμπι να ανοιγει την σελιδα popupdia
     availabilityButton.setOnAction(event ->  {
-      Popupdia popup1 = new Popupdia();
-      Stage popup1Stage = new Stage();
-      popup1.start(popup1Stage);
+      AvailabilityPage availabilityPage = new AvailabilityPage();
+      VBox availPageLayout = availabilityPage.availabilityPage();
 
+      Stage popUpStage = new Stage();
+      popUpStage.initStyle(StageStyle.UTILITY);
+      popUpStage.initModality(Modality.APPLICATION_MODAL);
+      Stage parentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
+      double centerX = parentStage.getX() + parentStage.getWidth() / 2 - 300;
+      double centerY = parentStage.getY() + parentStage.getHeight() / 2 - 200;
+
+      popUpStage.setX(centerX);
+      popUpStage.setY(centerY);
+
+      Scene popUpScene = new Scene(availPageLayout, 600, 400);
+      popUpStage.setScene(popUpScene);
+      popUpStage.show();
     });
 
     //οριζουμε την θεση του κουμπιου availiability
@@ -203,17 +197,14 @@ public class Calendar {
 
     refreshButton.setOnAction(event -> {
       SimulateAnnealing sAnnealing = new SimulateAnnealing();
-      System.out.println("s");
       ExamPage exPage=new ExamPage();
       if(!exPage.getSubjects().isEmpty()){
         System.out.print("Not empty subject list");
       } else {
         System.out.println("empty");
       }
-      System.out.println("Subjects in ExamPage: " + exPage.getSubjects().size());
       for (Subject s : exPage.getSubjects()) {
         sAnnealing.addSubject(s);
-        System.out.println("////////////");
       }
       AssignmentPage as = new AssignmentPage();
       for (Assignment a : as.getAssignments() ) {
@@ -221,21 +212,10 @@ public class Calendar {
       }
       List<Subject> subject = SimulateAnnealing.getSubjects();
       SimulateAnnealing.scheduleResult();
-      int daysinWeek = 7;
-      //List<int[][]> weekschedule = splitSchedule(SimulateAnnealing.getSchedule(), daysinWeek);
-      //List<Task> besttask = SimulateAnnealing.getBestTask();
-      //System.out.println(besttask.size());
-      CreateWeekDay createWeekDay = new CreateWeekDay();
-     // ArrayList<Week> weeks = createWeekDay.getTotalWeeks();
 
-     // System.out.println("this week problem: upppp" + weeks.isEmpty());
-     //System.out.println('EBDOMADAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA' + weeks.get());
-
-      //edoooo
       int [][] schedule = SimulateAnnealing.getSchedule();
       int colSize = schedule[0].length;
       ArrayList<Task> bestTask = new ArrayList<>(SimulateAnnealing.getBestTask());
-      //ArrayList<Week> totalWeeks=new ArrayList<>();
       LocalDate today2 = LocalDate.now(); // Today's date
       DayOfWeek currentDayOfWeek = today2.getDayOfWeek();
       int daysUntilMonday = currentDayOfWeek.getValue() - DayOfWeek.MONDAY.getValue();
@@ -345,22 +325,22 @@ public class Calendar {
     grid.getChildren().removeIf(node -> node instanceof Label);
     grid.getColumnConstraints().clear();
     grid.getRowConstraints().clear();
-    
+
 
 
     String[] days = {"Δευτέρα", "Τρίτη", "Τετάρτη", "Πέμπτη", "Παρασκευή", "Σάββατο", "Κυριακή"};
 // Get the list of weeks
     CreateWeekDay createWeekDay = new CreateWeekDay();
 
-// Select the current week (adjust "weeknumber" based on your logic)
+    // Select the current week (adjust "weeknumber" based on your logic)
     Week thisWeek = weeks.get(weeknumber);
     System.out.println("this week problem:" + weeks.isEmpty());
     System.out.println(thisWeek.getTheDay(0));
 
-// Define grid dimensions
+    // Define grid dimensions
     int daysInWeek = 7;
 
-// Set column constraints (for 7 days)
+    // Set column constraints (for 7 days)
     for (int i = 0; i < daysInWeek; i++) {
       ColumnConstraints column = new ColumnConstraints();
       column.setPercentWidth(100.0 / 7); // Distribute columns equally
@@ -378,7 +358,7 @@ public class Calendar {
       grid.getChildren().add(dayLabel);
     }
 
-  // Set row constraints (for tasks in each day)
+    // Set row constraints (for tasks in each day)
     int maxTasksPerDay = 13; // Adjust based on your needs
     for (int i = 1; i <= maxTasksPerDay; i++) {
       RowConstraints row = new RowConstraints();
@@ -386,7 +366,7 @@ public class Calendar {
       grid.getRowConstraints().add(row);
     }
 
-  // Start populating the grid with data
+    // Start populating the grid with data
     int dayCount=0;
     for (Day d: thisWeek.getDaysOfWeek()){
       int rowCount=1;
@@ -396,16 +376,8 @@ public class Calendar {
           cell.setStyle("-fx-border-color: gray; -fx-border-width: 0; -fx-alignment: center;");
           cell.setFont(Font.font("System", FontWeight.NORMAL, 14));
           cell.setPrefSize(140, 60);
-
-          // Create a label for each task
-          // Label taskLabel = new Label();
-          //  taskLabel.setStyle("-fx-border-color: gray; -fx-border-width: 0; -fx-padding: 5;");
-          //  taskLabel.setFont(Font.font("System", FontWeight.NORMAL, 14));
-          // taskLabel.setPrefHeight(50);
-          // taskLabel.setPrefWidth(140);
           String taskText = s.getSubjectName() + ": " + s.getTaskName();
           cell.setText(taskText);
-
 
           // Add the task to the grid
           GridPane.setConstraints(cell, dayCount, rowCount);
@@ -431,8 +403,6 @@ public class Calendar {
             popup.setTaskDescription(taskDescription, examDate);
             Stage popupStage = new Stage();
             popup.start(popupStage);
-
-
           });
           rowCount++;
         }
@@ -443,141 +413,78 @@ public class Calendar {
     }
     //int rowIndex = 1; // Start from the second row
     //for (int dayIndex = 0; dayIndex < thisWeek.daysOfWeek.size(); dayIndex++) {
-      //Day currentDay = thisWeek.daysOfWeek.get(dayIndex);
-      //List<ScheduledTask> scheduledTasks = currentDay.todayTasks;
+    //Day currentDay = thisWeek.daysOfWeek.get(dayIndex);
+    //List<ScheduledTask> scheduledTasks = currentDay.todayTasks;
 
-      // Populate each cell with the tasks of the day
-      //for (int taskIndex = 0; taskIndex < scheduledTasks.size(); taskIndex++) {
-        //ScheduledTask task = scheduledTasks.get(taskIndex);
+    // Populate each cell with the tasks of the day
+    //for (int taskIndex = 0; taskIndex < scheduledTasks.size(); taskIndex++) {
+    //ScheduledTask task = scheduledTasks.get(taskIndex);
 
-        // Create a label for each task
-        //Label taskLabel = new Label(task.getSubject() + " - " + task.getTaskType() + " (" + task.getHours() + "h)");
-        //taskLabel.setStyle("-fx-border-color: gray; -fx-border-width: 0; -fx-padding: 5;");
-        //taskLabel.setFont(Font.font("System", FontWeight.NORMAL, 14));
-        //taskLabel.setPrefHeight(50);
-        //taskLabel.setPrefWidth(140);
+    // Create a label for each task
+    //Label taskLabel = new Label(task.getSubject() + " - " + task.getTaskType() + " (" + task.getHours() + "h)");
+    //taskLabel.setStyle("-fx-border-color: gray; -fx-border-width: 0; -fx-padding: 5;");
+    //taskLabel.setFont(Font.font("System", FontWeight.NORMAL, 14));
+    //taskLabel.setPrefHeight(50);
+    //taskLabel.setPrefWidth(140);
 
-        // Add the task to the grid
-        //GridPane.setConstraints(taskLabel, dayIndex, rowIndex + taskIndex);
-        //grid.getChildren().add(taskLabel);
-      }
+    // Add the task to the grid
+    //GridPane.setConstraints(taskLabel, dayIndex, rowIndex + taskIndex);
+    //grid.getChildren().add(taskLabel);
+  }
   private String formatWeekLabel(LocalDate weekStart, DateTimeFormatter formatter) {
     LocalDate weekEnd = weekStart.plusDays(6);
     return String.format("%s - %s", formatter.format(weekStart), formatter.format(weekEnd));
   }
-  private ArrayList<Week> generateTotalWeeks(ArrayList<Week> totalWeeks) {
-    int [][] schedule = SimulateAnnealing.getSchedule();
-      int colSize = schedule[0].length;
-      ArrayList<Task> bestTask = new ArrayList<>(SimulateAnnealing.getBestTask());
-      //ArrayList<Week> totalWeeks=new ArrayList<>();
-      LocalDate today2 = LocalDate.now(); // Today's date
-      DayOfWeek currentDayOfWeek = today2.getDayOfWeek();
-      int daysUntilMonday = currentDayOfWeek.getValue() - DayOfWeek.MONDAY.getValue();
-
-      // Initialize the first week
-      Week currentWeek = new Week();
-
-      // Fill days before today with empty tasks
-      for (int i = 0; i < daysUntilMonday; i++) {
-        Day emptyDay = new Day(); // Day with no tasks
-        currentWeek.getDaysOfWeek().add(emptyDay);
-      }
-
-      List<ScheduledTask> scheduledTasksForDay = new ArrayList<>();
-
-      for (int dayIndex = 0; dayIndex < colSize; dayIndex++) {
-        LocalDate currentDate = today2.plusDays(dayIndex - daysUntilMonday); // Calculate current date
-
-        // Clear the scheduled tasks for the day
-        scheduledTasksForDay.clear();
-        for (int taskIndex = 0; taskIndex < schedule.length; taskIndex++) {
-          int taskId = schedule[taskIndex][dayIndex];
-          String taskType = " ";
-          if (taskId > 0) { // If there is a task for the specific slot
-            Task task = bestTask.get(taskId); // Retrieve the Task from the list
-            if (task.getTaskType() == 1) {
-              taskType = "Διάβασμα";
-            } else if (task.getTaskType() == 2) {
-              taskType = "Επανάληψη";
-            } else {
-              taskType = "Εργασία";
-            }
-
-            ScheduledTask scheduledTask = new ScheduledTask(
-                    task.getSubject(), taskType,
-                    (int) Math.ceil(task.getTaskHours()),
-                    currentDate,
-                    new Subject(task.getSubject()) // Create Subject from the Task
-            );
-            scheduledTasksForDay.add(scheduledTask);
-          }
-        }
-
-        // Create a Day object for the current day
-        Day currentDay = new Day();
-        currentDay.todayTasks.addAll(scheduledTasksForDay);
-
-        // Add the day to the week
-        currentWeek.getDaysOfWeek().add(currentDay);
-
-        // If the week is complete or it's the last day, save it
-        if (currentWeek.getDaysOfWeek().size() == 7 || dayIndex == colSize - 1) {
-          totalWeeks.add(currentWeek);
-          currentWeek = new Week(); // Start a new week
-        }
-      }
-      return totalWeeks;
-}
 }
 
-    //for (int col = 1; col <= daysinWeek; col++) {
-        //for (int row = 1; row < 14; row++) {
-        //1  7
-          //Label cell = new Label();
-          //System.out.println("scheduuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu");
-          //  cell.setStyle("-fx-border-color: gray; -fx-border-width: 0; -fx-alignment: center;");
-          // cell.setFont(Font.font("System", FontWeight.NORMAL, 14));
-          //  cell.setPrefSize(140, 60);
-          // Label cell = new Label();
+//for (int col = 1; col <= daysinWeek; col++) {
+//for (int row = 1; row < 14; row++) {
+//1  7
+//Label cell = new Label();
+//System.out.println("scheduuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu");
+//  cell.setStyle("-fx-border-color: gray; -fx-border-width: 0; -fx-alignment: center;");
+// cell.setFont(Font.font("System", FontWeight.NORMAL, 14));
+//  cell.setPrefSize(140, 60);
+// Label cell = new Label();
 
-          //cell.setGraphic(new ImageView(image));
-          //cell.setStyle("-fx-border-color: gray; -fx-border-width: 0; -fx-alignment: center; -fx-pref-width: 140; -fx-pref-height: 60;");
-          //cell.setFont(Font.font("System", FontWeight.NORMAL, 14));
-          //cell.setPrefSize(140, 60);
-          //cell.setText(SimulateAnnealing.printSchedule(row, col));
-          //MainTestAlgorithm algorithm = new MainTestAlgorithm();
-          //cell.setText(algorithm.run(row, col));
-          // cell.setText(besttask.get(row).toString());
-          //ειναι λιστα το weekschedule οχι δισδιαστατος πινακασ
+//cell.setGraphic(new ImageView(image));
+//cell.setStyle("-fx-border-color: gray; -fx-border-width: 0; -fx-alignment: center; -fx-pref-width: 140; -fx-pref-height: 60;");
+//cell.setFont(Font.font("System", FontWeight.NORMAL, 14));
+//cell.setPrefSize(140, 60);
+//cell.setText(SimulateAnnealing.printSchedule(row, col));
+//MainTestAlgorithm algorithm = new MainTestAlgorithm();
+//cell.setText(algorithm.run(row, col));
+// cell.setText(besttask.get(row).toString());
+//ειναι λιστα το weekschedule οχι δισδιαστατος πινακασ
 
 
-          //if (selectedWeek != null && besttask != null &&
-          //    row < selectedWeek.length && col < selectedWeek[row].length &&
-          //        selectedWeek[row][col] > 0 && selectedWeek[row][col] <= besttask.size()) {
-          //  System.out.println("scheduleweek" + selectedWeek[row][col]);
+//if (selectedWeek != null && besttask != null &&
+//    row < selectedWeek.length && col < selectedWeek[row].length &&
+//        selectedWeek[row][col] > 0 && selectedWeek[row][col] <= besttask.size()) {
+//  System.out.println("scheduleweek" + selectedWeek[row][col]);
 
-          //  int taskIndex = selectedWeek[row][col] - 1;// - 1
+//  int taskIndex = selectedWeek[row][col] - 1;// - 1
 
-          //  if (taskIndex >= 0 && taskIndex <= besttask.size()) {
-              //cell.setText(besttask.get(taskIndex).toString());
-          //    String taskText = besttask.get(taskIndex).toString();
-              // cell.setText(taskText);
-          //    String firstWord = taskText.split(" ")[0];
-          //    for (Subject subje : subject) {
-          //      if (subje.getCourseName().equalsIgnoreCase(firstWord)) {
+//  if (taskIndex >= 0 && taskIndex <= besttask.size()) {
+//cell.setText(besttask.get(taskIndex).toString());
+//    String taskText = besttask.get(taskIndex).toString();
+// cell.setText(taskText);
+//    String firstWord = taskText.split(" ")[0];
+//    for (Subject subje : subject) {
+//      if (subje.getCourseName().equalsIgnoreCase(firstWord)) {
 
-                  //cell.setGraphic(new ImageView(image));
-          //        cell.setText(firstWord);
-          //        cell.setStyle("-fx-border-color: gray; -fx-border-width: 0; -fx-alignment: center;");
-          //        break;
-          //      }
-          //    }
-          //  } else {
-            //  cell.setText("");
-           // }
-          //} else {
-          //  cell.setText("");
-          //}
+//cell.setGraphic(new ImageView(image));
+//        cell.setText(firstWord);
+//        cell.setStyle("-fx-border-color: gray; -fx-border-width: 0; -fx-alignment: center;");
+//        break;
+//      }
+//    }
+//  } else {
+//  cell.setText("");
+// }
+//} else {
+//  cell.setText("");
+//}
 
           /*final int rowFinal = row;
           final int colFinal = col;
@@ -623,7 +530,7 @@ public class Calendar {
 
            */
 
-  //οποτε καλειτε ανανεωνονται αναλογα με εκεινα τα δεδομενα το popup που εμφανιζετε
+//οποτε καλειτε ανανεωνονται αναλογα με εκεινα τα δεδομενα το popup που εμφανιζετε
   /*private void updateUpcomingTasks(VBox upcomingTasksBox) {
     upcomingTasksBox.getChildren().clear();
     for (String taskDescription : notStartedYet) {
@@ -753,4 +660,3 @@ public class Calendar {
   }
 
    */
-
