@@ -122,8 +122,8 @@ public class AvailabilityPage {
 
             for (int i = 0; i < dayFields.length; i++) {
                 avPerDay[i] = parseTextFieldValue(dayFields[i]);
-                if (avPerDay[i] > 7) {
-                    errors.add("• Oι διαθέσιμες ώρες μέσα σε μια μέρα πρέπει να είναι λιγότερες απο 7");
+                if (avPerDay[i] > 10) {
+                    errors.add("• Oι διαθέσιμες ώρες μέσα σε μια μέρα πρέπει να είναι λιγότερες απο 10");
                 }
             }
             LocalDate setNoAvailability = datePicker.getValue();

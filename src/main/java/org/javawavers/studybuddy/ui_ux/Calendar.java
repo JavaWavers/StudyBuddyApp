@@ -334,8 +334,6 @@ public class Calendar {
 
     // Select the current week (adjust "weeknumber" based on your logic)
     Week thisWeek = weeks.get(weeknumber);
-    System.out.println("this week problem:" + weeks.isEmpty());
-    System.out.println(thisWeek.getTheDay(0));
 
     // Define grid dimensions
     int daysInWeek = 7;

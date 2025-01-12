@@ -101,9 +101,6 @@ public class ExamPage {
             System.out.print("is subject null " + subject1.getSubjectType());
             System.out.print("is subject null " + subject1.getDifficultyLevel());
             Exam e1= new Exam(pages,revision,deadline,time);
-           // System.out.println("is pages" + e1.getName());
-            System.out.println("is pageeeeeeeeeeeees" + e1.getDate());
-            System.out.println("is pageees" + e1.getPages());
             subject1.addExam(e1);
             
 

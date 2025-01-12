@@ -2,14 +2,11 @@ org\javawavers\studybuddy\GitLabTes.class
 org\javawavers\studybuddy\ui_ux\Popupdiathesimotita.class
 org\javawavers\studybuddy\database\SQLiteConnection.class
 org\javawavers\studybuddy\courses\ScheduledTask.class
-org\javawavers\studybuddy\ui_ux\Popupdia$Dashboard.class
 org\javawavers\studybuddy\courses\Subject.class
 org\javawavers\studybuddy\ui_ux\LoginPage.class
 org\javawavers\studybuddy\calculations\PrintSchedule.class
-org\javawavers\studybuddy\ui_ux\Popupdia$MainFrame.class
 org\javawavers\studybuddy\ui_ux\RightPanel.class
 org\javawavers\studybuddy\ui_ux\MenuPage.class
-org\javawavers\studybuddy\ui_ux\Popupdia.class
 org\javawavers\studybuddy\calculations\Scoring.class
 org\javawavers\studybuddy\StudyBuddyApp.class
 org\javawavers\studybuddy\ui_ux\MainFrame.class
