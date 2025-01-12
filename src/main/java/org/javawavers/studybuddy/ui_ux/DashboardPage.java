@@ -10,7 +10,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
-public class Dashboard {
+public class DashboardPage {
     // Center panel
     public Node createDashboard() {
         VBox centerPanel = new VBox(10);
@@ -27,7 +27,7 @@ public class Dashboard {
                 createSummaryBox("Goals Completed", "57.5%", "#57C4E5"),
                 createSummaryBox("Study Completed", "50%", "#D4915D"),
                 createSummaryBox("Assignment Completed", "65%", "#57C4E5"),
-                createSummaryBox("Goals Completed", "65%", "#D4915D")
+                createSummaryBox("Revision Completed", "65%", "#D4915D")
         );
 
         // Charts

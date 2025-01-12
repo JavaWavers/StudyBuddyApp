@@ -26,7 +26,7 @@ public class CenterPanelManager {
         centerPane.getChildren().clear();
 
         ExamPage examPage = new ExamPage();
-        Dashboard dashboard = new Dashboard();
+        DashboardPage dashboard = new DashboardPage();
         Calendar calendar = new Calendar();
         AssignmentPage assignmentPage = new AssignmentPage();
         HomePage homePage = new HomePage();

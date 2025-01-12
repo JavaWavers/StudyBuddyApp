@@ -32,7 +32,7 @@ public class AssignmentPage {
     public static String courseName = "";
     public static String title = "";
     public static String estimate = "";
-    public static String difficulty = "";
+    public static int difficulty = 0 ;
     public static String deadline = "";
     public static String courseType = "";
     static LocalDate localDeadline;
@@ -60,7 +60,8 @@ public class AssignmentPage {
             //courseName = namField.getText();
             title = assignmentField.getText();
             estimate = estimateHours.getText();
-            difficulty = difficultyField.getText();
+            String value = difficultyField.getText();
+            difficulty = Integer.parseInt(value);
             deadline = datePicker.getValue() != null ? datePicker.getValue().toString() : null;
             courseType = coursesList.getValue();
 
@@ -77,7 +78,7 @@ public class AssignmentPage {
                 errors.add("• Όρισε εκτιμώμενη ώρα για το μάθημα");
             }
 
-            if (difficulty.isEmpty() || !difficulty.matches("\\d+") || Integer.parseInt(difficulty) < 1 || Integer.parseInt(difficulty) > 10) {
+            if (difficulty < 1 || difficulty > 10 ) {
                 errors.add("• H δυσκολία πρέπει να είναι αριθμός μεταξύ 1 και 10.");
             }
 
@@ -105,7 +106,7 @@ public class AssignmentPage {
            //Subject sub = new Subject();
 
             //simulateAnnealing.subAss2(title, localDeadline, estimateHour);
-            Assignment assignment1 = new Assignment(title, localDeadline, estimateHour);
+            Assignment assignment1 = new Assignment(title, localDeadline, estimateHour, difficulty);
             assignments.add(assignment1);
             
             //ExamPage exampage = new ExamPage();

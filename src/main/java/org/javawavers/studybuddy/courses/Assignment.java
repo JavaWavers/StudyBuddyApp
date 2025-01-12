@@ -8,6 +8,7 @@ public class Assignment extends SubjectElement {
     private int estimateHours;
     private String description;
     private LocalDate completedDate;
+    private int difficulty;
 
     // different types of constructors
     // constructor without any parameter
@@ -17,14 +18,7 @@ public class Assignment extends SubjectElement {
     }
 
     // constructor with parameters
-    public Assignment(String title, LocalDate deadline, int estimateHours, String description,
-                      LocalDate completeDate) {
-        super(deadline, title);
-        this.estimateHours = estimateHours;
-        this.description = description;
-    }
-
-    public Assignment(String title, LocalDate deadline, int estimateHours) {
+    public Assignment(String title, LocalDate deadline, int estimateHours,int difficulty ) {
         super(deadline, title);
         if (validEstHours(estimateHours, deadLine)) {
             this.estimateHours = estimateHours;
@@ -32,6 +26,7 @@ public class Assignment extends SubjectElement {
             System.out.println("Οι ώρες πρέπει να είναι μικρότερες από:" + maxHours);
             throw new IllegalArgumentException("Invalid estimate hours: Hours must fit within the given deadline.");
         }
+        this.difficulty=difficulty;
 
     }
 

@@ -13,7 +13,7 @@ public class MainTest {
         Subject Maths = new Subject("Maths", null,4);
         Exam e1 = new Exam(400,20,LocalDate.of(2025, 2, 24),50);
         Maths.addExam(e1);
-        Assignment a1 = new Assignment("Mathsασσ", LocalDate.of(2025, 2, 18), 13);
+        Assignment a1 = new Assignment("Mathsασσ", LocalDate.of(2025, 2, 18), 13,4);
 
         Maths.addAssignment(a1);
         // Maths.addAssignment(a2);
@@ -21,8 +21,8 @@ public class MainTest {
         Exam e2 = new Exam(100,30,LocalDate.of(2025, 2, 1),90);
 
         // assignment without any exam
-        Assignment a2 = new Assignment("Ass1", LocalDate.of(2025, 1, 18), 13);
-        Assignment a3 = new Assignment("Ass1", LocalDate.of(2025, 1, 18), 13);
+        Assignment a2 = new Assignment("Ass1", LocalDate.of(2025, 1, 18), 13,3);
+        Assignment a3 = new Assignment("Ass1", LocalDate.of(2025, 1, 18), 13,5);
         History.addExam(e2);
         ArrayList<Subject> subs = new ArrayList<>();
         subs.add(Maths);
