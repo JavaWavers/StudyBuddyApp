@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ExamPage.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">studybuddy</a> &gt; <a href="index.source.html" class="el_package">org.javawavers.studybuddy.ui_ux</a> &gt; <span class="el_source">ExamPage.java</span></div><h1>ExamPage.java</h1><pre class="source lang-java linenums">package org.javawavers.studybuddy.ui_ux;
+
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+
+import org.javawavers.studybuddy.courses.Exam;
+import org.javawavers.studybuddy.courses.Subject;
+
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Node;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.control.TitledPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.stage.Screen;
+
+
+/*
+TODO:
+ * fix label and textFields alignment
+ * fix title of titlePane colour
+ * fix titlePane's background color
+ * fix general style of okBtn when mouseEntered + MousePressed
+ * ημερομηνία εξέτασης/παράδοσης need calendar
+ * Add documentation code
+*/
+<span class="nc" id="L37">public class ExamPage {</span>
+    //create field for inputs
+    private TextField nameField, pageField, revisionField, difficulty, timePer20Slides;
+    //crete static variables for the use of inputs
+<span class="nc" id="L41">    private static String courseName = &quot;&quot;;</span>
+<span class="nc" id="L42">    private static int  pages = 0;</span>
+<span class="nc" id="L43">    private static int revision = 0;</span>
+    private static LocalDate deadline ;
+    private static Subject.SubjectType courseType ;
+<span class="nc" id="L46">    private static int diffi = 0;</span>
+<span class="nc" id="L47">    private static double time = 0.0;</span>
+
+    //variables for storing inputs for calendar class use
+    private DatePicker datePicker;
+    private ComboBox&lt;Subject.SubjectType&gt; typeCourseList;
+
+    //List with subjects
+<span class="nc" id="L54">    private static List&lt;Subject&gt; subjects = new ArrayList&lt;Subject&gt;();</span>
+
+
+    public void add(Subject subject) {
+<span class="nc" id="L58">        subjects.add(subject);  // Προσθέτουμε το subject στην λίστα</span>
+<span class="nc" id="L59">        System.out.println(&quot;Added subject: &quot; + subject.getCourseName());  // Προαιρετική εκτύπωση για έλεγχο</span>
+<span class="nc" id="L60">    }</span>
+
+    //subject list getter
+    public List&lt;Subject&gt; getSubjects(){
+<span class="nc" id="L64">      return subjects;</span>
+    }
+
+    // Exam Page as Node
+    public Node createExamPanel() {
+<span class="nc" id="L69">        VBox examPanel = new VBox(20);</span>
+<span class="nc" id="L70">        examPanel.setPadding(new Insets(20));</span>
+
+        // Create sections as titledPanes in order to be foldable
+<span class="nc" id="L73">        TitledPane coursePane = new TitledPane(&quot;Μάθημα&quot;, createCourseSection());</span>
+<span class="nc" id="L74">        TitledPane infoPane = new TitledPane(&quot;Πληροφορίες&quot;, createInfoSection());</span>
+<span class="nc" id="L75">        TitledPane evalPane = new TitledPane(&quot;Αξιολόγηση&quot;, createEvalSection());</span>
+
+<span class="nc" id="L77">        titlePaneStyle(coursePane,200, 400, 0, 300);</span>
+<span class="nc" id="L78">        titlePaneStyle(infoPane,200, 400, 0, 300);</span>
+<span class="nc" id="L79">        titlePaneStyle(evalPane,200, 400, 0, 300);</span>
+
+        //&quot;ok&quot; Button
+<span class="nc" id="L82">        Button okBtn = new Button(&quot;OK&quot;);</span>
+<span class="nc" id="L83">        okBtn.setStyle(btnStyle());</span>
+<span class="nc" id="L84">        okBtn.setOnMouseEntered(e -&gt; okBtn.setStyle(btnMouseEntered()));</span>
+<span class="nc" id="L85">        okBtn.setOnMouseClicked(e -&gt; {</span>
+<span class="nc" id="L86">            courseName = nameField.getText();</span>
+<span class="nc" id="L87">            String value = pageField.getText();</span>
+<span class="nc" id="L88">            pages = Integer.parseInt(value);</span>
+<span class="nc" id="L89">            revision = Integer.parseInt(revisionField.getText());</span>
+<span class="nc bnc" id="L90" title="All 2 branches missed.">            deadline = datePicker.getValue() != null ? LocalDate.parse(datePicker.getValue().toString()) : null;</span>
+<span class="nc" id="L91">            courseType = typeCourseList.getValue();</span>
+<span class="nc" id="L92">            String value2 = difficulty.getText();</span>
+<span class="nc" id="L93">            diffi = Integer.parseInt(value2);</span>
+<span class="nc" id="L94">            time =Double.parseDouble(timePer20Slides.getText());</span>
+
+            //create a subject object
+<span class="nc" id="L97">            Subject subject1 = new Subject(courseName,courseType, diffi);</span>
+            //create an exam object
+
+<span class="nc" id="L100">            System.out.print(&quot;is subject null &quot; + subject1.getCourseName());</span>
+<span class="nc" id="L101">            System.out.print(&quot;is subject null &quot; + subject1.getSubjectType());</span>
+<span class="nc" id="L102">            System.out.print(&quot;is subject null &quot; + subject1.getDifficultyLevel());</span>
+<span class="nc" id="L103">            Exam e1= new Exam(pages,revision,deadline,time);</span>
+<span class="nc" id="L104">            subject1.addExam(e1);</span>
+            
+
+<span class="nc" id="L107">            System.out.print(&quot;object:&quot;+ subject1);</span>
+<span class="nc" id="L108">            System.out.println(&quot;Adding subject: &quot; + subject1.getCourseName());</span>
+<span class="nc" id="L109">            subjects.add(subject1);</span>
+            //add(subject1);
+<span class="nc" id="L111">            System.out.println(&quot;Subjects in ExamPage after add: &quot; + getSubjects().size());</span>
+<span class="nc" id="L112">            List&lt;String&gt; errors = new ArrayList&lt;&gt;();</span>
+
+<span class="nc bnc" id="L114" title="All 2 branches missed.">            if (courseName.isEmpty()) {</span>
+<span class="nc" id="L115">                errors.add(&quot;• Εισήγαγε όνομα μαθήματος&quot;);</span>
+            }
+
+<span class="nc bnc" id="L118" title="All 2 branches missed.">            if (pages &lt;= 0 ) {</span>
+<span class="nc" id="L119">                errors.add(&quot;• Η παράμετρος 'Σελίδες' πρέπει να είναι θετικός αριθμός.&quot;);</span>
+            }
+
+<span class="nc bnc" id="L122" title="All 2 branches missed.">            if (revision &lt; 0) {</span>
+<span class="nc" id="L123">                errors.add(&quot;• Η παράμετρος 'Επανάληψη ανά (σελίδες): ' πρέπει να είναι μη αρνητικός αριθμός.&quot;);</span>
+            }
+
+<span class="nc bnc" id="L126" title="All 4 branches missed.">            if (deadline == null || deadline.isBefore(LocalDate.now())) {</span>
+<span class="nc" id="L127">                errors.add(&quot;• Πρέπει να επιλέξεις ημερομηνία εξέτασης μετά τη σημερινή ημερομηνία.&quot;);</span>
+            }
+
+<span class="nc bnc" id="L130" title="All 2 branches missed.">            if (courseType == null ) {</span>
+<span class="nc" id="L131">                errors.add(&quot;• Πρέπει να επιλέξεις το είδος του μαθήματος.&quot;);</span>
+            }
+
+<span class="nc bnc" id="L134" title="All 4 branches missed.">            if ( diffi &lt; 1 || diffi &gt; 10) {</span>
+<span class="nc" id="L135">                errors.add(&quot;• Η δυσκολία πρέπει να είναι αριθμός μεταξύ 1 και 10.&quot;);</span>
+            }
+
+<span class="nc bnc" id="L138" title="All 2 branches missed.">            if (time &lt;= 0 ) {</span>
+<span class="nc" id="L139">                errors.add(&quot;• Ο χρόνος ανά 20 διαφάνειες πρέπει να είναι θετικός αριθμός.&quot;);</span>
+            }
+
+
+<span class="nc bnc" id="L143" title="All 2 branches missed.">            if (!errors.isEmpty()) {</span>
+<span class="nc" id="L144">                Alert alert = new Alert(Alert.AlertType.WARNING);</span>
+<span class="nc" id="L145">                alert.setTitle(&quot;Η φόρμα δεν έχει ολοκληρωθεί&quot;);</span>
+<span class="nc" id="L146">                alert.setHeaderText(null);</span>
+<span class="nc" id="L147">                String errorMessage = String.join(&quot;\n&quot;, errors);</span>
+<span class="nc" id="L148">                alert.setContentText(errorMessage);</span>
+<span class="nc" id="L149">                alert.getDialogPane().getStylesheets().add(Objects.requireNonNull(getClass()</span>
+<span class="nc" id="L150">                    .getResource(&quot;alert.css&quot;)).toExternalForm());</span>
+<span class="nc" id="L151">                alert.showAndWait();</span>
+<span class="nc" id="L152">                return;</span>
+            }
+
+<span class="nc" id="L155">            nameField.clear();</span>
+<span class="nc" id="L156">            pageField.clear();</span>
+<span class="nc" id="L157">            revisionField.clear();</span>
+<span class="nc" id="L158">            datePicker.setValue(null);</span>
+<span class="nc" id="L159">            typeCourseList.setValue(null);</span>
+<span class="nc" id="L160">            difficulty.clear();</span>
+<span class="nc" id="L161">            timePer20Slides.clear();</span>
+<span class="nc" id="L162">            okBtn.setStyle(btnMousePressed());</span>
+<span class="nc" id="L163">        });</span>
+
+<span class="nc" id="L165">        okBtn.setAlignment(Pos.CENTER_LEFT);</span>
+
+<span class="nc" id="L167">        HBox okBtnHBox = new HBox(10);</span>
+<span class="nc" id="L168">        okBtnHBox.setAlignment(Pos.CENTER_LEFT);</span>
+<span class="nc" id="L169">        okBtnHBox.getChildren().add(okBtn);</span>
+
+
+<span class="nc" id="L172">        examPanel.getChildren().addAll(coursePane, infoPane, evalPane, okBtnHBox);</span>
+
+<span class="nc" id="L174">        return examPanel;</span>
+    }
+
+    // Section for Course name
+    private VBox createCourseSection() {
+<span class="nc" id="L179">        VBox box = new VBox(10);</span>
+<span class="nc" id="L180">        Label nameLabel = new Label(&quot;Όνομασία Μαθήματος:&quot;);</span>
+<span class="nc" id="L181">        nameLabel.setStyle(labelStyle());</span>
+<span class="nc" id="L182">        nameField = new TextField();</span>
+<span class="nc" id="L183">        box.getChildren().addAll(nameLabel, nameField);</span>
+<span class="nc" id="L184">        return box;</span>
+    }
+
+    // Section for course information
+    private VBox createInfoSection() {
+<span class="nc" id="L189">        VBox box = new VBox(10);</span>
+
+<span class="nc" id="L191">        Label typeLabel = new Label(&quot;Είδος: &quot;);</span>
+<span class="nc" id="L192">        typeLabel.setStyle(labelStyle());</span>
+<span class="nc" id="L193">        typeCourseList = new ComboBox&lt;&gt;();</span>
+<span class="nc" id="L194">        Subject s = new Subject(&quot;Βοηθητικό&quot;);</span>
+<span class="nc" id="L195">        typeCourseList.getItems().addAll(s.getSubjectType());</span>
+<span class="nc" id="L196">        typeCourseList.setValue(null);</span>
+<span class="nc" id="L197">        typeCourseList.setStyle(&quot;-fx-font-family: 'Arial';&quot;);</span>
+<span class="nc" id="L198">        HBox typeBox = new HBox(10, typeLabel, typeCourseList);</span>
+<span class="nc" id="L199">        pageField = new TextField();</span>
+<span class="nc" id="L200">        revisionField = new TextField();</span>
+        //calendar for the exam date
+<span class="nc" id="L202">        datePicker = new DatePicker();</span>
+<span class="nc" id="L203">        HBox deadlineBox = createLabeledField(&quot;Ημερομηνία Εξέτασης: &quot;, datePicker);</span>
+
+        
+
+<span class="nc" id="L207">        HBox pageBox = createLabeledField(&quot;Σελίδες: &quot;, pageField);</span>
+<span class="nc" id="L208">        HBox revisionBox = createLabeledField(&quot;Επανάληψη ανά (σελίδες): &quot;, revisionField);</span>
+
+<span class="nc" id="L210">        box.getChildren().addAll(typeBox, pageBox, revisionBox, deadlineBox);</span>
+<span class="nc" id="L211">        return box;</span>
+    }
+
+    // Section for course evaluation
+    private VBox createEvalSection() {
+<span class="nc" id="L216">        VBox box = new VBox(10);</span>
+<span class="nc" id="L217">        difficulty = new TextField();</span>
+<span class="nc" id="L218">        timePer20Slides = new TextField();</span>
+<span class="nc" id="L219">        box.getChildren().addAll(</span>
+<span class="nc" id="L220">                createLabeledField(&quot;Δυσκολία:&quot;, difficulty),</span>
+<span class="nc" id="L221">                createLabeledField(&quot;Χρόνος ανά 20 διαφάνειες:&quot;, timePer20Slides)</span>
+        );
+<span class="nc" id="L223">        return box;</span>
+    }
+    // Label field
+    private HBox createLabeledField(String labelText,  Node node) {
+<span class="nc" id="L227">        Label label = new Label(labelText);</span>
+<span class="nc" id="L228">        label.setStyle(labelStyle());</span>
+<span class="nc" id="L229">        return new HBox(10, label, node);</span>
+    }
+
+    //label style
+    private String labelStyle() {
+<span class="nc" id="L234">        return &quot;-fx-background-color: rgba(181, 99, 241, 0.81);&quot;</span>
+                + &quot; -fx-padding: 5;&quot;
+                + &quot; -fx-border-width: 1px;&quot;
+                + &quot; -fx-border-radius: 4px;&quot;
+                + &quot; -fx-background-radius: 4px;&quot;
+                +&quot;-fx-font-family: Arial;&quot;;
+    }
+
+    //titlePane style
+    private void titlePaneStyle(TitledPane titledPane,
+                                double minWidth, double maxWidth,
+                                double minHeight, double maxHeight) {
+
+<span class="nc" id="L247">        titledPane.setMinWidth(minWidth);</span>
+<span class="nc" id="L248">        titledPane.setMaxWidth(maxWidth);</span>
+<span class="nc" id="L249">        titledPane.setMinHeight(minHeight);</span>
+<span class="nc" id="L250">        titledPane.setMaxHeight(maxHeight);</span>
+
+
+<span class="nc" id="L253">        titledPane.setStyle(&quot;-fx-background-color: rgba(101, 225, 101, 0.81);&quot;</span>
+                +   &quot; -fx-border-color: #000000;&quot;
+                +   &quot; -fx-border-width: 1px;&quot;
+                +   &quot; -fx-border-radius: 4px;&quot;
+                +   &quot; -fx-background-radius: 4px;&quot;);
+
+<span class="nc" id="L259">    }</span>
+
+    //Button Styles
+    private String btnStyle() {
+<span class="nc" id="L263">        return &quot;-fx-background-color: linear-gradient(#FAD7A0, #F7B267);&quot;</span>
+                + &quot;-fx-background-radius: 8,7,6;&quot;
+                + &quot;-fx-background-insets: 0,1,2;&quot;
+                + &quot;-fx-text-fill: #5A3D2B;&quot;
+                + &quot;-fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.3), 5, 0, 2, 2);&quot;
+                + &quot;-fx-font-weight: bold;&quot;
+                + &quot;-fx-padding: 10 20;&quot;
+                + &quot;-fx-border-color: #D98A4B;&quot;
+                + &quot;-fx-border-radius: 6;&quot;;
+    }
+
+
+    private String btnMouseEntered() {
+<span class="nc" id="L276">        return &quot;-fx-background-color: linear-gradient(#FFE0B2, #F7B267);&quot;</span>
+                + &quot;-fx-background-radius: 8,7,6;&quot;
+                + &quot;-fx-background-insets: 0,1,2;&quot;
+                + &quot;-fx-text-fill: #5A3D2B;&quot;
+                + &quot;-fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.3), 5, 0, 2, 2);&quot;
+                + &quot;-fx-font-weight: bold;&quot;
+                + &quot;-fx-padding: 10 20;&quot;
+                + &quot;-fx-border-color: #D98A4B;&quot;
+                + &quot;-fx-border-radius: 6;&quot;;
+    }
+
+    private String btnMousePressed() {
+<span class="nc" id="L288">        return &quot;-fx-background-color: linear-gradient(#F7B267, #D98A4B);&quot;</span>
+                + &quot;-fx-background-radius: 8,7,6;&quot;
+                + &quot;-fx-background-insets: 0,1,2;&quot;
+                + &quot;-fx-text-fill: #5A3D2B;&quot;
+                + &quot;-fx-font-weight: bold;&quot;
+                + &quot;-fx-padding: 10 20;&quot;
+                + &quot;-fx-border-color: #D98A4B;&quot;
+                + &quot;-fx-border-radius: 6;&quot;
+                + &quot;-fx-effect: none;&quot;;
+    }
+
+
+    public Scene examStartingPage(SceneManager sceneManager) {
+<span class="nc" id="L301">        VBox examViewWithBtn = new VBox();</span>
+
+<span class="nc" id="L303">        HBox nameLbl = new HBox(20);</span>
+<span class="nc" id="L304">        Label name = new Label(&quot;Εισαγωγή Μαθημάτων&quot;);</span>
+<span class="nc" id="L305">        name.setStyle(labelStyle());</span>
+<span class="nc" id="L306">        nameLbl.getChildren().add(name);</span>
+<span class="nc" id="L307">        nameLbl.setPadding(new Insets(20));</span>
+<span class="nc" id="L308">        examViewWithBtn.getChildren().add(nameLbl);</span>
+
+<span class="nc" id="L310">        VBox examView = (VBox) createExamPanel();</span>
+<span class="nc" id="L311">        examViewWithBtn.getChildren().add(examView);</span>
+
+<span class="nc" id="L313">        HBox btnBox = new HBox(20);</span>
+<span class="nc" id="L314">        btnBox.setPadding(new Insets(20));</span>
+<span class="nc" id="L315">        Button nextBtn = new Button(&quot;Επόμενο&quot;);</span>
+<span class="nc" id="L316">        nextBtn.setStyle(btnStyle());</span>
+<span class="nc" id="L317">        nextBtn.setOnAction(e -&gt; {</span>
+<span class="nc" id="L318">            AssignmentPage assignPage = new AssignmentPage();</span>
+<span class="nc" id="L319">            sceneManager.switchScene(assignPage.assignmentStartingPage(sceneManager));</span>
+<span class="nc" id="L320">        });</span>
+<span class="nc" id="L321">        btnBox.getChildren().add(nextBtn);</span>
+<span class="nc" id="L322">        examViewWithBtn.getChildren().add(btnBox);</span>
+
+<span class="nc" id="L324">        Scene scene = new Scene(examViewWithBtn,</span>
+<span class="nc" id="L325">            Screen.getPrimary().getVisualBounds().getWidth(),</span>
+<span class="nc" id="L326">            Screen.getPrimary().getVisualBounds().getHeight());</span>
+<span class="nc" id="L327">        return scene;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

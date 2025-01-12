@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>RightPanel.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">studybuddy</a> &gt; <a href="index.source.html" class="el_package">org.javawavers.studybuddy.ui_ux</a> &gt; <span class="el_source">RightPanel.java</span></div><h1>RightPanel.java</h1><pre class="source lang-java linenums">package org.javawavers.studybuddy.ui_ux;
+
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
+
+public class RightPanel {
+
+  private StackPane rightPanel;
+
+<span class="nc" id="L10">  public RightPanel() {</span>
+<span class="nc" id="L11">    rightPanel = new StackPane();</span>
+<span class="nc" id="L12">    rightPanel.setPrefWidth(212);</span>
+<span class="nc" id="L13">    rightPanel.setMinWidth(212); //or 88.33</span>
+<span class="nc" id="L14">    rightPanel.setMaxWidth(212);</span>
+<span class="nc" id="L15">    rightPanel.setMaxWidth(Double.MAX_VALUE);</span>
+<span class="nc" id="L16">    rightPanel.setMaxHeight(Double.MAX_VALUE);</span>
+<span class="nc" id="L17">  }</span>
+
+  public void CoursesList() {
+<span class="nc" id="L20">    VBox examList = new VBox(5);</span>
+<span class="nc" id="L21">    VBox assignmentLst = new VBox(5);</span>
+
+<span class="nc" id="L23">    examList.setStyle(&quot;-fx-background-color: #15B569;&quot;);</span>
+<span class="nc" id="L24">    assignmentLst.setStyle(&quot;-fx-background-color: #FFC23D;&quot;);</span>
+
+<span class="nc" id="L26">    rightPanel.getChildren().addAll(examList, assignmentLst);</span>
+<span class="nc" id="L27">  }</span>
+
+  public StackPane getRightPanel(){
+<span class="nc" id="L30">    return rightPanel;</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

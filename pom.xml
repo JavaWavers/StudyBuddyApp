@@ -68,6 +68,7 @@
                 <artifactId>checkstyle</artifactId>
                 <version>10.21.0</version>
             </dependency>
+
     </dependencies>
     <repositories>
         <repository>

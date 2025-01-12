@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>User.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">studybuddy</a> &gt; <a href="index.source.html" class="el_package">org.javawavers.studybuddy.courses</a> &gt; <span class="el_source">User.java</span></div><h1>User.java</h1><pre class="source lang-java linenums">
+package org.javawavers.studybuddy.courses;
+
+import org.javawavers.studybuddy.calculations.*;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+import java.util.List;
+
+public class User {
+    private String username;
+    private String email;
+    private String password;
+    private int userID;
+    int[] avPerDay; // availability for each day of the week
+<span class="pc" id="L16">    List&lt;LocalDate&gt; nonAvailDays = new ArrayList&lt;&gt;();</span>
+<span class="pc" id="L17">    List&lt;Subject&gt; subjects = new ArrayList&lt;&gt;();</span>
+<span class="pc" id="L18">    List&lt;Assignment&gt; assignments = new ArrayList&lt;&gt;();</span>
+<span class="pc" id="L19">    List&lt;Exam&gt; exams = new ArrayList&lt;&gt;();</span>
+
+<span class="pc" id="L21">    List&lt;Week&gt; totalWeeks = new ArrayList&lt;&gt;();   //////////////////////////////////</span>
+
+    List&lt;Task&gt; tasks;
+    List&lt;Day&gt; days;
+    int[][] schedule; // the array with the indexes from the tasks list
+
+
+    // for the login without having generated schedule
+<span class="fc" id="L29">    public User(String username, String email, String password, int[] avPerDay, List&lt;LocalDate&gt;nonAvailDays, List&lt;Subject&gt; subjects, List&lt;Assignment&gt; assignments, List&lt;Exam&gt; exams) {</span>
+<span class="fc" id="L30">        this.username = username;</span>
+<span class="fc" id="L31">        this.email = email;</span>
+<span class="fc" id="L32">        this.password = password;</span>
+<span class="fc" id="L33">        this.avPerDay = avPerDay;</span>
+<span class="fc" id="L34">        this.nonAvailDays = nonAvailDays;</span>
+<span class="fc" id="L35">        this.subjects = subjects;</span>
+<span class="fc" id="L36">        this.assignments = assignments;</span>
+<span class="fc" id="L37">        this.exams = exams;</span>
+<span class="fc" id="L38">    }</span>
+    // constructor for the sign-in
+<span class="nc" id="L40">    public User(String name, String username, String email, String password) {</span>
+<span class="nc" id="L41">        this.username = username;</span>
+<span class="nc" id="L42">        this.email = email;</span>
+<span class="nc" id="L43">        this.password = password;</span>
+<span class="nc" id="L44">    }</span>
+    // constructor for the login having generated a program
+<span class="nc" id="L46">    public User(int userID, String username, String email, String password, int[] avPerDay, List&lt;LocalDate&gt;nonAvailDays, List&lt;Subject&gt; subjects, List&lt;Assignment&gt; assignments, List&lt;Exam&gt; exams,  List&lt;Task&gt; tasks, List&lt;Day&gt; days) {</span>
+<span class="nc" id="L47">        this.email = email;</span>
+<span class="nc" id="L48">        this.password = password;</span>
+<span class="nc" id="L49">        this.avPerDay = avPerDay;</span>
+<span class="nc" id="L50">        this.nonAvailDays = nonAvailDays;</span>
+<span class="nc" id="L51">        this.subjects = subjects;</span>
+<span class="nc" id="L52">        this.assignments = assignments;</span>
+<span class="nc" id="L53">        this.exams = exams;</span>
+<span class="nc" id="L54">        this.tasks = tasks;</span>
+<span class="nc" id="L55">        this.days = days;</span>
+<span class="nc" id="L56">        this.userID = userID;</span>
+<span class="nc" id="L57">    }</span>
+
+    // getters and setters
+    public String getUsername() {
+<span class="fc" id="L61">        return username;</span>
+    }
+    public void setUsername(String username) {
+<span class="fc" id="L64">        this.username = username;</span>
+<span class="fc" id="L65">    }</span>
+    public String getEmail() {
+<span class="fc" id="L67">        return email;</span>
+    }
+    public void setEmail(String email) {
+<span class="fc" id="L70">        this.email = email;</span>
+<span class="fc" id="L71">    }</span>
+    public String getPassword() {
+<span class="nc" id="L73">        return password;</span>
+    }
+    public void setPassword(String password) {
+<span class="nc" id="L76">        this.password = password;</span>
+<span class="nc" id="L77">    }</span>
+    public int[] getAvPerDay() {
+<span class="nc" id="L79">        return avPerDay;</span>
+    }
+    public void setAvPerDay(int[] avPerDay) {
+<span class="nc" id="L82">        this.avPerDay = avPerDay;</span>
+<span class="nc" id="L83">    }</span>
+<span class="fc" id="L84">    public List&lt;LocalDate&gt; getNonAvailDays() {return nonAvailDays;}</span>
+
+    public void setNonAvailDays(List&lt;LocalDate&gt; nonAvailDays) {
+<span class="nc" id="L87">        this.nonAvailDays = nonAvailDays;</span>
+<span class="nc" id="L88">    }</span>
+    public void setUserID( int userID) {
+<span class="nc" id="L90">        this.userID = userID;</span>
+<span class="nc" id="L91">    }</span>
+    public int getUserID() {
+<span class="nc" id="L93">        return userID;</span>
+    }
+
+
+    public List&lt;Subject&gt; getSubjects() {
+<span class="fc" id="L98">        return subjects;</span>
+    }
+    public void setSubjects(List&lt;Subject&gt; subjects) {
+<span class="nc" id="L101">        this.subjects = subjects;</span>
+<span class="nc" id="L102">    }</span>
+    public List&lt;Assignment&gt; getAssignments() {
+<span class="nc" id="L104">        return assignments;</span>
+    }
+    public void setAssignments(List&lt;Assignment&gt; assignments) {
+<span class="nc" id="L107">        this.assignments = assignments;</span>
+<span class="nc" id="L108">    }</span>
+    public List&lt;Exam&gt; getExams() {
+<span class="nc" id="L110">        return exams;</span>
+    }
+    public void setExams(List&lt;Exam&gt; exams) {
+<span class="nc" id="L113">        this.exams = exams;</span>
+<span class="nc" id="L114">    }</span>
+
+    public List&lt;Week&gt; getTotalWeeks() {
+<span class="nc" id="L117">        return totalWeeks;</span>
+    }
+    public void setTotalWeeks(List&lt;Week&gt; totalWeeks) {
+<span class="nc" id="L120">        this.totalWeeks = totalWeeks;</span>
+<span class="nc" id="L121">    }</span>
+
+
+    //add, remove and update objects from the lists
+    public void addSubject(Subject subj) {
+<span class="fc" id="L126">        subjects.add(subj);</span>
+<span class="fc" id="L127">    }</span>
+    public void removeSubject(Subject subj) {
+<span class="fc" id="L129">        subjects.remove(subj);</span>
+<span class="fc" id="L130">    }</span>
+    public void updateSubject(int index,Subject subj) {
+<span class="nc" id="L132">        subjects.set(index, subj);</span>
+<span class="nc" id="L133">    }</span>
+
+    public void addAssignment(Assignment assign) {
+<span class="nc" id="L136">        assignments.add(assign);</span>
+<span class="nc" id="L137">    }</span>
+    public void removeAssignment(Assignment assign) {
+<span class="nc" id="L139">        assignments.remove(assign);</span>
+<span class="nc" id="L140">    }</span>
+    public void updateAssignment(int index, Assignment assign) {
+<span class="nc" id="L142">        assignments.set(index, assign);</span>
+<span class="nc" id="L143">    }</span>
+
+    public void addExam(Exam exam) {
+<span class="nc" id="L146">        exams.add(exam);</span>
+<span class="nc" id="L147">    }</span>
+    public void removeExam(Exam exam) {
+<span class="nc" id="L149">        exams.remove(exam);</span>
+<span class="nc" id="L150">    }</span>
+    public void updateExam(int index, Exam exam) {
+<span class="nc" id="L152">        exams.set(index, exam);</span>
+<span class="nc" id="L153">    }</span>
+
+    public void addNonAvailDays(LocalDate date) {
+<span class="fc" id="L156">        nonAvailDays.add(date);</span>
+<span class="fc" id="L157">    }</span>
+    public void removeNonAvailDays(LocalDate date) {
+<span class="fc" id="L159">        nonAvailDays.remove(date);</span>
+<span class="fc" id="L160">    }</span>
+    public void updateNonAvailDays(int index, LocalDate date) {
+<span class="nc" id="L162">        nonAvailDays.set(index, date);</span>
+<span class="nc" id="L163">    }</span>
+
+    public void updateAvPerDay(int index, int av) {
+<span class="nc" id="L166">        avPerDay[index] = av;</span>
+<span class="nc" id="L167">    }</span>
+/*
+     input: list tasks and list days
+       output: creates the array schedule
+    public void createSchedule() {
+        if (!days.isEmpty()) {
+            int column = days.size();
+            int[][] sch = new int[12][column];
+            for (int j = 0; j &lt; column; j++) {
+                org.javawavers.studybuddy.courses.Day obj = days.get(j);
+                int i = 0;
+                while (!obj.dayTasks.isEmpty()) {
+                    for (int r = 0; r &lt; tasks.size(); r++) {
+                        if (obj.equals(tasks.get(r))) {
+                            sch[i][j] = r;
+                            break;
+                        }
+                    }
+                }
+                this.schedule = sch;
+            }
+        } else {
+            throw new IllegalArgumentException(&quot;Η λίστα των days είναι άδεια&quot;);
+        }
+    }*/
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

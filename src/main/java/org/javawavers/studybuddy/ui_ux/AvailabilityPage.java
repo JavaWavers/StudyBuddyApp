@@ -136,7 +136,7 @@ public class AvailabilityPage {
                 alert.setHeaderText(null);
                 String errorMessage = String.join("\n", errors);
                 alert.setContentText(errorMessage);
-                alert.getDialogPane().getStylesheets().add(getClass().getResource("alert.css").toExternalForm());
+                alert.getDialogPane().getStylesheets().add(getClass().getResource("/alert.css").toExternalForm());
                 alert.showAndWait();
             }
 

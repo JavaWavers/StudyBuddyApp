@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Exam.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">studybuddy</a> &gt; <a href="index.source.html" class="el_package">org.javawavers.studybuddy.courses</a> &gt; <span class="el_source">Exam.java</span></div><h1>Exam.java</h1><pre class="source lang-java linenums">
+package org.javawavers.studybuddy.courses;
+
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+
+public class Exam extends SubjectElement {
+
+    private int pages;
+    private int revisionPerXPages;
+    private double timePer20Slides;
+
+    // Constructors for different versions of Exam class
+    public Exam(LocalDate examDate, int pages) {
+<span class="nc" id="L15">        super(examDate, null);</span>
+<span class="nc" id="L16">        this.pages = pages;</span>
+<span class="nc" id="L17">    }</span>
+
+    public Exam(Subject subject, LocalDate examDate, int pages) {
+<span class="fc" id="L20">        super(examDate, subject.getCourseName());</span>
+<span class="fc" id="L21">        this.pages = pages;</span>
+<span class="fc" id="L22">    }</span>
+
+    public Exam(Subject subject, LocalDate examDate, int pages, String name) {
+<span class="nc" id="L25">        super(examDate, subject.getCourseName());</span>
+<span class="nc" id="L26">        this.pages = pages;</span>
+<span class="nc" id="L27">        this.name = name;</span>
+
+<span class="nc" id="L29">    }</span>
+
+    public Exam(Subject subject, LocalDate examDate, int pages, String name, int revisionPerXPages,
+                int timePer20Slides) {
+<span class="nc" id="L33">        super(examDate, subject.getCourseName());</span>
+<span class="nc" id="L34">        this.pages = pages;</span>
+<span class="nc" id="L35">        this.name = name;</span>
+<span class="nc" id="L36">        this.revisionPerXPages = revisionPerXPages;</span>
+<span class="nc" id="L37">        this.timePer20Slides = timePer20Slides;</span>
+
+<span class="nc" id="L39">    }</span>
+
+    public Exam(int pages, int revisionPerXPages, LocalDate examDate, double timePer20Slides) {
+<span class="nc" id="L42">        super(examDate, null);</span>
+<span class="nc" id="L43">        this.pages = pages;</span>
+<span class="nc" id="L44">        this.revisionPerXPages = revisionPerXPages;</span>
+<span class="nc" id="L45">        this.timePer20Slides = timePer20Slides;</span>
+<span class="nc" id="L46">    }</span>
+
+    // getters &amp; setters
+    // getSubjectName does not need to be overridden
+    public void setExamDate(LocalDate examDate) {
+<span class="nc" id="L51">        super.setDate(examDate);</span>
+<span class="nc" id="L52">    }</span>
+
+    public LocalDate getExamDate() {
+<span class="nc" id="L55">        return super.getDate();</span>
+    }
+
+    public int getPages() {
+<span class="nc" id="L59">        return pages;</span>
+    }
+
+    public void setPages(int pages) {
+<span class="nc" id="L63">        this.pages = pages;</span>
+<span class="nc" id="L64">    }</span>
+
+    public int getRevisionPerXPages() {
+<span class="nc" id="L67">        return revisionPerXPages;</span>
+    }
+
+    public void setRevisionPerXPages(int revisionPerXPages) {
+<span class="nc" id="L71">        this.revisionPerXPages = revisionPerXPages;</span>
+<span class="nc" id="L72">    }</span>
+
+    public double getTimePer20Slides() {
+<span class="nc" id="L75">        return timePer20Slides;</span>
+    }
+
+    public void setTimePer20Slides(double timePer20Slides) {
+<span class="nc" id="L79">        this.timePer20Slides = timePer20Slides;</span>
+<span class="nc" id="L80">    }</span>
+
+    // toString (we can use it with ui)
+    @Override
+    public String toString() {
+<span class="nc" id="L85">        StringBuilder builder = new StringBuilder(); // StringBuilder provides efficiency and flexibility</span>
+<span class="nc" id="L86">        builder.append(&quot;Εξέταση{Όνομα Μαθήματος: '&quot;).append(super.getName()).append(&quot;'&quot;);</span>
+
+<span class="nc bnc" id="L88" title="All 2 branches missed.">        if (getExamDate() != null) {</span>
+<span class="nc" id="L89">            builder.append(&quot;\nΗμερομηνία εξέτασης: '&quot;).append(getExamDate()).append(&quot;'&quot;);</span>
+        }
+
+<span class="nc bnc" id="L92" title="All 2 branches missed.">        if (pages != 0) {</span>
+<span class="nc" id="L93">            builder.append(&quot;\nΣελίδες: '&quot;)</span>
+<span class="nc" id="L94">                .append(pages)</span>
+<span class="nc" id="L95">                .append(&quot;'&quot;);</span>
+        }
+
+<span class="nc bnc" id="L98" title="All 2 branches missed.">        if (revisionPerXPages != 0) {</span>
+<span class="nc" id="L99">            builder.append(&quot;\nΕπανάληψη ανά: '&quot;)</span>
+<span class="nc" id="L100">                .append(revisionPerXPages)</span>
+<span class="nc" id="L101">                .append(&quot;σελίδες'&quot;);</span>
+        }
+
+<span class="nc bnc" id="L104" title="All 2 branches missed.">        if (timePer20Slides != 0.0) {</span>
+<span class="nc" id="L105">            builder.append(&quot;\nΑπαιτούμενα λεπτά για 20 διαφάνειες: '&quot;)</span>
+<span class="nc" id="L106">                .append(timePer20Slides)</span>
+<span class="nc" id="L107">                .append(&quot;'&quot;);</span>
+        }
+
+<span class="nc" id="L110">        builder.append(&quot;}&quot;);</span>
+<span class="nc" id="L111">        return builder.toString();</span>
+    }
+
+    // Other Methods
+    /*
+     * Returns the Total Time Required for studying
+     * based on pages and minutes per 20 pages
+     */
+    @Override
+    public void isDeadLineSoonMessage() {
+        // Calculate the remaining days until the exam date
+<span class="nc" id="L122">        long remainingDays = ChronoUnit.DAYS.between(LocalDate.now(), getExamDate());</span>
+
+<span class="nc bnc" id="L124" title="All 4 branches missed.">        if (remainingDays &lt;= 10 &amp;&amp; remainingDays &gt; 0) {</span>
+<span class="nc" id="L125">            System.out.println(&quot;Απομένουν μόνο &quot; + remainingDays + &quot; ημέρες μέχρι την εξέταση!&quot;);</span>
+<span class="nc bnc" id="L126" title="All 2 branches missed.">        } else if (remainingDays == 0) {</span>
+<span class="nc" id="L127">            System.out.println(&quot;Η εξέταση είναι σήμερα! Καλή επιτυχία!&quot;);</span>
+<span class="nc bnc" id="L128" title="All 2 branches missed.">        } else if (remainingDays &lt; 0) {</span>
+<span class="nc" id="L129">            System.out.println(&quot;Η εξέταση έχει ήδη περάσει.&quot;);</span>
+        }
+<span class="nc" id="L131">    }</span>
+
+    @Override
+    // returns true if the deadline is in less than 5 days
+    public boolean isDeadLineSoon() {
+<span class="nc" id="L136">        long remainingDays = ChronoUnit.DAYS.between(LocalDate.now(), getExamDate());</span>
+<span class="nc bnc" id="L137" title="All 2 branches missed.">        return remainingDays &lt;= 5;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

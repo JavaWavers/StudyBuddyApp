@@ -87,7 +87,7 @@ public class CreateWeekDay {
                 currentWeek = new Week(); // Start a new week
             }
         }
-
+        //staticUser.setTotalWeeks(totalWeeks);
         PrintWeeks printWeeks = new PrintWeeks();
         printWeeks.printWeeks(totalWeeks);
 

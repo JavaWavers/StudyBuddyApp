@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>MainFrame.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">studybuddy</a> &gt; <a href="index.source.html" class="el_package">org.javawavers.studybuddy.ui_ux</a> &gt; <span class="el_source">MainFrame.java</span></div><h1>MainFrame.java</h1><pre class="source lang-java linenums">package org.javawavers.studybuddy.ui_ux;
+
+import javafx.geometry.Insets;
+import javafx.scene.Scene;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.HBox;
+import javafx.stage.Screen;
+
+<span class="nc" id="L9">public class MainFrame {</span>
+
+  SceneManager sceneManager;
+
+  public Scene mainFrame(SceneManager sceneManager) {
+<span class="nc" id="L14">    this.sceneManager = sceneManager;</span>
+
+<span class="nc" id="L16">    BorderPane borderPane = new BorderPane();</span>
+
+<span class="nc" id="L18">    CenterPanelManager centerPanelManager = new CenterPanelManager();</span>
+<span class="nc" id="L19">    centerPanelManager.changeCenterPanel(&quot;Calendar&quot;);</span>
+<span class="nc" id="L20">    borderPane.setCenter(centerPanelManager.getCenterPane());</span>
+
+<span class="nc" id="L22">    MenuPage menuPage = new MenuPage(centerPanelManager);</span>
+<span class="nc" id="L23">    borderPane.setLeft(menuPage.getLeftBoxMenu());</span>
+
+<span class="nc" id="L25">    HBox topPane = new HBox();</span>
+<span class="nc" id="L26">    topPane.setPadding(new Insets(0, 0, 50, 212));</span>
+<span class="nc" id="L27">    topPane.setStyle(&quot;-fx-background-color: #60f7b3; &quot;);</span>
+<span class="nc" id="L28">    borderPane.setTop(topPane);</span>
+
+<span class="nc" id="L30">    RightPanel rightPanel = new RightPanel();</span>
+<span class="nc" id="L31">    rightPanel.CoursesList();</span>
+<span class="nc" id="L32">    borderPane.setRight(rightPanel.getRightPanel());</span>
+
+<span class="nc" id="L34">    Scene scene = new Scene(borderPane,</span>
+<span class="nc" id="L35">        Screen.getPrimary().getVisualBounds().getWidth(),</span>
+<span class="nc" id="L36">        Screen.getPrimary().getVisualBounds().getHeight());</span>
+
+<span class="nc" id="L38">    return scene;</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
