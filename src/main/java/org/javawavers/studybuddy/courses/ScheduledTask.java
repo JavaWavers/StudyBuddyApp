@@ -127,7 +127,7 @@ public class ScheduledTask {
     // toString method
     @Override
     public String toString() {
-        return " Όνομα Task: " + taskName  +
+        return "Όνομα Task: " + taskName  +
                 ",\nΤύπος Task: " + taskType +
                 ",\nΣυνιστώμενες ώρες μελέτης: " + hoursAllocated
               //  ", Ώρα Έναρξης: " + (timeStarted != null ? timeStarted.toString() : "δεν έχει οριστεί") +

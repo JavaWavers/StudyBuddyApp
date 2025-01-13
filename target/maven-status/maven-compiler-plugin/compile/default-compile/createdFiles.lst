@@ -5,6 +5,7 @@ org\javawavers\studybuddy\courses\ScheduledTask.class
 org\javawavers\studybuddy\courses\Subject.class
 org\javawavers\studybuddy\ui_ux\LoginPage.class
 org\javawavers\studybuddy\calculations\PrintSchedule.class
+org\javawavers\studybuddy\ui_ux\AvailabilityPage.class
 org\javawavers\studybuddy\ui_ux\RightPanel.class
 org\javawavers\studybuddy\courses\StaticUser.class
 org\javawavers\studybuddy\ui_ux\MenuPage.class

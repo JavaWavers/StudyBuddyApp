@@ -4,6 +4,7 @@ import org.javawavers.studybuddy.calculations.Availability;
 import org.javawavers.studybuddy.courses.*;
 
 
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 

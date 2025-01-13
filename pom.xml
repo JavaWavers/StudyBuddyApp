@@ -68,7 +68,9 @@
                 <artifactId>checkstyle</artifactId>
                 <version>10.21.0</version>
             </dependency>
+
     </dependencies>
+
     <repositories>
         <repository>
             <id>gluon-releases</id>
@@ -77,6 +79,11 @@
     </repositories>
 
     <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+            </resource>
+        </resources>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TaskAssignment.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">studybuddy</a> &gt; <a href="index.source.html" class="el_package">org.javawavers.studybuddy.calculations</a> &gt; <span class="el_source">TaskAssignment.java</span></div><h1>TaskAssignment.java</h1><pre class="source lang-java linenums">package org.javawavers.studybuddy.calculations;
+
+import org.javawavers.studybuddy.calculations.Availability;
+import org.javawavers.studybuddy.calculations.Dates;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+<span class="nc" id="L11">public class TaskAssignment {</span>
+    // table for the task indexes
+    private static int[][] valSchedule;
+
+    // Methods in order to have access to the table for other classes
+    public static void setValSchedule(int[][] sc) {
+<span class="nc" id="L17">        valSchedule = sc;</span>
+<span class="nc" id="L18">    }</span>
+
+    public static int[][] getValSchedule() {
+<span class="nc" id="L21">        return valSchedule;</span>
+    }
+
+    // stores the remaining hours for the day
+    private static double remainingHours;
+
+    /*
+     * Methods in order for other classes to have access to the
+     * remaining hours for a day
+     */
+    public static double getRemainingHours() {
+<span class="nc" id="L32">        return remainingHours;</span>
+    }
+
+    public static void setRemainingHours(double remHours) {
+<span class="nc" id="L36">        remainingHours = remHours;</span>
+<span class="nc" id="L37">    }</span>
+
+    private static List&lt;Task&gt; tasks;
+
+    public static List&lt;Task&gt; getTasks() {
+<span class="nc" id="L42">        return tasks;</span>
+    }
+
+    public static int[][] assignTask(List&lt;Task&gt; assTasks, int colSize) {
+<span class="nc" id="L46">        Collections.shuffle(assTasks);</span>
+<span class="nc" id="L47">        tasks = new ArrayList&lt;&gt;(assTasks);</span>
+        //if (colSize == 0) {
+            //throw new IllegalStateException(&quot;Column size is not initialized.&quot;);
+        //}
+
+<span class="nc" id="L52">        valSchedule = new int[12][colSize];</span>
+<span class="nc bnc" id="L53" title="All 2 branches missed.">        for (int i = 0; i &lt; 12; i++) {</span>
+<span class="nc bnc" id="L54" title="All 2 branches missed.">            for (int j = 0; j &lt; colSize; j++) {</span>
+<span class="nc" id="L55">                valSchedule[i][j] = 0;</span>
+            }
+        }
+<span class="nc" id="L58">        int taskIndex = 1;</span>
+<span class="nc bnc" id="L59" title="All 2 branches missed.">        if (!tasks.isEmpty()) {</span>
+<span class="nc" id="L60">            tasks.add(tasks.get(0));</span>
+        } else {
+<span class="nc" id="L62">            throw new IllegalStateException(&quot;Η λίστα tasks είναι κενή και δεν μπορεί να προστεθεί το πρώτο στοιχείο.&quot;);</span>
+        }
+<span class="nc" id="L64">        int taskLength = tasks.size() - 1;</span>
+
+<span class="nc bnc" id="L66" title="All 2 branches missed.">        for (int col = 0; col &lt; colSize; col++) {</span>
+            // Merge repetition tasks if needed
+<span class="nc" id="L68">            Availability.mergeRepTasks(valSchedule, tasks, col);</span>
+<span class="nc" id="L69">            remainingHours = Availability.getTotalAvailableHours(col);</span>
+            // Reduce available hours for repetition tasks
+<span class="nc" id="L71">            Availability.reduceRepAvailability(col, tasks);</span>
+
+            // Check if there is any availability for the day
+<span class="nc" id="L74">            boolean flagNAv = Availability.checkAvailability(col);</span>
+
+<span class="nc bnc" id="L76" title="All 2 branches missed.">            if (flagNAv) {</span>
+<span class="nc bnc" id="L77" title="All 2 branches missed.">                for (int row = 0; row &lt; 12; row++) { // Max 12 tasks per day</span>
+<span class="nc bnc" id="L78" title="All 2 branches missed.">                    if (taskIndex &gt; taskLength) {</span>
+<span class="nc" id="L79">                        break;</span>
+                    }
+
+<span class="nc bnc" id="L82" title="All 2 branches missed.">                    if (remainingHours &gt;= 2.0) { // Each task requires 2 hours</span>
+                        // flag for deadlines
+<span class="nc" id="L84">                        boolean flagEx = false;</span>
+<span class="nc" id="L85">                        boolean flagAss = false;</span>
+<span class="nc bnc" id="L86" title="All 2 branches missed.">                        if (tasks.get(taskIndex).getTaskType() == 1) {</span>
+                            // Check exam dates
+<span class="nc bnc" id="L88" title="All 2 branches missed.">                            if (!SimulateAnnealing.getExams().isEmpty()) {</span>
+<span class="nc" id="L89">                                flagEx = Dates.checkDate(tasks.get(taskIndex), col, SimulateAnnealing.getExams());</span>
+                            }
+<span class="nc bnc" id="L91" title="All 2 branches missed.">                            if (flagEx) {</span>
+<span class="nc bnc" id="L92" title="All 2 branches missed.">                                if (valSchedule[row][col] == 0) {</span>
+                                    // Store the task index in the schedule
+<span class="nc" id="L94">                                    valSchedule[row][col] = taskIndex;</span>
+                                    // Reduce the remaining hours
+<span class="nc" id="L96">                                    remainingHours -= 2.0;</span>
+<span class="nc" id="L97">                                    taskIndex++;</span>
+
+                                    // Generate repetitions for tasks of type 1
+<span class="nc" id="L100">                                    LocalDate exDate = Dates.getExDate(tasks.get(taskIndex - 1),</span>
+<span class="nc" id="L101">                                            SimulateAnnealing.getExams());</span>
+<span class="nc" id="L102">                                    assTasks = Repetition.generateRepetitions(tasks, assTasks.get(taskIndex - 1),</span>
+                                            exDate, col);
+<span class="nc" id="L104">                                }</span>
+                            } else {
+<span class="nc" id="L106">                                taskIndex++;</span>
+                            }
+
+<span class="nc bnc" id="L109" title="All 2 branches missed.">                        } else if (tasks.get(taskIndex).getTaskType() == 3) {</span>
+                            // Check assignment deadlines
+<span class="nc bnc" id="L111" title="All 2 branches missed.">                            if (!SimulateAnnealing.getAssignments().isEmpty()) {</span>
+<span class="nc" id="L112">                                flagAss = Dates.checkDate(tasks.get(taskIndex), col,</span>
+<span class="nc" id="L113">                                        SimulateAnnealing.getAssignments());</span>
+                            }
+<span class="nc bnc" id="L115" title="All 2 branches missed.">                            if (flagAss) {</span>
+<span class="nc bnc" id="L116" title="All 2 branches missed.">                                if (valSchedule[row][col] == 0) {</span>
+                                    // Store the task index in the schedule
+<span class="nc" id="L118">                                    valSchedule[row][col] = taskIndex;</span>
+                                    // Reduce the remaining hours
+<span class="nc" id="L120">                                    remainingHours -= 2.0;</span>
+<span class="nc" id="L121">                                    taskIndex++;</span>
+                                }
+                            } else {
+<span class="nc" id="L124">                                taskIndex++;</span>
+                            }
+
+                        }
+
+                    } else {
+                        // If there are not enough available hours, continue to the next day
+                        break;
+                    }
+                }
+            }
+        }
+
+        /*
+         * Special Check for Type 3 Tasks
+         * Ensure all type 3 tasks (assignments) are assigned, even if no dedicated time
+         * slot exists.
+         */
+<span class="nc bnc" id="L142" title="All 2 branches missed.">        while (taskIndex &lt; taskLength) {</span>
+<span class="nc" id="L143">            Task task = tasks.get(taskIndex);</span>
+
+            // Process only Type 3 tasks
+<span class="nc bnc" id="L146" title="All 2 branches missed.">            if (task.getTaskType() == 3) {</span>
+<span class="nc" id="L147">                boolean taskAssigned = false;</span>
+
+                // Iterate over all columns (days) and rows (slots)
+<span class="nc bnc" id="L150" title="All 4 branches missed.">                for (int col = 0; col &lt; colSize &amp;&amp; !taskAssigned; col++) {</span>
+<span class="nc bnc" id="L151" title="All 2 branches missed.">                    for (int row = 0; row &lt; 12; row++) {</span>
+<span class="nc bnc" id="L152" title="All 2 branches missed.">                        if (valSchedule[row][col] == 0) { // Check if the slot is empty</span>
+<span class="nc" id="L153">                            valSchedule[row][col] = taskIndex; // Assign the task</span>
+<span class="nc" id="L154">                            taskAssigned = true; // Mark as assigned</span>
+<span class="nc" id="L155">                            break; // Exit the inner loop after assigning the task</span>
+                        }
+                    }
+                }
+
+                // If no slot is available, you might log a warning or take additional action
+<span class="nc bnc" id="L161" title="All 2 branches missed.">                if (!taskAssigned) {</span>
+<span class="nc" id="L162">                    System.out.println(&quot;Warning: Could not assign Task ID &quot; + taskIndex);</span>
+                }
+            }
+
+            // Move to the next task
+<span class="nc" id="L167">            taskIndex++;</span>
+<span class="nc" id="L168">        }</span>
+
+<span class="nc" id="L170">        return valSchedule;</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

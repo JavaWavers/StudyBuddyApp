@@ -17,8 +17,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static org.javawavers.studybuddy.ui_ux.Calendar.completed;
-import static org.javawavers.studybuddy.ui_ux.Calendar.notStartedYet;
+//import static Calendar.completed;
+//import static Calendar.completed;
+//import static Calendar.notStartedYet;
+//import static Calendar.notStartedYet;
+//import static org.javawavers.studybuddy.ui_ux.Calendar.completed;
+//import static org.javawavers.studybuddy.ui_ux.Calendar.notStartedYet;
 
 public class RightPanel {
 
@@ -74,9 +78,11 @@ public class RightPanel {
     scrollPane.setPrefHeight(300);
 
     Map<CheckBox, String> taskCheckBoxMap = new HashMap<>();
+  }
+}
 
     //δημιουργουμε τα checkbox
-    if (taskList != null && !taskList.isEmpty()) {
+  /*  if (taskList != null && !taskList.isEmpty()) {
       for (String task : taskList) {
         CheckBox checkBox = new CheckBox(task);
         checkBox.setStyle("-fx-font-size: 14px;");
@@ -193,7 +199,7 @@ public class RightPanel {
     }
   }
 }
-
+*/
 
 
 

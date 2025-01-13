@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DataDashboard.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">studybuddy</a> &gt; <a href="index.source.html" class="el_package">org.javawavers.studybuddy.database</a> &gt; <span class="el_source">DataDashboard.java</span></div><h1>DataDashboard.java</h1><pre class="source lang-java linenums">package org.javawavers.studybuddy.database;
+
+import org.javawavers.studybuddy.calculations.Day;
+import org.javawavers.studybuddy.calculations.Week;
+import org.javawavers.studybuddy.courses.ScheduledTask;
+
+import java.util.ArrayList;
+
+import static org.javawavers.studybuddy.courses.StaticUser.staticUser;
+
+<span class="nc" id="L11">public class DataDashboard {</span>
+    /*δέχεται τη συνολική λίστα με τις βδομάδες
+    *μολισ ενα τασκ γινεται completed ανανεώνεται η dashboard
+    * παίρνει όλα τα τασκ από όλες τις εβδομάδες και βγάζει το ποσοστό
+    * completed task * 100 / συνολικά τασκ και τα εμφανίζει
+     */
+    private static ArrayList&lt;Week&gt; totalWeeks ;
+
+    private static void setTotalWeeks(){
+<span class="nc" id="L20">        totalWeeks = new ArrayList&lt;&gt;(staticUser.getTotalWeeks());</span>
+<span class="nc" id="L21">    }</span>
+
+    public static double percentageCalculatorGoals(){
+<span class="nc" id="L24">        setTotalWeeks();</span>
+<span class="nc" id="L25">        int totalsum = 0;</span>
+<span class="nc" id="L26">        int sum = 0;</span>
+<span class="nc bnc" id="L27" title="All 2 branches missed.">        for (Week w : totalWeeks){</span>
+<span class="nc bnc" id="L28" title="All 2 branches missed.">            for (Day d: w.getDaysOfWeek()){</span>
+<span class="nc bnc" id="L29" title="All 2 branches missed.">                for (ScheduledTask s:d.getTodayTasks()){</span>
+<span class="nc" id="L30">                    totalsum++;</span>
+<span class="nc bnc" id="L31" title="All 2 branches missed.">                    if(s.getTaskStatus()== ScheduledTask.TaskStatus.COMPLETED){</span>
+<span class="nc" id="L32">                        sum++;</span>
+                    }
+<span class="nc" id="L34">                }</span>
+<span class="nc" id="L35">            }</span>
+<span class="nc" id="L36">        }</span>
+<span class="nc bnc" id="L37" title="All 2 branches missed.">        if (totalsum == 0){</span>
+<span class="nc" id="L38">            return 0.0;</span>
+        }else{
+<span class="nc" id="L40">            return ( (double) sum / totalsum ) * 100;</span>
+        }
+    }
+
+    public static double percentageCalculatorStudying(){
+<span class="nc" id="L45">        setTotalWeeks();</span>
+<span class="nc" id="L46">        int totalsum = 0;</span>
+<span class="nc" id="L47">        int sum = 0;</span>
+<span class="nc bnc" id="L48" title="All 2 branches missed.">        for (Week w : totalWeeks){</span>
+<span class="nc bnc" id="L49" title="All 2 branches missed.">            for (Day d: w.getDaysOfWeek()){</span>
+<span class="nc bnc" id="L50" title="All 2 branches missed.">                for (ScheduledTask s:d.getTodayTasks()){</span>
+<span class="nc bnc" id="L51" title="All 2 branches missed.">                    if (s.getTaskType().equals(&quot;Διάβασμα&quot;)){</span>
+<span class="nc" id="L52">                        totalsum++;</span>
+<span class="nc bnc" id="L53" title="All 2 branches missed.">                        if(s.getTaskStatus()== ScheduledTask.TaskStatus.COMPLETED){</span>
+<span class="nc" id="L54">                            sum++;</span>
+                        }
+                    }
+<span class="nc" id="L57">                }</span>
+<span class="nc" id="L58">            }</span>
+<span class="nc" id="L59">        }</span>
+<span class="nc bnc" id="L60" title="All 2 branches missed.">        if (totalsum == 0){</span>
+<span class="nc" id="L61">            return 0.0;</span>
+        }else{
+<span class="nc" id="L63">            return ( (double) sum / totalsum ) * 100;</span>
+        }
+    }
+
+    public static double percentageCalculatorAssignments(){
+<span class="nc" id="L68">        setTotalWeeks();</span>
+<span class="nc" id="L69">        int totalsum = 0;</span>
+<span class="nc" id="L70">        int sum = 0;</span>
+<span class="nc bnc" id="L71" title="All 2 branches missed.">        for (Week w : totalWeeks){</span>
+<span class="nc bnc" id="L72" title="All 2 branches missed.">            for (Day d: w.getDaysOfWeek()){</span>
+<span class="nc bnc" id="L73" title="All 2 branches missed.">                for (ScheduledTask s:d.getTodayTasks()){</span>
+<span class="nc bnc" id="L74" title="All 2 branches missed.">                    if (s.getTaskType().equals(&quot;Εργασία&quot;)){</span>
+<span class="nc" id="L75">                        totalsum++;</span>
+<span class="nc bnc" id="L76" title="All 2 branches missed.">                        if(s.getTaskStatus()== ScheduledTask.TaskStatus.COMPLETED){</span>
+<span class="nc" id="L77">                            sum++;</span>
+                        }
+                    }
+<span class="nc" id="L80">                }</span>
+<span class="nc" id="L81">            }</span>
+<span class="nc" id="L82">        }</span>
+<span class="nc bnc" id="L83" title="All 2 branches missed.">        if (totalsum == 0){</span>
+<span class="nc" id="L84">            return 0.0;</span>
+        }else{
+<span class="nc" id="L86">            return ( (double) sum / totalsum ) * 100;</span>
+        }
+    }
+
+    public static double percentageCalculatorRevision(){
+<span class="nc" id="L91">        setTotalWeeks();</span>
+<span class="nc" id="L92">        int totalsum = 0;</span>
+<span class="nc" id="L93">        int sum = 0;</span>
+<span class="nc bnc" id="L94" title="All 2 branches missed.">        for (Week w : totalWeeks){</span>
+<span class="nc bnc" id="L95" title="All 2 branches missed.">            for (Day d: w.getDaysOfWeek()){</span>
+<span class="nc bnc" id="L96" title="All 2 branches missed.">                for (ScheduledTask s:d.getTodayTasks()){</span>
+<span class="nc bnc" id="L97" title="All 2 branches missed.">                    if (s.getTaskType().equals(&quot;Επανάληψη&quot;)){</span>
+<span class="nc" id="L98">                        totalsum++;</span>
+<span class="nc bnc" id="L99" title="All 2 branches missed.">                        if(s.getTaskStatus()== ScheduledTask.TaskStatus.COMPLETED){</span>
+<span class="nc" id="L100">                            sum++;</span>
+                        }
+                    }
+<span class="nc" id="L103">                }</span>
+<span class="nc" id="L104">            }</span>
+<span class="nc" id="L105">        }</span>
+<span class="nc bnc" id="L106" title="All 2 branches missed.">        if (totalsum == 0){</span>
+<span class="nc" id="L107">            return 0.0;</span>
+        }else{
+<span class="nc" id="L109">            return ( (double) sum / totalsum ) * 100;</span>
+        }
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
