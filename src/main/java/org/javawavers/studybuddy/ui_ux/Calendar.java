@@ -6,12 +6,10 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoField;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
 import javafx.stage.Modality;
 import javafx.stage.Screen;
 import javafx.stage.StageStyle;
@@ -24,6 +22,8 @@ import org.javawavers.studybuddy.courses.Subject;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -162,9 +162,10 @@ public class Calendar {
 
     //οριζουμε οταν ο ζρηστης παταει πανω στο κουμπι να ανοιγει την σελιδα popupdia
     availabilityButton.setOnAction(event ->  {
-    availabilityButton.setOnAction(event -> {
-      AvailabilityPage availabilityPage = new AvailabilityPage();
+      Stage popUpStage = new Stage();
+      AvailabilityPage availabilityPage = new AvailabilityPage(popUpStage);
       VBox availPageLayout = availabilityPage.availabilityPage();
+
 
       popUpStage.initStyle(StageStyle.UTILITY);
       popUpStage.initModality(Modality.APPLICATION_MODAL);
@@ -181,9 +182,6 @@ public class Calendar {
       Scene popUpScene = new Scene(availPageLayout, 600, 400);
       popUpStage.setScene(popUpScene);
       popUpStage.show();
-
-
-
 
     });
 
@@ -206,8 +204,8 @@ public class Calendar {
 
     refreshButton.setOnAction(event -> {
       SimulateAnnealing sAnnealing = new SimulateAnnealing();
-      ExamPage exPage = new ExamPage();
-      if (!exPage.getSubjects().isEmpty()) {
+      ExamPage exPage=new ExamPage();
+      if(!exPage.getSubjects().isEmpty()){
         System.out.print("Not empty subject list");
       } else {
         System.out.println("empty");
@@ -216,7 +214,7 @@ public class Calendar {
         sAnnealing.addSubject(s);
       }
       AssignmentPage as = new AssignmentPage();
-      for (Assignment a : as.getAssignments()) {
+      for (Assignment a : as.getAssignments() ) {
         sAnnealing.subAss2(as.getTitle(), as.getDeadline(), as.getEstimateHours());
       }
       List<Subject> subject = SimulateAnnealing.getSubjects();
@@ -224,8 +222,6 @@ public class Calendar {
       totalWeeks =  new ArrayList<>(staticUser.getTotalWeeks());
       /*
       int [][] schedule = SimulateAnnealing.getSchedule();
-
-      int[][] schedule = SimulateAnnealing.getSchedule();
       int colSize = schedule[0].length;
       ArrayList<Task> bestTask = new ArrayList<>(SimulateAnnealing.getBestTask());
       LocalDate today2 = LocalDate.now(); // Today's date
@@ -293,12 +289,8 @@ public class Calendar {
     centerPanel.getChildren().addAll(weekSwitcher, todayButton, calendarGrid, availabilityPane, refreshButton);
 
     return centerPanel;
-    }
+
   }
-
-
-
-
 
 
   //δημιουργουμε τα checkbox
@@ -323,19 +315,18 @@ public class Calendar {
         }
       }
 
-      updateUpcomingTasks(upcomingTasksBox);
-      updateCompletedTasks(completedTasksBox);
+      //updateUpcomingTasks(upcomingTasksBox);
+      //updateCompletedTasks(completedTasksBox);
 
 
-      System.out.println("Completed tasks: " + completed);
+      //System.out.println("Completed tasks: " + completed);
     });
 
     checkBoxBox.getChildren().add(taskCheckBox);
 
     return checkBoxBox;
-  }*/
-
-
+  }
+*/
   //δημιουργουμε το ημερολογιο
   //δεν υπαρχει schedule
 
@@ -343,6 +334,7 @@ public class Calendar {
     grid.getChildren().removeIf(node -> node instanceof Label);
     grid.getColumnConstraints().clear();
     grid.getRowConstraints().clear();
+
 
 
     String[] days = {"Δευτέρα", "Τρίτη", "Τετάρτη", "Πέμπτη", "Παρασκευή", "Σάββατο", "Κυριακή"};
@@ -382,9 +374,9 @@ public class Calendar {
     }
 
     // Start populating the grid with data
-    int dayCount = 0;
-    for (Day d : thisWeek.getDaysOfWeek()) {
-      int rowCount = 1;
+    int dayCount=0;
+    for (Day d: thisWeek.getDaysOfWeek()){
+      int rowCount=1;
       if (!d.getTodayTasks().isEmpty()) {
         for (ScheduledTask s : d.getTodayTasks()) {
           Label cell = new Label();
@@ -422,12 +414,10 @@ public class Calendar {
           rowCount++;
         }
         dayCount++;
-      } else {
+      }else{
         dayCount++;
       }
     }
-  }
-
     //int rowIndex = 1; // Start from the second row
     //for (int dayIndex = 0; dayIndex < thisWeek.daysOfWeek.size(); dayIndex++) {
     //Day currentDay = thisWeek.daysOfWeek.get(dayIndex);
@@ -447,7 +437,12 @@ public class Calendar {
     // Add the task to the grid
     //GridPane.setConstraints(taskLabel, dayIndex, rowIndex + taskIndex);
     //grid.getChildren().add(taskLabel);
-
+  }
+  private String formatWeekLabel(LocalDate weekStart, DateTimeFormatter formatter) {
+    LocalDate weekEnd = weekStart.plusDays(6);
+    return String.format("%s - %s", formatter.format(weekStart), formatter.format(weekEnd));
+  }
+}
 
 //for (int col = 1; col <= daysinWeek; col++) {
 //for (int row = 1; row < 14; row++) {
@@ -542,133 +537,125 @@ public class Calendar {
 
            */
 
-    //οποτε καλειτε ανανεωνονται αναλογα με εκεινα τα δεδομενα το popup που εμφανιζετε
-   /* private void updateUpcomingTasks (VBox upcomingTasksBox){
-      upcomingTasksBox.getChildren().clear();
-      for (String taskDescription : Calendar.notStartedYet) {
-        //System.out.println("Add" + taskDescription);
-        HBox checkBoxBox = createCheckBox(taskDescription);
-        upcomingTasksBox.getChildren().add(checkBoxBox);
-      }
+//οποτε καλειτε ανανεωνονται αναλογα με εκεινα τα δεδομενα το popup που εμφανιζετε
+  /*private void updateUpcomingTasks(VBox upcomingTasksBox) {
+    upcomingTasksBox.getChildren().clear();
+    for (String taskDescription : notStartedYet) {
+      //System.out.println("Add" + taskDescription);
+      HBox checkBoxBox = createCheckBox(taskDescription);
+      upcomingTasksBox.getChildren().add(checkBoxBox);
     }
+  }
 
 
-    private void updateCompletedTasks (VBox completedTasksBox){
-      completedTasksBox.getChildren().clear();
-      for (String taskDescription : Calendar.completed) {
-        HBox checkBoxBox = createCheckBox(taskDescription);
-        //System.out.println("completed" + taskDescription);
-        completedTasksBox.getChildren().add(checkBoxBox);
-      }
-    }*/
-
-
-    private String formatWeekLabel (LocalDate weekStart, DateTimeFormatter formatter){
-      LocalDate weekEnd = weekStart.plusDays(6);
-      return String.format("%s - %s", formatter.format(weekStart), formatter.format(weekEnd));
+  private void updateCompletedTasks(VBox completedTasksBox) {
+    completedTasksBox.getChildren().clear();
+    for (String taskDescription : completed) {
+      HBox checkBoxBox = createCheckBox(taskDescription);
+      //System.out.println("completed" + taskDescription);
+      completedTasksBox.getChildren().add(checkBoxBox);
     }
+  }
 
-    //δημιουργια του pop up το οποιο ανοιγει οταν ο χρηστης πατησει οποιοδηποτε απο τα κουμπια ypcomingtasks/completedtasks
-  /*  private void showTasksPopup (String title, List < String > taskList){
-      Stage popupStage = new Stage();
-      popupStage.initModality(Modality.APPLICATION_MODAL);
-      popupStage.setTitle(title);
+  private String formatWeekLabel(LocalDate weekStart, DateTimeFormatter formatter) {
+    LocalDate weekEnd = weekStart.plusDays(6);
+    return String.format("%s - %s", formatter.format(weekStart), formatter.format(weekEnd));
+  }
+  //δημιουργια του pop up το οποιο ανοιγει οταν ο χρηστης πατησει οποιοδηποτε απο τα κουμπια ypcomingtasks/completedtasks
+  private void showTasksPopup(String title, List<String> taskList) {
+    Stage popupStage = new Stage();
+    popupStage.initModality(Modality.APPLICATION_MODAL);
+    popupStage.setTitle(title);
 
-      VBox popupContent = new VBox(10);
-      popupContent.setPadding(new Insets(10));
-      popupContent.setAlignment(Pos.TOP_CENTER);
-      //οριζουμε τον τιτλο αναλογα με το κουμπι  που εχει πατηθει
-      Label titleLabel = new Label(title);
-      titleLabel.setStyle("-fx-font-size: 18px; -fx-font-weight: bold;");
-      //δημιουργουμε taskbox για τα task
-      VBox tasksBox = new VBox(5);
-      tasksBox.setAlignment(Pos.TOP_LEFT);
-      tasksBox.setStyle("-fx-max-height: 300px;");
+    VBox popupContent = new VBox(10);
+    popupContent.setPadding(new Insets(10));
+    popupContent.setAlignment(Pos.TOP_CENTER);
+    //οριζουμε τον τιτλο αναλογα με το κουμπι  που εχει πατηθει
+    Label titleLabel = new Label(title);
+    titleLabel.setStyle("-fx-font-size: 18px; -fx-font-weight: bold;");
+    //δημιουργουμε taskbox για τα task
+    VBox tasksBox = new VBox(5);
+    tasksBox.setAlignment(Pos.TOP_LEFT);
+    tasksBox.setStyle("-fx-max-height: 300px;");
 
-      //δημιουργουμε scrollpane για να μπορει ο χρηστης να κανει scroll και να δει ολα τα task τα οποια εχει να κανει εκεινη την εβδομαδα
-      ScrollPane scrollPane = new ScrollPane();
-      scrollPane.setContent(tasksBox);
-      scrollPane.setFitToWidth(true);
-      scrollPane.setPrefHeight(300);
+    //δημιουργουμε scrollpane για να μπορει ο χρηστης να κανει scroll και να δει ολα τα task τα οποια εχει να κανει εκεινη την εβδομαδα
+    ScrollPane scrollPane = new ScrollPane();
+    scrollPane.setContent(tasksBox);
+    scrollPane.setFitToWidth(true);
+    scrollPane.setPrefHeight(300);
 
-      Map<CheckBox, String> taskCheckBoxMap = new HashMap<>();
+    Map<CheckBox, String> taskCheckBoxMap = new HashMap<>();
 
-      //δημιουργουμε τα checkbox
-      if (taskList != null && !taskList.isEmpty()) {
-        for (String task : taskList) {
-          CheckBox checkBox = new CheckBox(task);
-          checkBox.setStyle("-fx-font-size: 14px;");
+    //δημιουργουμε τα checkbox
+    if (taskList != null && !taskList.isEmpty()) {
+      for (String task : taskList) {
+        CheckBox checkBox = new CheckBox(task);
+        checkBox.setStyle("-fx-font-size: 14px;");
 
-          //αν το task ειναι στην λιστα notstartedyet ειναι unselected αλλιως στην completed τα task ειναι selected
-          if (taskList == Calendar.notStartedYet && !Calendar.completed.contains(task)) {
-            checkBox.setSelected(false);
-          } else if (taskList == Calendar.completed && Calendar.notStartedYet.contains(task)) {
-            checkBox.setSelected(true);
-          }
-
-          tasksBox.getChildren().add(checkBox);
-          taskCheckBoxMap.put(checkBox, task);//map για να ελενγχουμε τα task με το checkbox
+        //αν το task ειναι στην λιστα notstartedyet ειναι unselected αλλιως στην completed τα task ειναι selected
+        if (taskList == notStartedYet && !completed.contains(task)) {
+          checkBox.setSelected(false);
+        } else if (taskList == completed && notStartedYet.contains(task)) {
+          checkBox.setSelected(true);
         }
-      } else {
-        Label noTasksLabel = new Label("No tasks available");//στην περιπτωση που δεν υπαρχουν task
-        tasksBox.getChildren().add(noTasksLabel);
+
+        tasksBox.getChildren().add(checkBox);
+        taskCheckBoxMap.put(checkBox, task);//map για να ελενγχουμε τα task με το checkbox
       }
-      //δημιουργια κουμπιου οκ που οταν πατηθει αναλογα με το τι εχει πατησει ο χρηστης ενημερωνει τις δυο λιστες
-      Button okButton = new Button("OK");
-      okButton.setStyle("-fx-background-color: #50D1C6; -fx-background-radius: 30px; -fx-text-fill: white; -fx-font-size: 16px;");
-      okButton.setOnAction(event -> {
-
-        for (Map.Entry<CheckBox, String> entry : taskCheckBoxMap.entrySet()) {
-          CheckBox checkBox = entry.getKey();
-          String task = entry.getValue();
-
-          if (checkBox.isSelected() && taskList == Calendar.notStartedYet) {
-            Calendar.notStartedYet.remove(task);
-            Calendar.completed.add(task);
-          } else if (!checkBox.isSelected() && taskList == Calendar.completed) {
-            Calendar.completed.remove(task);
-            Calendar.notStartedYet.add(task);
-          }
-        }
-        popupStage.close();
-        //ενημερωνουμε τα taskboxes
-        updateUpcomingTasks(upcomingTasksBox);
-        updateCompletedTasks(completedTasksBox);
-      });
-
-      popupContent.getChildren().addAll(titleLabel, scrollPane, okButton);
-
-      Scene popupScene = new Scene(popupContent, 300, 400);
-      popupStage.setScene(popupScene);
-      popupStage.showAndWait();
-    }*/
-
-
-    private Button createCircularButton (String text, String color){
-      Button button = new Button(text);
-      button.setStyle(
-              "-fx-background-color: " + color + ";" +
-                      "-fx-text-fill: black; " +
-                      "-fx-font-size: 18px; " +
-                      "-fx-padding: 10px 20px; " +
-                      "-fx-background-radius: 5px; " +
-                      "-fx-border-color: black; " +
-                      "-fx-border-radius: 5px; " +
-                      "-fx-min-width: 200px;"
-      );
-      return button;
+    } else {
+      Label noTasksLabel = new Label("No tasks available");//στην περιπτωση που δεν υπαρχουν task
+      tasksBox.getChildren().add(noTasksLabel);
     }
-}
+    //δημιουργια κουμπιου οκ που οταν πατηθει αναλογα με το τι εχει πατησει ο χρηστης ενημερωνει τις δυο λιστες
+    Button okButton = new Button("OK");
+    okButton.setStyle("-fx-background-color: #50D1C6; -fx-background-radius: 30px; -fx-text-fill: white; -fx-font-size: 16px;");
+    okButton.setOnAction(event -> {
+
+      for (Map.Entry<CheckBox, String> entry : taskCheckBoxMap.entrySet()) {
+        CheckBox checkBox = entry.getKey();
+        String task = entry.getValue();
+
+        if (checkBox.isSelected() && taskList == notStartedYet) {
+          notStartedYet.remove(task);
+          completed.add(task);
+        } else if (!checkBox.isSelected() && taskList == completed) {
+          completed.remove(task);
+          notStartedYet.add(task);
+        }
+      }
+      popupStage.close();
+      //ενημερωνουμε τα taskboxes
+      updateUpcomingTasks(upcomingTasksBox);
+      updateCompletedTasks(completedTasksBox);
+    });
+
+    popupContent.getChildren().addAll(titleLabel, scrollPane, okButton);
+
+    Scene popupScene = new Scene(popupContent, 300, 400);
+    popupStage.setScene(popupScene);
+    popupStage.showAndWait();
+  }
 
 
-
-
-
+  private Button createCircularButton(String text, String color) {
+    Button button = new Button(text);
+    button.setStyle(
+        "-fx-background-color: " + color + ";" +
+            "-fx-text-fill: black; " +
+            "-fx-font-size: 18px; " +
+            "-fx-padding: 10px 20px; " +
+            "-fx-background-radius: 5px; " +
+            "-fx-border-color: black; " +
+            "-fx-border-radius: 5px; " +
+            "-fx-min-width: 200px;"
+    );
+    return button;
+  }
 
 
 
   //αρχικοποιησει των λιστων
- /* private void initializeTaskLists(List<Task> besttask) {
+  private void initializeTaskLists(List<Task> besttask) {
     for (Task task : besttask) {
       notStartedYet.add(task.toString());
     }

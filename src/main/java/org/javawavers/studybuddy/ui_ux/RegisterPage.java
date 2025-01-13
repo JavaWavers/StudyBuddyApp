@@ -4,6 +4,8 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
@@ -97,11 +99,27 @@ public class RegisterPage {
 
         textField.setManaged(false);//να ξεκινησει και να μην φαινεται ο κωδικος 
         textField.setVisible(false);
+        Image seeImage1 = new Image(getClass().getResource("/seePassword.png").toExternalForm());
+        Image notseeImage2 = new Image(getClass().getResource("/notseePassword.png").toExternalForm());
+        ImageView userImgView = new ImageView(seeImage1);
+       // userImgView.setPreserveRatio(true);
+        userImgView.setFitWidth(32);
+        userImgView.setFitHeight(32);
 
-        Button toggleButton = new Button("👁");
+        //Button toggleConfirmPasswordButton = new Button("👁");
+        Button toggleConfirmPasswordButton = new Button();
+
+        Button toggleButton = new Button();
+        toggleButton.setGraphic(userImgView);
         toggleButton.setStyle("-fx-font-size: 14px;");
 
-        toggleButton.setOnAction(e -> { PasswordVisibility();
+        toggleButton.setOnAction(e -> {
+            if (userImgView.getImage().equals(seeImage1)) {
+                userImgView.setImage(notseeImage2);
+            } else {
+                userImgView.setImage(seeImage1);
+            }
+            PasswordVisibility();
         });
 
 //τα τοποθετουμε και τα τρια σε εna hbox
@@ -120,10 +138,24 @@ public class RegisterPage {
         confirmPasswordField = new PasswordField();
         confirmPasswordField.setPromptText("Confirm your password");
 
-        Button toggleConfirmPasswordButton = new Button("👁");
+
+        //Button toggleConfirmPasswordButton = new Button("👁");
+        //Button toggleConfirmPasswordButton = new Button();
+
         toggleConfirmPasswordButton.setStyle("-fx-font-size: 14px;");
+        Image seeImage = new Image(getClass().getResource("/seePassword.png").toExternalForm());
+        Image notseeImage = new Image(getClass().getResource("/notseePassword.png").toExternalForm());
+        ImageView userImgView1 = new ImageView(seeImage);
+        userImgView1.setFitWidth(32.5);
+        userImgView1.setFitHeight(32.5);
+        toggleConfirmPasswordButton.setGraphic(userImgView1);
 
         toggleConfirmPasswordButton.setOnAction(e -> {
+            if (userImgView1.getImage().equals(seeImage)) {
+                userImgView1.setImage(notseeImage);
+            } else {
+                userImgView1.setImage(seeImage);
+            }
             ConfPasswordVisibility();
         });
 
