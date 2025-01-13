@@ -109,14 +109,15 @@ public class RegisterPage {
         Label confirmpasswordLabel = new Label("Confirm Password:");
         confirmpasswordLabel.setFont(new Font("System Bold", 14));
 
+        confirmPasswordField = new PasswordField();
+        confirmPasswordField.setPromptText("Confirm your password");
+
         confirmPasswordTextField =new TextField();
         confirmPasswordTextField.setPromptText("Confirm your password");
 
         confirmPasswordTextField.setManaged(false);
         confirmPasswordTextField.setVisible(false);   
 
-        confirmPasswordField = new PasswordField();
-        confirmPasswordField.setPromptText("Confirm your password");
 
         Button toggleConfirmPasswordButton = new Button("👁");
         toggleConfirmPasswordButton.setStyle("-fx-font-size: 14px;");
@@ -167,6 +168,7 @@ public class RegisterPage {
             passwordLabel.setFont(Font.font("Arial", newSize));
             textField.setFont(Font.font("Arial", newSize));
             toggleButton.setFont(Font.font("Arial", newSize));
+            confirmPasswordTextField.setFont(Font.font("Arial", newSize));
             confirmPasswordField.setFont(Font.font("Arial", newSize));
             confirmpasswordLabel.setFont(Font.font("Arial", newSize));
             registerButton.setStyle("-fx-font-family: 'System'; " +
@@ -274,7 +276,7 @@ public class RegisterPage {
         });
 
          registerButton.setOnAction(event -> {
-            validateLogin();
+           // validateLogin();
             if(validateLogin()){
                 ExamPage examPage = new ExamPage();
                 sceneManager.switchScene(examPage.examStartingPage(sceneManager));
@@ -287,28 +289,28 @@ public class RegisterPage {
             storedEmail = emailField.getText();
             storedPassword = passwordField.getText();
             String confirmPassword = confirmPasswordField.getText();
-        List<String> errors = new ArrayList<>();
+            List<String> errors = new ArrayList<>();
 //error αν το ονομα ειναι λιγοτερο απο 4 χαρακτηρες
-            if (storedUsername.isEmpty() || storedUsername.length() <= 4) {
-                errors.add("• Το όνομα πρέπει να έχει πάνω από 4 χαρακτήρες");
-                return false;
+            if (storedUsername.isEmpty() || storedUsername.length() < 4) {
+                errors.add("• Το όνομα πρέπει να έχει πάνω από 3 χαρακτήρες");
+               // return false;
             }
 //error αν το email δεν περιεχει το @
             if (storedEmail.isEmpty() || !storedEmail.contains("@")) {
                 errors.add("• Εισήγαγε ένα έγκυρο email");
-                return false;
+                //return false;
             }
 //error αν ο κωδικος ειναι μικροτερος απο 6 χαρακτηρες
             if (storedPassword.isEmpty() || storedPassword.length() < 6) {
                 errors.add("• Ο κωδικός πρόσβασης πρέπει να έχει πάνω από 6 χαρακτήρες");
-                return false;
+                //return false;
             }
 //error αν ο κωδικος και ο κωδικος επιβεβαιωσης δεν ειναι ιδιος
             if (!storedPassword.equals(confirmPassword)) {
                 errors.add("• Οι κωδικοί που έβαλες δεν είναι ίδιοι");
-                return false;
+                //return false;
             }
-//αν υπαρχουν error εμφανιζει την λισατ στον χρηστη 
+//αν υπαρχουν error εμφανιζει την λισατ στον χρηστη
             if (!errors.isEmpty()) {
                 Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.setTitle("Η φόρμα δεν έχει ολοκληρωθεί");
@@ -338,6 +340,7 @@ public class RegisterPage {
         passwordField.clear();
         textField.clear();
         confirmPasswordField.clear();
+        confirmPasswordTextField.clear();
     }
 
     private void PasswordVisibility() {
@@ -359,14 +362,14 @@ public class RegisterPage {
         if (confirmPasswordField.isVisible()) {
             confirmPasswordTextField.setText(confirmPasswordField.getText());
             confirmPasswordField.setVisible(false);
-            confirmPasswordField.setManaged(false);
             confirmPasswordTextField.setVisible(true);
+            confirmPasswordField.setManaged(false);
             confirmPasswordTextField.setManaged(true);
         } else {
             confirmPasswordField.setText(confirmPasswordTextField.getText());
             confirmPasswordTextField.setVisible(false);
-            confirmPasswordTextField.setManaged(false);
             confirmPasswordField.setVisible(true);
+            confirmPasswordTextField.setManaged(false);
             confirmPasswordField.setManaged(true);
         }
     }
