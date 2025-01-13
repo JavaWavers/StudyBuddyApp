@@ -20,182 +20,185 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 
+import static org.javawavers.studybuddy.courses.StaticUser.staticUser;
+
 /*
 TODO :
  * same as ExamPage
  */
-<span class="nc" id="L27">public class AssignmentPage {</span>
-<span class="nc" id="L28">    public static ArrayList&lt;Assignment&gt; assignments = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L29">public class AssignmentPage {</span>
+<span class="nc" id="L30">    public static ArrayList&lt;Assignment&gt; assignments = new ArrayList&lt;&gt;();</span>
     private TextField namField, assignmentField, estimateHours, difficultyField;
     ComboBox&lt;String&gt; coursesList;
     private DatePicker datePicker;
-<span class="nc" id="L32">    public static String courseName = &quot;&quot;;</span>
-<span class="nc" id="L33">    public static String title = &quot;&quot;;</span>
-<span class="nc" id="L34">    public static String estimate = &quot;&quot;;</span>
-<span class="nc" id="L35">    public static int difficulty = 0 ;</span>
-<span class="nc" id="L36">    public static String deadline = &quot;&quot;;</span>
-<span class="nc" id="L37">    public static String courseType = &quot;&quot;;</span>
+<span class="nc" id="L34">    public static String courseName = &quot;&quot;;</span>
+<span class="nc" id="L35">    public static String title = &quot;&quot;;</span>
+<span class="nc" id="L36">    public static String estimate = &quot;&quot;;</span>
+<span class="nc" id="L37">    public static int difficulty = 0 ;</span>
+<span class="nc" id="L38">    public static String deadline = &quot;&quot;;</span>
+<span class="nc" id="L39">    public static String courseType = &quot;&quot;;</span>
     static LocalDate localDeadline;
     static int estimateHour;
 
     // Assignment Page as Node
     public Node assignmentPanel() {
-<span class="nc" id="L43">        VBox assignmentPanel = new VBox(20);</span>
-<span class="nc" id="L44">        assignmentPanel.setPadding(new Insets(20));</span>
+<span class="nc" id="L45">        VBox assignmentPanel = new VBox(20);</span>
+<span class="nc" id="L46">        assignmentPanel.setPadding(new Insets(20));</span>
 
         // Create sections as titledPanes in order to be foldable
-<span class="nc" id="L47">        TitledPane coursePane = new TitledPane(&quot;Μάθημα&quot;, createCourseSection());</span>
-<span class="nc" id="L48">        TitledPane infoPane = new TitledPane(&quot;Πληροφορίες&quot;, createInfoSection());</span>
-<span class="nc" id="L49">        TitledPane evalPane = new TitledPane(&quot;Αξιολόγηση&quot;, createEvalSection());</span>
+<span class="nc" id="L49">        TitledPane coursePane = new TitledPane(&quot;Μάθημα&quot;, createCourseSection());</span>
+<span class="nc" id="L50">        TitledPane infoPane = new TitledPane(&quot;Πληροφορίες&quot;, createInfoSection());</span>
+<span class="nc" id="L51">        TitledPane evalPane = new TitledPane(&quot;Αξιολόγηση&quot;, createEvalSection());</span>
 
-<span class="nc" id="L51">        titlePaneStyle(coursePane,200, 400, 0, 300);</span>
-<span class="nc" id="L52">        titlePaneStyle(infoPane,200, 400, 0, 300);</span>
-<span class="nc" id="L53">        titlePaneStyle(evalPane,200, 400, 0, 300);</span>
+<span class="nc" id="L53">        titlePaneStyle(coursePane,200, 400, 0, 300);</span>
+<span class="nc" id="L54">        titlePaneStyle(infoPane,200, 400, 0, 300);</span>
+<span class="nc" id="L55">        titlePaneStyle(evalPane,200, 400, 0, 300);</span>
 
         //&quot;ok&quot; Button
-<span class="nc" id="L56">        Button okBtn = new Button(&quot;OK&quot;);</span>
-<span class="nc" id="L57">        okBtn.setStyle(btnStyle());</span>
-<span class="nc" id="L58">        okBtn.setOnMouseEntered(e -&gt; okBtn.setStyle(btnMouseEntered()));</span>
-<span class="nc" id="L59">        okBtn.setOnMouseClicked(e -&gt; {</span>
+<span class="nc" id="L58">        Button okBtn = new Button(&quot;OK&quot;);</span>
+<span class="nc" id="L59">        okBtn.setStyle(btnStyle());</span>
+<span class="nc" id="L60">        okBtn.setOnMouseEntered(e -&gt; okBtn.setStyle(btnMouseEntered()));</span>
+<span class="nc" id="L61">        okBtn.setOnMouseClicked(e -&gt; {</span>
             //courseName = namField.getText();
-<span class="nc" id="L61">            title = assignmentField.getText();</span>
-<span class="nc" id="L62">            estimate = estimateHours.getText();</span>
-<span class="nc" id="L63">            String value = difficultyField.getText();</span>
-<span class="nc" id="L64">            difficulty = Integer.parseInt(value);</span>
-<span class="nc bnc" id="L65" title="All 2 branches missed.">            deadline = datePicker.getValue() != null ? datePicker.getValue().toString() : null;</span>
-<span class="nc" id="L66">            courseType = coursesList.getValue();</span>
+<span class="nc" id="L63">            title = assignmentField.getText();</span>
+<span class="nc" id="L64">            estimate = estimateHours.getText();</span>
+<span class="nc" id="L65">            String value = difficultyField.getText();</span>
+<span class="nc" id="L66">            difficulty = Integer.parseInt(value);</span>
+<span class="nc bnc" id="L67" title="All 2 branches missed.">            deadline = datePicker.getValue() != null ? datePicker.getValue().toString() : null;</span>
+<span class="nc" id="L68">            courseType = coursesList.getValue();</span>
 
-<span class="nc" id="L68">            List&lt;String&gt; errors = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L70">            List&lt;String&gt; errors = new ArrayList&lt;&gt;();</span>
            /*  if (courseName.isEmpty()) {
                 errors.add(&quot;• Εισήγαγε Μάθημα&quot;);
             }*/
 
-<span class="nc bnc" id="L73" title="All 2 branches missed.">            if (title.isEmpty()) {</span>
-<span class="nc" id="L74">                errors.add(&quot;• Όρισε τον Τίτλο της εργασίας&quot;);</span>
+<span class="nc bnc" id="L75" title="All 2 branches missed.">            if (title.isEmpty()) {</span>
+<span class="nc" id="L76">                errors.add(&quot;• Όρισε τον Τίτλο της εργασίας&quot;);</span>
             }
 
-<span class="nc bnc" id="L77" title="All 2 branches missed.">            if (estimate.isEmpty()) {</span>
-<span class="nc" id="L78">                errors.add(&quot;• Όρισε εκτιμώμενη ώρα για το μάθημα&quot;);</span>
+<span class="nc bnc" id="L79" title="All 2 branches missed.">            if (estimate.isEmpty()) {</span>
+<span class="nc" id="L80">                errors.add(&quot;• Όρισε εκτιμώμενη ώρα για το μάθημα&quot;);</span>
             }
 
-<span class="nc bnc" id="L81" title="All 4 branches missed.">            if (difficulty &lt; 1 || difficulty &gt; 10 ) {</span>
-<span class="nc" id="L82">                errors.add(&quot;• H δυσκολία πρέπει να είναι αριθμός μεταξύ 1 και 10.&quot;);</span>
+<span class="nc bnc" id="L83" title="All 4 branches missed.">            if (difficulty &lt; 1 || difficulty &gt; 10 ) {</span>
+<span class="nc" id="L84">                errors.add(&quot;• H δυσκολία πρέπει να είναι αριθμός μεταξύ 1 και 10.&quot;);</span>
             }
 
-<span class="nc bnc" id="L85" title="All 4 branches missed.">            if (deadline == null || LocalDate.parse(deadline).isBefore(LocalDate.now())) {</span>
-<span class="nc" id="L86">                errors.add(&quot;• Πρέπει να επιλέξεις ημερομηνία εξέτασης μετά τη σημερινή ημερομηνία.&quot;);</span>
+<span class="nc bnc" id="L87" title="All 4 branches missed.">            if (deadline == null || LocalDate.parse(deadline).isBefore(LocalDate.now())) {</span>
+<span class="nc" id="L88">                errors.add(&quot;• Πρέπει να επιλέξεις ημερομηνία εξέτασης μετά τη σημερινή ημερομηνία.&quot;);</span>
             }
 
-<span class="nc bnc" id="L89" title="All 2 branches missed.">            if (courseType == &quot;&quot;) {</span>
-<span class="nc" id="L90">                errors.add(&quot;• Πρέπει να προσθέσεις ένα μάθημα&quot;);</span>
+<span class="nc bnc" id="L91" title="All 2 branches missed.">            if (courseType == &quot;&quot;) {</span>
+<span class="nc" id="L92">                errors.add(&quot;• Πρέπει να προσθέσεις ένα μάθημα&quot;);</span>
             }
 
-<span class="nc bnc" id="L93" title="All 2 branches missed.">            if (!errors.isEmpty()) {</span>
-<span class="nc" id="L94">                Alert alert = new Alert(Alert.AlertType.WARNING);</span>
-<span class="nc" id="L95">                alert.setTitle(&quot;Η φόρμα δεν έχει ολοκληρωθεί&quot;);</span>
-<span class="nc" id="L96">                alert.setHeaderText(null);</span>
-<span class="nc" id="L97">                String errorMessage = String.join(&quot;\n&quot;, errors);</span>
-<span class="nc" id="L98">                alert.setContentText(errorMessage);</span>
-<span class="nc" id="L99">                alert.getDialogPane().getStylesheets().add(getClass().getResource(&quot;alert.css&quot;).toExternalForm());</span>
-<span class="nc" id="L100">                alert.showAndWait();</span>
-<span class="nc" id="L101">                return;</span>
+<span class="nc bnc" id="L95" title="All 2 branches missed.">            if (!errors.isEmpty()) {</span>
+<span class="nc" id="L96">                Alert alert = new Alert(Alert.AlertType.WARNING);</span>
+<span class="nc" id="L97">                alert.setTitle(&quot;Η φόρμα δεν έχει ολοκληρωθεί&quot;);</span>
+<span class="nc" id="L98">                alert.setHeaderText(null);</span>
+<span class="nc" id="L99">                String errorMessage = String.join(&quot;\n&quot;, errors);</span>
+<span class="nc" id="L100">                alert.setContentText(errorMessage);</span>
+<span class="nc" id="L101">                alert.getDialogPane().getStylesheets().add(getClass().getResource(&quot;alert.css&quot;).toExternalForm());</span>
+<span class="nc" id="L102">                alert.showAndWait();</span>
+<span class="nc" id="L103">                return;</span>
             }
-<span class="nc" id="L103">            localDeadline = LocalDate.parse(deadline);</span>
-<span class="nc" id="L104">            estimateHour = Integer.parseInt(estimate);</span>
+<span class="nc" id="L105">            localDeadline = LocalDate.parse(deadline);</span>
+<span class="nc" id="L106">            estimateHour = Integer.parseInt(estimate);</span>
            // SimulateAnnealing simulateAnnealing = new SimulateAnnealing();
            //Subject sub = new Subject();
 
             //simulateAnnealing.subAss2(title, localDeadline, estimateHour);
-<span class="nc" id="L109">            Assignment assignment1 = new Assignment(title, localDeadline, estimateHour, difficulty);</span>
-<span class="nc" id="L110">            assignments.add(assignment1);</span>
+<span class="nc" id="L111">            Assignment assignment1 = new Assignment(title, localDeadline, estimateHour, difficulty);</span>
+            //add the assignment to the static user
+<span class="nc" id="L113">            staticUser.addAssignment(assignment1);</span>
             
             //ExamPage exampage = new ExamPage();
             //Subject course = exampage.coursename;
             //course.addAssignment(assignment1);
 
-<span class="nc" id="L116">            namField.clear();</span>
-<span class="nc" id="L117">            assignmentField.clear();</span>
-<span class="nc" id="L118">            estimateHours.clear();</span>
-<span class="nc" id="L119">            difficultyField.clear();</span>
-<span class="nc" id="L120">            datePicker.setValue(null);</span>
-<span class="nc" id="L121">            coursesList.setValue(&quot;&quot;);</span>
+<span class="nc" id="L119">            namField.clear();</span>
+<span class="nc" id="L120">            assignmentField.clear();</span>
+<span class="nc" id="L121">            estimateHours.clear();</span>
+<span class="nc" id="L122">            difficultyField.clear();</span>
+<span class="nc" id="L123">            datePicker.setValue(null);</span>
+<span class="nc" id="L124">            coursesList.setValue(&quot;&quot;);</span>
 
             //System.out.println(courseName);
-<span class="nc" id="L124">            System.out.println(title);</span>
-<span class="nc" id="L125">            System.out.println(estimate);</span>
-<span class="nc" id="L126">            System.out.println(difficulty);</span>
-<span class="nc" id="L127">            System.out.println(deadline);</span>
-<span class="nc" id="L128">            System.out.println(courseType);</span>
+<span class="nc" id="L127">            System.out.println(title);</span>
+<span class="nc" id="L128">            System.out.println(estimate);</span>
+<span class="nc" id="L129">            System.out.println(difficulty);</span>
+<span class="nc" id="L130">            System.out.println(deadline);</span>
+<span class="nc" id="L131">            System.out.println(courseType);</span>
 
-<span class="nc" id="L130">            okBtn.setStyle(btnMousePressed());</span>
-<span class="nc" id="L131">        });</span>
-<span class="nc" id="L132">        okBtn.setAlignment(Pos.CENTER_LEFT);</span>
+<span class="nc" id="L133">            okBtn.setStyle(btnMousePressed());</span>
+<span class="nc" id="L134">        });</span>
+<span class="nc" id="L135">        okBtn.setAlignment(Pos.CENTER_LEFT);</span>
 
-<span class="nc" id="L134">        HBox okBtnHBox = new HBox(10);</span>
-<span class="nc" id="L135">        okBtnHBox.setAlignment(Pos.CENTER_LEFT);</span>
-<span class="nc" id="L136">        okBtnHBox.getChildren().add(okBtn);</span>
+<span class="nc" id="L137">        HBox okBtnHBox = new HBox(10);</span>
+<span class="nc" id="L138">        okBtnHBox.setAlignment(Pos.CENTER_LEFT);</span>
+<span class="nc" id="L139">        okBtnHBox.getChildren().add(okBtn);</span>
 
         //adds all the exam page parts to the panel
-<span class="nc" id="L139">        assignmentPanel.getChildren().addAll(coursePane, infoPane, evalPane, okBtnHBox);</span>
+<span class="nc" id="L142">        assignmentPanel.getChildren().addAll(coursePane, infoPane, evalPane, okBtnHBox);</span>
 
-<span class="nc" id="L141">        return assignmentPanel;  //returns the page</span>
+<span class="nc" id="L144">        return assignmentPanel;  //returns the page</span>
     }
 
     // Section for Course name
     private VBox createCourseSection() {
-<span class="nc" id="L146">        VBox box = new VBox(10);</span>
-<span class="nc" id="L147">        Label nameLabel = new Label(&quot;Μάθημα Εργασίας:&quot;);</span>
-<span class="nc" id="L148">        nameLabel.setStyle(labelStyle());</span>
-<span class="nc" id="L149">        namField = new TextField();</span>
+<span class="nc" id="L149">        VBox box = new VBox(10);</span>
+<span class="nc" id="L150">        Label nameLabel = new Label(&quot;Μάθημα Εργασίας:&quot;);</span>
+<span class="nc" id="L151">        nameLabel.setStyle(labelStyle());</span>
+<span class="nc" id="L152">        namField = new TextField();</span>
 
-<span class="nc" id="L151">        coursesList = new ComboBox&lt;&gt;();</span>
-<span class="nc" id="L152">        coursesList.setPromptText(&quot; &quot;);</span>
-<span class="nc" id="L153">        coursesList.getItems().addAll(&quot;&quot;,&quot;Μαθηματικά&quot;, &quot;Ιστορία&quot;, &quot;Φυσική&quot;);</span>
-<span class="nc" id="L154">        coursesList.setValue(&quot;&quot;);</span>
+<span class="nc" id="L154">        coursesList = new ComboBox&lt;&gt;();</span>
+<span class="nc" id="L155">        coursesList.setPromptText(&quot; &quot;);</span>
+<span class="nc" id="L156">        coursesList.getItems().addAll(&quot;&quot;,&quot;Μαθηματικά&quot;, &quot;Ιστορία&quot;, &quot;Φυσική&quot;);</span>
+<span class="nc" id="L157">        coursesList.setValue(&quot;&quot;);</span>
 
 
-<span class="nc" id="L157">        box.getChildren().addAll(nameLabel, coursesList);</span>
-<span class="nc" id="L158">        return box;</span>
+<span class="nc" id="L160">        box.getChildren().addAll(nameLabel, coursesList);</span>
+<span class="nc" id="L161">        return box;</span>
     }
 
     // Section for course information
     private VBox createInfoSection() {
-<span class="nc" id="L163">        datePicker = new DatePicker();</span>
-<span class="nc" id="L164">        HBox deadlineBox = createLabeledField(&quot;Ημερομηνία Παράδοσης:&quot;, datePicker);</span>
+<span class="nc" id="L166">        datePicker = new DatePicker();</span>
+<span class="nc" id="L167">        HBox deadlineBox = createLabeledField(&quot;Ημερομηνία Παράδοσης:&quot;, datePicker);</span>
         
-<span class="nc" id="L166">        assignmentField = new TextField();</span>
-<span class="nc" id="L167">        estimateHours = new TextField();</span>
+<span class="nc" id="L169">        assignmentField = new TextField();</span>
+<span class="nc" id="L170">        estimateHours = new TextField();</span>
         
-<span class="nc" id="L169">        VBox box = new VBox(10);</span>
-<span class="nc" id="L170">        box.getChildren().addAll(</span>
-<span class="nc" id="L171">                createLabeledField(&quot;Tίτλος Εργασίας:&quot;, assignmentField),</span>
-<span class="nc" id="L172">                createLabeledField(&quot;Εκτιμώμενες Απαιτούμενες Ώρες:&quot;, estimateHours)</span>
+<span class="nc" id="L172">        VBox box = new VBox(10);</span>
+<span class="nc" id="L173">        box.getChildren().addAll(</span>
+<span class="nc" id="L174">                createLabeledField(&quot;Tίτλος Εργασίας:&quot;, assignmentField),</span>
+<span class="nc" id="L175">                createLabeledField(&quot;Εκτιμώμενες Απαιτούμενες Ώρες:&quot;, estimateHours)</span>
         );
-<span class="nc" id="L174">        box.getChildren().addAll(deadlineBox);</span>
-<span class="nc" id="L175">        return box;</span>
+<span class="nc" id="L177">        box.getChildren().addAll(deadlineBox);</span>
+<span class="nc" id="L178">        return box;</span>
     }
 
     // Section for course evaluation
     private VBox createEvalSection() {
-<span class="nc" id="L180">        difficultyField = new TextField();</span>
-<span class="nc" id="L181">        VBox box = new VBox(10);</span>
-<span class="nc" id="L182">        box.getChildren().addAll(</span>
-<span class="nc" id="L183">                createLabeledField(&quot;Δυσκολία:&quot;, difficultyField)</span>
+<span class="nc" id="L183">        difficultyField = new TextField();</span>
+<span class="nc" id="L184">        VBox box = new VBox(10);</span>
+<span class="nc" id="L185">        box.getChildren().addAll(</span>
+<span class="nc" id="L186">                createLabeledField(&quot;Δυσκολία:&quot;, difficultyField)</span>
         );
-<span class="nc" id="L185">        return box;</span>
+<span class="nc" id="L188">        return box;</span>
     }
 
     // Label field
     private HBox createLabeledField(String labelText, Node node) {
-<span class="nc" id="L190">        Label label = new Label(labelText);</span>
-<span class="nc" id="L191">        label.setStyle(labelStyle());</span>
+<span class="nc" id="L193">        Label label = new Label(labelText);</span>
+<span class="nc" id="L194">        label.setStyle(labelStyle());</span>
         //TextField textField = new TextField();
-<span class="nc" id="L193">        return new HBox(10, label, node);</span>
+<span class="nc" id="L196">        return new HBox(10, label, node);</span>
     }
 
     //label style
     private String labelStyle() {
-<span class="nc" id="L198">        return &quot;-fx-background-color: rgba(181, 99, 241, 0.81);&quot;</span>
+<span class="nc" id="L201">        return &quot;-fx-background-color: rgba(181, 99, 241, 0.81);&quot;</span>
                 + &quot; -fx-padding: 5;&quot;
                 + &quot; -fx-border-width: 1px;&quot;
                 + &quot; -fx-border-radius: 4px;&quot;
@@ -207,23 +210,23 @@ TODO :
                                 double minWidth, double maxWidth,
                                 double minHeight, double maxHeight) {
 
-<span class="nc" id="L210">        titledPane.setMinWidth(minWidth);</span>
-<span class="nc" id="L211">        titledPane.setMaxWidth(maxWidth);</span>
-<span class="nc" id="L212">        titledPane.setMinHeight(minHeight);</span>
-<span class="nc" id="L213">        titledPane.setMaxHeight(maxHeight);</span>
+<span class="nc" id="L213">        titledPane.setMinWidth(minWidth);</span>
+<span class="nc" id="L214">        titledPane.setMaxWidth(maxWidth);</span>
+<span class="nc" id="L215">        titledPane.setMinHeight(minHeight);</span>
+<span class="nc" id="L216">        titledPane.setMaxHeight(maxHeight);</span>
 
 
-<span class="nc" id="L216">        titledPane.setStyle(&quot;-fx-background-color: rgba(101, 225, 101, 0.81);&quot;</span>
+<span class="nc" id="L219">        titledPane.setStyle(&quot;-fx-background-color: rgba(101, 225, 101, 0.81);&quot;</span>
                 +   &quot; -fx-border-color: #000000;&quot;
                 +   &quot; -fx-border-width: 1px;&quot;
                 +   &quot; -fx-border-radius: 4px;&quot;
                 +   &quot; -fx-background-radius: 4px;&quot;);
 
-<span class="nc" id="L222">    }</span>
+<span class="nc" id="L225">    }</span>
 
     //Button Styles
     private String btnStyle() {
-<span class="nc" id="L226">        return &quot;-fx-background-color: linear-gradient(#FAD7A0, #F7B267);&quot;</span>
+<span class="nc" id="L229">        return &quot;-fx-background-color: linear-gradient(#FAD7A0, #F7B267);&quot;</span>
                 + &quot;-fx-background-radius: 8,7,6;&quot;
                 + &quot;-fx-background-insets: 0,1,2;&quot;
                 + &quot;-fx-text-fill: #5A3D2B;&quot;
@@ -236,7 +239,7 @@ TODO :
 
 
     private String btnMouseEntered() {
-<span class="nc" id="L239">        return &quot;-fx-background-color: linear-gradient(#FFE0B2, #F7B267);&quot;</span>
+<span class="nc" id="L242">        return &quot;-fx-background-color: linear-gradient(#FFE0B2, #F7B267);&quot;</span>
                 + &quot;-fx-background-radius: 8,7,6;&quot;
                 + &quot;-fx-background-insets: 0,1,2;&quot;
                 + &quot;-fx-text-fill: #5A3D2B;&quot;
@@ -248,7 +251,7 @@ TODO :
     }
 
     private String btnMousePressed() {
-<span class="nc" id="L251">        return &quot;-fx-background-color: linear-gradient(#F7B267, #D98A4B);&quot;</span>
+<span class="nc" id="L254">        return &quot;-fx-background-color: linear-gradient(#F7B267, #D98A4B);&quot;</span>
                 + &quot;-fx-background-radius: 8,7,6;&quot;
                 + &quot;-fx-background-insets: 0,1,2;&quot;
                 + &quot;-fx-text-fill: #5A3D2B;&quot;
@@ -260,55 +263,55 @@ TODO :
     }
 
     public Scene assignmentStartingPage(SceneManager sceneManager) {
-<span class="nc" id="L263">        VBox assignViewWithBtn = new VBox();</span>
+<span class="nc" id="L266">        VBox assignViewWithBtn = new VBox();</span>
 
-<span class="nc" id="L265">        HBox nameLbl = new HBox(20);</span>
-<span class="nc" id="L266">        Label name = new Label(&quot;Εισαγωγή Εργασιών&quot;);</span>
-<span class="nc" id="L267">        name.setStyle(labelStyle());</span>
-<span class="nc" id="L268">        nameLbl.getChildren().add(name);</span>
-<span class="nc" id="L269">        nameLbl.setPadding(new Insets(20));</span>
-<span class="nc" id="L270">        assignViewWithBtn.getChildren().add(nameLbl);</span>
+<span class="nc" id="L268">        HBox nameLbl = new HBox(20);</span>
+<span class="nc" id="L269">        Label name = new Label(&quot;Εισαγωγή Εργασιών&quot;);</span>
+<span class="nc" id="L270">        name.setStyle(labelStyle());</span>
+<span class="nc" id="L271">        nameLbl.getChildren().add(name);</span>
+<span class="nc" id="L272">        nameLbl.setPadding(new Insets(20));</span>
+<span class="nc" id="L273">        assignViewWithBtn.getChildren().add(nameLbl);</span>
 
-<span class="nc" id="L272">        VBox examView = (VBox) assignmentPanel();</span>
-<span class="nc" id="L273">        assignViewWithBtn.getChildren().add(examView);</span>
+<span class="nc" id="L275">        VBox examView = (VBox) assignmentPanel();</span>
+<span class="nc" id="L276">        assignViewWithBtn.getChildren().add(examView);</span>
 
-<span class="nc" id="L275">        HBox btns = new HBox(15);</span>
-<span class="nc" id="L276">        btns.setPadding(new Insets(20));</span>
-<span class="nc" id="L277">        Button prevBtn = new Button(&quot;Προηγούμενο&quot;);</span>
-<span class="nc" id="L278">        prevBtn.setStyle(btnStyle());</span>
-<span class="nc" id="L279">        prevBtn.setOnAction(e -&gt; {</span>
-<span class="nc" id="L280">            ExamPage examPage = new ExamPage();</span>
-<span class="nc" id="L281">            sceneManager.switchScene(examPage.examStartingPage(sceneManager));</span>
-<span class="nc" id="L282">        });</span>
+<span class="nc" id="L278">        HBox btns = new HBox(15);</span>
+<span class="nc" id="L279">        btns.setPadding(new Insets(20));</span>
+<span class="nc" id="L280">        Button prevBtn = new Button(&quot;Προηγούμενο&quot;);</span>
+<span class="nc" id="L281">        prevBtn.setStyle(btnStyle());</span>
+<span class="nc" id="L282">        prevBtn.setOnAction(e -&gt; {</span>
+<span class="nc" id="L283">            ExamPage examPage = new ExamPage();</span>
+<span class="nc" id="L284">            sceneManager.switchScene(examPage.examStartingPage(sceneManager));</span>
+<span class="nc" id="L285">        });</span>
 
-<span class="nc" id="L284">        Button nextBtn = new Button(&quot;Επόμενο&quot;);</span>
-<span class="nc" id="L285">        nextBtn.setStyle(btnStyle());</span>
-<span class="nc" id="L286">        nextBtn.setOnAction(e -&gt; {</span>
+<span class="nc" id="L287">        Button nextBtn = new Button(&quot;Επόμενο&quot;);</span>
+<span class="nc" id="L288">        nextBtn.setStyle(btnStyle());</span>
+<span class="nc" id="L289">        nextBtn.setOnAction(e -&gt; {</span>
            // System.out.println(&quot;Το κουμπί πατήθηκε!&quot;);
-<span class="nc" id="L288">           AvailabilityPage availabilityPage = new AvailabilityPage(sceneManager);</span>
-<span class="nc" id="L289">           sceneManager.switchScene(availabilityPage.availStartingPage(sceneManager));</span>
-<span class="nc" id="L290">        });</span>
-<span class="nc" id="L291">        btns.getChildren().addAll(prevBtn, nextBtn);</span>
-<span class="nc" id="L292">        assignViewWithBtn.getChildren().add(btns);</span>
+<span class="nc" id="L291">           AvailabilityPage availabilityPage = new AvailabilityPage(sceneManager);</span>
+<span class="nc" id="L292">           sceneManager.switchScene(availabilityPage.availStartingPage(sceneManager));</span>
+<span class="nc" id="L293">        });</span>
+<span class="nc" id="L294">        btns.getChildren().addAll(prevBtn, nextBtn);</span>
+<span class="nc" id="L295">        assignViewWithBtn.getChildren().add(btns);</span>
 
-<span class="nc" id="L294">        Scene scene = new Scene(assignViewWithBtn,</span>
-<span class="nc" id="L295">            Screen.getPrimary().getVisualBounds().getWidth(),</span>
-<span class="nc" id="L296">            Screen.getPrimary().getVisualBounds().getHeight());</span>
-<span class="nc" id="L297">        return scene;</span>
+<span class="nc" id="L297">        Scene scene = new Scene(assignViewWithBtn,</span>
+<span class="nc" id="L298">            Screen.getPrimary().getVisualBounds().getWidth(),</span>
+<span class="nc" id="L299">            Screen.getPrimary().getVisualBounds().getHeight());</span>
+<span class="nc" id="L300">        return scene;</span>
     }
 
     public ArrayList&lt;Assignment&gt; getAssignments() {
-<span class="nc" id="L301">        return assignments;</span>
+<span class="nc" id="L304">        return assignments;</span>
     }
 
     public String getTitle() {
-<span class="nc" id="L305">        return  title;</span>
+<span class="nc" id="L308">        return  title;</span>
     }
     public LocalDate getDeadline() {
-<span class="nc" id="L308">        return localDeadline;   </span>
+<span class="nc" id="L311">        return localDeadline;   </span>
     }
     public int getEstimateHours() {
-<span class="nc" id="L311">        return estimateHour;</span>
+<span class="nc" id="L314">        return estimateHour;</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
