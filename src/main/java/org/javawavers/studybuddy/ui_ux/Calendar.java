@@ -127,7 +127,7 @@ public class Calendar {
         alert.setTitle("oupss!");
         alert.setHeaderText(null);
         alert.setContentText("Το πρόγραμμα της εξεταστικής σταματάει εδώ");
-        alert.getDialogPane().getStylesheets().add(getClass().getResource("alert.css").toExternalForm());
+        alert.getDialogPane().getStylesheets().add(getClass().getResource("/alert.css").toExternalForm());
         alert.getDialogPane().setMinWidth(500);
         alert.getDialogPane().setMinHeight(300);
         alert.showAndWait();

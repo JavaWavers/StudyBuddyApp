@@ -184,7 +184,7 @@
                     <consoleOutput>true</consoleOutput>
                     <failsOnError>false</failsOnError>
                 </configuration>
-            </plugin>-->
+            </plugin> -->
             <!-- PMD Plugin -->
             <!-- <plugin>
                  <groupId>org.apache.maven.plugins</groupId>
