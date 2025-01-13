@@ -24,6 +24,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 
+import static org.javawavers.studybuddy.courses.StaticUser.staticUser;
+
 
 /*
 TODO:
@@ -102,11 +104,12 @@ public class ExamPage {
             System.out.print("is subject null " + subject1.getDifficultyLevel());
             Exam e1= new Exam(pages,revision,deadline,time);
             subject1.addExam(e1);
-            
+            //static user add the subject
+            staticUser.addSubject(subject1);
 
             System.out.print("object:"+ subject1);
             System.out.println("Adding subject: " + subject1.getCourseName());
-            subjects.add(subject1);
+            //subjects.add(subject1);
             //add(subject1);
             System.out.println("Subjects in ExamPage after add: " + getSubjects().size());
             List<String> errors = new ArrayList<>();

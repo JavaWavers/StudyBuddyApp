@@ -20,6 +20,8 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 
+import static org.javawavers.studybuddy.courses.StaticUser.staticUser;
+
 /*
 TODO :
  * same as ExamPage
@@ -107,7 +109,8 @@ public class AssignmentPage {
 
             //simulateAnnealing.subAss2(title, localDeadline, estimateHour);
             Assignment assignment1 = new Assignment(title, localDeadline, estimateHour, difficulty);
-            assignments.add(assignment1);
+            //add the assignment to the static user
+            staticUser.addAssignment(assignment1);
             
             //ExamPage exampage = new ExamPage();
             //Subject course = exampage.coursename;

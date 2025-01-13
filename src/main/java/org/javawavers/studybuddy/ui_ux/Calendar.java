@@ -210,14 +210,8 @@ public class Calendar {
       } else {
         System.out.println("empty");
       }
-      for (Subject s : exPage.getSubjects()) {
-        sAnnealing.addSubject(s);
-      }
-      AssignmentPage as = new AssignmentPage();
-      for (Assignment a : as.getAssignments() ) {
-        sAnnealing.subAss2(as.getTitle(), as.getDeadline(), as.getEstimateHours());
-      }
-      List<Subject> subject = SimulateAnnealing.getSubjects();
+
+      List<Subject> subject = staticUser.getSubjects();
       SimulateAnnealing.scheduleResult();
       totalWeeks =  new ArrayList<>(staticUser.getTotalWeeks());
       /*

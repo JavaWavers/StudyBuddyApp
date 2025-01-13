@@ -13,7 +13,11 @@ package org.javawavers.studybuddy.calculations;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.javawavers.studybuddy.courses.Assignment;
 import org.javawavers.studybuddy.courses.Subject;
+
+import static org.javawavers.studybuddy.courses.StaticUser.staticUser;
 
 public class SimulateAnnealing {
     /*
@@ -38,20 +42,20 @@ public class SimulateAnnealing {
         scheduleResults = new ArrayList<>();
     }
 
-    // Add a new Subject
-    public void addSubject(Subject subject) {
-        subjects.add(subject);
-        // Sets exams for the subject
-        subExams(subject);
-        subAssignment(subject);
-
-        // Creates tasks for the subject
-        subTasks(subject);
+    // Add the users Subjects
+    public static void addSubject() {
+        for (Subject s:staticUser.getSubjects()){
+            subjects.add(s);
+            // Sets exams for the subject
+            subExams(s);
+            // Creates tasks for the subject
+            subTasks(s);
+        }
 
     }
 
     // Setting exams for each subject
-    private void subExams(Subject subject) {
+    private static void subExams(Subject subject) {
         // Check if the subject or its exams list is null
         if (subject.getExams() == null || subject.getExams().isEmpty()) {
             throw new IllegalArgumentException("Subject or exam list is invalid. Exams must not be empty.");
@@ -61,56 +65,37 @@ public class SimulateAnnealing {
 
     }
 
-    // Setting exams for each subject
-    private void subAssignment(Subject subject) {
-        if (subject.getAssignments() == null || subject.getAssignments().isEmpty()) {
-            return; // No assignments, skip further processing
+    // Setting Assignments
+    private static void subAssignment() {
+        for(Assignment a:staticUser.getAssignments()) {
+            Dates assDate = new Dates(a.getName(),a.getDate());
+            assignments.add(assDate);
+            subTask2(a.getName(),a.getEstimateHours());
         }
-        Dates assDate = new Dates(subject, subject.getAssignments().get(0).getDeadline());
-        assignments.add(assDate);
 
-    }
-
-    // Setting assignments for non-subject related assignments
-    public void subAss2(String name, LocalDate deadline, int estimateHours) {
-        // Create a Dates object with the subject name and the exam date
-        Dates assDate = new Dates(name, deadline);
-        // Add the Dates object to the list
-        assignments.add(assDate);
-        subTask2(name, estimateHours);
-    }
-
-    // Creating tasks for non-subject related assignments
-    private void subTask2(String name, int estimateHours) {
-        int taskType3 = CalculativeAlgorithm.numberOfScheduledTask(estimateHours);
-
-        // Task creation for each task type
-
-        for (int i = 0; i < taskType3; i++) {
-            tasks.add(new Task(name, 3)); // Assignment
-        }
     }
 
     // Creating tasks for each subject
-    private void subTasks(Subject subject) {
-        if (subject.getExams() == null || subject.getExams().isEmpty()) {
+    private static void subTasks(Subject subject) {
+        if (Subject.getExams() == null || Subject.getExams().isEmpty()) {
             throw new IllegalArgumentException("Cannot create tasks: No exams found for the subject.");
         }
         // setting the difficulty level
-
-        CalculativeAlgorithm.setPagesPerMin(subject.getExams().get(0).getTimePer20Slides());
+        CalculativeAlgorithm.setPagesPerMin(Subject.getExams().get(0).getTimePer20Slides());
         // studying tasks
         int taskType1 = CalculativeAlgorithm.studyingTasks(subject);
-
-        // assignment tasks
-        int taskType3 = CalculativeAlgorithm.numberOfScheduledTask(subject.getTotalAssHours());
         // Task creation for each task type
         for (int i = 0; i < taskType1; i++) {
             tasks.add(new Task(subject, 1)); // studying
         }
+    }
 
+    // Creating tasks for assignments
+    private static void subTask2(String name, int estimateHours) {
+        int taskType3 = CalculativeAlgorithm.numberOfScheduledTask(estimateHours);
+        // Task creation type
         for (int i = 0; i < taskType3; i++) {
-            tasks.add(new Task(subject, 3)); // Assignment
+            tasks.add(new Task(name, 3)); // Assignment
         }
     }
 
@@ -152,9 +137,11 @@ public class SimulateAnnealing {
         scheduleResults.clear();
         bestTask.clear();
         Availability.setAvPerDay();
+        addSubject();
+        subAssignment();
         // sort exams
-        exams = Dates.sortList(exams);
-        assignments = Dates.sortList(assignments);
+        Dates.sortList(exams);
+        Dates.sortList(assignments);
         // The column size of the table is determined by the last examination date
         // The column size of the table is determined by the last examination date
         int colSize = Dates.lastIsDue(exams, assignments);
@@ -185,9 +172,16 @@ public class SimulateAnnealing {
          CreateWeekDay createWeekDay = new CreateWeekDay();
          createWeekDay.managerWeekDay(schedule, bestTask,colSize);
 
+         //clear the lists
+        subjects.clear();
+        tasks.clear();
+        exams.clear();
+        assignments.clear();
+        scheduleResults.clear();
+
     }
 
-    public static void bestSchedule(double valResultScoring, List<Task> taskList, int[][] sch) {
+    private static void bestSchedule(double valResultScoring, List<Task> taskList, int[][] sch) {
         // Update best scoring and schedule only if the new score is equal or better
         if (valResultScoring >= bestScoring) {
             bestScoring = valResultScoring;

@@ -44,12 +44,12 @@ public class MainTest {
         SimulateAnnealing sAnnealing = new SimulateAnnealing();
 
         for (Subject s : subs) {
-            sAnnealing.addSubject(s);
+            //sAnnealing.addSubject(s);
 
         }
 
-        sAnnealing.subAss2(a2.getTitle(), a2.getDeadline(), a2.getEstimateHours());
-        sAnnealing.subAss2(a3.getTitle(), a3.getDeadline(), a3.getEstimateHours());
+        //sAnnealing.subAss2(a2.getTitle(), a2.getDeadline(), a2.getEstimateHours());
+        //sAnnealing.subAss2(a3.getTitle(), a3.getDeadline(), a3.getEstimateHours());
         SimulateAnnealing.scheduleResult();
     }
 }
