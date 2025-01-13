@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Repetition {
-
     /*
      * This method generates a schedule for repetitions based on the study task.
      * A repetition task is scheduled for:

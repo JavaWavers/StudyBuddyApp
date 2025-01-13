@@ -1,18 +1,19 @@
-package org.javawavers.studybuddy.database;
+package org.javawavers.studybuddy.graphs;
 
 import org.javawavers.studybuddy.calculations.Day;
 import org.javawavers.studybuddy.calculations.Week;
 import org.javawavers.studybuddy.courses.ScheduledTask;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import static org.javawavers.studybuddy.courses.StaticUser.staticUser;
 
-public class DataDashboard {
+public class SummaryBoxCalc {
     /*δέχεται τη συνολική λίστα με τις βδομάδες
-    *μολισ ενα τασκ γινεται completed ανανεώνεται η dashboard
-    * παίρνει όλα τα τασκ από όλες τις εβδομάδες και βγάζει το ποσοστό
-    * completed task * 100 / συνολικά τασκ και τα εμφανίζει
+     *μολισ ενα τασκ γινεται completed ανανεώνεται η dashboard
+     * παίρνει όλα τα τασκ από όλες τις εβδομάδες και βγάζει το ποσοστό
+     * completed task * 100 / συνολικά τασκ και τα εμφανίζει
      */
     private static ArrayList<Week> totalWeeks ;
 
@@ -109,5 +110,4 @@ public class DataDashboard {
             return ( (double) sum / totalsum ) * 100;
         }
     }
-
 }

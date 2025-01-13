@@ -2,6 +2,7 @@ package org.javawavers.studybuddy.ui_ux;
 
 import javafx.geometry.Insets;
 import javafx.scene.Node;
+
 import javafx.scene.chart.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -9,7 +10,12 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
-import org.javawavers.studybuddy.database.DataDashboard;
+import org.javawavers.studybuddy.graphs.SubjDistributionCalc;
+import org.javawavers.studybuddy.graphs.SummaryBoxCalc;
+
+import java.util.HashMap;
+
+import static org.javawavers.studybuddy.courses.StaticUser.staticUser;
 
 public class DashboardPage {
     // Center panel
@@ -25,10 +31,10 @@ public class DashboardPage {
         // Summary Boxes
         HBox summaryBox = new HBox(10);
         summaryBox.getChildren().addAll(
-                createSummaryBox("Goals Completed", DataDashboard.percentageCalculatorGoals(), "#57C4E5"),
-                createSummaryBox("Study Completed", DataDashboard.percentageCalculatorStudying(), "#D4915D"),
-                createSummaryBox("Assignment Completed", DataDashboard.percentageCalculatorAssignments(), "#57C4E5"),
-                createSummaryBox("Revision Completed", DataDashboard.percentageCalculatorRevision(), "#D4915D")
+                createSummaryBox("Goals Completed", SummaryBoxCalc.percentageCalculatorGoals(), "#57C4E5"),
+                createSummaryBox("Study Completed", SummaryBoxCalc.percentageCalculatorStudying(), "#D4915D"),
+                createSummaryBox("Assignment Completed", SummaryBoxCalc.percentageCalculatorAssignments(), "#57C4E5"),
+                createSummaryBox("Revision Completed", SummaryBoxCalc.percentageCalculatorRevision(), "#D4915D")
         );
 
         // Charts
@@ -54,18 +60,27 @@ public class DashboardPage {
 
     // Line Chart
     private LineChart<Number, Number> createLineChart() {
-        NumberAxis xAxis = new NumberAxis();
-        NumberAxis yAxis = new NumberAxis();
+        NumberAxis xAxis = new NumberAxis("Μέρα",1,7,1);
+        NumberAxis yAxis = new NumberAxis("Ώρες μελέτης",0,10,1);
         LineChart<Number, Number> lineChart = new LineChart<>(xAxis, yAxis);
         lineChart.setTitle("Productivity");
+        XYChart.Series<Number, Number> series = new XYChart.Series<>();
+        int [] studying = staticUser.getAvPerDay();
+        for(int i = 1; i < studying.length; i++) {
+            series.getData().add(new XYChart.Data<>(i, studying[i]));
+        }
+        lineChart.getData().add(series);
         return lineChart;
     }
 
     // Pie Chart
     private PieChart createPieChart() {
         PieChart pieChart = new PieChart();
-        pieChart.getData().addAll(new PieChart.Data("Maths", 60), new PieChart.Data("Physics", 40));
-        pieChart.setTitle("Distribution");
+        HashMap<String, Double> subjDistr = SubjDistributionCalc.subjectsDistribution();
+        for (String s : subjDistr.keySet()){
+            double percentage = subjDistr.get(s);
+            pieChart.getData().add( new PieChart.Data(s,percentage));
+        }
         return pieChart;
     }
 
