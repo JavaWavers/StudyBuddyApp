@@ -17,12 +17,16 @@ public class SubjDistributionCalc {
     }
 
     private static void percentage(){
-        ArrayList<Week> weekList= new ArrayList<>(staticUser.getTotalWeeks()) ;
+        ArrayList<Week> weekList = new ArrayList<>(staticUser.getTotalWeeks()) ;
+        ArrayList<Subject> subjLisy = new ArrayList<>(staticUser.getSubjects());
         int totalTasks = 0;
         HashMap<String, Integer> tasksPerSubject = new HashMap<>();
+
         for (Week w : weekList){
-            for (Day d: w.getDaysOfWeek()){
-                for (ScheduledTask s:d.getTodayTasks()){
+            for (Day d : w.getDaysOfWeek()){
+                for (ScheduledTask s : d.getTodayTasks()){
+                    totalTasks++;
+
 
                 }
             }

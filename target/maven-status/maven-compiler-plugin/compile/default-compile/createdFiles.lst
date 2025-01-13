@@ -31,11 +31,12 @@ org\javawavers\studybuddy\ui_ux\DashboardPage.class
 org\javawavers\studybuddy\ui_ux\HomePage.class
 org\javawavers\studybuddy\calculations\SimulateAnnealing.class
 org\javawavers\studybuddy\calculations\Week.class
+org\javawavers\studybuddy\graphs\SummaryBoxCalc.class
 org\javawavers\studybuddy\calculations\SubjectTest.class
 org\javawavers\studybuddy\courses\ScheduledTask$TaskStatus.class
+org\javawavers\studybuddy\graphs\SubjDistributionCalc.class
 org\javawavers\studybuddy\calculations\CreateWeekDay.class
 org\javawavers\studybuddy\courses\Subject$SubjectType.class
-org\javawavers\studybuddy\database\DataDashboard.class
 org\javawavers\studybuddy\calculations\Repetition$RepetitionTask.class
 org\javawavers\studybuddy\graphs\ProgressCalculator.class
 org\javawavers\studybuddy\calculations\Validate.class
