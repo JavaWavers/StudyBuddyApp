@@ -1,4 +1,5 @@
 
+
 package org.javawavers.studybuddy.courses;
 
 import org.javawavers.studybuddy.calculations.*;
@@ -24,6 +25,9 @@ public class User {
     List<Day> days;
     int[][] schedule; // the array with the indexes from the tasks list
 
+    public User() {
+
+    }
 
     // for the login without having generated schedule
     public User(String username, String email, String password, int[] avPerDay, List<LocalDate>nonAvailDays, List<Subject> subjects, List<Assignment> assignments, List<Exam> exams) {
@@ -37,8 +41,14 @@ public class User {
         this.exams = exams;
     }
     // constructor for the sign-in
-    public User(String name, String username, String email, String password) {
+    public User(String username, String email, String password) {
         this.username = username;
+        this.email = email;
+        this.password = password;
+    }
+    public User(int userID, String username, String email, String password) {
+        this.username = username;
+        this.userID = userID;
         this.email = email;
         this.password = password;
     }

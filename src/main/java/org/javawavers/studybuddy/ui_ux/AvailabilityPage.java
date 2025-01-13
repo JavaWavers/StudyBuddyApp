@@ -132,6 +132,7 @@ public class AvailabilityPage {
                 }
 
             }
+            //static user for availability
             staticUser.setAvPerDay(avPerDay);
 
             LocalDate setNoAvailability = datePicker.getValue();

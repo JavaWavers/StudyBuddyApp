@@ -326,7 +326,7 @@ public class RegisterPage {
             String confirmPassword = confirmPasswordField.getText();
 
             // Ορίζουμε τον τρέχοντα χρήστη κατά την είσοδο στην εφαρμογή
-             User user = new User(storedUsername, storedUsername,storedEmail, storedPassword);
+             User user = new User( storedUsername,storedEmail, storedPassword);
 
             StaticUser.staticUser = user;
 
