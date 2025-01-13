@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Repetition.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">studybuddy</a> &gt; <a href="index.source.html" class="el_package">org.javawavers.studybuddy.calculations</a> &gt; <span class="el_source">Repetition.java</span></div><h1>Repetition.java</h1><pre class="source lang-java linenums">package org.javawavers.studybuddy.calculations;
+
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+import java.util.List;
+
+<span class="nc" id="L8">public class Repetition {</span>
+
+  /*
+   * This method generates a schedule for repetitions based on the study task.
+   * A repetition task is scheduled for:
+   * - The next day after the study task.
+   * -After 1 day
+   * - After 7 days.
+   * - After 16 days.
+   * - After 35 days.
+   * - Then it doubles the interval days till the exam date.
+   */
+  public static List&lt;Task&gt; generateRepetitions(
+      List&lt;Task&gt; tasks, Task studyTask, LocalDate examDate, int day) {
+
+<span class="nc" id="L23">    List&lt;RepetitionTask&gt; repetitions = new ArrayList&lt;&gt;();</span>
+
+    // Get the date of the study task
+<span class="nc" id="L26">    LocalDate studyDate = LocalDate.now().plusDays(day);</span>
+<span class="nc" id="L27">    String subject = studyTask.getSubject();</span>
+
+    LocalDate repetitionDate;
+    // Add repetition after specific intervals
+<span class="nc" id="L31">    int[] fixedIntervals = {1, 7, 16, 35}; // Fixed intervals in days</span>
+<span class="nc bnc" id="L32" title="All 2 branches missed.">    for (int f : fixedIntervals) {</span>
+<span class="nc" id="L33">      repetitionDate = studyDate.plusDays(f);</span>
+<span class="nc bnc" id="L34" title="All 2 branches missed.">      if (repetitionDate.isBefore(examDate)) {</span>
+<span class="nc" id="L35">        repetitions.add(new RepetitionTask(subject, repetitionDate));</span>
+      }
+    }
+
+    // Add repetitions with doubling intervals until the exam date
+<span class="nc" id="L40">    int interval = 35;</span>
+    while (true) {
+<span class="nc" id="L42">      interval *= 2; // Double the interval</span>
+<span class="nc" id="L43">      repetitionDate = studyDate.plusDays(interval);</span>
+<span class="nc bnc" id="L44" title="All 2 branches missed.">      if (repetitionDate.isBefore(examDate)) {</span>
+<span class="nc" id="L45">        repetitions.add(new RepetitionTask(subject, repetitionDate));</span>
+      } else {
+        break; // Stop if the date exceeds the exam date
+      }
+    }
+<span class="nc" id="L50">    return assRepetitions(repetitions, tasks, subject);</span>
+  }
+
+  // class that assigns the repetition tasks into the schedule
+  public static List&lt;Task&gt; assRepetitions(
+      List&lt;RepetitionTask&gt; rep, List&lt;Task&gt; tasks, String subject) {
+    // Retrieve the current schedule
+<span class="nc" id="L57">    int[][] schedule = TaskAssignment.getValSchedule();</span>
+<span class="nc bnc" id="L58" title="All 2 branches missed.">    if (schedule == null) {</span>
+<span class="nc" id="L59">      throw new IllegalStateException(&quot;Schedule is not initialized.&quot;);</span>
+    }
+
+<span class="nc bnc" id="L62" title="All 2 branches missed.">    for (RepetitionTask r : rep) {</span>
+<span class="nc" id="L63">      LocalDate today = LocalDate.now();</span>
+<span class="nc" id="L64">      int daysBetween = (int) ChronoUnit.DAYS.between(today, r.getDate());</span>
+
+<span class="nc bnc" id="L66" title="All 4 branches missed.">      if (daysBetween &gt;= 0</span>
+          &amp;&amp; daysBetween &lt; schedule[0].length) { // Ensure daysBetween is within bounds
+<span class="nc bnc" id="L68" title="All 2 branches missed.">        for (int i = 0; i &lt; 12; i++) { // Iterate through rows (max 12 tasks per day)</span>
+          // check for an unassigned slot and if the day is available
+<span class="nc bnc" id="L70" title="All 4 branches missed.">          if (schedule[i][daysBetween] == 0 &amp;&amp; Availability.checkAvailability(daysBetween)) {</span>
+            /*
+             * Each task of type 1 and 3 takes 2 hours, while each task of type 2 takes 20
+             * minutes
+             */
+<span class="nc bnc" id="L75" title="All 2 branches missed.">            if (TaskAssignment.getRemainingHours() &gt; 1.0 / 3.0) {</span>
+              // Add a new repetition task
+<span class="nc" id="L77">              tasks.add(new Task(subject, 2)); // 2 represents a repetition task</span>
+              // Assign the task index to the schedule
+<span class="nc" id="L79">              schedule[i][daysBetween] = tasks.size() - 1;</span>
+<span class="nc" id="L80">              break; // Exit loop after assigning the task</span>
+            }
+          }
+        }
+      }
+<span class="nc" id="L85">    }</span>
+
+    // Update the modified schedule
+<span class="nc" id="L88">    TaskAssignment.setValSchedule(schedule);</span>
+
+<span class="nc" id="L90">    return tasks;</span>
+  }
+
+  // Helper class to represent a repetition task
+  public static class RepetitionTask {
+    private String subject;
+    private LocalDate date;
+
+<span class="nc" id="L98">    public RepetitionTask(String subject, LocalDate date) {</span>
+<span class="nc" id="L99">      this.subject = subject;</span>
+<span class="nc" id="L100">      this.date = date;</span>
+<span class="nc" id="L101">    }</span>
+
+    public String getSubject() {
+<span class="nc" id="L104">      return subject;</span>
+    }
+
+    public void setSubject(String subject) {
+<span class="nc" id="L108">      this.subject = subject;</span>
+<span class="nc" id="L109">    }</span>
+
+    public LocalDate getDate() {
+<span class="nc" id="L112">      return date;</span>
+    }
+
+    public void setDate(LocalDate date) {
+<span class="nc" id="L116">      this.date = date;</span>
+<span class="nc" id="L117">    }</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

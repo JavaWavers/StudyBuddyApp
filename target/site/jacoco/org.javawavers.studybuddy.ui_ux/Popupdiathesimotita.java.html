@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Popupdiathesimotita.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">studybuddy</a> &gt; <a href="index.source.html" class="el_package">org.javawavers.studybuddy.ui_ux</a> &gt; <span class="el_source">Popupdiathesimotita.java</span></div><h1>Popupdiathesimotita.java</h1><pre class="source lang-java linenums">package org.javawavers.studybuddy.ui_ux;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+import java.util.List;
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
+import javafx.scene.layout.Pane;
+import javafx.scene.text.Font;
+import javafx.stage.Stage;
+
+<span class="nc" id="L16">public class Popupdiathesimotita extends Application {</span>
+
+  private List&lt;String&gt; notStartedYet;
+  private List&lt;String&gt; completed;
+
+  public void setTaskLists(List&lt;String&gt; notStartedYet, List&lt;String&gt; completed) {
+<span class="nc" id="L22">    this.notStartedYet = notStartedYet;</span>
+<span class="nc" id="L23">    this.completed = completed;</span>
+<span class="nc" id="L24">  }</span>
+
+<span class="nc" id="L26">  public static boolean isFinishedChecked = false;</span>
+<span class="nc" id="L27">  private String taskDescription = &quot;κενο&quot;;</span>
+  private LocalDate examDate;
+<span class="nc" id="L29">  private long daysLeft = -1;</span>
+  private String exam;
+
+  public void setTaskDescription(String description, LocalDate examDate) {
+<span class="nc" id="L33">    this.taskDescription = description;</span>
+<span class="nc" id="L34">    this.examDate = examDate;</span>
+<span class="nc" id="L35">  }</span>
+
+  @Override
+  public void start(Stage primaryStage) {
+<span class="nc bnc" id="L39" title="All 2 branches missed.">    if (examDate != null) {</span>
+<span class="nc" id="L40">      this.daysLeft = ChronoUnit.DAYS.between(LocalDate.now(), examDate);</span>
+<span class="nc" id="L41">      DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(&quot;dd/MM&quot;);</span>
+<span class="nc" id="L42">      this.exam = examDate.format(dateFormatter);</span>
+<span class="nc" id="L43">    } else {</span>
+<span class="nc" id="L44">      this.daysLeft = -1;</span>
+<span class="nc" id="L45">      this.exam = &quot;never&quot;;</span>
+    }
+
+<span class="nc" id="L48">    Pane root = new Pane();</span>
+<span class="nc" id="L49">    root.setStyle(&quot;-fx-background-radius: 20px; -fx-background-color: white;&quot;);</span>
+<span class="nc" id="L50">    root.setPrefSize(241, 280);</span>
+
+<span class="nc" id="L52">    Label lessonLabel = new Label(&quot;ΜΑΘΗΜΑ&quot;);</span>
+<span class="nc" id="L53">    lessonLabel.setFont(Font.font(&quot;System Bold&quot;, 18));</span>
+<span class="nc" id="L54">    lessonLabel.setLayoutX(14);</span>
+<span class="nc" id="L55">    lessonLabel.setLayoutY(14);</span>
+<span class="nc" id="L56">    root.getChildren().add(lessonLabel);</span>
+
+<span class="nc" id="L58">    Pane duePane = new Pane();</span>
+<span class="nc" id="L59">    duePane.setStyle(&quot;-fx-background-color: #D3D3D3;&quot;);</span>
+<span class="nc" id="L60">    duePane.setLayoutX(14);</span>
+<span class="nc" id="L61">    duePane.setLayoutY(52);</span>
+<span class="nc" id="L62">    duePane.setPrefSize(80, 23);</span>
+
+<span class="nc" id="L64">    Label dueLabel = new Label(&quot;Due:&quot;);</span>
+<span class="nc" id="L65">    dueLabel.setFont(Font.font(14));</span>
+<span class="nc" id="L66">    dueLabel.setLayoutX(2);</span>
+<span class="nc" id="L67">    dueLabel.setLayoutY(2);</span>
+
+<span class="nc" id="L69">    Label dateLabel = new Label(exam);</span>
+<span class="nc" id="L70">    dateLabel.setFont(Font.font(14));</span>
+<span class="nc" id="L71">    dateLabel.setLayoutX(34);</span>
+<span class="nc" id="L72">    dateLabel.setLayoutY(2);</span>
+
+<span class="nc" id="L74">    duePane.getChildren().addAll(dueLabel, dateLabel);</span>
+<span class="nc" id="L75">    root.getChildren().add(duePane);</span>
+
+<span class="nc" id="L77">    Pane remainingPane = new Pane();</span>
+<span class="nc" id="L78">    remainingPane.setStyle(&quot;-fx-background-color: #D3D3D3;&quot;);</span>
+<span class="nc" id="L79">    remainingPane.setLayoutX(105);</span>
+<span class="nc" id="L80">    remainingPane.setLayoutY(52);</span>
+<span class="nc" id="L81">    remainingPane.setPrefSize(98, 23);</span>
+
+<span class="nc" id="L83">    Label remainingLabel = new Label(daysLeft + &quot; days left&quot;);</span>
+<span class="nc" id="L84">    remainingLabel.setFont(Font.font(14));</span>
+<span class="nc" id="L85">    remainingLabel.setLayoutX(10);</span>
+<span class="nc" id="L86">    remainingLabel.setLayoutY(1);</span>
+
+<span class="nc" id="L88">    remainingPane.getChildren().add(remainingLabel);</span>
+<span class="nc" id="L89">    root.getChildren().add(remainingPane);</span>
+
+<span class="nc" id="L91">    Label descriptionLabel = new Label(taskDescription);</span>
+<span class="nc" id="L92">    descriptionLabel.setStyle(&quot;-fx-border-color: black;&quot;);</span>
+<span class="nc" id="L93">    descriptionLabel.setLayoutX(26);</span>
+<span class="nc" id="L94">    descriptionLabel.setLayoutY(91);</span>
+<span class="nc" id="L95">    descriptionLabel.setPrefSize(189, 124);</span>
+<span class="nc" id="L96">    root.getChildren().add(descriptionLabel);</span>
+
+<span class="nc" id="L98">    CheckBox finishedCheckBox = new CheckBox(&quot;Finished&quot;);</span>
+<span class="nc" id="L99">    finishedCheckBox.setFont(Font.font(&quot;System Bold&quot;, 14));</span>
+<span class="nc" id="L100">    finishedCheckBox.setLayoutX(26);</span>
+<span class="nc" id="L101">    finishedCheckBox.setLayoutY(218);</span>
+<span class="nc" id="L102">    finishedCheckBox.setStyle(&quot;-fx-background-color: #15B569; -fx-background-radius: 20px;&quot;);</span>
+<span class="nc" id="L103">    root.getChildren().add(finishedCheckBox);</span>
+
+<span class="nc" id="L105">    Pane inPane = new Pane();</span>
+<span class="nc" id="L106">    inPane.setStyle(&quot;-fx-background-radius: 30px; -fx-background-color: #FFC23D;&quot;);</span>
+<span class="nc" id="L107">    inPane.setLayoutX(129);</span>
+<span class="nc" id="L108">    inPane.setLayoutY(218);</span>
+<span class="nc" id="L109">    inPane.setPrefSize(98, 30);</span>
+
+<span class="nc" id="L111">    Label inLabel = new Label(&quot;In : (minutes)&quot;);</span>
+<span class="nc" id="L112">    inLabel.setFont(Font.font(&quot;System Bold&quot;, 14));</span>
+<span class="nc" id="L113">    inLabel.setLayoutX(8);</span>
+<span class="nc" id="L114">    inLabel.setLayoutY(5);</span>
+
+<span class="nc" id="L116">    inPane.getChildren().add(inLabel);</span>
+<span class="nc" id="L117">    root.getChildren().add(inPane);</span>
+
+    // προσθηκη κουμπιου (οκ) για να κλεινει το παραθυρο
+<span class="nc" id="L120">    Button okButton = new Button(&quot;OK&quot;);</span>
+<span class="nc" id="L121">    okButton.setStyle(</span>
+        &quot;-fx-background-color: #CF308C; -fx-background-radius: 30px; -fx-text-fill: white; -fx-font-size: 14px;&quot;);
+<span class="nc" id="L123">    okButton.setLayoutX(80);</span>
+<span class="nc" id="L124">    okButton.setLayoutY(248);</span>
+<span class="nc" id="L125">    okButton.setPrefSize(70, 25);</span>
+<span class="nc" id="L126">    root.getChildren().add(okButton);</span>
+
+<span class="nc" id="L128">    okButton.setOnAction(</span>
+        event -&gt; {
+          // οταν ο χρηστης επιλεγει το οκ ελενγουμε αν το finished ειναι επιλεγμενο
+<span class="nc" id="L131">          isFinishedChecked = finishedCheckBox.isSelected();</span>
+
+          // αν ειναι βαζουμε το συγκεκριμενο task στην λιστα complete και το αφαιρουμε απο την
+          // λιστα notstartedyet
+<span class="nc bnc" id="L135" title="All 2 branches missed.">          if (isFinishedChecked) {</span>
+<span class="nc bnc" id="L136" title="All 4 branches missed.">            if (notStartedYet != null &amp;&amp; notStartedYet.contains(taskDescription)) {</span>
+<span class="nc" id="L137">              notStartedYet.remove(taskDescription);</span>
+<span class="nc" id="L138">              completed.add(taskDescription);</span>
+            }
+          }
+
+<span class="nc" id="L142">          primaryStage.close();</span>
+<span class="nc" id="L143">        });</span>
+
+<span class="nc" id="L145">    Scene scene = new Scene(root);</span>
+<span class="nc" id="L146">    primaryStage.setTitle(&quot;Task Layout&quot;);</span>
+<span class="nc" id="L147">    primaryStage.setScene(scene);</span>
+<span class="nc" id="L148">    primaryStage.show();</span>
+<span class="nc" id="L149">  }</span>
+
+  public static void main(String[] args) {
+<span class="nc" id="L152">    launch(args);</span>
+<span class="nc" id="L153">  }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

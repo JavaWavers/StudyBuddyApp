@@ -1,4 +1,5 @@
 package org.javawavers.studybuddy.calculations;
+
 /*
  * The ScheduleResult class represents the result of a scheduling process.
  * It stores the score of the schedule, the list of tasks assigned,
@@ -10,25 +11,25 @@ package org.javawavers.studybuddy.calculations;
 import java.util.List;
 
 public class ScheduleResult {
-    double score;
-    List<Task> tasks;
-    int[][] schedule;
+  double score;
+  List<Task> tasks;
+  int[][] schedule;
 
-    ScheduleResult(double score, List<Task> tasks, int[][] schedule) {
-        this.score = score;
-        this.tasks = tasks;
-        this.schedule = schedule;
-    }
+  ScheduleResult(double score, List<Task> tasks, int[][] schedule) {
+    this.score = score;
+    this.tasks = tasks;
+    this.schedule = schedule;
+  }
 
-    public double getScore() {
-        return score;
-    }
+  public double getScore() {
+    return score;
+  }
 
-    public List<Task> getTasks() {
-        return tasks;
-    }
+  public List<Task> getTasks() {
+    return tasks;
+  }
 
-    public int[][] getSchedule() {
-        return schedule;
-    }
+  public int[][] getSchedule() {
+    return schedule;
+  }
 }

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>StudyBuddyApp.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">studybuddy</a> &gt; <a href="index.source.html" class="el_package">org.javawavers.studybuddy</a> &gt; <span class="el_source">StudyBuddyApp.java</span></div><h1>StudyBuddyApp.java</h1><pre class="source lang-java linenums">package org.javawavers.studybuddy;
+
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.stage.Screen;
+import javafx.stage.Stage;
+import org.javawavers.studybuddy.ui_ux.HomePage;
+import org.javawavers.studybuddy.ui_ux.SceneManager;
+
+/*
+ * TODO:
+ *  fix courses menu (attention Home btn)
+ *  scroll bar
+ *  username btn alignment
+ */
+<span class="nc" id="L16">public class StudyBuddyApp extends Application { // exam page</span>
+
+  @Override
+  public void start(Stage stage) {
+<span class="nc" id="L20">    SceneManager sceneManager = new SceneManager(stage);</span>
+
+<span class="nc" id="L22">    HomePage homePage = new HomePage();</span>
+<span class="nc" id="L23">    Scene homeScene = homePage.home(sceneManager);</span>
+<span class="nc" id="L24">    stage.setScene(homeScene);</span>
+<span class="nc" id="L25">    stage.setTitle(&quot;StudyBuddy&quot;);</span>
+<span class="nc" id="L26">    stage.setX((Screen.getPrimary().getVisualBounds().getWidth()) / 2);</span>
+<span class="nc" id="L27">    stage.setX((Screen.getPrimary().getVisualBounds().getHeight()) / 2);</span>
+<span class="nc" id="L28">    stage.setWidth(1024);</span>
+<span class="nc" id="L29">    stage.setHeight(768);</span>
+<span class="nc" id="L30">    stage.setMaximized(true);</span>
+<span class="nc" id="L31">    stage.setMinWidth(1024);</span>
+<span class="nc" id="L32">    stage.setMinHeight(768);</span>
+
+<span class="nc" id="L34">    stage.show();</span>
+<span class="nc" id="L35">  }</span>
+
+  public static void main(String[] args) {
+<span class="nc" id="L38">    launch(args);</span>
+<span class="nc" id="L39">  }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

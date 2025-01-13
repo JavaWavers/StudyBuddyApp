@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SimulateAnnealing.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">studybuddy</a> &gt; <a href="index.source.html" class="el_package">org.javawavers.studybuddy.calculations</a> &gt; <span class="el_source">SimulateAnnealing.java</span></div><h1>SimulateAnnealing.java</h1><pre class="source lang-java linenums">package org.javawavers.studybuddy.calculations;
+
+/*
+ * This class distributes three kinds of tasks (studying -1, repetition -2,
+ * assignment -3) into the available days randomly. The algorithm produces 50
+ *  valid results,where the tasks are distributed into the available studying
+ * hours per day differently (although there are chances for the same results).
+ * Then, each result gains a score based on certain criteria, described in the
+ * README file. The result with the higher score is considered the final result
+ * and is given to the user as a recommended studying schedule.
+ */
+
+import static org.javawavers.studybuddy.courses.StaticUser.staticUser;
+
+import java.util.ArrayList;
+import java.util.List;
+import org.javawavers.studybuddy.courses.Assignment;
+import org.javawavers.studybuddy.courses.Subject;
+
+public class SimulateAnnealing {
+  /*
+   * The 12 rows represent the maximum tasks that can be assigned to a day,
+   * which are 12 tasks of a duration of two hours each. The 8 columns represent
+   * the 7 days of the week, starting with Monday. The first column of the table
+   * is not used to prevent misinterpretation by the table pointer
+   * with a value of zero.
+   */
+
+  private static List&lt;Subject&gt; subjects; // List for subjects
+  private static List&lt;Task&gt; tasks; // List for each task that is connected with a subject
+  private static List&lt;Dates&gt; exams; // List for each exam that is connected with a subject
+  private static List&lt;ScheduleResult&gt; scheduleResults; // List for the valid schedule results
+  private static List&lt;Dates&gt;
+      assignments; // List for each assignment that is connected with a subject
+
+<span class="nc" id="L36">  public SimulateAnnealing() {</span>
+<span class="nc" id="L37">    subjects = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L38">    tasks = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L39">    exams = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L40">    assignments = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L41">    scheduleResults = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L42">  }</span>
+
+  // Add the users Subjects
+  public static void addSubject() {
+<span class="nc bnc" id="L46" title="All 2 branches missed.">    for (Subject s : staticUser.getSubjects()) {</span>
+<span class="nc" id="L47">      subjects.add(s);</span>
+      // Sets exams for the subject
+<span class="nc" id="L49">      subExams(s);</span>
+      // Creates tasks for the subject
+<span class="nc" id="L51">      subTasks(s);</span>
+<span class="nc" id="L52">    }</span>
+<span class="nc" id="L53">  }</span>
+
+  // Setting exams for each subject
+  private static void subExams(Subject subject) {
+    // Check if the subject or its exams list is null
+<span class="nc bnc" id="L58" title="All 4 branches missed.">    if (subject.getExams() == null || subject.getExams().isEmpty()) {</span>
+<span class="nc" id="L59">      throw new IllegalArgumentException(</span>
+          &quot;Subject or exam list is invalid. Exams must not be empty.&quot;);
+    }
+<span class="nc" id="L62">    Dates examDate = new Dates(subject, subject.getExams().get(0).getExamDate());</span>
+<span class="nc" id="L63">    exams.add(examDate);</span>
+<span class="nc" id="L64">  }</span>
+
+  // Setting Assignments
+  private static void subAssignment() {
+<span class="nc bnc" id="L68" title="All 2 branches missed.">    for (Assignment a : staticUser.getAssignments()) {</span>
+<span class="nc" id="L69">      Dates assDate = new Dates(a.getName(), a.getDate());</span>
+<span class="nc" id="L70">      assignments.add(assDate);</span>
+<span class="nc" id="L71">      subTask2(a.getName(), a.getEstimateHours());</span>
+<span class="nc" id="L72">    }</span>
+<span class="nc" id="L73">  }</span>
+
+  // Creating tasks for each subject
+  private static void subTasks(Subject subject) {
+<span class="nc bnc" id="L77" title="All 4 branches missed.">    if (Subject.getExams() == null || Subject.getExams().isEmpty()) {</span>
+<span class="nc" id="L78">      throw new IllegalArgumentException(&quot;Cannot create tasks: No exams found for the subject.&quot;);</span>
+    }
+    // setting the difficulty level
+<span class="nc" id="L81">    CalculativeAlgorithm.setPagesPerMin(Subject.getExams().get(0).getTimePer20Slides());</span>
+    // studying tasks
+<span class="nc" id="L83">    int taskType1 = CalculativeAlgorithm.studyingTasks(subject);</span>
+    // Task creation for each task type
+<span class="nc bnc" id="L85" title="All 2 branches missed.">    for (int i = 0; i &lt; taskType1; i++) {</span>
+<span class="nc" id="L86">      tasks.add(new Task(subject, 1)); // studying</span>
+    }
+<span class="nc" id="L88">  }</span>
+
+  // Creating tasks for assignments
+  private static void subTask2(String name, int estimateHours) {
+<span class="nc" id="L92">    int taskType3 = CalculativeAlgorithm.numberOfScheduledTask(estimateHours);</span>
+    // Task creation type
+<span class="nc bnc" id="L94" title="All 2 branches missed.">    for (int i = 0; i &lt; taskType3; i++) {</span>
+<span class="nc" id="L95">      tasks.add(new Task(name, 3)); // Assignment</span>
+    }
+<span class="nc" id="L97">  }</span>
+
+  // getter for the exam list
+  public static List&lt;Dates&gt; getExams() {
+<span class="nc" id="L101">    return exams;</span>
+  }
+
+  // getter for the assignment list
+  public static List&lt;Dates&gt; getAssignments() {
+<span class="nc" id="L106">    return assignments;</span>
+  }
+
+  private static double bestScoring;
+<span class="nc" id="L110">  private static List&lt;Task&gt; bestTask = new ArrayList&lt;&gt;();</span>
+  private static int[][] schedule;
+
+  // getters
+  public static int[][] getSchedule() {
+<span class="nc" id="L115">    return schedule;</span>
+  }
+
+  public static List&lt;Task&gt; getBestTask() {
+<span class="nc" id="L119">    return bestTask;</span>
+  }
+
+  public static List&lt;Subject&gt; getSubjects() {
+<span class="nc" id="L123">    return subjects;</span>
+  }
+
+  // Κατανομή tasks στο πρόγραμμα
+  public static void scheduleResult() {
+    /*
+     * each time the method is called in order to produce the best result
+     * the best scoring is set as zero and the list with the best distribution,
+     * shuffles an array so that the order of the table elements
+     * different from the one that is given
+     * The procedure is done 50 times in order to produce 10 possible results
+     * Then each list gets a score. The list with the higher score is set as the
+     * bestTask
+     */
+<span class="nc" id="L137">    scheduleResults.clear();</span>
+<span class="nc" id="L138">    bestTask.clear();</span>
+<span class="nc" id="L139">    Availability.setAvPerDay();</span>
+<span class="nc" id="L140">    addSubject();</span>
+<span class="nc" id="L141">    subAssignment();</span>
+    // sort exams
+<span class="nc" id="L143">    Dates.sortList(exams);</span>
+<span class="nc" id="L144">    Dates.sortList(assignments);</span>
+    // The column size of the table is determined by the last examination date
+    // The column size of the table is determined by the last examination date
+<span class="nc" id="L147">    int colSize = Dates.lastIsDue(exams, assignments);</span>
+    List&lt;Task&gt; copyTask;
+<span class="nc bnc" id="L149" title="All 2 branches missed.">    for (int i = 0; i &lt; 50; i++) {</span>
+
+<span class="nc" id="L151">      copyTask = new ArrayList&lt;&gt;(tasks);</span>
+      double valResultScoring;
+
+<span class="nc" id="L154">      int[][] vSchedule = TaskAssignment.assignTask(copyTask, colSize);</span>
+
+      // list scoring
+      // calls static method calculateScore
+<span class="nc" id="L158">      valResultScoring = Scoring.calculateScore(TaskAssignment.getTasks(), vSchedule, colSize);</span>
+<span class="nc bnc" id="L159" title="All 2 branches missed.">      if (i == 0) {</span>
+<span class="nc" id="L160">        bestScoring = valResultScoring;</span>
+      }
+      // method to assign all the unassigned task type 3
+<span class="nc" id="L163">      ScheduleResult result =</span>
+<span class="nc" id="L164">          new ScheduleResult(valResultScoring, TaskAssignment.getTasks(), vSchedule);</span>
+<span class="nc" id="L165">      scheduleResults.add(result);</span>
+    }
+<span class="nc bnc" id="L167" title="All 2 branches missed.">    for (ScheduleResult sr : scheduleResults) {</span>
+<span class="nc" id="L168">      bestSchedule(sr.getScore(), sr.getTasks(), sr.getSchedule());</span>
+<span class="nc" id="L169">    }</span>
+<span class="nc" id="L170">    schedule = Validate.validateSchedule(schedule, bestTask);</span>
+<span class="nc" id="L171">    PrintSchedule.printSchedule(schedule, bestTask, colSize);</span>
+<span class="nc" id="L172">    CreateWeekDay createWeekDay = new CreateWeekDay();</span>
+<span class="nc" id="L173">    createWeekDay.managerWeekDay(schedule, bestTask, colSize);</span>
+
+    // clear the lists
+<span class="nc" id="L176">    subjects.clear();</span>
+<span class="nc" id="L177">    tasks.clear();</span>
+<span class="nc" id="L178">    exams.clear();</span>
+<span class="nc" id="L179">    assignments.clear();</span>
+<span class="nc" id="L180">    scheduleResults.clear();</span>
+<span class="nc" id="L181">  }</span>
+
+  private static void bestSchedule(double valResultScoring, List&lt;Task&gt; taskList, int[][] sch) {
+    // Update best scoring and schedule only if the new score is equal or better
+<span class="nc bnc" id="L185" title="All 2 branches missed.">    if (valResultScoring &gt;= bestScoring) {</span>
+<span class="nc" id="L186">      bestScoring = valResultScoring;</span>
+      // Create a new list to avoid reference issues
+<span class="nc" id="L188">      bestTask = new ArrayList&lt;&gt;(taskList);</span>
+<span class="nc" id="L189">      schedule = sch;</span>
+    }
+<span class="nc" id="L191">  }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

@@ -31,9 +31,11 @@ public class MainFrame {
     rightPanel.CoursesList();
     borderPane.setRight(rightPanel.getRightPanel());
 
-    Scene scene = new Scene(borderPane,
-        Screen.getPrimary().getVisualBounds().getWidth(),
-        Screen.getPrimary().getVisualBounds().getHeight());
+    Scene scene =
+        new Scene(
+            borderPane,
+            Screen.getPrimary().getVisualBounds().getWidth(),
+            Screen.getPrimary().getVisualBounds().getHeight());
 
     return scene;
   }

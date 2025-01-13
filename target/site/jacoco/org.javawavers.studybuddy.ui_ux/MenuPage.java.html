@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>MenuPage.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">studybuddy</a> &gt; <a href="index.source.html" class="el_package">org.javawavers.studybuddy.ui_ux</a> &gt; <span class="el_source">MenuPage.java</span></div><h1>MenuPage.java</h1><pre class="source lang-java linenums">package org.javawavers.studybuddy.ui_ux;
+
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.control.Label;
+import javafx.scene.control.ToggleButton;
+import javafx.scene.control.ToggleGroup;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
+
+public class MenuPage {
+<span class="nc" id="L16">  private VBox leftBoxMenu = new VBox(15);</span>
+<span class="nc" id="L17">  private ToggleButton btnHome = new ToggleButton(&quot;Home&quot;);</span>
+<span class="nc" id="L18">  private ToggleButton btnExam = new ToggleButton(&quot;Exam&quot;);</span>
+<span class="nc" id="L19">  private ToggleButton btnAssignment = new ToggleButton(&quot;Assignments&quot;);</span>
+<span class="nc" id="L20">  private ToggleButton btnCalendar = new ToggleButton(&quot;Calendar&quot;);</span>
+<span class="nc" id="L21">  private ToggleButton btnDashboard = new ToggleButton(&quot;Dashboard&quot;);</span>
+<span class="nc" id="L22">  private ToggleButton btnCourses = new ToggleButton(&quot;Courses&quot;);</span>
+
+  private CenterPanelManager centerPanelManager;
+
+  private ImageView arrowIconCourses;
+  private Image arrowRight;
+  private Image arrowDown;
+
+  private String btnStyle;
+  private String btnInsideStyle;
+  private String btnSelected;
+  private String btnInsideSelected;
+<span class="nc" id="L34">  VBox optionVBox = new VBox(15);</span>
+
+<span class="nc" id="L36">  public MenuPage(CenterPanelManager centerPanelManager) {</span>
+<span class="nc" id="L37">    this.centerPanelManager = centerPanelManager;</span>
+<span class="nc" id="L38">    initVariables();</span>
+<span class="nc" id="L39">  }</span>
+
+  private void initVariables() {
+
+<span class="nc" id="L43">    configMenu();</span>
+<span class="nc" id="L44">    initToggleGroup();</span>
+<span class="nc" id="L45">    configBtnStyles();</span>
+<span class="nc" id="L46">    setButtonSelectedStyles();</span>
+<span class="nc" id="L47">    configUserImgBtn();</span>
+<span class="nc" id="L48">    configNavigationBtns();</span>
+<span class="nc" id="L49">    configCourses();</span>
+<span class="nc" id="L50">    configLogo();</span>
+<span class="nc" id="L51">  }</span>
+
+  private void configMenu() {
+<span class="nc" id="L54">    leftBoxMenu.setPrefWidth(212);</span>
+<span class="nc" id="L55">    leftBoxMenu.setMinWidth(212); // or 88.33</span>
+<span class="nc" id="L56">    leftBoxMenu.setMaxWidth(212);</span>
+<span class="nc" id="L57">    leftBoxMenu.setStyle(/*&quot;-fx-padding: 68 0 0 0;&quot;</span>
+                + */ &quot;-fx-background-color: #F7B267; &quot;);
+
+<span class="nc" id="L60">    leftBoxMenu.setMaxHeight(Double.MAX_VALUE);</span>
+<span class="nc" id="L61">  }</span>
+
+  private void initToggleGroup() {
+<span class="nc" id="L64">    ToggleGroup btnGroup = new ToggleGroup();</span>
+<span class="nc" id="L65">    btnHome.setToggleGroup(btnGroup);</span>
+<span class="nc" id="L66">    btnCourses.setToggleGroup(btnGroup);</span>
+<span class="nc" id="L67">    btnExam.setToggleGroup(btnGroup);</span>
+<span class="nc" id="L68">    btnAssignment.setToggleGroup(btnGroup);</span>
+<span class="nc" id="L69">    btnCalendar.setToggleGroup(btnGroup);</span>
+<span class="nc" id="L70">    btnDashboard.setToggleGroup(btnGroup);</span>
+<span class="nc" id="L71">  }</span>
+
+  private void configBtnStyles() {
+<span class="nc" id="L74">    setButtonSelectedStyles();</span>
+
+<span class="nc" id="L76">    btnStyle =</span>
+        &quot;-fx-border-color: #F7B267; &quot;
+            + &quot;-fx-background-color: #F7B267; &quot;
+            + &quot;-fx-border-width: 1px; &quot;
+            + &quot;fx-text-fill: black; &quot;
+            + &quot;fx-font-size: 14px; &quot;
+            + &quot;fx-alignment: CENTER-LEFT; &quot;
+            + &quot; -fx-border-radius: 5px; &quot;
+            + &quot;-fx-padding: 10px; &quot;;
+
+<span class="nc" id="L86">    btnInsideStyle =</span>
+        &quot;-fx-border-color: #F7B267; &quot;
+            + &quot;-fx-background-color: #F7B267; &quot;
+            + &quot;-fx-border-width: 1px; &quot;
+            + &quot;fx-text-fill: black; &quot;
+            + &quot;fx-font-size: 14px; &quot;
+            + &quot;fx-alignment: CENTER-LEFT; &quot;
+            + &quot; -fx-border-radius: 5px; &quot;
+            + &quot;-fx-padding: 10px 20px; &quot;;
+
+<span class="nc" id="L96">    btnHome.setStyle(btnStyle);</span>
+<span class="nc" id="L97">    btnExam.setStyle(btnInsideStyle);</span>
+<span class="nc" id="L98">    btnAssignment.setStyle(btnInsideStyle);</span>
+<span class="nc" id="L99">    btnCalendar.setStyle(btnStyle);</span>
+<span class="nc" id="L100">    btnDashboard.setStyle(btnStyle);</span>
+<span class="nc" id="L101">    btnCourses.setStyle(btnStyle);</span>
+<span class="nc" id="L102">  }</span>
+
+  private void setButtonSelectedStyles() {
+    // Button Styles
+
+<span class="nc" id="L107">    btnSelected =</span>
+        &quot;-fx-border-color: #F9C288; &quot;
+            + &quot;-fx-background-color: #F9C288; &quot;
+            + &quot;-fx-border-width: 1px; &quot;
+            + &quot;fx-text-fill: black; &quot;
+            + &quot;fx-font-size: 14px; &quot;
+            + &quot;fx-alignment: CENTER-LEFT; &quot;
+            + &quot; -fx-border-radius: 5px; &quot;
+            + &quot;-fx-padding: 10px; &quot;;
+
+<span class="nc" id="L117">    btnInsideSelected =</span>
+        &quot;-fx-border-color: #F9C288; &quot;
+            + &quot;-fx-background-color: #F9C288; &quot;
+            + &quot;-fx-border-width: 1px; &quot;
+            + &quot;fx-text-fill: black; &quot;
+            + &quot;fx-font-size: 14px; &quot;
+            + &quot;fx-alignment: CENTER-LEFT; &quot;
+            + &quot; -fx-border-radius: 5px; &quot;
+            + &quot;-fx-padding: 10px 20px; &quot;;
+
+    // Change Button Colors When Selected
+<span class="nc" id="L128">    btnHome</span>
+<span class="nc" id="L129">        .selectedProperty()</span>
+<span class="nc" id="L130">        .addListener(</span>
+            (obs, wasSelected, isSelected) -&gt; {
+<span class="nc bnc" id="L132" title="All 2 branches missed.">              btnHome.setStyle(isSelected ? btnSelected : btnStyle);</span>
+<span class="nc" id="L133">            });</span>
+
+<span class="nc" id="L135">    btnCourses</span>
+<span class="nc" id="L136">        .selectedProperty()</span>
+<span class="nc" id="L137">        .addListener(</span>
+            (obs, wasSelected, isSelected) -&gt; {
+<span class="nc bnc" id="L139" title="All 2 branches missed.">              btnCourses.setStyle(isSelected ? btnSelected : btnStyle);</span>
+<span class="nc" id="L140">            });</span>
+
+<span class="nc" id="L142">    btnCalendar</span>
+<span class="nc" id="L143">        .selectedProperty()</span>
+<span class="nc" id="L144">        .addListener(</span>
+            (obs, wasSelected, isSelected) -&gt; {
+<span class="nc bnc" id="L146" title="All 2 branches missed.">              btnCalendar.setStyle(isSelected ? btnSelected : btnStyle);</span>
+<span class="nc" id="L147">            });</span>
+
+<span class="nc" id="L149">    btnDashboard</span>
+<span class="nc" id="L150">        .selectedProperty()</span>
+<span class="nc" id="L151">        .addListener(</span>
+            (obs, wasSelected, isSelected) -&gt; {
+<span class="nc bnc" id="L153" title="All 2 branches missed.">              btnDashboard.setStyle(isSelected ? btnSelected : btnStyle);</span>
+<span class="nc" id="L154">            });</span>
+
+<span class="nc" id="L156">    btnExam</span>
+<span class="nc" id="L157">        .selectedProperty()</span>
+<span class="nc" id="L158">        .addListener(</span>
+            (obs, wasSelected, isSelected) -&gt; {
+<span class="nc bnc" id="L160" title="All 2 branches missed.">              btnExam.setStyle(isSelected ? btnInsideSelected : btnInsideStyle);</span>
+<span class="nc" id="L161">            });</span>
+
+<span class="nc" id="L163">    btnAssignment</span>
+<span class="nc" id="L164">        .selectedProperty()</span>
+<span class="nc" id="L165">        .addListener(</span>
+            (obs, wasSelected, isSelected) -&gt; {
+<span class="nc bnc" id="L167" title="All 2 branches missed.">              btnAssignment.setStyle(isSelected ? btnInsideSelected : btnInsideStyle);</span>
+<span class="nc" id="L168">            });</span>
+<span class="nc" id="L169">  }</span>
+
+  private void configUserImgBtn() {
+    // User Image
+    try {
+<span class="nc" id="L174">      Image userImg = new Image(getClass().getResource(&quot;/user.png&quot;).toExternalForm());</span>
+<span class="nc" id="L175">      ImageView userImgView = new ImageView(userImg);</span>
+<span class="nc" id="L176">      userImgView.setFitWidth(20);</span>
+<span class="nc" id="L177">      userImgView.setFitHeight(20);</span>
+      // User Img btn
+<span class="nc" id="L179">      RegisterPage sg = new RegisterPage();</span>
+<span class="nc" id="L180">      String name = sg.storedUsername;</span>
+<span class="nc" id="L181">      Label userNameLbl = new Label(name); // dynamic name</span>
+<span class="nc" id="L182">      userNameLbl.setStyle(btnStyle);</span>
+
+<span class="nc" id="L184">      HBox userImgBtn = new HBox(10);</span>
+<span class="nc" id="L185">      userImgBtn.getChildren().addAll(userImgView, userNameLbl);</span>
+<span class="nc" id="L186">      userImgBtn.setAlignment(Pos.CENTER_LEFT);</span>
+
+<span class="nc" id="L188">      leftBoxMenu.getChildren().add(userImgBtn);</span>
+<span class="nc" id="L189">    } catch (NullPointerException e) {</span>
+<span class="nc" id="L190">      System.out.println(&quot;Image not Found!&quot;);</span>
+<span class="nc" id="L191">    }</span>
+<span class="nc" id="L192">  }</span>
+
+  private void configNavigationBtns() {
+<span class="nc" id="L195">    setButtonGraphs();</span>
+
+<span class="nc" id="L197">    btnHome.setOnAction(e -&gt; centerPanelManager.changeCenterPanel(&quot;Home&quot;));</span>
+<span class="nc" id="L198">    btnExam.setOnAction(e -&gt; centerPanelManager.changeCenterPanel(&quot;Exam&quot;));</span>
+<span class="nc" id="L199">    btnAssignment.setOnAction(e -&gt; centerPanelManager.changeCenterPanel(&quot;Assignments&quot;));</span>
+<span class="nc" id="L200">    btnCalendar.setOnAction(</span>
+        e -&gt; {
+<span class="nc" id="L202">          closeCoursesOption(optionVBox);</span>
+<span class="nc" id="L203">          centerPanelManager.changeCenterPanel(&quot;Calendar&quot;);</span>
+<span class="nc" id="L204">        });</span>
+<span class="nc" id="L205">    btnDashboard.setOnAction(</span>
+        e -&gt; {
+<span class="nc" id="L207">          closeCoursesOption(optionVBox);</span>
+<span class="nc" id="L208">          centerPanelManager.changeCenterPanel(&quot;Dashboard&quot;);</span>
+<span class="nc" id="L209">        });</span>
+
+<span class="nc" id="L211">    leftBoxMenu.getChildren().addAll(btnHome, btnCourses, btnCalendar, btnDashboard);</span>
+<span class="nc" id="L212">  }</span>
+
+  private void configCourses() {
+
+<span class="nc" id="L216">    optionVBox.setVisible(false);</span>
+<span class="nc" id="L217">    btnCourses.setOnAction(</span>
+        e -&gt; {
+<span class="nc bnc" id="L219" title="All 2 branches missed.">          if (optionVBox.getChildren().isEmpty()) {</span>
+<span class="nc" id="L220">            optionVBox.getChildren().addAll(btnExam, btnAssignment);</span>
+<span class="nc" id="L221">            optionVBox.setVisible(true);</span>
+<span class="nc" id="L222">            arrowIconCourses.setImage(arrowDown);</span>
+
+<span class="nc bnc" id="L224" title="All 2 branches missed.">            if (!leftBoxMenu.getChildren().contains(optionVBox)) {</span>
+<span class="nc" id="L225">              leftBoxMenu.getChildren().add(leftBoxMenu.getChildren().size() - 4, optionVBox);</span>
+<span class="nc" id="L226">              VBox.setMargin(btnExam, new Insets(0, 20, 0, 20));</span>
+<span class="nc" id="L227">              VBox.setMargin(btnAssignment, new Insets(0, 20, 0, 20));</span>
+            }
+          } else {
+<span class="nc" id="L230">            optionVBox.getChildren().clear();</span>
+<span class="nc" id="L231">            optionVBox.setVisible(false);</span>
+<span class="nc" id="L232">            leftBoxMenu.getChildren().remove(optionVBox);</span>
+<span class="nc" id="L233">            arrowIconCourses.setImage(arrowRight);</span>
+          }
+<span class="nc" id="L235">        });</span>
+<span class="nc" id="L236">  }</span>
+
+  private void closeCoursesOption(VBox optionVBox) {
+<span class="nc bnc" id="L239" title="All 2 branches missed.">    if (optionVBox.isVisible()) {</span>
+<span class="nc" id="L240">      optionVBox.getChildren().clear();</span>
+<span class="nc" id="L241">      optionVBox.setVisible(false);</span>
+<span class="nc" id="L242">      leftBoxMenu.getChildren().remove(optionVBox);</span>
+<span class="nc" id="L243">      arrowIconCourses.setImage(arrowRight);</span>
+    }
+<span class="nc" id="L245">  }</span>
+
+  private void configLogo() {
+    // logo Image
+<span class="nc" id="L249">    Image logoImg = new Image(getClass().getResource(&quot;/logo.png&quot;).toExternalForm());</span>
+<span class="nc" id="L250">    ImageView logoImgView = new ImageView(logoImg);</span>
+
+<span class="nc" id="L252">    logoImgView.setFitWidth(200);</span>
+<span class="nc" id="L253">    logoImgView.setPreserveRatio(true);</span>
+
+<span class="nc" id="L255">    Region logoSpacer = new Region();</span>
+<span class="nc" id="L256">    VBox.setVgrow(logoSpacer, Priority.ALWAYS);</span>
+
+<span class="nc" id="L258">    HBox logoBox = new HBox(logoImgView);</span>
+<span class="nc" id="L259">    logoBox.setAlignment(Pos.CENTER);</span>
+
+<span class="nc" id="L261">    leftBoxMenu.getChildren().addAll(logoSpacer, logoImgView);</span>
+<span class="nc" id="L262">  }</span>
+
+  private void setButtonGraphs() {
+    // arrow Images
+<span class="nc" id="L266">    arrowRight = new Image(getClass().getResource(&quot;/arrowRight.png&quot;).toExternalForm());</span>
+<span class="nc" id="L267">    arrowDown = new Image(getClass().getResource(&quot;/arrowDown.png&quot;).toExternalForm());</span>
+
+<span class="nc" id="L269">    ImageView arrowIconHome = new ImageView(arrowRight);</span>
+<span class="nc" id="L270">    arrowIconHome.setFitWidth(20);</span>
+<span class="nc" id="L271">    arrowIconHome.setFitHeight(20);</span>
+
+<span class="nc" id="L273">    arrowIconCourses = new ImageView(arrowRight);</span>
+<span class="nc" id="L274">    arrowIconCourses.setFitHeight(20);</span>
+<span class="nc" id="L275">    arrowIconCourses.setFitWidth(20);</span>
+
+<span class="nc" id="L277">    ImageView arrowIconCalendar = new ImageView(arrowRight);</span>
+<span class="nc" id="L278">    arrowIconCalendar.setFitHeight(20);</span>
+<span class="nc" id="L279">    arrowIconCalendar.setFitWidth(20);</span>
+
+<span class="nc" id="L281">    ImageView arrowIconDashboard = new ImageView(arrowRight);</span>
+<span class="nc" id="L282">    arrowIconDashboard.setFitWidth(20);</span>
+<span class="nc" id="L283">    arrowIconDashboard.setFitHeight(20);</span>
+
+    // Home Image
+<span class="nc" id="L286">    Image homeImage = new Image(getClass().getResource(&quot;/icons8-homepage-32.png&quot;).toExternalForm());</span>
+<span class="nc" id="L287">    ImageView homeImageView = new ImageView(homeImage);</span>
+
+<span class="nc" id="L289">    homeImageView.setFitHeight(20);</span>
+<span class="nc" id="L290">    homeImageView.setFitWidth(20);</span>
+
+    // Courses Image
+<span class="nc" id="L293">    Image coursesImage = new Image(getClass().getResource(&quot;/folder.png&quot;).toExternalForm());</span>
+<span class="nc" id="L294">    ImageView coursesImageView = new ImageView(coursesImage);</span>
+
+<span class="nc" id="L296">    coursesImageView.setFitWidth(20);</span>
+<span class="nc" id="L297">    coursesImageView.setFitHeight(20);</span>
+
+    // Calendar Image
+<span class="nc" id="L300">    Image calendarImage = new Image(getClass().getResource(&quot;/calendar.png&quot;).toExternalForm());</span>
+<span class="nc" id="L301">    ImageView calendarImageView = new ImageView(calendarImage);</span>
+
+<span class="nc" id="L303">    calendarImageView.setFitHeight(20);</span>
+<span class="nc" id="L304">    calendarImageView.setFitWidth(20);</span>
+
+    // Dashboard Image
+<span class="nc" id="L307">    Image dashboardImage = new Image(getClass().getResource(&quot;/dashboard.png&quot;).toExternalForm());</span>
+<span class="nc" id="L308">    ImageView dashboardImageView = new ImageView(dashboardImage);</span>
+
+<span class="nc" id="L310">    dashboardImageView.setFitWidth(20);</span>
+<span class="nc" id="L311">    dashboardImageView.setFitHeight(20);</span>
+
+    // Home Image btn
+<span class="nc" id="L314">    HBox homeImg = new HBox(10);</span>
+<span class="nc" id="L315">    homeImg.getChildren().addAll(arrowIconHome, homeImageView);</span>
+<span class="nc" id="L316">    btnHome.setGraphic(homeImg);</span>
+
+    // Courses
+<span class="nc" id="L319">    HBox coursesImg = new HBox(10);</span>
+<span class="nc" id="L320">    coursesImg.getChildren().addAll(arrowIconCourses, coursesImageView);</span>
+<span class="nc" id="L321">    btnCourses.setGraphic(coursesImg);</span>
+
+    // Calendar
+<span class="nc" id="L324">    HBox calendarImg = new HBox(10);</span>
+<span class="nc" id="L325">    calendarImg.getChildren().addAll(arrowIconCalendar, calendarImageView);</span>
+<span class="nc" id="L326">    btnCalendar.setGraphic(calendarImg);</span>
+
+    // Dashboard
+<span class="nc" id="L329">    HBox dashboardImg = new HBox(10);</span>
+<span class="nc" id="L330">    dashboardImg.getChildren().addAll(arrowIconDashboard, dashboardImageView);</span>
+<span class="nc" id="L331">    btnDashboard.setGraphic(dashboardImg);</span>
+<span class="nc" id="L332">  }</span>
+
+  public VBox getLeftBoxMenu() {
+<span class="nc" id="L335">    return leftBoxMenu;</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
