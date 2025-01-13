@@ -6,6 +6,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 
+import static org.javawavers.studybuddy.courses.StaticUser.staticUser;
+
 public class Availability {
     /*
      * A table for the available studying time for each day of the week
@@ -33,6 +35,11 @@ public class Availability {
             throw new IllegalArgumentException(" Ο αριθμός πρέπει να είναι μεταξύ του 1και του 7");
         }
         avPerDay[i] = av;
+    }
+
+    public static void setAvPerDay(){
+        System.out.println("DONE");
+        avPerDay = staticUser.getAvPerDay();
     }
 
     // insert a day that there is no availability for studying

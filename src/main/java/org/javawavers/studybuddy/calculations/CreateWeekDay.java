@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 import org.javawavers.studybuddy.courses.*;
 
+import static org.javawavers.studybuddy.courses.StaticUser.staticUser;
+
 public class CreateWeekDay {
     private ArrayList<Week> totalWeeks; // The list containing all weeks
 
@@ -45,6 +47,7 @@ public class CreateWeekDay {
         }
 
         List<ScheduledTask> scheduledTasksForDay = new ArrayList<>();
+
 
         for (int dayIndex = 0; dayIndex < colSize; dayIndex++) {
             LocalDate currentDate = today.plusDays(dayIndex - daysUntilMonday); // Calculate current date
@@ -87,7 +90,7 @@ public class CreateWeekDay {
                 currentWeek = new Week(); // Start a new week
             }
         }
-        //staticUser.setTotalWeeks(totalWeeks);
+        staticUser.setTotalWeeks(totalWeeks);
         PrintWeeks printWeeks = new PrintWeeks();
         printWeeks.printWeeks(totalWeeks);
 

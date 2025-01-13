@@ -285,7 +285,7 @@ TODO :
 <span class="nc" id="L285">        nextBtn.setStyle(btnStyle());</span>
 <span class="nc" id="L286">        nextBtn.setOnAction(e -&gt; {</span>
            // System.out.println(&quot;Το κουμπί πατήθηκε!&quot;);
-<span class="nc" id="L288">           AvailabilityPage availabilityPage = new AvailabilityPage();</span>
+<span class="nc" id="L288">           AvailabilityPage availabilityPage = new AvailabilityPage(sceneManager);</span>
 <span class="nc" id="L289">           sceneManager.switchScene(availabilityPage.availStartingPage(sceneManager));</span>
 <span class="nc" id="L290">        });</span>
 <span class="nc" id="L291">        btns.getChildren().addAll(prevBtn, nextBtn);</span>

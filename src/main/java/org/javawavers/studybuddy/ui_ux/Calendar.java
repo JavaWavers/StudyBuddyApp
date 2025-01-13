@@ -36,11 +36,14 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
+import static org.javawavers.studybuddy.courses.StaticUser.staticUser;
+
 public class Calendar {
   private LocalDate currentWeekStart;
   // αρχικοποιουμε την μεταβλητη count
   int count = 0;
-  private ArrayList<Week> totalWeeks = new ArrayList<>();
+  private ArrayList<Week> totalWeeks;
+
 
   //αρχικοποιουμε τις λιστες και τα vbox τα οποια χρησιμευουν στην δυναμικη επεξεργασια και εμφανιση των task
   public static List<String> notStartedYet = new ArrayList<>();
@@ -159,16 +162,19 @@ public class Calendar {
 
     //οριζουμε οταν ο ζρηστης παταει πανω στο κουμπι να ανοιγει την σελιδα popupdia
     availabilityButton.setOnAction(event ->  {
-      AvailabilityPage availabilityPage = new AvailabilityPage();
+      Stage popUpStage = new Stage();
+      AvailabilityPage availabilityPage = new AvailabilityPage(popUpStage);
       VBox availPageLayout = availabilityPage.availabilityPage();
 
-      Stage popUpStage = new Stage();
+
       popUpStage.initStyle(StageStyle.UTILITY);
       popUpStage.initModality(Modality.APPLICATION_MODAL);
       Stage parentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
+
       double centerX = parentStage.getX() + parentStage.getWidth() / 2 - 300;
       double centerY = parentStage.getY() + parentStage.getHeight() / 2 - 200;
+
 
       popUpStage.setX(centerX);
       popUpStage.setY(centerY);
@@ -176,6 +182,7 @@ public class Calendar {
       Scene popUpScene = new Scene(availPageLayout, 600, 400);
       popUpStage.setScene(popUpScene);
       popUpStage.show();
+
     });
 
     //οριζουμε την θεση του κουμπιου availiability
@@ -212,7 +219,8 @@ public class Calendar {
       }
       List<Subject> subject = SimulateAnnealing.getSubjects();
       SimulateAnnealing.scheduleResult();
-
+      totalWeeks =  new ArrayList<>(staticUser.getTotalWeeks());
+      /*
       int [][] schedule = SimulateAnnealing.getSchedule();
       int colSize = schedule[0].length;
       ArrayList<Task> bestTask = new ArrayList<>(SimulateAnnealing.getBestTask());
@@ -272,6 +280,7 @@ public class Calendar {
           currentWeek = new Week(); // Start a new week
         }
       }
+      */
       createCalendarGrid(calendarGrid, 0, subject, totalWeeks);
 
     });

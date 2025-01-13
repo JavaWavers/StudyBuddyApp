@@ -12,6 +12,8 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Screen;
+import org.javawavers.studybuddy.courses.StaticUser;
+import org.javawavers.studybuddy.courses.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -143,8 +145,10 @@ public class RegisterPage {
             passwordLabel.setFont(Font.font("Arial", newSize));
             textField.setFont(Font.font("Arial", newSize));
             toggleButton.setFont(Font.font("Arial", newSize));
+            toggleConfirmPasswordButton.setFont(Font.font("Arial", newSize));
             confirmPasswordField.setFont(Font.font("Arial", newSize));
             confirmpasswordLabel.setFont(Font.font("Arial", newSize));
+            confirmPasswordTextField.setFont(Font.font("Arial", newSize));
             registerButton.setStyle("-fx-font-family: 'System';  " + 
             "-fx-font-size: " + newSize + "px; " +
             "-fx-font-weight: bold; " +
@@ -167,7 +171,9 @@ public class RegisterPage {
             passwordLabel.setFont(Font.font("Arial", newSize));
             textField.setFont(Font.font("Arial", newSize));
             toggleButton.setFont(Font.font("Arial", newSize));
+            toggleConfirmPasswordButton.setFont(Font.font("Arial", newSize));
             confirmPasswordField.setFont(Font.font("Arial", newSize));
+            confirmPasswordTextField.setFont(Font.font("Arial", newSize));
             confirmpasswordLabel.setFont(Font.font("Arial", newSize));
             registerButton.setStyle("-fx-font-family: 'System'; " +
                 "-fx-font-size: " + newSize + "px; " +
@@ -274,7 +280,6 @@ public class RegisterPage {
         });
 
          registerButton.setOnAction(event -> {
-            validateLogin();
             if(validateLogin()){
                 ExamPage examPage = new ExamPage();
                 sceneManager.switchScene(examPage.examStartingPage(sceneManager));
@@ -287,26 +292,33 @@ public class RegisterPage {
             storedEmail = emailField.getText();
             storedPassword = passwordField.getText();
             String confirmPassword = confirmPasswordField.getText();
+
+            // Ορίζουμε τον τρέχοντα χρήστη κατά την είσοδο στην εφαρμογή
+             User user = new User(storedUsername, storedUsername,storedEmail, storedPassword);
+
+            StaticUser.staticUser = user;
+
+
         List<String> errors = new ArrayList<>();
 //error αν το ονομα ειναι λιγοτερο απο 4 χαρακτηρες
-            if (storedUsername.isEmpty() || storedUsername.length() <= 4) {
+            if (storedUsername.isEmpty() || storedUsername.length() < 2) {
+                System.out.println("storedUsername");
                 errors.add("• Το όνομα πρέπει να έχει πάνω από 4 χαρακτήρες");
-                return false;
             }
 //error αν το email δεν περιεχει το @
             if (storedEmail.isEmpty() || !storedEmail.contains("@")) {
+                System.out.println("storedEmail");
                 errors.add("• Εισήγαγε ένα έγκυρο email");
-                return false;
             }
 //error αν ο κωδικος ειναι μικροτερος απο 6 χαρακτηρες
             if (storedPassword.isEmpty() || storedPassword.length() < 6) {
+                System.out.println("storedPassword empty or length");
                 errors.add("• Ο κωδικός πρόσβασης πρέπει να έχει πάνω από 6 χαρακτήρες");
-                return false;
             }
 //error αν ο κωδικος και ο κωδικος επιβεβαιωσης δεν ειναι ιδιος
             if (!storedPassword.equals(confirmPassword)) {
+                System.out.println("storedpassword confirm");
                 errors.add("• Οι κωδικοί που έβαλες δεν είναι ίδιοι");
-                return false;
             }
 //αν υπαρχουν error εμφανιζει την λισατ στον χρηστη 
             if (!errors.isEmpty()) {
@@ -315,7 +327,7 @@ public class RegisterPage {
                 alert.setHeaderText(null);
                 String errorMessage = String.join("\n", errors);
                 alert.setContentText(errorMessage);
-                alert.getDialogPane().getStylesheets().add(getClass().getResource("alert.css").toExternalForm());
+                alert.getDialogPane().getStylesheets().add(getClass().getResource("/alert.css").toExternalForm());
                 alert.showAndWait();
                 return false;
             }
@@ -326,7 +338,7 @@ public class RegisterPage {
             successAlert.setContentText("Η εγγραφή ολοκληρώθηκε με επιτυχία!");
             DialogPane dialogPane = successAlert.getDialogPane();
             dialogPane.getStyleClass().add("success-alert");
-            dialogPane.getStylesheets().add(Objects.requireNonNull(getClass().getResource("success.css")).toExternalForm());
+            dialogPane.getStylesheets().add(Objects.requireNonNull(getClass().getResource("/success.css")).toExternalForm());
             successAlert.showAndWait();
             return true;
 

@@ -159,10 +159,10 @@ import javafx.stage.Stage;
 
     //οριζουμε οταν ο ζρηστης παταει πανω στο κουμπι να ανοιγει την σελιδα popupdia
 <span class="nc" id="L161">    availabilityButton.setOnAction(event -&gt;  {</span>
-<span class="nc" id="L162">      AvailabilityPage availabilityPage = new AvailabilityPage();</span>
-<span class="nc" id="L163">      VBox availPageLayout = availabilityPage.availabilityPage();</span>
+<span class="nc" id="L162">      Stage popUpStage = new Stage();</span>
+<span class="nc" id="L163">      AvailabilityPage availabilityPage = new AvailabilityPage(popUpStage);</span>
+<span class="nc" id="L164">      VBox availPageLayout = availabilityPage.availabilityPage();</span>
 
-<span class="nc" id="L165">      Stage popUpStage = new Stage();</span>
 <span class="nc" id="L166">      popUpStage.initStyle(StageStyle.UTILITY);</span>
 <span class="nc" id="L167">      popUpStage.initModality(Modality.APPLICATION_MODAL);</span>
 <span class="nc" id="L168">      Stage parentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();</span>

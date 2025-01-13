@@ -14,10 +14,11 @@ import java.util.*;
 
 import org.javawavers.studybuddy.calculations.Availability;
 
+import static org.javawavers.studybuddy.courses.StaticUser.staticUser;
+
 
 public class AvailabilityPage {
-    private final Map<String, Integer> availabilityMap = new HashMap<>();
-    Integer[] avPerDay = new Integer[8];
+    //int [] avPerDay = new int[8];
     private DatePicker datePicker;
 
     private VBox leftPane = new VBox(10);
@@ -28,8 +29,12 @@ public class AvailabilityPage {
     private Stage popUpStage;
     private SceneManager sceneManager;
 
-    public void setPopUpStage(Stage popUpStage) {
+    public AvailabilityPage(Stage popUpStage) {
         this.popUpStage = popUpStage;
+    }
+
+    public AvailabilityPage(SceneManager sceneManager) {
+        this.sceneManager = sceneManager;
     }
 
     public VBox availabilityPage() {
@@ -77,8 +82,6 @@ public class AvailabilityPage {
         dayLabel.setFont(new Font("System Bold", 14));
 
         datePicker = new DatePicker();
-        //datePicker.setLayoutX(242);
-        //datePicker.setLayoutY(98);
         datePicker.setPromptText("Eπιλεξτε μη-διαθεσιμη ημερομηνια");
 
         rightPane.getChildren().addAll(dayLabel, datePicker);
@@ -117,15 +120,20 @@ public class AvailabilityPage {
 
 
         okBtn.setOnAction(event -> {
-            Integer[] avPerDay = new Integer[7];
+            int[] avPerDay = new int[8];
             List<String> errors = new ArrayList<>();
 
-            for (int i = 0; i < dayFields.length; i++) {
-                avPerDay[i] = parseTextFieldValue(dayFields[i]);
+
+            for (int i = 1; i < avPerDay.length; i++) {
                 if (avPerDay[i] > 10) {
                     errors.add("• Oι διαθέσιμες ώρες μέσα σε μια μέρα πρέπει να είναι λιγότερες απο 10");
+                }else {
+                    avPerDay[i] = parseTextFieldValue(dayFields[i-1]);
                 }
+
             }
+            staticUser.setAvPerDay(avPerDay);
+
             LocalDate setNoAvailability = datePicker.getValue();
             if (setNoAvailability != null && setNoAvailability.isBefore(LocalDate.now())) {
                 errors.add("• Πρέπει να επιλέξεις ημερομηνία μη-διαθεσιμότητας μετά τη σημερινή ημερομηνία.");
@@ -140,9 +148,6 @@ public class AvailabilityPage {
                 alert.showAndWait();
             }
 
-            for (int j = 0; j < days.length; j++) {
-                availabilityMap.put(days[j], avPerDay[j]);
-            }
             if (setNoAvailability != null) {
                 Availability.setNonAvailability(setNoAvailability);
             }
@@ -191,11 +196,6 @@ public class AvailabilityPage {
             }
         }
         return 0;
-    }
-
-
-    public Integer[] getAvailability() {
-        return avPerDay;
     }
 
     public Scene availStartingPage(SceneManager sceneManager) {

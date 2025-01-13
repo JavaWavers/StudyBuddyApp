@@ -151,7 +151,7 @@ public class SimulateAnnealing {
          */
         scheduleResults.clear();
         bestTask.clear();
-
+        Availability.setAvPerDay();
         // sort exams
         exams = Dates.sortList(exams);
         assignments = Dates.sortList(assignments);
