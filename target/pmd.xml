@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<pmd xmlns="http://pmd.sourceforge.net/report/2.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pmd.sourceforge.net/report/2.0.0 http://pmd.sourceforge.net/report_2_0_0.xsd" version="6.55.0" timestamp="2025-01-13T19:37:58.203">
-<file name="C:\Users\Dell\Programming2StudyBuddy\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\calculations\Availability.java">
+<pmd xmlns="http://pmd.sourceforge.net/report/2.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pmd.sourceforge.net/report/2.0.0 http://pmd.sourceforge.net/report_2_0_0.xsd" version="6.55.0" timestamp="2025-01-13T19:36:05.423">
+<file name="C:\Users\Marina\DET\ProgII\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\calculations\Availability.java">
 <violation beginline="11" endline="147" begincolumn="27" endcolumn="1" rule="UseUtilityClass" ruleset="Design" package="org.javawavers.studybuddy.calculations" class="Availability" externalInfoUrl="https://pmd.github.io/pmd-6.55.0/pmd_rules_java_design.html#useutilityclass" priority="3">
 All methods are static.  Consider using a utility class instead. Alternatively, you could add a private constructor or make the class abstract to silence this warning.
 </violation>
@@ -14,12 +14,12 @@ Avoid unnecessary constructors - the compiler will generate these for you
 Document empty constructor
 </violation>
 </file>
-<file name="C:\Users\Dell\Programming2StudyBuddy\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\calculations\CalculativeAlgorithm.java">
+<file name="C:\Users\Marina\DET\ProgII\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\calculations\CalculativeAlgorithm.java">
 <violation beginline="10" endline="50" begincolumn="35" endcolumn="1" rule="UseUtilityClass" ruleset="Design" package="org.javawavers.studybuddy.calculations" class="CalculativeAlgorithm" externalInfoUrl="https://pmd.github.io/pmd-6.55.0/pmd_rules_java_design.html#useutilityclass" priority="3">
 All methods are static.  Consider using a utility class instead. Alternatively, you could add a private constructor or make the class abstract to silence this warning.
 </violation>
 </file>
-<file name="C:\Users\Dell\Programming2StudyBuddy\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\calculations\CreateWeekDay.java">
+<file name="C:\Users\Marina\DET\ProgII\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\calculations\CreateWeekDay.java">
 <violation beginline="9" endline="9" begincolumn="1" endcolumn="43" rule="UnnecessaryImport" ruleset="Code Style" package="org.javawavers.studybuddy.calculations" class="CreateWeekDay" externalInfoUrl="https://pmd.github.io/pmd-6.55.0/pmd_rules_java_codestyle.html#unnecessaryimport" priority="4">
 Unused import 'org.javawavers.studybuddy.courses.*'
 </violation>
@@ -33,12 +33,12 @@ Avoid using implementation types like 'ArrayList'; use the interface instead
 This for loop can be replaced by a foreach loop
 </violation>
 </file>
-<file name="C:\Users\Dell\Programming2StudyBuddy\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\calculations\Day.java">
+<file name="C:\Users\Marina\DET\ProgII\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\calculations\Day.java">
 <violation beginline="5" endline="5" begincolumn="1" endcolumn="43" rule="UnnecessaryImport" ruleset="Code Style" package="org.javawavers.studybuddy.calculations" class="Day" externalInfoUrl="https://pmd.github.io/pmd-6.55.0/pmd_rules_java_codestyle.html#unnecessaryimport" priority="4">
 Unused import 'org.javawavers.studybuddy.courses.*'
 </violation>
 </file>
-<file name="C:\Users\Dell\Programming2StudyBuddy\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\calculations\MainTest.java">
+<file name="C:\Users\Marina\DET\ProgII\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\calculations\MainTest.java">
 <violation beginline="5" endline="5" begincolumn="1" endcolumn="43" rule="UnnecessaryImport" ruleset="Code Style" package="org.javawavers.studybuddy.calculations" class="MainTest" externalInfoUrl="https://pmd.github.io/pmd-6.55.0/pmd_rules_java_codestyle.html#unnecessaryimport" priority="4">
 Unused import 'org.javawavers.studybuddy.courses.*'
 </violation>
@@ -67,27 +67,27 @@ Avoid unused local variables such as 's'.
 Empty for statement
 </violation>
 </file>
-<file name="C:\Users\Dell\Programming2StudyBuddy\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\calculations\PrintSchedule.java">
+<file name="C:\Users\Marina\DET\ProgII\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\calculations\PrintSchedule.java">
 <violation beginline="6" endline="37" begincolumn="28" endcolumn="1" rule="UseUtilityClass" ruleset="Design" package="org.javawavers.studybuddy.calculations" class="PrintSchedule" externalInfoUrl="https://pmd.github.io/pmd-6.55.0/pmd_rules_java_design.html#useutilityclass" priority="3">
 All methods are static.  Consider using a utility class instead. Alternatively, you could add a private constructor or make the class abstract to silence this warning.
 </violation>
 </file>
-<file name="C:\Users\Dell\Programming2StudyBuddy\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\calculations\PrintWeeks.java">
+<file name="C:\Users\Marina\DET\ProgII\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\calculations\PrintWeeks.java">
 <violation beginline="4" endline="4" begincolumn="1" endcolumn="43" rule="UnnecessaryImport" ruleset="Code Style" package="org.javawavers.studybuddy.calculations" class="PrintWeeks" externalInfoUrl="https://pmd.github.io/pmd-6.55.0/pmd_rules_java_codestyle.html#unnecessaryimport" priority="4">
 Unused import 'org.javawavers.studybuddy.courses.*'
 </violation>
 </file>
-<file name="C:\Users\Dell\Programming2StudyBuddy\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\calculations\Repetition.java">
+<file name="C:\Users\Marina\DET\ProgII\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\calculations\Repetition.java">
 <violation beginline="8" endline="119" begincolumn="25" endcolumn="1" rule="UseUtilityClass" ruleset="Design" package="org.javawavers.studybuddy.calculations" class="Repetition" externalInfoUrl="https://pmd.github.io/pmd-6.55.0/pmd_rules_java_design.html#useutilityclass" priority="3">
 All methods are static.  Consider using a utility class instead. Alternatively, you could add a private constructor or make the class abstract to silence this warning.
 </violation>
 </file>
-<file name="C:\Users\Dell\Programming2StudyBuddy\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\calculations\Scoring.java">
+<file name="C:\Users\Marina\DET\ProgII\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\calculations\Scoring.java">
 <violation beginline="20" endline="94" begincolumn="22" endcolumn="1" rule="UseUtilityClass" ruleset="Design" package="org.javawavers.studybuddy.calculations" class="Scoring" externalInfoUrl="https://pmd.github.io/pmd-6.55.0/pmd_rules_java_design.html#useutilityclass" priority="3">
 All methods are static.  Consider using a utility class instead. Alternatively, you could add a private constructor or make the class abstract to silence this warning.
 </violation>
 </file>
-<file name="C:\Users\Dell\Programming2StudyBuddy\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\calculations\SimulateAnnealing.java">
+<file name="C:\Users\Marina\DET\ProgII\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\calculations\SimulateAnnealing.java">
 <violation beginline="20" endline="192" begincolumn="32" endcolumn="1" rule="UseUtilityClass" ruleset="Design" package="org.javawavers.studybuddy.calculations" class="SimulateAnnealing" externalInfoUrl="https://pmd.github.io/pmd-6.55.0/pmd_rules_java_design.html#useutilityclass" priority="3">
 All methods are static.  Consider using a utility class instead. Alternatively, you could add a private constructor or make the class abstract to silence this warning.
 </violation>
@@ -107,17 +107,17 @@ Possible unsafe assignment to a non-final static field in a constructor.
 Possible unsafe assignment to a non-final static field in a constructor.
 </violation>
 </file>
-<file name="C:\Users\Dell\Programming2StudyBuddy\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\calculations\TaskAssignment.java">
+<file name="C:\Users\Marina\DET\ProgII\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\calculations\TaskAssignment.java">
 <violation beginline="8" endline="170" begincolumn="29" endcolumn="1" rule="UseUtilityClass" ruleset="Design" package="org.javawavers.studybuddy.calculations" class="TaskAssignment" externalInfoUrl="https://pmd.github.io/pmd-6.55.0/pmd_rules_java_design.html#useutilityclass" priority="3">
 All methods are static.  Consider using a utility class instead. Alternatively, you could add a private constructor or make the class abstract to silence this warning.
 </violation>
 </file>
-<file name="C:\Users\Dell\Programming2StudyBuddy\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\calculations\Validate.java">
+<file name="C:\Users\Marina\DET\ProgII\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\calculations\Validate.java">
 <violation beginline="7" endline="136" begincolumn="23" endcolumn="1" rule="UseUtilityClass" ruleset="Design" package="org.javawavers.studybuddy.calculations" class="Validate" externalInfoUrl="https://pmd.github.io/pmd-6.55.0/pmd_rules_java_design.html#useutilityclass" priority="3">
 All methods are static.  Consider using a utility class instead. Alternatively, you could add a private constructor or make the class abstract to silence this warning.
 </violation>
 </file>
-<file name="C:\Users\Dell\Programming2StudyBuddy\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\courses\Assignment.java">
+<file name="C:\Users\Marina\DET\ProgII\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\courses\Assignment.java">
 <violation beginline="10" endline="10" begincolumn="15" endcolumn="24" rule="UnusedPrivateField" ruleset="Best Practices" package="org.javawavers.studybuddy.courses" class="Assignment" variable="difficulty" externalInfoUrl="https://pmd.github.io/pmd-6.55.0/pmd_rules_java_bestpractices.html#unusedprivatefield" priority="3">
 Avoid unused private fields such as 'difficulty'.
 </violation>
@@ -128,7 +128,7 @@ Perhaps 'difficulty' could be replaced by a local variable.
 Useless parentheses.
 </violation>
 </file>
-<file name="C:\Users\Dell\Programming2StudyBuddy\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\courses\User.java">
+<file name="C:\Users\Marina\DET\ProgII\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\courses\User.java">
 <violation beginline="6" endline="6" begincolumn="1" endcolumn="48" rule="UnnecessaryImport" ruleset="Code Style" package="org.javawavers.studybuddy.courses" class="User" externalInfoUrl="https://pmd.github.io/pmd-6.55.0/pmd_rules_java_codestyle.html#unnecessaryimport" priority="4">
 Unused import 'org.javawavers.studybuddy.calculations.*'
 </violation>
@@ -139,7 +139,7 @@ Document empty constructor
 Avoid unused constructor parameters such as 'username'.
 </violation>
 </file>
-<file name="C:\Users\Dell\Programming2StudyBuddy\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\database\SQLiteConnection.java">
+<file name="C:\Users\Marina\DET\ProgII\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\database\SQLiteConnection.java">
 <violation beginline="7" endline="58" begincolumn="31" endcolumn="1" rule="UseUtilityClass" ruleset="Design" package="org.javawavers.studybuddy.database" class="SQLiteConnection" externalInfoUrl="https://pmd.github.io/pmd-6.55.0/pmd_rules_java_design.html#useutilityclass" priority="3">
 All methods are static.  Consider using a utility class instead. Alternatively, you could add a private constructor or make the class abstract to silence this warning.
 </violation>
@@ -147,7 +147,7 @@ All methods are static.  Consider using a utility class instead. Alternatively, 
 Ensure that resources like this Connection object are closed after use
 </violation>
 </file>
-<file name="C:\Users\Dell\Programming2StudyBuddy\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\graphs\ProgressCalculator.java">
+<file name="C:\Users\Marina\DET\ProgII\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\graphs\ProgressCalculator.java">
 <violation beginline="34" endline="34" begincolumn="9" endcolumn="21" rule="UnusedLocalVariable" ruleset="Best Practices" package="org.javawavers.studybuddy.graphs" class="ProgressCalculator" method="calculateProgressofSubject" variable="notStartedYet" externalInfoUrl="https://pmd.github.io/pmd-6.55.0/pmd_rules_java_bestpractices.html#unusedlocalvariable" priority="3">
 Avoid unused local variables such as 'notStartedYet'.
 </violation>
@@ -173,11 +173,11 @@ Consider simply returning the value vs storing it in local variable 'progress'
 This for loop can be replaced by a foreach loop
 </violation>
 </file>
-<file name="C:\Users\Dell\Programming2StudyBuddy\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\graphs\SubjDistributionCalc.java">
+<file name="C:\Users\Marina\DET\ProgII\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\graphs\SubjDistributionCalc.java">
 <violation beginline="6" endline="6" begincolumn="1" endcolumn="49" rule="UnnecessaryImport" ruleset="Code Style" package="org.javawavers.studybuddy.graphs" class="SubjDistributionCalc" externalInfoUrl="https://pmd.github.io/pmd-6.55.0/pmd_rules_java_codestyle.html#unnecessaryimport" priority="4">
 Unused import 'org.javawavers.studybuddy.courses.Subject'
 </violation>
-<violation beginline="13" endline="33" begincolumn="35" endcolumn="1" rule="UseUtilityClass" ruleset="Design" package="org.javawavers.studybuddy.graphs" class="SubjDistributionCalc" externalInfoUrl="https://pmd.github.io/pmd-6.55.0/pmd_rules_java_design.html#useutilityclass" priority="3">
+<violation beginline="13" endline="31" begincolumn="35" endcolumn="1" rule="UseUtilityClass" ruleset="Design" package="org.javawavers.studybuddy.graphs" class="SubjDistributionCalc" externalInfoUrl="https://pmd.github.io/pmd-6.55.0/pmd_rules_java_design.html#useutilityclass" priority="3">
 All methods are static.  Consider using a utility class instead. Alternatively, you could add a private constructor or make the class abstract to silence this warning.
 </violation>
 <violation beginline="14" endline="14" begincolumn="19" endcolumn="41" rule="LooseCoupling" ruleset="Best Practices" package="org.javawavers.studybuddy.graphs" class="SubjDistributionCalc" method="subjectsDistribution" externalInfoUrl="https://pmd.github.io/pmd-6.55.0/pmd_rules_java_bestpractices.html#loosecoupling" priority="3">
@@ -198,8 +198,11 @@ Avoid unused local variables such as 'tasksPerSubject'.
 <violation beginline="25" endline="25" begincolumn="36" endcolumn="36" rule="UnusedLocalVariable" ruleset="Best Practices" package="org.javawavers.studybuddy.graphs" class="SubjDistributionCalc" method="percentage" variable="s" externalInfoUrl="https://pmd.github.io/pmd-6.55.0/pmd_rules_java_bestpractices.html#unusedlocalvariable" priority="3">
 Avoid unused local variables such as 's'.
 </violation>
+<violation beginline="25" endline="27" begincolumn="17" endcolumn="17" rule="EmptyControlStatement" ruleset="Code Style" package="org.javawavers.studybuddy.graphs" class="SubjDistributionCalc" method="percentage" externalInfoUrl="https://pmd.github.io/pmd-6.55.0/pmd_rules_java_codestyle.html#emptycontrolstatement" priority="3">
+Empty for statement
+</violation>
 </file>
-<file name="C:\Users\Dell\Programming2StudyBuddy\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\graphs\SummaryBoxCalc.java">
+<file name="C:\Users\Marina\DET\ProgII\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\graphs\SummaryBoxCalc.java">
 <violation beginline="8" endline="8" begincolumn="1" endcolumn="25" rule="UnnecessaryImport" ruleset="Code Style" package="org.javawavers.studybuddy.graphs" class="SummaryBoxCalc" externalInfoUrl="https://pmd.github.io/pmd-6.55.0/pmd_rules_java_codestyle.html#unnecessaryimport" priority="4">
 Unused import 'java.util.HashMap'
 </violation>
@@ -219,7 +222,7 @@ Position literals first in String comparisons
 Position literals first in String comparisons
 </violation>
 </file>
-<file name="C:\Users\Dell\Programming2StudyBuddy\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\AssignmentPage.java">
+<file name="C:\Users\Marina\DET\ProgII\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\AssignmentPage.java">
 <violation beginline="29" endline="29" begincolumn="17" endcolumn="37" rule="LooseCoupling" ruleset="Best Practices" package="org.javawavers.studybuddy.ui_ux" class="AssignmentPage" externalInfoUrl="https://pmd.github.io/pmd-6.55.0/pmd_rules_java_bestpractices.html#loosecoupling" priority="3">
 Avoid using implementation types like 'ArrayList'; use the interface instead
 </violation>
@@ -239,7 +242,7 @@ Consider simply returning the value vs storing it in local variable 'scene'
 Avoid using implementation types like 'ArrayList'; use the interface instead
 </violation>
 </file>
-<file name="C:\Users\Dell\Programming2StudyBuddy\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\AvailabilityPage.java">
+<file name="C:\Users\Marina\DET\ProgII\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\AvailabilityPage.java">
 <violation beginline="30" endline="30" begincolumn="24" endcolumn="35" rule="UnusedPrivateField" ruleset="Best Practices" package="org.javawavers.studybuddy.ui_ux" class="AvailabilityPage" variable="sceneManager" externalInfoUrl="https://pmd.github.io/pmd-6.55.0/pmd_rules_java_bestpractices.html#unusedprivatefield" priority="3">
 Avoid unused private fields such as 'sceneManager'.
 </violation>
@@ -250,7 +253,7 @@ Perhaps 'sceneManager' could be replaced by a local variable.
 Consider simply returning the value vs storing it in local variable 'scene'
 </violation>
 </file>
-<file name="C:\Users\Dell\Programming2StudyBuddy\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\Calendar.java">
+<file name="C:\Users\Marina\DET\ProgII\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\Calendar.java">
 <violation beginline="30" endline="30" begincolumn="1" endcolumn="48" rule="UnnecessaryImport" ruleset="Code Style" package="org.javawavers.studybuddy.ui_ux" class="Calendar" externalInfoUrl="https://pmd.github.io/pmd-6.55.0/pmd_rules_java_codestyle.html#unnecessaryimport" priority="4">
 Unused import 'org.javawavers.studybuddy.calculations.*'
 </violation>
@@ -273,7 +276,7 @@ Avoid unused local variables such as 'sAnnealing'.
 Avoid unused local variables such as 'createWeekDay'.
 </violation>
 </file>
-<file name="C:\Users\Dell\Programming2StudyBuddy\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\CenterPanelManager.java">
+<file name="C:\Users\Marina\DET\ProgII\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\CenterPanelManager.java">
 <violation beginline="31" endline="31" begincolumn="14" endcolumn="21" rule="UnusedLocalVariable" ruleset="Best Practices" package="org.javawavers.studybuddy.ui_ux" class="CenterPanelManager" method="changeCenterPanel" variable="homePage" externalInfoUrl="https://pmd.github.io/pmd-6.55.0/pmd_rules_java_bestpractices.html#unusedlocalvariable" priority="3">
 Avoid unused local variables such as 'homePage'.
 </violation>
@@ -281,12 +284,12 @@ Avoid unused local variables such as 'homePage'.
 Avoid unused local variables such as 'loginPage'.
 </violation>
 </file>
-<file name="C:\Users\Dell\Programming2StudyBuddy\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\DashboardPage.java">
+<file name="C:\Users\Marina\DET\ProgII\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\DashboardPage.java">
 <violation beginline="99" endline="99" begincolumn="20" endcolumn="48" rule="UnusedPrivateMethod" ruleset="Best Practices" package="org.javawavers.studybuddy.ui_ux" class="DashboardPage" method="createSideButton" externalInfoUrl="https://pmd.github.io/pmd-6.55.0/pmd_rules_java_bestpractices.html#unusedprivatemethod" priority="3">
 Avoid unused private methods such as 'createSideButton(String)'.
 </violation>
 </file>
-<file name="C:\Users\Dell\Programming2StudyBuddy\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\ExamPage.java">
+<file name="C:\Users\Marina\DET\ProgII\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\ExamPage.java">
 <violation beginline="37" endline="37" begincolumn="11" endcolumn="85" rule="OneDeclarationPerLine" ruleset="Best Practices" package="org.javawavers.studybuddy.ui_ux" class="ExamPage" variable="VariableDeclaratorId, VariableDeclaratorId, VariableDeclaratorId, VariableDeclaratorId, VariableDeclaratorId" externalInfoUrl="https://pmd.github.io/pmd-6.55.0/pmd_rules_java_bestpractices.html#onedeclarationperline" priority="4">
 Use one line for each declaration, it enhances code readability.
 </violation>
@@ -294,7 +297,7 @@ Use one line for each declaration, it enhances code readability.
 Consider simply returning the value vs storing it in local variable 'scene'
 </violation>
 </file>
-<file name="C:\Users\Dell\Programming2StudyBuddy\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\LoginPage.java">
+<file name="C:\Users\Marina\DET\ProgII\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\LoginPage.java">
 <violation beginline="49" endline="49" begincolumn="5" endcolumn="17" rule="UnnecessaryLocalBeforeReturn" ruleset="Code Style" package="org.javawavers.studybuddy.ui_ux" class="LoginPage" method="login" externalInfoUrl="https://pmd.github.io/pmd-6.55.0/pmd_rules_java_codestyle.html#unnecessarylocalbeforereturn" priority="3">
 Consider simply returning the value vs storing it in local variable 'scene'
 </violation>
@@ -305,12 +308,12 @@ Avoid unused private methods such as 'clearFields()'.
 The instance method name 'PasswordVisibility' doesn't match '[a-z][a-zA-Z0-9]*'
 </violation>
 </file>
-<file name="C:\Users\Dell\Programming2StudyBuddy\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\MainFrame.java">
+<file name="C:\Users\Marina\DET\ProgII\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\MainFrame.java">
 <violation beginline="40" endline="40" begincolumn="5" endcolumn="17" rule="UnnecessaryLocalBeforeReturn" ruleset="Code Style" package="org.javawavers.studybuddy.ui_ux" class="MainFrame" method="mainFrame" externalInfoUrl="https://pmd.github.io/pmd-6.55.0/pmd_rules_java_codestyle.html#unnecessarylocalbeforereturn" priority="3">
 Consider simply returning the value vs storing it in local variable 'scene'
 </violation>
 </file>
-<file name="C:\Users\Dell\Programming2StudyBuddy\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\RegisterPage.java">
+<file name="C:\Users\Marina\DET\ProgII\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\RegisterPage.java">
 <violation beginline="63" endline="63" begincolumn="5" endcolumn="17" rule="UnnecessaryLocalBeforeReturn" ruleset="Code Style" package="org.javawavers.studybuddy.ui_ux" class="RegisterPage" method="register" externalInfoUrl="https://pmd.github.io/pmd-6.55.0/pmd_rules_java_codestyle.html#unnecessarylocalbeforereturn" priority="3">
 Consider simply returning the value vs storing it in local variable 'scene'
 </violation>
@@ -324,7 +327,7 @@ The instance method name 'PasswordVisibility' doesn't match '[a-z][a-zA-Z0-9]*'
 The instance method name 'ConfPasswordVisibility' doesn't match '[a-z][a-zA-Z0-9]*'
 </violation>
 </file>
-<file name="C:\Users\Dell\Programming2StudyBuddy\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\RightPanel.java">
+<file name="C:\Users\Marina\DET\ProgII\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\RightPanel.java">
 <violation beginline="39" endline="47" begincolumn="10" endcolumn="3" rule="MethodNamingConventions" ruleset="Code Style" package="org.javawavers.studybuddy.ui_ux" class="RightPanel" method="CoursesList" externalInfoUrl="https://pmd.github.io/pmd-6.55.0/pmd_rules_java_codestyle.html#methodnamingconventions" priority="1">
 The instance method name 'CoursesList' doesn't match '[a-z][a-zA-Z0-9]*'
 </violation>

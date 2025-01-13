@@ -15,7 +15,7 @@ studybuddy,org.javawavers.studybuddy.ui_ux,CenterPanelManager,109,0,6,0,24,0,8,0
 studybuddy,org.javawavers.studybuddy.ui_ux,LoginPage,902,0,12,0,198,0,21,0,15,0
 studybuddy,org.javawavers.studybuddy.database,SQLiteConnection,63,0,2,0,29,0,5,0,4,0
 studybuddy,org.javawavers.studybuddy.graphs,SummaryBoxCalc,257,0,46,0,66,0,29,0,6,0
-studybuddy,org.javawavers.studybuddy.graphs,SubjDistributionCalc,58,0,6,0,14,0,6,0,3,0
+studybuddy,org.javawavers.studybuddy.graphs,SubjDistributionCalc,57,0,6,0,13,0,6,0,3,0
 studybuddy,org.javawavers.studybuddy.graphs,ProgressCalculator,227,0,24,0,56,0,16,0,4,0
 studybuddy,org.javawavers.studybuddy.graphs,TaskProgess,278,0,30,0,57,0,22,0,7,0
 studybuddy,org.javawavers.studybuddy,StudyBuddyApp,57,0,0,0,17,0,3,0,3,0

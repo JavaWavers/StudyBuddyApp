@@ -17,18 +17,16 @@ import static org.javawavers.studybuddy.courses.StaticUser.staticUser;
     }
 
     private static void percentage(){
-<span class="nc" id="L20">        ArrayList&lt;Week&gt; weekList = new ArrayList&lt;&gt;(staticUser.getTotalWeeks()) ;</span>
+<span class="nc" id="L20">        ArrayList&lt;Week&gt; weekList= new ArrayList&lt;&gt;(staticUser.getTotalWeeks()) ;</span>
 <span class="nc" id="L21">        int totalTasks = 0;</span>
 <span class="nc" id="L22">        HashMap&lt;String, Integer&gt; tasksPerSubject = new HashMap&lt;&gt;();</span>
 <span class="nc bnc" id="L23" title="All 2 branches missed.">        for (Week w : weekList){</span>
-<span class="nc bnc" id="L24" title="All 2 branches missed.">            for (Day d : w.getDaysOfWeek()){</span>
-<span class="nc bnc" id="L25" title="All 2 branches missed.">                for (ScheduledTask s : d.getTodayTasks()){</span>
-<span class="nc" id="L26">                    totalTasks++;</span>
+<span class="nc bnc" id="L24" title="All 2 branches missed.">            for (Day d: w.getDaysOfWeek()){</span>
+<span class="nc bnc" id="L25" title="All 2 branches missed.">                for (ScheduledTask s:d.getTodayTasks()){</span>
 
-
-<span class="nc" id="L29">                }</span>
-<span class="nc" id="L30">            }</span>
-<span class="nc" id="L31">        }</span>
-<span class="nc" id="L32">    }</span>
+<span class="nc" id="L27">                }</span>
+<span class="nc" id="L28">            }</span>
+<span class="nc" id="L29">        }</span>
+<span class="nc" id="L30">    }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
