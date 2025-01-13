@@ -1,51 +1,50 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SubjectElement.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">studybuddy</a> &gt; <a href="index.source.html" class="el_package">org.javawavers.studybuddy.courses</a> &gt; <span class="el_source">SubjectElement.java</span></div><h1>SubjectElement.java</h1><pre class="source lang-java linenums">
-package org.javawavers.studybuddy.courses;
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SubjectElement.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">studybuddy</a> &gt; <a href="index.source.html" class="el_package">org.javawavers.studybuddy.courses</a> &gt; <span class="el_source">SubjectElement.java</span></div><h1>SubjectElement.java</h1><pre class="source lang-java linenums">package org.javawavers.studybuddy.courses;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
 public abstract class SubjectElement {
-    protected String name;
-    protected LocalDate deadLine;
+  protected String name;
+  protected LocalDate deadLine;
 
-<span class="fc" id="L11">    public SubjectElement(LocalDate deadLine, String name) {</span>
-<span class="fc" id="L12">        this.deadLine = deadLine;</span>
-<span class="fc" id="L13">        this.name = name;</span>
-<span class="fc" id="L14">    }</span>
+<span class="fc" id="L10">  public SubjectElement(LocalDate deadLine, String name) {</span>
+<span class="fc" id="L11">    this.deadLine = deadLine;</span>
+<span class="fc" id="L12">    this.name = name;</span>
+<span class="fc" id="L13">  }</span>
 
-    public LocalDate getDate() {
-<span class="nc" id="L17">        return deadLine;</span>
+  public LocalDate getDate() {
+<span class="nc" id="L16">    return deadLine;</span>
+  }
+
+  public void setDate(LocalDate deadLine) {
+<span class="nc" id="L20">    this.deadLine = deadLine;</span>
+<span class="nc" id="L21">  }</span>
+
+  public String getName() {
+<span class="nc" id="L24">    return name;</span>
+  }
+
+  public void setName(String name) {
+<span class="nc" id="L28">    this.name = name;</span>
+<span class="nc" id="L29">  }</span>
+
+  public void isDeadLineSoonMessage() {
+    // Calculate the remaining days until the exam date
+<span class="nc" id="L33">    long remainingDays = ChronoUnit.DAYS.between(LocalDate.now(), getDate());</span>
+
+<span class="nc bnc" id="L35" title="All 4 branches missed.">    if (remainingDays &lt;= 10 &amp;&amp; remainingDays &gt; 0) {</span>
+<span class="nc" id="L36">      System.out.println(&quot;Απομένουν μόνο &quot; + remainingDays + &quot; ημέρες μέχρι την εξέταση!&quot;);</span>
+<span class="nc bnc" id="L37" title="All 2 branches missed.">    } else if (remainingDays == 0) {</span>
+<span class="nc" id="L38">      System.out.println(&quot;Η εξέταση είναι σήμερα! Καλή επιτυχία!&quot;);</span>
+<span class="nc bnc" id="L39" title="All 2 branches missed.">    } else if (remainingDays &lt; 0) {</span>
+<span class="nc" id="L40">      System.out.println(&quot;Η εξέταση έχει ήδη περάσει.&quot;);</span>
     }
+<span class="nc" id="L42">  }</span>
 
-    public void setDate(LocalDate deadLine) {
-<span class="nc" id="L21">        this.deadLine = deadLine;</span>
-<span class="nc" id="L22">    }</span>
-
-    public String getName() {
-<span class="nc" id="L25">        return name;</span>
-    }
-
-    public void setName(String name) {
-<span class="nc" id="L29">        this.name = name;</span>
-<span class="nc" id="L30">    }</span>
-
-    public void isDeadLineSoonMessage() {
-        // Calculate the remaining days until the exam date
-<span class="nc" id="L34">        long remainingDays = ChronoUnit.DAYS.between(LocalDate.now(), getDate());</span>
-
-<span class="nc bnc" id="L36" title="All 4 branches missed.">        if (remainingDays &lt;= 10 &amp;&amp; remainingDays &gt; 0) {</span>
-<span class="nc" id="L37">            System.out.println(&quot;Απομένουν μόνο &quot; + remainingDays + &quot; ημέρες μέχρι την εξέταση!&quot;);</span>
-<span class="nc bnc" id="L38" title="All 2 branches missed.">        } else if (remainingDays == 0) {</span>
-<span class="nc" id="L39">            System.out.println(&quot;Η εξέταση είναι σήμερα! Καλή επιτυχία!&quot;);</span>
-<span class="nc bnc" id="L40" title="All 2 branches missed.">        } else if (remainingDays &lt; 0) {</span>
-<span class="nc" id="L41">            System.out.println(&quot;Η εξέταση έχει ήδη περάσει.&quot;);</span>
-        }
-<span class="nc" id="L43">    }</span>
-
-    // returns true if the deadline is in less than 5 days
-    public boolean isDeadLineSoon() {
-<span class="nc" id="L47">        long remainingDays = ChronoUnit.DAYS.between(LocalDate.now(), getDate());</span>
-<span class="nc bnc" id="L48" title="All 2 branches missed.">        return remainingDays &lt;= 5;</span>
-    }
+  // returns true if the deadline is in less than 5 days
+  public boolean isDeadLineSoon() {
+<span class="nc" id="L46">    long remainingDays = ChronoUnit.DAYS.between(LocalDate.now(), getDate());</span>
+<span class="nc bnc" id="L47" title="All 2 branches missed.">    return remainingDays &lt;= 5;</span>
+  }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

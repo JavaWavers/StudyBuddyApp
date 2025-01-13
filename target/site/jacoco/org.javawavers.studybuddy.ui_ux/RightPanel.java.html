@@ -1,209 +1,199 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>RightPanel.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">studybuddy</a> &gt; <a href="index.source.html" class="el_package">org.javawavers.studybuddy.ui_ux</a> &gt; <span class="el_source">RightPanel.java</span></div><h1>RightPanel.java</h1><pre class="source lang-java linenums">package org.javawavers.studybuddy.ui_ux;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-//import static Calendar.completed;
-//import static Calendar.completed;
-//import static Calendar.notStartedYet;
-//import static Calendar.notStartedYet;
-//import static org.javawavers.studybuddy.ui_ux.Calendar.completed;
-//import static org.javawavers.studybuddy.ui_ux.Calendar.notStartedYet;
+// import static Calendar.completed;
+// import static Calendar.completed;
+// import static Calendar.notStartedYet;
+// import static Calendar.notStartedYet;
+// import static org.javawavers.studybuddy.ui_ux.Calendar.completed;
+// import static org.javawavers.studybuddy.ui_ux.Calendar.notStartedYet;
 
 public class RightPanel {
 
   private StackPane rightPanel;
-<span class="nc" id="L30">  VBox upcomingTasksBox = new VBox(10);</span>
-<span class="nc" id="L31">  VBox completedTasksBox = new VBox(10);</span>
+<span class="nc" id="L26">  VBox upcomingTasksBox = new VBox(10);</span>
+<span class="nc" id="L27">  VBox completedTasksBox = new VBox(10);</span>
 
+<span class="nc" id="L29">  public RightPanel() {</span>
 
-<span class="nc" id="L34">  public RightPanel() {</span>
-
-<span class="nc" id="L36">    rightPanel = new StackPane();</span>
-<span class="nc" id="L37">    rightPanel.setPrefWidth(212);</span>
-<span class="nc" id="L38">    rightPanel.setMinWidth(212); //or 88.33</span>
-<span class="nc" id="L39">    rightPanel.setMaxWidth(212);</span>
-<span class="nc" id="L40">    rightPanel.setMaxWidth(Double.MAX_VALUE);</span>
-<span class="nc" id="L41">    rightPanel.setMaxHeight(Double.MAX_VALUE);</span>
-<span class="nc" id="L42">  }</span>
+<span class="nc" id="L31">    rightPanel = new StackPane();</span>
+<span class="nc" id="L32">    rightPanel.setPrefWidth(212);</span>
+<span class="nc" id="L33">    rightPanel.setMinWidth(212); // or 88.33</span>
+<span class="nc" id="L34">    rightPanel.setMaxWidth(212);</span>
+<span class="nc" id="L35">    rightPanel.setMaxWidth(Double.MAX_VALUE);</span>
+<span class="nc" id="L36">    rightPanel.setMaxHeight(Double.MAX_VALUE);</span>
+<span class="nc" id="L37">  }</span>
 
   public void CoursesList() {
-<span class="nc" id="L45">    VBox examList = new VBox(5);</span>
-<span class="nc" id="L46">    VBox assignmentLst = new VBox(5);</span>
+<span class="nc" id="L40">    VBox examList = new VBox(5);</span>
+<span class="nc" id="L41">    VBox assignmentLst = new VBox(5);</span>
 
-<span class="nc" id="L48">    examList.setStyle(&quot;-fx-background-color: #15B569;&quot;);</span>
-<span class="nc" id="L49">    assignmentLst.setStyle(&quot;-fx-background-color: #FFC23D;&quot;);</span>
+<span class="nc" id="L43">    examList.setStyle(&quot;-fx-background-color: #15B569;&quot;);</span>
+<span class="nc" id="L44">    assignmentLst.setStyle(&quot;-fx-background-color: #FFC23D;&quot;);</span>
 
-<span class="nc" id="L51">    rightPanel.getChildren().addAll(examList, assignmentLst, upcomingTasksBox, completedTasksBox);</span>
-<span class="nc" id="L52">  }</span>
+<span class="nc" id="L46">    rightPanel.getChildren().addAll(examList, assignmentLst, upcomingTasksBox, completedTasksBox);</span>
+<span class="nc" id="L47">  }</span>
 
   public StackPane getRightPanel() {
-<span class="nc" id="L55">    return rightPanel;</span>
+<span class="nc" id="L50">    return rightPanel;</span>
   }
 
   private void showTasksPopup(String title, List&lt;String&gt; taskList) {
-<span class="nc" id="L59">    Stage popupStage = new Stage();</span>
-<span class="nc" id="L60">    popupStage.initModality(Modality.APPLICATION_MODAL);</span>
-<span class="nc" id="L61">    popupStage.setTitle(title);</span>
+<span class="nc" id="L54">    Stage popupStage = new Stage();</span>
+<span class="nc" id="L55">    popupStage.initModality(Modality.APPLICATION_MODAL);</span>
+<span class="nc" id="L56">    popupStage.setTitle(title);</span>
 
-<span class="nc" id="L63">    VBox popupContent = new VBox(10);</span>
-<span class="nc" id="L64">    popupContent.setPadding(new Insets(10));</span>
-<span class="nc" id="L65">    popupContent.setAlignment(Pos.TOP_CENTER);</span>
-    //οριζουμε τον τιτλο αναλογα με το κουμπι  που εχει πατηθει
-<span class="nc" id="L67">    Label titleLabel = new Label(title);</span>
-<span class="nc" id="L68">    titleLabel.setStyle(&quot;-fx-font-size: 18px; -fx-font-weight: bold;&quot;);</span>
-    //δημιουργουμε taskbox για τα task
-<span class="nc" id="L70">    VBox tasksBox = new VBox(5);</span>
-<span class="nc" id="L71">    tasksBox.setAlignment(Pos.TOP_LEFT);</span>
-<span class="nc" id="L72">    tasksBox.setStyle(&quot;-fx-max-height: 300px;&quot;);</span>
+<span class="nc" id="L58">    VBox popupContent = new VBox(10);</span>
+<span class="nc" id="L59">    popupContent.setPadding(new Insets(10));</span>
+<span class="nc" id="L60">    popupContent.setAlignment(Pos.TOP_CENTER);</span>
+    // οριζουμε τον τιτλο αναλογα με το κουμπι  που εχει πατηθει
+<span class="nc" id="L62">    Label titleLabel = new Label(title);</span>
+<span class="nc" id="L63">    titleLabel.setStyle(&quot;-fx-font-size: 18px; -fx-font-weight: bold;&quot;);</span>
+    // δημιουργουμε taskbox για τα task
+<span class="nc" id="L65">    VBox tasksBox = new VBox(5);</span>
+<span class="nc" id="L66">    tasksBox.setAlignment(Pos.TOP_LEFT);</span>
+<span class="nc" id="L67">    tasksBox.setStyle(&quot;-fx-max-height: 300px;&quot;);</span>
 
-    //δημιουργουμε scrollpane για να μπορει ο χρηστης να κανει scroll και να δει ολα τα task τα οποια εχει να κανει εκεινη την εβδομαδα
-<span class="nc" id="L75">    ScrollPane scrollPane = new ScrollPane();</span>
-<span class="nc" id="L76">    scrollPane.setContent(tasksBox);</span>
-<span class="nc" id="L77">    scrollPane.setFitToWidth(true);</span>
-<span class="nc" id="L78">    scrollPane.setPrefHeight(300);</span>
+    // δημιουργουμε scrollpane για να μπορει ο χρηστης να κανει scroll και να δει ολα τα task τα
+    // οποια εχει να κανει εκεινη την εβδομαδα
+<span class="nc" id="L71">    ScrollPane scrollPane = new ScrollPane();</span>
+<span class="nc" id="L72">    scrollPane.setContent(tasksBox);</span>
+<span class="nc" id="L73">    scrollPane.setFitToWidth(true);</span>
+<span class="nc" id="L74">    scrollPane.setPrefHeight(300);</span>
 
-<span class="nc" id="L80">    Map&lt;CheckBox, String&gt; taskCheckBoxMap = new HashMap&lt;&gt;();</span>
-<span class="nc" id="L81">  }</span>
+<span class="nc" id="L76">    Map&lt;CheckBox, String&gt; taskCheckBoxMap = new HashMap&lt;&gt;();</span>
+<span class="nc" id="L77">  }</span>
 }
 
-    //δημιουργουμε τα checkbox
+    // δημιουργουμε τα checkbox
   /*  if (taskList != null &amp;&amp; !taskList.isEmpty()) {
-      for (String task : taskList) {
-        CheckBox checkBox = new CheckBox(task);
-        checkBox.setStyle(&quot;-fx-font-size: 14px;&quot;);
+        for (String task : taskList) {
+          CheckBox checkBox = new CheckBox(task);
+          checkBox.setStyle(&quot;-fx-font-size: 14px;&quot;);
 
-        //αν το task ειναι στην λιστα notstartedyet ειναι unselected αλλιως στην completed τα task ειναι selected
-        if (taskList == notStartedYet &amp;&amp; !completed.contains(task)) {
-          checkBox.setSelected(false);
-        } else if (taskList == completed &amp;&amp; notStartedYet.contains(task)) {
-          checkBox.setSelected(true);
-        }
+          //αν το task ειναι στην λιστα notstartedyet ειναι unselected αλλιως στην completed τα task ειναι selected
+          if (taskList == notStartedYet &amp;&amp; !completed.contains(task)) {
+            checkBox.setSelected(false);
+          } else if (taskList == completed &amp;&amp; notStartedYet.contains(task)) {
+            checkBox.setSelected(true);
+          }
 
-        tasksBox.getChildren().add(checkBox);
-        taskCheckBoxMap.put(checkBox, task);//map για να ελενγχουμε τα task με το checkbox
-      }
-    } else {
-      Label noTasksLabel = new Label(&quot;No tasks available&quot;);//στην περιπτωση που δεν υπαρχουν task
-      tasksBox.getChildren().add(noTasksLabel);
-    }
-    //δημιουργια κουμπιου οκ που οταν πατηθει αναλογα με το τι εχει πατησει ο χρηστης ενημερωνει τις δυο λιστες
-    Button okButton = new Button(&quot;OK&quot;);
-    okButton.setStyle(&quot;-fx-background-color: #50D1C6; -fx-background-radius: 30px; -fx-text-fill: white; -fx-font-size: 16px;&quot;);
-    okButton.setOnAction(event -&gt; {
-
-      for (Map.Entry&lt;CheckBox, String&gt; entry : taskCheckBoxMap.entrySet()) {
-        CheckBox checkBox = entry.getKey();
-        String task = entry.getValue();
-
-        if (checkBox.isSelected() &amp;&amp; taskList == notStartedYet) {
-          notStartedYet.remove(task);
-          completed.add(task);
-        } else if (!checkBox.isSelected() &amp;&amp; taskList == completed) {
-          completed.remove(task);
-          notStartedYet.add(task);
-        }
-      }
-      popupStage.close();
-      //ενημερωνουμε τα taskboxes
-      updateUpcomingTasks(upcomingTasksBox);
-      updateCompletedTasks(completedTasksBox);
-    });
-
-    popupContent.getChildren().addAll(titleLabel, scrollPane, okButton);
-
-    Scene popupScene = new Scene(popupContent, 300, 400);
-    popupStage.setScene(popupScene);
-    popupStage.showAndWait();
-  }
-
-
-  private Button createCircularButton(String text, String color) {
-    Button button = new Button(text);
-    button.setStyle(
-            &quot;-fx-background-color: &quot; + color + &quot;;&quot; +
-                    &quot;-fx-text-fill: black; &quot; +
-                    &quot;-fx-font-size: 18px; &quot; +
-                    &quot;-fx-padding: 10px 20px; &quot; +
-                    &quot;-fx-background-radius: 5px; &quot; +
-                    &quot;-fx-border-color: black; &quot; +
-                    &quot;-fx-border-radius: 5px; &quot; +
-                    &quot;-fx-min-width: 200px;&quot;
-    );
-    return button;
-  }
-
-  private HBox createCheckBox(String taskName) {
-    HBox checkBoxBox = new HBox(10);
-    checkBoxBox.setAlignment(Pos.CENTER_LEFT);
-
-
-    CheckBox taskCheckBox = new CheckBox(taskName);
-    taskCheckBox.setStyle(&quot;-fx-font-size: 16px; -fx-text-fill: black;&quot;);
-
-    taskCheckBox.setOnAction(event -&gt; {
-      if (taskCheckBox.isSelected()) {
-        if (notStartedYet.contains(taskName)) {
-          notStartedYet.remove(taskName);
-          completed.add(taskName);
+          tasksBox.getChildren().add(checkBox);
+          taskCheckBoxMap.put(checkBox, task);//map για να ελενγχουμε τα task με το checkbox
         }
       } else {
-        if (completed.contains(taskName)) {
-          completed.remove(taskName);
-          notStartedYet.add(taskName);
-        }
+        Label noTasksLabel = new Label(&quot;No tasks available&quot;);//στην περιπτωση που δεν υπαρχουν task
+        tasksBox.getChildren().add(noTasksLabel);
       }
+      //δημιουργια κουμπιου οκ που οταν πατηθει αναλογα με το τι εχει πατησει ο χρηστης ενημερωνει τις δυο λιστες
+      Button okButton = new Button(&quot;OK&quot;);
+      okButton.setStyle(&quot;-fx-background-color: #50D1C6; -fx-background-radius: 30px; -fx-text-fill: white; -fx-font-size: 16px;&quot;);
+      okButton.setOnAction(event -&gt; {
 
-      updateUpcomingTasks(upcomingTasksBox);
-      updateCompletedTasks(completedTasksBox);
+        for (Map.Entry&lt;CheckBox, String&gt; entry : taskCheckBoxMap.entrySet()) {
+          CheckBox checkBox = entry.getKey();
+          String task = entry.getValue();
+
+          if (checkBox.isSelected() &amp;&amp; taskList == notStartedYet) {
+            notStartedYet.remove(task);
+            completed.add(task);
+          } else if (!checkBox.isSelected() &amp;&amp; taskList == completed) {
+            completed.remove(task);
+            notStartedYet.add(task);
+          }
+        }
+        popupStage.close();
+        //ενημερωνουμε τα taskboxes
+        updateUpcomingTasks(upcomingTasksBox);
+        updateCompletedTasks(completedTasksBox);
+      });
+
+      popupContent.getChildren().addAll(titleLabel, scrollPane, okButton);
+
+      Scene popupScene = new Scene(popupContent, 300, 400);
+      popupStage.setScene(popupScene);
+      popupStage.showAndWait();
+    }
 
 
-      System.out.println(&quot;Completed tasks: &quot; + completed);
-    });
+    private Button createCircularButton(String text, String color) {
+      Button button = new Button(text);
+      button.setStyle(
+              &quot;-fx-background-color: &quot; + color + &quot;;&quot; +
+                      &quot;-fx-text-fill: black; &quot; +
+                      &quot;-fx-font-size: 18px; &quot; +
+                      &quot;-fx-padding: 10px 20px; &quot; +
+                      &quot;-fx-background-radius: 5px; &quot; +
+                      &quot;-fx-border-color: black; &quot; +
+                      &quot;-fx-border-radius: 5px; &quot; +
+                      &quot;-fx-min-width: 200px;&quot;
+      );
+      return button;
+    }
 
-    checkBoxBox.getChildren().add(taskCheckBox);
+    private HBox createCheckBox(String taskName) {
+      HBox checkBoxBox = new HBox(10);
+      checkBoxBox.setAlignment(Pos.CENTER_LEFT);
 
-    return checkBoxBox;
-  }
 
-  private void updateUpcomingTasks(VBox upcomingTasksBox) {
-    upcomingTasksBox.getChildren().clear();
-    for (String taskDescription : notStartedYet) {
-      //System.out.println(&quot;Add&quot; + taskDescription);
-      HBox checkBoxBox = createCheckBox(taskDescription);
-      upcomingTasksBox.getChildren().add(checkBoxBox);
+      CheckBox taskCheckBox = new CheckBox(taskName);
+      taskCheckBox.setStyle(&quot;-fx-font-size: 16px; -fx-text-fill: black;&quot;);
 
+      taskCheckBox.setOnAction(event -&gt; {
+        if (taskCheckBox.isSelected()) {
+          if (notStartedYet.contains(taskName)) {
+            notStartedYet.remove(taskName);
+            completed.add(taskName);
+          }
+        } else {
+          if (completed.contains(taskName)) {
+            completed.remove(taskName);
+            notStartedYet.add(taskName);
+          }
+        }
+
+        updateUpcomingTasks(upcomingTasksBox);
+        updateCompletedTasks(completedTasksBox);
+
+
+        System.out.println(&quot;Completed tasks: &quot; + completed);
+      });
+
+      checkBoxBox.getChildren().add(taskCheckBox);
+
+      return checkBoxBox;
+    }
+
+    private void updateUpcomingTasks(VBox upcomingTasksBox) {
+      upcomingTasksBox.getChildren().clear();
+      for (String taskDescription : notStartedYet) {
+        //System.out.println(&quot;Add&quot; + taskDescription);
+        HBox checkBoxBox = createCheckBox(taskDescription);
+        upcomingTasksBox.getChildren().add(checkBoxBox);
+
+      }
+    }
+
+    private void updateCompletedTasks(VBox completedTasksBox) {
+      completedTasksBox.getChildren().clear();
+      for (String taskDescription : Calendar.completed) {
+        HBox checkBoxBox = createCheckBox(taskDescription);
+        //System.out.println(&quot;completed&quot; + taskDescription);
+        completedTasksBox.getChildren().add(checkBoxBox);
+      }
     }
   }
-
-  private void updateCompletedTasks(VBox completedTasksBox) {
-    completedTasksBox.getChildren().clear();
-    for (String taskDescription : Calendar.completed) {
-      HBox checkBoxBox = createCheckBox(taskDescription);
-      //System.out.println(&quot;completed&quot; + taskDescription);
-      completedTasksBox.getChildren().add(checkBoxBox);
-    }
-  }
-}
-*/
-
-
-
-
-
-
+  */
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pmd-cpd>
+   <duplication lines="15" tokens="171">
+      <file begintoken="22467" column="23" endcolumn="71" endline="186" endtoken="22637"
+            line="172"
+            path="C:\Users\Marina\DET\ProgII\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\RegisterPage.java"/>
+      <file begintoken="22699" column="24" endcolumn="71" endline="220" endtoken="22869"
+            line="206"
+            path="C:\Users\Marina\DET\ProgII\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\RegisterPage.java"/>
+      <codefragment><![CDATA[        .widthProperty()
+        .addListener(
+            (obs, oldVal, newVal) -> {
+              double newSize = newVal.doubleValue() / 30;
+              joinText.setFont(Font.font("Arial", FontWeight.BOLD, newSize));
+              nameField.setFont(Font.font("Arial", newSize));
+              nameLabel.setFont(Font.font("Arial", newSize));
+              emailField.setFont(Font.font("Arial", newSize));
+              emailLabel.setFont(Font.font("Arial", newSize));
+              passwordField.setFont(Font.font("Arial", newSize));
+              passwordLabel.setFont(Font.font("Arial", newSize));
+              textField.setFont(Font.font("Arial", newSize));
+              toggleButton.setFont(Font.font("Arial", newSize));
+              toggleConfirmPasswordButton.setFont(Font.font("Arial", newSize));
+              confirmPasswordField.setFont(Font.font("Arial", newSize));]]></codefragment>
+   </duplication>
+   <duplication lines="57" tokens="137">
+      <file begintoken="11386" column="3" endcolumn="14" endline="262" endtoken="11522"
+            line="206"
+            path="C:\Users\Marina\DET\ProgII\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\AssignmentPage.java"/>
+      <file begintoken="16379" column="3" endcolumn="14" endline="299" endtoken="16515"
+            line="243"
+            path="C:\Users\Marina\DET\ProgII\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\ExamPage.java"/>
+      <codefragment><![CDATA[  }
+
+  // titlePane style
+  private void titlePaneStyle(
+      TitledPane titledPane, double minWidth, double maxWidth, double minHeight, double maxHeight) {
+
+    titledPane.setMinWidth(minWidth);
+    titledPane.setMaxWidth(maxWidth);
+    titledPane.setMinHeight(minHeight);
+    titledPane.setMaxHeight(maxHeight);
+
+    titledPane.setStyle(
+        "-fx-background-color: rgba(101, 225, 101, 0.81);"
+            + " -fx-border-color: #000000;"
+            + " -fx-border-width: 1px;"
+            + " -fx-border-radius: 4px;"
+            + " -fx-background-radius: 4px;");
+  }
+
+  // Button Styles
+  private String btnStyle() {
+    return "-fx-background-color: linear-gradient(#FAD7A0, #F7B267);"
+        + "-fx-background-radius: 8,7,6;"
+        + "-fx-background-insets: 0,1,2;"
+        + "-fx-text-fill: #5A3D2B;"
+        + "-fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.3), 5, 0, 2, 2);"
+        + "-fx-font-weight: bold;"
+        + "-fx-padding: 10 20;"
+        + "-fx-border-color: #D98A4B;"
+        + "-fx-border-radius: 6;";
+  }
+
+  private String btnMouseEntered() {
+    return "-fx-background-color: linear-gradient(#FFE0B2, #F7B267);"
+        + "-fx-background-radius: 8,7,6;"
+        + "-fx-background-insets: 0,1,2;"
+        + "-fx-text-fill: #5A3D2B;"
+        + "-fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.3), 5, 0, 2, 2);"
+        + "-fx-font-weight: bold;"
+        + "-fx-padding: 10 20;"
+        + "-fx-border-color: #D98A4B;"
+        + "-fx-border-radius: 6;";
+  }
+
+  private String btnMousePressed() {
+    return "-fx-background-color: linear-gradient(#F7B267, #D98A4B);"
+        + "-fx-background-radius: 8,7,6;"
+        + "-fx-background-insets: 0,1,2;"
+        + "-fx-text-fill: #5A3D2B;"
+        + "-fx-font-weight: bold;"
+        + "-fx-padding: 10 20;"
+        + "-fx-border-color: #D98A4B;"
+        + "-fx-border-radius: 6;"
+        + "-fx-effect: none;";
+  }
+
+  public Scene assignmentStartingPage(SceneManager sceneManager) {]]></codefragment>
+   </duplication>
+   <duplication lines="19" tokens="137">
+      <file begintoken="18425" column="23" endcolumn="23" endline="209" endtoken="18561"
+            line="191"
+            path="C:\Users\Marina\DET\ProgII\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\LoginPage.java"/>
+      <file begintoken="18577" column="24" endcolumn="23" endline="235" endtoken="18713"
+            line="217"
+            path="C:\Users\Marina\DET\ProgII\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\LoginPage.java"/>
+      <codefragment><![CDATA[        .widthProperty()
+        .addListener(
+            (obs, oldVal, newVal) -> {
+              double newSize = newVal.doubleValue() / 30;
+              joinText.setFont(Font.font("Arial", FontWeight.BOLD, newSize));
+              emailLabel.setFont(Font.font("Arial", newSize));
+              emailField.setStyle("-fx-font-size: " + newSize + "px;");
+              passwordLabel.setFont(Font.font("Arial", newSize));
+              passwordField.setStyle("-fx-font-size: " + newSize + "px;");
+              passwordField.setFont(Font.font("Arial", newSize));
+              textField.setFont(Font.font("Arial", newSize));
+              toggleButton.setStyle("-fx-font-size: " + newSize + "px;");
+              loginButton.setStyle(
+                  "-fx-font-family: 'System'; "
+                      + "-fx-font-size: "
+                      + newSize
+                      + "px; "
+                      + "-fx-font-weight: bold; "
+                      + "-fx-background-color:  rgba(14, 164, 43, 0.81); "]]></codefragment>
+   </duplication>
+   <duplication lines="17" tokens="119">
+      <file begintoken="10594" column="20" endcolumn="14" endline="61" endtoken="10712"
+            line="45"
+            path="C:\Users\Marina\DET\ProgII\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\AssignmentPage.java"/>
+      <file begintoken="15423" column="14" endcolumn="14" endline="84" endtoken="15541"
+            line="68"
+            path="C:\Users\Marina\DET\ProgII\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\ExamPage.java"/>
+      <codefragment><![CDATA[    assignmentPanel.setPadding(new Insets(20));
+
+    // Create sections as titledPanes in order to be foldable
+    TitledPane coursePane = new TitledPane("Μάθημα", createCourseSection());
+    TitledPane infoPane = new TitledPane("Πληροφορίες", createInfoSection());
+    TitledPane evalPane = new TitledPane("Αξιολόγηση", createEvalSection());
+
+    titlePaneStyle(coursePane, 200, 400, 0, 300);
+    titlePaneStyle(infoPane, 200, 400, 0, 300);
+    titlePaneStyle(evalPane, 200, 400, 0, 300);
+
+    // "ok" Button
+    Button okBtn = new Button("OK");
+    okBtn.setStyle(btnStyle());
+    okBtn.setOnMouseEntered(e -> okBtn.setStyle(btnMouseEntered()));
+    okBtn.setOnMouseClicked(
+        e -> {]]></codefragment>
+   </duplication>
+</pmd-cpd>

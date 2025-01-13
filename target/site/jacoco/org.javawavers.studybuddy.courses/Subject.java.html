@@ -1,111 +1,115 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Subject.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">studybuddy</a> &gt; <a href="index.source.html" class="el_package">org.javawavers.studybuddy.courses</a> &gt; <span class="el_source">Subject.java</span></div><h1>Subject.java</h1><pre class="source lang-java linenums">package org.javawavers.studybuddy.courses;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class Subject {
-    // Enum for the course types
-<span class="nc" id="L9">    public enum SubjectType {</span>
-<span class="nc" id="L10">        Θεωρητικό, Θετικό, Συνδυασμός, Αγνωστο</span>
-    }
+  // Enum for the course types
+<span class="nc" id="L8">  public enum SubjectType {</span>
+<span class="nc" id="L9">    Θεωρητικό,</span>
+<span class="nc" id="L10">    Θετικό,</span>
+<span class="nc" id="L11">    Συνδυασμός,</span>
+<span class="nc" id="L12">    Αγνωστο</span>
+  }
 
-    // Enum for the study goal
-<span class="nc" id="L14">    public enum StudyGoal {</span>
-<span class="nc" id="L15">        AVERAGE, GOOD, EXCELLENT</span>
-    }
+  // Enum for the study goal
+<span class="nc" id="L16">  public enum StudyGoal {</span>
+<span class="nc" id="L17">    AVERAGE,</span>
+<span class="nc" id="L18">    GOOD,</span>
+<span class="nc" id="L19">    EXCELLENT</span>
+  }
 
-    private String courseName;
-    private int difficultyLevel; // Difficulty level of the course
-    private SubjectType subjectType; // Type of the course
-    private StudyGoal studyGoal; // Study goal for the course
-<span class="fc" id="L22">    private static List&lt;Exam&gt; exams = new ArrayList&lt;&gt;(); // List of exams</span>
-<span class="pc" id="L23">    private List&lt;Assignment&gt; assignments = new ArrayList&lt;&gt;(); // List of assignments</span>
+  private String courseName;
+  private int difficultyLevel; // Difficulty level of the course
+  private SubjectType subjectType; // Type of the course
+  private StudyGoal studyGoal; // Study goal for the course
+<span class="fc" id="L26">  private static List&lt;Exam&gt; exams = new ArrayList&lt;&gt;(); // List of exams</span>
+<span class="pc" id="L27">  private List&lt;Assignment&gt; assignments = new ArrayList&lt;&gt;(); // List of assignments</span>
 
-    // Getters and Setters
-    public String getCourseName() {
-<span class="fc" id="L27">        return courseName;</span>
-    }
+  // Getters and Setters
+  public String getCourseName() {
+<span class="fc" id="L31">    return courseName;</span>
+  }
 
-    public void setCourseName(String courseName) {
-<span class="nc" id="L31">        this.courseName = courseName;</span>
-<span class="nc" id="L32">    }</span>
+  public void setCourseName(String courseName) {
+<span class="nc" id="L35">    this.courseName = courseName;</span>
+<span class="nc" id="L36">  }</span>
 
-    public int getDifficultyLevel() {
-<span class="nc" id="L35">        return difficultyLevel;</span>
-    }
+  public int getDifficultyLevel() {
+<span class="nc" id="L39">    return difficultyLevel;</span>
+  }
 
-    public void setDifficultyLevel(int difficultyLevel) {
-<span class="nc" id="L39">        this.difficultyLevel = difficultyLevel;</span>
-<span class="nc" id="L40">    }</span>
+  public void setDifficultyLevel(int difficultyLevel) {
+<span class="nc" id="L43">    this.difficultyLevel = difficultyLevel;</span>
+<span class="nc" id="L44">  }</span>
 
-    public SubjectType getSubjectType() {
-<span class="nc" id="L43">        return subjectType;</span>
-    }
+  public SubjectType getSubjectType() {
+<span class="nc" id="L47">    return subjectType;</span>
+  }
 
-    public void setSubjectType(SubjectType subjectType) {
-<span class="nc" id="L47">        this.subjectType = subjectType;</span>
-<span class="nc" id="L48">    }</span>
+  public void setSubjectType(SubjectType subjectType) {
+<span class="nc" id="L51">    this.subjectType = subjectType;</span>
+<span class="nc" id="L52">  }</span>
 
-    public StudyGoal getStudyGoal() {
-<span class="nc" id="L51">        return studyGoal;</span>
-    }
+  public StudyGoal getStudyGoal() {
+<span class="nc" id="L55">    return studyGoal;</span>
+  }
 
-    public void setStudyGoal(StudyGoal studyGoal) {
-<span class="nc" id="L55">        this.studyGoal = studyGoal;</span>
-<span class="nc" id="L56">    }</span>
+  public void setStudyGoal(StudyGoal studyGoal) {
+<span class="nc" id="L59">    this.studyGoal = studyGoal;</span>
+<span class="nc" id="L60">  }</span>
 
-    // Constructors
-    // Constructor with just the course name
-<span class="nc" id="L60">    public Subject(String courseName) {</span>
-<span class="nc" id="L61">        this.courseName = courseName;</span>
-<span class="nc" id="L62">        this.difficultyLevel = 1; // Default difficulty level</span>
-<span class="nc" id="L63">        this.subjectType = SubjectType.Αγνωστο; // Default subject type</span>
-<span class="nc" id="L64">        this.studyGoal = StudyGoal.GOOD; // Default study goal</span>
-<span class="nc" id="L65">    }</span>
+  // Constructors
+  // Constructor with just the course name
+<span class="nc" id="L64">  public Subject(String courseName) {</span>
+<span class="nc" id="L65">    this.courseName = courseName;</span>
+<span class="nc" id="L66">    this.difficultyLevel = 1; // Default difficulty level</span>
+<span class="nc" id="L67">    this.subjectType = SubjectType.Αγνωστο; // Default subject type</span>
+<span class="nc" id="L68">    this.studyGoal = StudyGoal.GOOD; // Default study goal</span>
+<span class="nc" id="L69">  }</span>
 
-    // Constructor with all fields
-<span class="nc" id="L68">    public Subject(String courseName, int difficultyLevel, SubjectType subjectType, StudyGoal studyGoal) {</span>
-<span class="nc" id="L69">        this.courseName = courseName;</span>
-<span class="nc" id="L70">        this.difficultyLevel = difficultyLevel;</span>
-<span class="nc" id="L71">        this.subjectType = subjectType;</span>
-<span class="nc" id="L72">        this.studyGoal = studyGoal;</span>
-<span class="nc" id="L73">    }</span>
+  // Constructor with all fields
+  public Subject(
+<span class="nc" id="L73">      String courseName, int difficultyLevel, SubjectType subjectType, StudyGoal studyGoal) {</span>
+<span class="nc" id="L74">    this.courseName = courseName;</span>
+<span class="nc" id="L75">    this.difficultyLevel = difficultyLevel;</span>
+<span class="nc" id="L76">    this.subjectType = subjectType;</span>
+<span class="nc" id="L77">    this.studyGoal = studyGoal;</span>
+<span class="nc" id="L78">  }</span>
 
-<span class="fc" id="L75">    public Subject (String courseName, SubjectType subjectType, int difficultyLevel){</span>
-<span class="fc" id="L76">        this.courseName = courseName;</span>
-<span class="fc" id="L77">        this.difficultyLevel = difficultyLevel;</span>
-<span class="fc" id="L78">        this.subjectType = subjectType;</span>
-<span class="fc" id="L79">    }</span>
+<span class="fc" id="L80">  public Subject(String courseName, SubjectType subjectType, int difficultyLevel) {</span>
+<span class="fc" id="L81">    this.courseName = courseName;</span>
+<span class="fc" id="L82">    this.difficultyLevel = difficultyLevel;</span>
+<span class="fc" id="L83">    this.subjectType = subjectType;</span>
+<span class="fc" id="L84">  }</span>
 
-    // Methods to manage exams
-    public void addExam(Exam exam) { // Add an exam to the course
-<span class="nc" id="L83">        exams.add(exam);</span>
-<span class="nc" id="L84">    }</span>
+  // Methods to manage exams
+  public void addExam(Exam exam) { // Add an exam to the course
+<span class="nc" id="L88">    exams.add(exam);</span>
+<span class="nc" id="L89">  }</span>
 
-    public static List&lt;Exam&gt; getExams() { // Retrieve the list of exams for the course
-<span class="nc" id="L87">        return exams;</span>
-    }
+  public static List&lt;Exam&gt; getExams() { // Retrieve the list of exams for the course
+<span class="nc" id="L92">    return exams;</span>
+  }
 
-    // Methods to manage assignments
-    public void addAssignment(Assignment assignment) { // Add an assignment to the course
-<span class="nc" id="L92">        assignments.add(assignment);</span>
-<span class="nc" id="L93">    }</span>
+  // Methods to manage assignments
+  public void addAssignment(Assignment assignment) { // Add an assignment to the course
+<span class="nc" id="L97">    assignments.add(assignment);</span>
+<span class="nc" id="L98">  }</span>
 
-    public List&lt;Assignment&gt; getAssignments() { // Retrieve the list of assignments for the course
-<span class="nc" id="L96">        return assignments;</span>
-    }
+  public List&lt;Assignment&gt; getAssignments() { // Retrieve the list of assignments for the course
+<span class="nc" id="L101">    return assignments;</span>
+  }
 
-    public double getTotalAssHours() {
-<span class="nc" id="L100">        double sum = 0.0;</span>
+  public double getTotalAssHours() {
+<span class="nc" id="L105">    double sum = 0.0;</span>
 
-        // Traverse through the assignments list
-<span class="nc bnc" id="L103" title="All 2 branches missed.">        for (Assignment assignment : assignments) {</span>
-<span class="nc" id="L104">            sum += assignment.getEstimateHours(); // Add the estimated hours of the current assignment</span>
-<span class="nc" id="L105">        }</span>
+    // Traverse through the assignments list
+<span class="nc bnc" id="L108" title="All 2 branches missed.">    for (Assignment assignment : assignments) {</span>
+<span class="nc" id="L109">      sum += assignment.getEstimateHours(); // Add the estimated hours of the current assignment</span>
+<span class="nc" id="L110">    }</span>
 
-<span class="nc" id="L107">        return sum;</span>
-    }
-
+<span class="nc" id="L112">    return sum;</span>
+  }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

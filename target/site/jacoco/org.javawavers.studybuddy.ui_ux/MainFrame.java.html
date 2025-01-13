@@ -31,11 +31,13 @@ import javafx.stage.Screen;
 <span class="nc" id="L31">    rightPanel.CoursesList();</span>
 <span class="nc" id="L32">    borderPane.setRight(rightPanel.getRightPanel());</span>
 
-<span class="nc" id="L34">    Scene scene = new Scene(borderPane,</span>
-<span class="nc" id="L35">        Screen.getPrimary().getVisualBounds().getWidth(),</span>
-<span class="nc" id="L36">        Screen.getPrimary().getVisualBounds().getHeight());</span>
+<span class="nc" id="L34">    Scene scene =</span>
+        new Scene(
+            borderPane,
+<span class="nc" id="L37">            Screen.getPrimary().getVisualBounds().getWidth(),</span>
+<span class="nc" id="L38">            Screen.getPrimary().getVisualBounds().getHeight());</span>
 
-<span class="nc" id="L38">    return scene;</span>
+<span class="nc" id="L40">    return scene;</span>
   }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

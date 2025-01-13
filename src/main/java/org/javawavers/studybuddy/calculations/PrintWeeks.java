@@ -1,28 +1,28 @@
-
 package org.javawavers.studybuddy.calculations;
 
 import java.util.List;
 import org.javawavers.studybuddy.courses.*;
-public class PrintWeeks {
-    public void printWeeks(List<Week> weekList) {
-        int weekNumber = 1; // Μετρητής για τον αριθμό εβδομάδας
-        for (Week week : weekList) {
-            System.out.println("Week number: " + weekNumber);
-            int dayNumber = 1; // Μετρητής για τον αριθμό ημέρας
 
-            // Εκτύπωση των ημερών της εβδομάδας
-            for (Day day : week.getDaysOfWeek()) {
-                System.out.println("  Day " + dayNumber + ":");
-                if (day.todayTasks.isEmpty()) {
-                    System.out.println("    No tasks scheduled.");
-                } else {
-                    for (ScheduledTask task : day.todayTasks) {
-                        System.out.println("    " + task.toString());
-                    }
-                }
-                dayNumber++;
-            }
-            weekNumber++;
+public class PrintWeeks {
+  public void printWeeks(List<Week> weekList) {
+    int weekNumber = 1; // Μετρητής για τον αριθμό εβδομάδας
+    for (Week week : weekList) {
+      System.out.println("Week number: " + weekNumber);
+      int dayNumber = 1; // Μετρητής για τον αριθμό ημέρας
+
+      // Εκτύπωση των ημερών της εβδομάδας
+      for (Day day : week.getDaysOfWeek()) {
+        System.out.println("  Day " + dayNumber + ":");
+        if (day.todayTasks.isEmpty()) {
+          System.out.println("    No tasks scheduled.");
+        } else {
+          for (ScheduledTask task : day.todayTasks) {
+            System.out.println("    " + task.toString());
+          }
         }
+        dayNumber++;
+      }
+      weekNumber++;
     }
+  }
 }

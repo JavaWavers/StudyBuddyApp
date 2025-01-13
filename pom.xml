@@ -145,67 +145,30 @@
                     <failsOnError>false</failsOnError>
                 </configuration>
             </plugin>
-            <!--<plugin>
+            <!-- PMD Plugin -->
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-checkstyle-plugin</artifactId>
-                <version>3.6.0</version>
+                <artifactId>maven-pmd-plugin</artifactId>
+                <version>3.21.0</version>
+                <configuration>
+                    <rulesets>
+                        Προκαθορισμένοι κανόνες PMD
+                        <ruleset>rulesets/java/quickstart.xml</ruleset>
+                    </rulesets>
+                    <linkXRef>false</linkXRef>
+                    <failOnViolation>false</failOnViolation>
+                    <outputDirectory>${project.build.directory}/pmd</outputDirectory>
+                </configuration>
                 <executions>
                     <execution>
-                        <id>checkstyle-compile</id>
-                        <goals>
-                            <goal>check</goal>
-                        </goals>
-                        <phase>compile</phase>
-                    </execution>
-                    <execution>
-                        <id>checkstyle-test</id>
-                        <goals>
-                            <goal>check</goal>
-                        </goals>
-                        <phase>test</phase>
-                    </execution>
-                    <execution>
-                        <id>checkstyle-validate</id>
-                        <goals>
-                            <goal>check</goal>
-                        </goals>
                         <phase>validate</phase>
-                    </execution>
-                    <execution>
-                        <id>checkstyle-install</id>
                         <goals>
                             <goal>check</goal>
+                            <goal>cpd-check</goal>
                         </goals>
-                        <phase>install</phase>
                     </execution>
                 </executions>
-                <configuration>
-                    <configLocation>src/main/resources/config/check-style/checkstyle-sun.xml</configLocation>
-                    <consoleOutput>true</consoleOutput>
-                    <failsOnError>false</failsOnError>
-                </configuration>
-            </plugin> -->
-            <!-- PMD Plugin -->
-            <!-- <plugin>
-                 <groupId>org.apache.maven.plugins</groupId>
-                 <artifactId>maven-pmd-plugin</artifactId>
-                 <version>3.21.0</version>
-                 <configuration>
-                     <rulesets>
-                          Προκαθορισμένοι κανόνες PMD
-                         <ruleset>rulesets/java/quickstart.xml</ruleset>
-                     </rulesets>
-                     <failOnViolation>true</failOnViolation>
-                 </configuration>
-                 <executions>
-                     <execution>
-                         <phase>validate</phase>
-                         <goals>
-                             <goal>check</goal>
-                         </goals>
-                     </execution>
-                 </executions>
-             </plugin>-->
+            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
@@ -228,6 +191,23 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>com.diffplug.spotless</groupId>
+                <artifactId>spotless-maven-plugin</artifactId>
+                <version>2.42.0</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>apply</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <java>
+                        <googleJavaFormat />
+                    </java>
+                </configuration>
             </plugin>
         </plugins>
     </build>
