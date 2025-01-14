@@ -34,7 +34,6 @@ public class CreateWeekDay {
     LocalDate today = LocalDate.now(); // Today's date
     DayOfWeek currentDayOfWeek = today.getDayOfWeek();
     int daysUntilMonday = currentDayOfWeek.getValue() - DayOfWeek.MONDAY.getValue();
-
     // Initialize the first week
     Week currentWeek = new Week();
 

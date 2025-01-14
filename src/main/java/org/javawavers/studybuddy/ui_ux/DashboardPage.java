@@ -5,13 +5,20 @@ import static org.javawavers.studybuddy.courses.StaticUser.staticUser;
 import java.util.HashMap;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
-import javafx.scene.chart.*;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.PieChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import org.javawavers.studybuddy.graphs.AssDistributionCalc;
+import org.javawavers.studybuddy.graphs.BarChartCalc;
 import org.javawavers.studybuddy.graphs.SubjDistributionCalc;
 import org.javawavers.studybuddy.graphs.SummaryBoxCalc;
 
@@ -43,8 +50,8 @@ public class DashboardPage {
                 "Revision Completed", SummaryBoxCalc.percentageCalculatorRevision(), "#D4915D"));
 
     // Charts
-    HBox chartsBox = new HBox(10, createLineChart(), createPieChart());
-    HBox barChartsBox = new HBox(10, createBarChart("Study"), createBarChart("Assignments"));
+    HBox chartsBox = new HBox(10, createLineChart(), createSubjectsPieChart());
+    HBox barChartsBox = new HBox(10, createAssignmentPieChart(), createBarChart());
 
     centerPanel.getChildren().addAll(overviewLabel, summaryBox, chartsBox, barChartsBox);
     return centerPanel;
@@ -64,9 +71,9 @@ public class DashboardPage {
 
   // Line Chart
   private LineChart<Number, Number> createLineChart() {
-    NumberAxis xAxis = new NumberAxis("Μέρα", 1, 7, 1);
-    NumberAxis yAxis = new NumberAxis("Ώρες μελέτης", 0, 10, 1);
-    LineChart<Number, Number> lineChart = new LineChart<>(xAxis, yAxis);
+    NumberAxis x = new NumberAxis("Μέρα", 1, 7, 1);
+    NumberAxis y = new NumberAxis("Ώρες μελέτης", 0, 10, 1);
+    LineChart<Number, Number> lineChart = new LineChart<>(x, y);
     lineChart.setTitle("Productivity");
     XYChart.Series<Number, Number> series = new XYChart.Series<>();
     int[] studying = staticUser.getAvPerDay();
@@ -77,31 +84,73 @@ public class DashboardPage {
     return lineChart;
   }
 
-  // Pie Chart
-  private PieChart createPieChart() {
+  // Pie Chart for subject distribution
+  private PieChart createSubjectsPieChart() {
     PieChart pieChart = new PieChart();
-    HashMap<String, Double> subjDistr = SubjDistributionCalc.subjectsDistribution();
-    for (String s : subjDistr.keySet()) {
-      double percentage = subjDistr.get(s);
+    pieChart. setTitle("Subjects Distribution");
+    HashMap<String, Double> subjDist = SubjDistributionCalc.subjectsDistribution();
+    for (String s : subjDist.keySet()) {
+      double percentage = subjDist.get(s);
       pieChart.getData().add(new PieChart.Data(s, percentage));
     }
     return pieChart;
   }
 
+  // Pie Chart for subject distribution
+  private PieChart createAssignmentPieChart() {
+    PieChart pieChart = new PieChart();
+    pieChart. setTitle("Assignment Distribution");
+    HashMap<String, Double> assDist = AssDistributionCalc.assignmentsDistribution();
+    for (String a : assDist.keySet()) {
+      double percentage = assDist.get(a);
+      pieChart.getData().add(new PieChart.Data(a, percentage));
+    }
+    return pieChart;
+  }
+
+
   // Bar Chart
-  private BarChart<String, Number> createBarChart(String title) {
-    CategoryAxis xAxis = new CategoryAxis();
-    NumberAxis yAxis = new NumberAxis();
-    BarChart<String, Number> barChart = new BarChart<>(xAxis, yAxis);
-    barChart.setTitle(title);
+  private BarChart<String, Number> createBarChart() {
+    //Axis creation
+    CategoryAxis x = new CategoryAxis();
+    NumberAxis y = new NumberAxis();
+    x.setLabel("Κατηγορίες διαβάσματος");
+    y.setStyle("Ώρες μελέτης");
+    // stable size
+    y.setAutoRanging(false);
+    y.setLowerBound(0);
+    y.setUpperBound(100);
+    y.setTickUnit(10);
+
+    BarChart<String, Number> barChart = new BarChart<>(x, y);
+    barChart.setTitle("Weekly Study Distribution");
+
+    //Data import
+    XYChart.Series<String, Number> series = new XYChart.Series<>();
+    series.setName("");
+
+    //Data calculation
+    int totalHours = BarChartCalc.calcTotalHours();
+    int studyHours = BarChartCalc.calcStudyHours();
+    int assignmentHours = BarChartCalc.calcAssignmentHours();
+    int revisionHours = BarChartCalc.calcRevisionHours();
+
+    //Data addition in the series
+    series.getData().add(new XYChart.Data<>("Συνολική μελέτη", totalHours));
+    series.getData().add(new XYChart.Data<>("Διάβασμα", studyHours));
+    series.getData().add(new XYChart.Data<>("Εργασίες", assignmentHours));
+    series.getData().add(new XYChart.Data<>("Επανάληψη", revisionHours));
+
+    barChart.getData().add(series);
+
     return barChart;
   }
 
   // Side Buttons
-  private Button createSideButton(String text) {
+  /*private Button createSideButton(String text) {
     Button button = new Button(text);
     button.setStyle(
         "-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 18px;");
     return button;
-  }
+  }*/
 }
