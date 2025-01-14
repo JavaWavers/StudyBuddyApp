@@ -1,0 +1,4 @@
+#Tue Jan 14 13:30:38 EET 2025
+configuration*?=DC4F13E5A32BCE398A728A9E68A5F525F4C76F2A
+module-resource*?\:checkstyle-suppressions.xml=FCB41479469DD2398CFADF8820DA218A4C696979
+module-resource*?\:checkstyle-xpath-suppressions.xml=D2D54F6FA9E59926D59EFA3B6A9A9569D697E468

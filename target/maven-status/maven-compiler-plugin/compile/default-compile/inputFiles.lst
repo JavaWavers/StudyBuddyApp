@@ -22,10 +22,11 @@ C:\Users\Αντιγόνη\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\
 C:\Users\Αντιγόνη\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\courses\Subject.java
 C:\Users\Αντιγόνη\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\courses\SubjectElement.java
 C:\Users\Αντιγόνη\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\courses\User.java
-C:\Users\Αντιγόνη\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\database\DataDashboard.java
 C:\Users\Αντιγόνη\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\database\SQLiteConnection.java
 C:\Users\Αντιγόνη\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\GitLabTes.java
 C:\Users\Αντιγόνη\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\graphs\ProgressCalculator.java
+C:\Users\Αντιγόνη\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\graphs\SubjDistributionCalc.java
+C:\Users\Αντιγόνη\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\graphs\SummaryBoxCalc.java
 C:\Users\Αντιγόνη\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\graphs\TaskProgess.java
 C:\Users\Αντιγόνη\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\StudyBuddyApp.java
 C:\Users\Αντιγόνη\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\AssignmentPage.java

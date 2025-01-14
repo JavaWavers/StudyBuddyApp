@@ -1,29 +1,29 @@
-<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PrintWeeks.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">studybuddy</a> &gt; <a href="index.source.html" class="el_package">org.javawavers.studybuddy.calculations</a> &gt; <span class="el_source">PrintWeeks.java</span></div><h1>PrintWeeks.java</h1><pre class="source lang-java linenums">
-package org.javawavers.studybuddy.calculations;
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PrintWeeks.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">studybuddy</a> &gt; <a href="index.source.html" class="el_package">org.javawavers.studybuddy.calculations</a> &gt; <span class="el_source">PrintWeeks.java</span></div><h1>PrintWeeks.java</h1><pre class="source lang-java linenums">package org.javawavers.studybuddy.calculations;
 
 import java.util.List;
 import org.javawavers.studybuddy.courses.*;
-<span class="nc" id="L6">public class PrintWeeks {</span>
-    public void printWeeks(List&lt;Week&gt; weekList) {
-<span class="nc" id="L8">        int weekNumber = 1; // Μετρητής για τον αριθμό εβδομάδας</span>
-<span class="nc bnc" id="L9" title="All 2 branches missed.">        for (Week week : weekList) {</span>
-<span class="nc" id="L10">            System.out.println(&quot;Week number: &quot; + weekNumber);</span>
-<span class="nc" id="L11">            int dayNumber = 1; // Μετρητής για τον αριθμό ημέρας</span>
 
-            // Εκτύπωση των ημερών της εβδομάδας
-<span class="nc bnc" id="L14" title="All 2 branches missed.">            for (Day day : week.getDaysOfWeek()) {</span>
-<span class="nc" id="L15">                System.out.println(&quot;  Day &quot; + dayNumber + &quot;:&quot;);</span>
-<span class="nc bnc" id="L16" title="All 2 branches missed.">                if (day.todayTasks.isEmpty()) {</span>
-<span class="nc" id="L17">                    System.out.println(&quot;    No tasks scheduled.&quot;);</span>
-                } else {
-<span class="nc bnc" id="L19" title="All 2 branches missed.">                    for (ScheduledTask task : day.todayTasks) {</span>
-<span class="nc" id="L20">                        System.out.println(&quot;    &quot; + task.toString());</span>
-<span class="nc" id="L21">                    }</span>
-                }
-<span class="nc" id="L23">                dayNumber++;</span>
-<span class="nc" id="L24">            }</span>
-<span class="nc" id="L25">            weekNumber++;</span>
-<span class="nc" id="L26">        }</span>
-<span class="nc" id="L27">    }</span>
+<span class="nc" id="L6">public class PrintWeeks {</span>
+  public void printWeeks(List&lt;Week&gt; weekList) {
+<span class="nc" id="L8">    int weekNumber = 1; // Μετρητής για τον αριθμό εβδομάδας</span>
+<span class="nc bnc" id="L9" title="All 2 branches missed.">    for (Week week : weekList) {</span>
+<span class="nc" id="L10">      System.out.println(&quot;Week number: &quot; + weekNumber);</span>
+<span class="nc" id="L11">      int dayNumber = 1; // Μετρητής για τον αριθμό ημέρας</span>
+
+      // Εκτύπωση των ημερών της εβδομάδας
+<span class="nc bnc" id="L14" title="All 2 branches missed.">      for (Day day : week.getDaysOfWeek()) {</span>
+<span class="nc" id="L15">        System.out.println(&quot;  Day &quot; + dayNumber + &quot;:&quot;);</span>
+<span class="nc bnc" id="L16" title="All 2 branches missed.">        if (day.todayTasks.isEmpty()) {</span>
+<span class="nc" id="L17">          System.out.println(&quot;    No tasks scheduled.&quot;);</span>
+        } else {
+<span class="nc bnc" id="L19" title="All 2 branches missed.">          for (ScheduledTask task : day.todayTasks) {</span>
+<span class="nc" id="L20">            System.out.println(&quot;    &quot; + task.toString());</span>
+<span class="nc" id="L21">          }</span>
+        }
+<span class="nc" id="L23">        dayNumber++;</span>
+<span class="nc" id="L24">      }</span>
+<span class="nc" id="L25">      weekNumber++;</span>
+<span class="nc" id="L26">    }</span>
+<span class="nc" id="L27">  }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

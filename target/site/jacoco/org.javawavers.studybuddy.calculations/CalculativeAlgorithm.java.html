@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CalculativeAlgorithm.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">studybuddy</a> &gt; <a href="index.source.html" class="el_package">org.javawavers.studybuddy.calculations</a> &gt; <span class="el_source">CalculativeAlgorithm.java</span></div><h1>CalculativeAlgorithm.java</h1><pre class="source lang-java linenums">package org.javawavers.studybuddy.calculations;
 
-
 /*This class is responsible for calculating and dividing the total studying
  * time into groups (referred also as tasks) equally for each week till the
  * due day
@@ -8,46 +7,45 @@
 
 import org.javawavers.studybuddy.courses.Subject;
 
-<span class="nc" id="L11">public class CalculativeAlgorithm {</span>
-    // The page number that a user is physically possible to study per min
-<span class="nc" id="L13">    private static double pagesPerMin = 0.2;</span>
+<span class="nc" id="L10">public class CalculativeAlgorithm {</span>
+  // The page number that a user is physically possible to study per min
+<span class="nc" id="L12">  private static double pagesPerMin = 0.2;</span>
 
-    // setters &amp; getters
+  // setters &amp; getters
 
-    // setter for pages per minute
-    public static void setPagesPerMin(double timePer20Slides) {
+  // setter for pages per minute
+  public static void setPagesPerMin(double timePer20Slides) {
 
-<span class="nc" id="L20">        pagesPerMin = 20 / timePer20Slides;</span>
-<span class="nc" id="L21">    }</span>
+<span class="nc" id="L19">    pagesPerMin = 20 / timePer20Slides;</span>
+<span class="nc" id="L20">  }</span>
 
-    // getter for pages per minute
-    public static double getPagesPerMin() {
-<span class="nc" id="L25">        return pagesPerMin;</span>
-    }
+  // getter for pages per minute
+  public static double getPagesPerMin() {
+<span class="nc" id="L24">    return pagesPerMin;</span>
+  }
 
-    // calculates total studying time in hours
-    public static double totalStudyingTime(Subject s) {
-        // The total studying time required for a subject
-<span class="nc" id="L31">        return (s.getExams().get(0).getPages() * s.getDifficultyLevel()) / (pagesPerMin * 60);</span>
-    }
+  // calculates total studying time in hours
+  public static double totalStudyingTime(Subject s) {
+    // The total studying time required for a subject
+<span class="nc" id="L30">    return (s.getExams().get(0).getPages() * s.getDifficultyLevel()) / (pagesPerMin * 60);</span>
+  }
 
-    // total studying tasks per week
-    public static int studyingTasks(Subject s) {
-<span class="nc" id="L36">        double totalTimeWeek = totalStudyingTime(s);</span>
-<span class="nc" id="L37">        return numberOfScheduledTask(totalTimeWeek);</span>
-    }
+  // total studying tasks per week
+  public static int studyingTasks(Subject s) {
+<span class="nc" id="L35">    double totalTimeWeek = totalStudyingTime(s);</span>
+<span class="nc" id="L36">    return numberOfScheduledTask(totalTimeWeek);</span>
+  }
 
-    /*
-     * Calculates the number of the tasks that have to be scheduled during the week
-     * The static method numberOfScheduledTask takes as an argument the total
-     * studying time whether it refers to total studying time for the exam, for
-     * revision
-     * or for an assignment. Then the method divides it into studying groups of a
-     * duration of two hours each
-     */
-    public static int numberOfScheduledTask(double total) {
-<span class="nc" id="L49">        return (int) Math.round(total / 2);</span>
-    }
-
+  /*
+   * Calculates the number of the tasks that have to be scheduled during the week
+   * The static method numberOfScheduledTask takes as an argument the total
+   * studying time whether it refers to total studying time for the exam, for
+   * revision
+   * or for an assignment. Then the method divides it into studying groups of a
+   * duration of two hours each
+   */
+  public static int numberOfScheduledTask(double total) {
+<span class="nc" id="L48">    return (int) Math.round(total / 2);</span>
+  }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
