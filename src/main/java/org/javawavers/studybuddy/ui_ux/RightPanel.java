@@ -3,14 +3,14 @@ package org.javawavers.studybuddy.ui_ux;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
+import javafx.scene.control.*;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 // import static Calendar.completed;
@@ -23,19 +23,111 @@ import javafx.stage.Stage;
 public class RightPanel {
 
   private StackPane rightPanel;
-  VBox upcomingTasksBox = new VBox(10);
-  VBox completedTasksBox = new VBox(10);
+  private VBox rightPane;
+  private VBox upcomingTasksBox = new VBox(10);
+  private VBox completedTasksBox = new VBox(10);
 
   public RightPanel() {
-
-    rightPanel = new StackPane();
-    rightPanel.setPrefWidth(212);
-    rightPanel.setMinWidth(212); // or 88.33
-    rightPanel.setMaxWidth(212);
-    rightPanel.setMaxWidth(Double.MAX_VALUE);
-    rightPanel.setMaxHeight(Double.MAX_VALUE);
+    this.rightPane = rightPaneStyle();
   }
 
+  public ScrollPane rightPanel() {
+    CenterPanelManager centerPanelManager = new CenterPanelManager();
+
+    if(rightPane == null) {
+      rightPane = rightPaneStyle();
+    }
+    rightPanel = new StackPane();
+    rightPanel.setPrefWidth(280);
+    rightPanel.setMinWidth(280); // or 88.33
+    rightPanel.setMaxWidth(280);
+    rightPanel.setMaxWidth(Double.MAX_VALUE);
+    rightPanel.setMaxHeight(Double.MAX_VALUE);
+
+
+
+    // Right Pane's ScrollPane
+    ScrollPane scrollPane = new ScrollPane(rightPane);
+    scrollPane.setFitToWidth(true);
+    scrollPane.setPrefWidth(280);
+    scrollPane.setMaxWidth(280);
+    scrollPane.setStyle("-fx-padding: 10; -fx-background-color: #f4f4f4;");
+
+    return scrollPane;
+  }
+
+  private VBox rightPaneStyle() {
+    rightPane = new VBox(10);
+    rightPane.setStyle("-fx-padding: 10; -fx-background-color: #f4f4f4;");
+    return rightPane;
+  }
+
+    public void updateRightPaneContent(String activePanel) {
+      if(rightPane == null) {
+        rightPane = rightPaneStyle();
+      }
+      rightPane.getChildren().clear();
+
+      switch (activePanel) {
+        case "Exam":
+          rightPane.getChildren().add(coursesPane());
+          break;
+        case "Assignments":
+          rightPane.getChildren().add(coursesPane());
+          break;
+        case "Calendar":
+          rightPane.getChildren().add(tasksPane());
+          break;
+        case "Dashboard":
+          rightPane.getChildren().add(tasksPane());
+          break;
+      }
+    }
+
+
+  private VBox tasksPane() {
+    VBox tasksPane = new VBox(10);
+
+    tasksPane.getChildren().addAll(
+            TasksVBox("Σημερινά Tasks", new String[] {"Task 1", "Task 2", "Task 3", "4", "5", "6", "7", "8", "9,","10"}, Styles.TaskType.TODAY),
+            TasksVBox("Εβδομαδιαία Tasks", new String[] {"Task A", "Task B", "Task C", "Task D"}, Styles.TaskType.WEEK),
+            TasksVBox("Εκκρεμότητες", new String[] {"Overdue Task 1", "Overdue Task 2"}, Styles.TaskType.OVERDUE),
+            TasksVBox("Ολοκληρωμένα Tasks", new String[] {"Completed Task X", "Completed Task Y"}, Styles.TaskType.COMPLETED)
+    );
+    return tasksPane;
+  }
+
+  private VBox coursesPane() {
+    VBox coursePane = new VBox(10);
+
+    coursePane.getChildren().addAll(
+            TasksVBox("Μαθήματα", new String[] {"Task 1", "Task 2", "Task 3", "4", "5", "6", "7", "8", "9,","10"}, Styles.TaskType.TODAY), //εδώ που είναι το new String βάζουμε μια μέθοδο που επιστρέφει τα μαθήματα)
+            TasksVBox("Εργασίες", new String[] {"Task A", "Task B", "Task C", "Task D"}, Styles.TaskType.WEEK),
+            TasksVBox("Διαθεσιμότητα Ημερών", new String[] {"Overdue Task 1", "Overdue Task 2"}, Styles.TaskType.OVERDUE),
+            TasksVBox("Μη διαθεσιμότητα", new String[] {"Completed Task X", "Completed Task Y"}, Styles.TaskType.COMPLETED)
+    );
+    return coursePane;
+    }
+
+  // Method that creates the taskPane with a label and a listView
+  private VBox TasksVBox(String title, String[] tasks, Styles.TaskType taskType) {
+    Label titleLabel = new Label(title);
+    titleLabel.setStyle(Styles.getLabelStyle(taskType.getColor()));
+
+    ListView<String> listView = new ListView<>();
+    listView.getItems().addAll(tasks);
+
+    VBox taskPane = new VBox(5, titleLabel, listView);
+    taskPane.setStyle("-fx-padding: 10; -fx-background-color: rgba(255, 255, 255, 0.2);");
+
+    taskPane.setFillWidth(true);
+    taskPane.setMaxHeight(Screen.getPrimary().getVisualBounds().getHeight() / 4);
+    return taskPane;
+  }
+
+
+
+  //Pelagia
   public void CoursesList() {
     VBox examList = new VBox(5);
     VBox assignmentLst = new VBox(5);

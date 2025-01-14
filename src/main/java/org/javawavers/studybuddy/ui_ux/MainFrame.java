@@ -19,7 +19,10 @@ public class MainFrame {
     centerPanelManager.changeCenterPanel("Calendar");
     borderPane.setCenter(centerPanelManager.getCenterPane());
 
-    MenuPage menuPage = new MenuPage(centerPanelManager);
+    RightPanel rightPanel = new RightPanel();
+    rightPanel.updateRightPaneContent("Calendar");
+
+    MenuPage menuPage = new MenuPage(centerPanelManager,rightPanel);
     borderPane.setLeft(menuPage.getLeftBoxMenu());
 
     HBox topPane = new HBox();
@@ -27,9 +30,8 @@ public class MainFrame {
     topPane.setStyle("-fx-background-color: #60f7b3; ");
     borderPane.setTop(topPane);
 
-    RightPanel rightPanel = new RightPanel();
-    rightPanel.CoursesList();
-    borderPane.setRight(rightPanel.getRightPanel());
+    //rightPanel.rightPanel();
+    borderPane.setRight(rightPanel.rightPanel());
 
     Scene scene =
         new Scene(
