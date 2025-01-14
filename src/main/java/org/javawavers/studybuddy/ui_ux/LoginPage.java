@@ -3,7 +3,14 @@ package org.javawavers.studybuddy.ui_ux;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.DialogPane;
+import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
@@ -170,9 +177,24 @@ public class LoginPage {
     textField.setManaged(false);
     textField.setVisible(false);
 
-    Button toggleButton = new Button("👁");
-    toggleButton.setStyle("-fx-font-size: 14px;");
-    toggleButton.setOnAction(e -> PasswordVisibility());
+    Button toggleButton = new Button();
+    Image seeImage1 = new Image(getClass().getResource("/seePassword.png").toExternalForm());
+    Image notseeImage2 = new Image(getClass().getResource("/notseePassword.png").toExternalForm());
+    ImageView userImgView = new ImageView(seeImage1);
+    userImgView.setFitWidth(30);
+    userImgView.setFitHeight(30);
+
+    toggleButton.setGraphic(userImgView);
+    toggleButton.setStyle("-fx-font-size: 12px;");
+    toggleButton.setOnAction(
+      e -> {
+      if (userImgView.getImage().equals(seeImage1)) {
+        userImgView.setImage(notseeImage2);
+      } else {
+        userImgView.setImage(seeImage1);
+      }
+      PasswordVisibility();
+    });
 
     HBox passwordBox = new HBox(10, passwordField, textField, toggleButton);
 
@@ -273,6 +295,7 @@ public class LoginPage {
     loginButton.setOnAction(
         event -> {
           validateLogin();
+          clearFields();
           if (validateLogin()) {
             MainFrame mainFrame = new MainFrame();
             sceneManager.switchScene(mainFrame.mainFrame(sceneManager));
@@ -293,7 +316,7 @@ public class LoginPage {
       alert
           .getDialogPane()
           .getStylesheets()
-          .add(getClass().getResource("alert.css").toExternalForm());
+          .add(getClass().getResource("/alert.css").toExternalForm());
       alert.getDialogPane().setMinWidth(500);
       alert.getDialogPane().setMinHeight(300);
       alert.showAndWait();
@@ -308,7 +331,7 @@ public class LoginPage {
       alert.setContentText("Καλώς ήρθες!");
       DialogPane dialogPane = alert.getDialogPane();
       dialogPane.getStyleClass().add("success-alert");
-      dialogPane.getStylesheets().add(getClass().getResource("success.css").toExternalForm());
+      dialogPane.getStylesheets().add(getClass().getResource("/success.css").toExternalForm());
 
       return true;
     } else {
@@ -319,7 +342,7 @@ public class LoginPage {
       alert
           .getDialogPane()
           .getStylesheets()
-          .add(getClass().getResource("alert.css").toExternalForm());
+          .add(getClass().getResource("/alert.css").toExternalForm());
       alert.getDialogPane().setMinWidth(500);
       alert.getDialogPane().setMinHeight(300);
       alert.showAndWait();

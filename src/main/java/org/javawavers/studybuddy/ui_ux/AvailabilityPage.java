@@ -1,19 +1,31 @@
 package org.javawavers.studybuddy.ui_ux;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+
+import org.javawavers.studybuddy.calculations.Availability;
 import static org.javawavers.studybuddy.courses.StaticUser.staticUser;
 
-import java.time.LocalDate;
-import java.util.*;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.scene.layout.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.DialogPane;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.util.converter.IntegerStringConverter;
-import org.javawavers.studybuddy.calculations.Availability;
 
 public class AvailabilityPage {
   // int [] avPerDay = new int[8];
@@ -23,6 +35,7 @@ public class AvailabilityPage {
   private VBox rightPane = new VBox(10);
   private HBox btnsBox = new HBox(10);
   private TextField[] dayFields = new TextField[7];
+  int[] avPerDay = new int[8];
   private String[] days = {
     "Δευτέρα", "Τρίτη", "Τετάρτη", "Πέμπτη", "Παρασκευή", "Σάββατο", "Κυριακή"
   };
@@ -118,15 +131,33 @@ public class AvailabilityPage {
 
     okBtn.setOnAction(
         event -> {
-          int[] avPerDay = new int[8];
           List<String> errors = new ArrayList<>();
+          boolean countFields = true;
 
           for (int i = 1; i < avPerDay.length; i++) {
+            avPerDay[i] = parseTextFieldValue(dayFields[i - 1]);
             if (avPerDay[i] > 10) {
               errors.add("• Oι διαθέσιμες ώρες μέσα σε μια μέρα πρέπει να είναι λιγότερες απο 10");
-            } else {
-              avPerDay[i] = parseTextFieldValue(dayFields[i - 1]);
             }
+            if (avPerDay[i] > 0 && avPerDay[i] < 10) {
+              countFields = false;
+            }
+          }
+          if (countFields) {
+            Alert confirmAlert = new Alert(Alert.AlertType.CONFIRMATION);
+            confirmAlert.setTitle("Επιβεβαίωση");
+            confirmAlert.setHeaderText(null);
+            confirmAlert.setContentText(
+                "Όλα τα πεδία είναι κενά. Είστε σίγουρος/η ότι θέλετε να συνεχίσετε;");
+    
+            DialogPane dialogPane = confirmAlert.getDialogPane();
+            dialogPane.getStylesheets().add(getClass().getResource("/alert.css").toExternalForm());
+
+            confirmAlert.showAndWait().ifPresent(response -> {
+              if (response.getText().equalsIgnoreCase("Cancel")) {
+                return;
+              }
+            });
           }
           // static user for availability
           staticUser.setAvPerDay(avPerDay);
@@ -147,11 +178,27 @@ public class AvailabilityPage {
                 .getStylesheets()
                 .add(getClass().getResource("/alert.css").toExternalForm());
             alert.showAndWait();
+            return;
+          } else {
+            Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
+            successAlert.setTitle("Εισαγωγή Διαθεσιμότητας Επιτυχής");
+            successAlert.setHeaderText(null);
+            successAlert.setContentText("Η Διαθεσιμότητα προστέθηκε!!");
+            DialogPane dialogPane = successAlert.getDialogPane();
+            dialogPane.getStyleClass().add("success-alert");
+            dialogPane
+                  .getStylesheets()
+                  .add(Objects.requireNonNull(getClass().getResource("/success.css")).toExternalForm());
+            successAlert.showAndWait();
           }
 
           if (setNoAvailability != null) {
             Availability.setNonAvailability(setNoAvailability);
           }
+          for (TextField dayField : dayFields) {
+            dayField.clear();
+          }
+          datePicker.setValue(null);
           if (popUpStage != null) {
             popUpStage.close();
           }
@@ -230,6 +277,23 @@ public class AvailabilityPage {
     nextBtn.setOnAction(
         e -> {
           // System.out.println("Το κουμπί πατήθηκε!");
+          RegisterPage register = new RegisterPage();
+          String storedUsername = register.storedUsername;
+          Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
+            successAlert.setTitle("Εισαγωγή Διαθεσιμότητας Επιτυχής");
+            successAlert.setHeaderText(null);
+            successAlert.setContentText("🎉 Καλώς ήρθες, "+ storedUsername +  "🎉\n" + //
+                            "Νέα χρονιά, νέες ευκαιρίες και νέοι στόχοι! ✨\n" + //
+                            "Ετοιμάσου για μια εμπειρία γεμάτη έμπνευση, οργάνωση και πρόοδο! 🚀\n" + //
+                            "\n" + //
+                            "Μαζί θα κάνουμε αυτή τη χρονιά την καλύτερη!\n" + //
+                            "Πάτα το κουμπί και ξεκινάμε! 💪");
+            DialogPane dialogPane = successAlert.getDialogPane();
+            dialogPane.getStyleClass().add("success-alert");
+            dialogPane
+                  .getStylesheets()
+                  .add(Objects.requireNonNull(getClass().getResource("/success.css")).toExternalForm());
+            successAlert.showAndWait();
           MainFrame mainframe = new MainFrame();
           sceneManager.switchScene(mainframe.mainFrame(sceneManager));
         });

@@ -3,10 +3,19 @@ package org.javawavers.studybuddy.ui_ux;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+
+import org.javawavers.studybuddy.courses.StaticUser;
+import org.javawavers.studybuddy.courses.User;
+
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.DialogPane;
+import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -17,8 +26,6 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Screen;
-import org.javawavers.studybuddy.courses.StaticUser;
-import org.javawavers.studybuddy.courses.User;
 
 public class RegisterPage {
 
@@ -103,9 +110,8 @@ public class RegisterPage {
     Image seeImage1 = new Image(getClass().getResource("/seePassword.png").toExternalForm());
     Image notseeImage2 = new Image(getClass().getResource("/notseePassword.png").toExternalForm());
     ImageView userImgView = new ImageView(seeImage1);
-    // userImgView.setPreserveRatio(true);
-    userImgView.setFitWidth(32);
-    userImgView.setFitHeight(32);
+    userImgView.setFitWidth(32.5);
+    userImgView.setFitHeight(32.5);
 
     // Button toggleConfirmPasswordButton = new Button("👁");
     Button toggleConfirmPasswordButton = new Button();
@@ -378,17 +384,27 @@ public class RegisterPage {
     // error αν το ονομα ειναι λιγοτερο απο 4 χαρακτηρες
     if (storedUsername.isEmpty() || storedUsername.length() < 2) {
       System.out.println("storedUsername");
-      errors.add("• Το όνομα πρέπει να έχει πάνω από 4 χαρακτήρες");
+      errors.add("• Το όνομα πρέπει να έχει πάνω από έναν χαρακτήρα");
+    } else if (!storedUsername.matches("[a-zA-Z0-9_α-ωΑ-ΩάέήίΰϊϋόύώΆΈΉΊΪΫΌΎΏ-]+")) {
+      errors.add("• Το όνομα μπορεί να περιέχει μόνο γράμματα,αριθμούς,παύλες και κάτω παύλες");
     }
     // error αν το email δεν περιεχει το @
-    if (storedEmail.isEmpty() || !storedEmail.contains("@")) {
+    if (storedEmail.isEmpty() || !storedEmail.matches("^[a-zA-Z0-9._%+-]{2,}@[a-zA-Z0-9.-]{2,}\\.[a-zA-Z]{2,}$")) {
       System.out.println("storedEmail");
       errors.add("• Εισήγαγε ένα έγκυρο email");
     }
     // error αν ο κωδικος ειναι μικροτερος απο 6 χαρακτηρες
-    if (storedPassword.isEmpty() || storedPassword.length() < 6) {
+    if (storedPassword.isEmpty() || storedPassword.length() < 8) {
       System.out.println("storedPassword empty or length");
-      errors.add("• Ο κωδικός πρόσβασης πρέπει να έχει πάνω από 6 χαρακτήρες");
+      errors.add("• Ο κωδικός πρόσβασης πρέπει να έχει πάνω από 8 χαρακτήρες");
+    } else if (!storedPassword.matches(".*[A-Z].*")) {
+      errors.add("• Ο Κωδικός πρόσβασης πρέπει να έχει τουλάχιστον ένα κεφαλαιό γράμμα");
+    } else if (!storedPassword.matches(".*[a-z].*")) {
+      errors.add("• Ο Κωδικός πρόσβασης πρέπει να έχει τουλάχιστον ένα πέζο γράμμα");
+    } else if (!storedPassword.matches(".*\\d.*")) {
+      errors.add("• Ο Κωδικός πρόσβασης πρέπει να έχει τουλάχιστον έναν αριθμό");
+    } else if (!storedPassword.matches(".*[!@#$%^&+=].*")) {
+      errors.add("• Ο Κωδικός πρόσβασης πρέπει να έχει τουλάχιστον έναν ειδικό χαρακτήρα");
     }
     // error αν ο κωδικος και ο κωδικος επιβεβαιωσης δεν ειναι ιδιος
     if (!storedPassword.equals(confirmPassword)) {
