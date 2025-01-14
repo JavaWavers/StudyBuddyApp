@@ -195,8 +195,8 @@ public class AvailabilityPage {
                   .add(Objects.requireNonNull(getClass().getResource("/success.css")).toExternalForm());
             successAlert.showAndWait();
 
-            DataInserter.insertAvailability(avPerDay[0], avPerDay[1], avPerDay[2], avPerDay[3],
-            avPerDay[4], avPerDay[5], avPerDay[6], StaticUser.staticUser.getUserID());
+            DataInserter.insertAvailability(avPerDay[1], avPerDay[2], avPerDay[3],
+            avPerDay[4], avPerDay[5], avPerDay[6], avPerDay[7], StaticUser.staticUser.getUserID());
             DataInserter.insertNonAvDate(setNoAvailability, StaticUser.staticUser.getUserID());
             StaticUser.staticUser.setAvPerDay(avPerDay);
             StaticUser.staticUser.addNonAvailDays(setNoAvailability);
