@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<pmd xmlns="http://pmd.sourceforge.net/report/2.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pmd.sourceforge.net/report/2.0.0 http://pmd.sourceforge.net/report_2_0_0.xsd" version="6.55.0" timestamp="2025-01-14T02:35:04.652">
+<pmd xmlns="http://pmd.sourceforge.net/report/2.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pmd.sourceforge.net/report/2.0.0 http://pmd.sourceforge.net/report_2_0_0.xsd" version="6.55.0" timestamp="2025-01-14T13:30:32.019">
 <file name="C:\Users\Αντιγόνη\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\calculations\Availability.java">
 <violation beginline="11" endline="147" begincolumn="27" endcolumn="1" rule="UseUtilityClass" ruleset="Design" package="org.javawavers.studybuddy.calculations" class="Availability" externalInfoUrl="https://pmd.github.io/pmd-6.55.0/pmd_rules_java_design.html#useutilityclass" priority="3">
 All methods are static.  Consider using a utility class instead. Alternatively, you could add a private constructor or make the class abstract to silence this warning.
@@ -227,7 +227,7 @@ Perhaps 'sceneManager' could be replaced by a local variable.
 <violation beginline="157" endline="157" begincolumn="19" endcolumn="63" rule="LiteralsFirstInComparisons" ruleset="Best Practices" package="org.javawavers.studybuddy.ui_ux" class="AvailabilityPage" method="btnsFrame" externalInfoUrl="https://pmd.github.io/pmd-6.55.0/pmd_rules_java_bestpractices.html#literalsfirstincomparisons" priority="3">
 Position literals first in String comparisons
 </violation>
-<violation beginline="293" endline="293" begincolumn="5" endcolumn="17" rule="UnnecessaryLocalBeforeReturn" ruleset="Code Style" package="org.javawavers.studybuddy.ui_ux" class="AvailabilityPage" method="availStartingPage" externalInfoUrl="https://pmd.github.io/pmd-6.55.0/pmd_rules_java_codestyle.html#unnecessarylocalbeforereturn" priority="3">
+<violation beginline="310" endline="310" begincolumn="5" endcolumn="17" rule="UnnecessaryLocalBeforeReturn" ruleset="Code Style" package="org.javawavers.studybuddy.ui_ux" class="AvailabilityPage" method="availStartingPage" externalInfoUrl="https://pmd.github.io/pmd-6.55.0/pmd_rules_java_codestyle.html#unnecessarylocalbeforereturn" priority="3">
 Consider simply returning the value vs storing it in local variable 'scene'
 </violation>
 </file>
@@ -235,22 +235,22 @@ Consider simply returning the value vs storing it in local variable 'scene'
 <violation beginline="46" endline="46" begincolumn="11" endcolumn="25" rule="LooseCoupling" ruleset="Best Practices" package="org.javawavers.studybuddy.ui_ux" class="Calendar" externalInfoUrl="https://pmd.github.io/pmd-6.55.0/pmd_rules_java_bestpractices.html#loosecoupling" priority="3">
 Avoid using implementation types like 'ArrayList'; use the interface instead
 </violation>
-<violation beginline="52" endline="52" begincolumn="16" endcolumn="31" rule="UnusedPrivateField" ruleset="Best Practices" package="org.javawavers.studybuddy.ui_ux" class="Calendar" variable="upcomingTasksBox" externalInfoUrl="https://pmd.github.io/pmd-6.55.0/pmd_rules_java_bestpractices.html#unusedprivatefield" priority="3">
+<violation beginline="54" endline="54" begincolumn="16" endcolumn="31" rule="UnusedPrivateField" ruleset="Best Practices" package="org.javawavers.studybuddy.ui_ux" class="Calendar" variable="upcomingTasksBox" externalInfoUrl="https://pmd.github.io/pmd-6.55.0/pmd_rules_java_bestpractices.html#unusedprivatefield" priority="3">
 Avoid unused private fields such as 'upcomingTasksBox'.
 </violation>
-<violation beginline="53" endline="53" begincolumn="16" endcolumn="32" rule="UnusedPrivateField" ruleset="Best Practices" package="org.javawavers.studybuddy.ui_ux" class="Calendar" variable="completedTasksBox" externalInfoUrl="https://pmd.github.io/pmd-6.55.0/pmd_rules_java_bestpractices.html#unusedprivatefield" priority="3">
+<violation beginline="55" endline="55" begincolumn="16" endcolumn="32" rule="UnusedPrivateField" ruleset="Best Practices" package="org.javawavers.studybuddy.ui_ux" class="Calendar" variable="completedTasksBox" externalInfoUrl="https://pmd.github.io/pmd-6.55.0/pmd_rules_java_bestpractices.html#unusedprivatefield" priority="3">
 Avoid unused private fields such as 'completedTasksBox'.
 </violation>
-<violation beginline="77" endline="77" begincolumn="15" endcolumn="19" rule="UnusedLocalVariable" ruleset="Best Practices" package="org.javawavers.studybuddy.ui_ux" class="Calendar" method="createCenterPanel" variable="today" externalInfoUrl="https://pmd.github.io/pmd-6.55.0/pmd_rules_java_bestpractices.html#unusedlocalvariable" priority="3">
+<violation beginline="79" endline="79" begincolumn="15" endcolumn="19" rule="UnusedLocalVariable" ruleset="Best Practices" package="org.javawavers.studybuddy.ui_ux" class="Calendar" method="createCenterPanel" variable="today" externalInfoUrl="https://pmd.github.io/pmd-6.55.0/pmd_rules_java_bestpractices.html#unusedlocalvariable" priority="3">
 Avoid unused local variables such as 'today'.
 </violation>
-<violation beginline="219" endline="219" begincolumn="37" endcolumn="65" rule="CompareObjectsWithEquals" ruleset="Error Prone" package="org.javawavers.studybuddy.ui_ux" class="Calendar" method="createCenterPanel" externalInfoUrl="https://pmd.github.io/pmd-6.55.0/pmd_rules_java_errorprone.html#compareobjectswithequals" priority="3">
+<violation beginline="226" endline="226" begincolumn="37" endcolumn="65" rule="CompareObjectsWithEquals" ruleset="Error Prone" package="org.javawavers.studybuddy.ui_ux" class="Calendar" method="createCenterPanel" externalInfoUrl="https://pmd.github.io/pmd-6.55.0/pmd_rules_java_errorprone.html#compareobjectswithequals" priority="3">
 Use equals() to compare object references.
 </violation>
-<violation beginline="220" endline="220" begincolumn="31" endcolumn="40" rule="UnusedLocalVariable" ruleset="Best Practices" package="org.javawavers.studybuddy.ui_ux" class="Calendar" method="createCenterPanel" variable="sAnnealing" externalInfoUrl="https://pmd.github.io/pmd-6.55.0/pmd_rules_java_bestpractices.html#unusedlocalvariable" priority="3">
+<violation beginline="227" endline="227" begincolumn="31" endcolumn="40" rule="UnusedLocalVariable" ruleset="Best Practices" package="org.javawavers.studybuddy.ui_ux" class="Calendar" method="createCenterPanel" variable="sAnnealing" externalInfoUrl="https://pmd.github.io/pmd-6.55.0/pmd_rules_java_bestpractices.html#unusedlocalvariable" priority="3">
 Avoid unused local variables such as 'sAnnealing'.
 </violation>
-<violation beginline="349" endline="349" begincolumn="19" endcolumn="31" rule="UnusedLocalVariable" ruleset="Best Practices" package="org.javawavers.studybuddy.ui_ux" class="Calendar" method="createCalendarGrid" variable="createWeekDay" externalInfoUrl="https://pmd.github.io/pmd-6.55.0/pmd_rules_java_bestpractices.html#unusedlocalvariable" priority="3">
+<violation beginline="384" endline="384" begincolumn="19" endcolumn="31" rule="UnusedLocalVariable" ruleset="Best Practices" package="org.javawavers.studybuddy.ui_ux" class="Calendar" method="createCalendarGrid" variable="createWeekDay" externalInfoUrl="https://pmd.github.io/pmd-6.55.0/pmd_rules_java_bestpractices.html#unusedlocalvariable" priority="3">
 Avoid unused local variables such as 'createWeekDay'.
 </violation>
 </file>
@@ -282,10 +282,7 @@ Consider simply returning the value vs storing it in local variable 'scene'
 <violation beginline="56" endline="56" begincolumn="5" endcolumn="17" rule="UnnecessaryLocalBeforeReturn" ruleset="Code Style" package="org.javawavers.studybuddy.ui_ux" class="LoginPage" method="login" externalInfoUrl="https://pmd.github.io/pmd-6.55.0/pmd_rules_java_codestyle.html#unnecessarylocalbeforereturn" priority="3">
 Consider simply returning the value vs storing it in local variable 'scene'
 </violation>
-<violation beginline="352" endline="352" begincolumn="16" endcolumn="28" rule="UnusedPrivateMethod" ruleset="Best Practices" package="org.javawavers.studybuddy.ui_ux" class="LoginPage" method="clearFields" externalInfoUrl="https://pmd.github.io/pmd-6.55.0/pmd_rules_java_bestpractices.html#unusedprivatemethod" priority="3">
-Avoid unused private methods such as 'clearFields()'.
-</violation>
-<violation beginline="358" endline="372" begincolumn="11" endcolumn="3" rule="MethodNamingConventions" ruleset="Code Style" package="org.javawavers.studybuddy.ui_ux" class="LoginPage" method="PasswordVisibility" externalInfoUrl="https://pmd.github.io/pmd-6.55.0/pmd_rules_java_codestyle.html#methodnamingconventions" priority="1">
+<violation beginline="359" endline="373" begincolumn="11" endcolumn="3" rule="MethodNamingConventions" ruleset="Code Style" package="org.javawavers.studybuddy.ui_ux" class="LoginPage" method="PasswordVisibility" externalInfoUrl="https://pmd.github.io/pmd-6.55.0/pmd_rules_java_codestyle.html#methodnamingconventions" priority="1">
 The instance method name 'PasswordVisibility' doesn't match '[a-z][a-zA-Z0-9]*'
 </violation>
 </file>

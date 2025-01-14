@@ -277,6 +277,23 @@ public class AvailabilityPage {
     nextBtn.setOnAction(
         e -> {
           // System.out.println("Το κουμπί πατήθηκε!");
+          RegisterPage register = new RegisterPage();
+          String storedUsername = register.storedUsername;
+          Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
+            successAlert.setTitle("Εισαγωγή Διαθεσιμότητας Επιτυχής");
+            successAlert.setHeaderText(null);
+            successAlert.setContentText("🎉 Καλώς ήρθες, "+ storedUsername +  "🎉\n" + //
+                            "Νέα χρονιά, νέες ευκαιρίες και νέοι στόχοι! ✨\n" + //
+                            "Ετοιμάσου για μια εμπειρία γεμάτη έμπνευση, οργάνωση και πρόοδο! 🚀\n" + //
+                            "\n" + //
+                            "Μαζί θα κάνουμε αυτή τη χρονιά την καλύτερη!\n" + //
+                            "Πάτα το κουμπί και ξεκινάμε! 💪");
+            DialogPane dialogPane = successAlert.getDialogPane();
+            dialogPane.getStyleClass().add("success-alert");
+            dialogPane
+                  .getStylesheets()
+                  .add(Objects.requireNonNull(getClass().getResource("/success.css")).toExternalForm());
+            successAlert.showAndWait();
           MainFrame mainframe = new MainFrame();
           sceneManager.switchScene(mainframe.mainFrame(sceneManager));
         });

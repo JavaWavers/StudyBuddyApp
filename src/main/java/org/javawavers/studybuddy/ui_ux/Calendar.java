@@ -49,6 +49,8 @@ public class Calendar {
   // εμφανιση των task
   public static List<String> notStartedYet = new ArrayList<>();
   public static List<String> completed = new ArrayList<>();
+  private static final GridPane calendarGrid = new GridPane();
+  List<Subject> subject;
   private VBox upcomingTasksBox = new VBox(10);
   private VBox completedTasksBox = new VBox(10);
 
@@ -95,43 +97,26 @@ public class Calendar {
         "-fx-background-color: #CF308C; -fx-text-fill: white; -fx-font-size: 14px; -fx-background-radius: 30px;");
     nextButton.setPrefSize(30, 30);
 
-    GridPane calendarGrid = new GridPane();
+   // GridPane calendarGrid = new GridPane();
     calendarGrid.setStyle("-fx-border-color: black;");
     calendarGrid.setGridLinesVisible(true);
+    createCalendarGrid(calendarGrid, count, subject, totalWeeks);
     // μεταβλητη count η οποια μολις ο χρηστης παταει το κουμπι που παει τις εβδομαδες μπροστα
     // αυξανεται αλλιως μειωνεται οταν count == 0 τοτε θα εεμφανιζετε το κουμπι today
     prevButton.setOnAction(
         event -> {
-          currentWeekStart = currentWeekStart.minusWeeks(1);
-          weekLabel.setText(formatWeekLabel(currentWeekStart, formatter));
           if (count > 0) {
             count = count - 1;
-            createCalendarGrid(calendarGrid, count, SimulateAnnealing.getSubjects(), totalWeeks);
-          } else {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("oupss!");
-            alert.setHeaderText(null);
-            alert.setContentText("Προς το παρόν, δεν υπάρχουν προηγούμενες εβδομάδες. Αλλά μην ανησυχείς, όλα ξεκινούν από εδώ!");
-            alert
-                .getDialogPane()
-                .getStylesheets()
-                .add(getClass().getResource("alert.css").toExternalForm());
-            alert.getDialogPane().setMinWidth(500);
-            alert.getDialogPane().setMinHeight(300);
-            alert.showAndWait();
-          }
-        });
-
-    nextButton.setOnAction(
-        event -> {
-          if (count < totalWeeks.size() - 1) {
-            count++;
-            createCalendarGrid(calendarGrid, count, SimulateAnnealing.getSubjects(), totalWeeks);
+            if (count < totalWeeks.size()) {
+              currentWeekStart = currentWeekStart.minusWeeks(1);
+              weekLabel.setText(formatWeekLabel(currentWeekStart, formatter));
+              createCalendarGrid(calendarGrid, count, SimulateAnnealing.getSubjects(), totalWeeks);
+            }
           } else {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle(null);
             alert.setHeaderText(null);
-            alert.setContentText("Πάει κι αυτό! 🎉 Ώρα για λίγη ξεκούραση τώρα! Η εξεταστική σου σταματάει εδώ");
+            alert.setContentText("Προς το παρόν, δεν υπάρχουν προηγούμενες εβδομάδες. Αλλά μην ανησυχείς, όλα ξεκινούν από εδώ!");
             alert
                 .getDialogPane()
                 .getStylesheets()
@@ -140,8 +125,30 @@ public class Calendar {
             alert.getDialogPane().setMinHeight(300);
             alert.showAndWait();
           }
-          currentWeekStart = currentWeekStart.plusWeeks(1);
-          weekLabel.setText(formatWeekLabel(currentWeekStart, formatter));
+        });
+
+    nextButton.setOnAction(
+        event -> {
+          count++;
+          if (count > totalWeeks.size()) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+              alert.setTitle(null);
+              alert.setHeaderText(null);
+              alert.setContentText("Πάει κι αυτό! 🎉 Ώρα για λίγη ξεκούραση τώρα! Η εξεταστική σου σταματάει εδώ");
+              alert
+                  .getDialogPane()
+                  .getStylesheets()
+                  .add(getClass().getResource("/alert.css").toExternalForm());
+              alert.getDialogPane().setMinWidth(500);
+              alert.getDialogPane().setMinHeight(300);
+              alert.showAndWait();
+          } else {
+            currentWeekStart = currentWeekStart.plusWeeks(1);
+            weekLabel.setText(formatWeekLabel(currentWeekStart, formatter));
+            createCalendarGrid(calendarGrid, count, SimulateAnnealing.getSubjects(), totalWeeks);
+              
+          }
+        
         });
 
     weekSwitcher.setTranslateY(40);
@@ -225,7 +232,7 @@ public class Calendar {
               System.out.println("empty");
             }
 
-            List<Subject> subject = staticUser.getSubjects();
+            subject = staticUser.getSubjects();
             SimulateAnnealing.scheduleResult();
             totalWeeks = new ArrayList<>(staticUser.getTotalWeeks());
             /*
@@ -345,15 +352,8 @@ public class Calendar {
     grid.getRowConstraints().clear();
 
     String[] days = {"Δευτέρα", "Τρίτη", "Τετάρτη", "Πέμπτη", "Παρασκευή", "Σάββατο", "Κυριακή"};
-    // Get the list of weeks
-    CreateWeekDay createWeekDay = new CreateWeekDay();
-
-    // Select the current week (adjust "weeknumber" based on your logic)
-    Week thisWeek = weeks.get(weeknumber);
-
     // Define grid dimensions
     int daysInWeek = 7;
-
     // Set column constraints (for 7 days)
     for (int i = 0; i < daysInWeek; i++) {
       ColumnConstraints column = new ColumnConstraints();
@@ -380,6 +380,15 @@ public class Calendar {
       row.setPercentHeight(100.0 / (maxTasksPerDay)); // Distribute rows equally
       grid.getRowConstraints().add(row);
     }
+    // Get the list of weeks
+    CreateWeekDay createWeekDay = new CreateWeekDay();
+
+    // Select the current week (adjust "weeknumber" based on your logic)
+    if (weeks == null || weeks.isEmpty()) {
+      System.out.println("Η λίστα εβδομάδων είναι null.");
+      return;
+    }
+    Week thisWeek = weeks.get(weeknumber);
 
     // Start populating the grid with data
     int dayCount = 0;
