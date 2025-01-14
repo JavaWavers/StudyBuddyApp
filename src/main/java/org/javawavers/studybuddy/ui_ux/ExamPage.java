@@ -24,9 +24,12 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 
 import org.javawavers.studybuddy.courses.Exam;
+import org.javawavers.studybuddy.courses.StaticUser;
 import org.javawavers.studybuddy.courses.Subject;
 
 import com.sun.jdi.Value;
+import org.javawavers.studybuddy.database.DataInserter;
+import org.javawavers.studybuddy.database.ActiveUser;
 
 /*
 TODO:
@@ -191,6 +194,10 @@ public class ExamPage {
                   .getStylesheets()
                   .add(Objects.requireNonNull(getClass().getResource("/success.css")).toExternalForm());
             successAlert.showAndWait();
+            DataInserter.insertSubject(courseName, diffi, courseType.toString(), StaticUser.staticUser.getUserID());
+            DataInserter.insertExam(deadline, pages,revision,time, ActiveUser.getSubjectID(StaticUser.staticUser.getUserID(), courseName));
+            StaticUser.staticUser.addSubject(subject1);
+            StaticUser.staticUser.addExam(e1);
           }
 
           nameField.clear();

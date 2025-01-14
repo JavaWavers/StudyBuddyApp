@@ -20,6 +20,8 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Screen;
 
+import org.javawavers.studybuddy.database.ActiveUser;
+
 public class LoginPage {
 
   private HBox rightPane;
@@ -322,8 +324,7 @@ public class LoginPage {
       alert.showAndWait();
 
       return false;
-    } else if (email.equals(RegisterPage.storedEmail)
-        && password.equals(RegisterPage.storedPassword)) {
+    } else if (ActiveUser.authenticateUser(email, password) != null) {
 
       Alert alert = new Alert(Alert.AlertType.INFORMATION);
       alert.setTitle("Σύνδεση Επιτυχής");
@@ -332,7 +333,7 @@ public class LoginPage {
       DialogPane dialogPane = alert.getDialogPane();
       dialogPane.getStyleClass().add("success-alert");
       dialogPane.getStylesheets().add(getClass().getResource("/success.css").toExternalForm());
-
+      ActiveUser.loadData(email, password);
       return true;
     } else {
       Alert alert = new Alert(Alert.AlertType.ERROR);
