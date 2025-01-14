@@ -34,64 +34,63 @@ public class CreateWeekDay {
 <span class="nc" id="L34">    LocalDate today = LocalDate.now(); // Today's date</span>
 <span class="nc" id="L35">    DayOfWeek currentDayOfWeek = today.getDayOfWeek();</span>
 <span class="nc" id="L36">    int daysUntilMonday = currentDayOfWeek.getValue() - DayOfWeek.MONDAY.getValue();</span>
-
     // Initialize the first week
-<span class="nc" id="L39">    Week currentWeek = new Week();</span>
+<span class="nc" id="L38">    Week currentWeek = new Week();</span>
 
     // Fill days before today with empty tasks
-<span class="nc bnc" id="L42" title="All 2 branches missed.">    for (int i = 0; i &lt; daysUntilMonday; i++) {</span>
-<span class="nc" id="L43">      Day emptyDay = new Day(); // Day with no tasks</span>
-<span class="nc" id="L44">      currentWeek.getDaysOfWeek().add(emptyDay);</span>
+<span class="nc bnc" id="L41" title="All 2 branches missed.">    for (int i = 0; i &lt; daysUntilMonday; i++) {</span>
+<span class="nc" id="L42">      Day emptyDay = new Day(); // Day with no tasks</span>
+<span class="nc" id="L43">      currentWeek.getDaysOfWeek().add(emptyDay);</span>
     }
 
-<span class="nc" id="L47">    List&lt;ScheduledTask&gt; scheduledTasksForDay = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L46">    List&lt;ScheduledTask&gt; scheduledTasksForDay = new ArrayList&lt;&gt;();</span>
 
-<span class="nc bnc" id="L49" title="All 2 branches missed.">    for (int dayIndex = 0; dayIndex &lt; colSize; dayIndex++) {</span>
-<span class="nc" id="L50">      LocalDate currentDate = today.plusDays(dayIndex - daysUntilMonday); // Calculate current date</span>
+<span class="nc bnc" id="L48" title="All 2 branches missed.">    for (int dayIndex = 0; dayIndex &lt; colSize; dayIndex++) {</span>
+<span class="nc" id="L49">      LocalDate currentDate = today.plusDays(dayIndex - daysUntilMonday); // Calculate current date</span>
 
       // Clear the scheduled tasks for the day
-<span class="nc" id="L53">      scheduledTasksForDay.clear();</span>
-<span class="nc bnc" id="L54" title="All 2 branches missed.">      for (int taskIndex = 0; taskIndex &lt; schedule.length; taskIndex++) {</span>
-<span class="nc" id="L55">        int taskId = schedule[taskIndex][dayIndex];</span>
-<span class="nc" id="L56">        String taskType = &quot; &quot;;</span>
-<span class="nc bnc" id="L57" title="All 2 branches missed.">        if (taskId &gt; 0) { // If there is a task for the specific slot</span>
-<span class="nc" id="L58">          Task task = bestTask.get(taskId); // Retrieve the Task from the list</span>
-<span class="nc bnc" id="L59" title="All 2 branches missed.">          if (task.getTaskType() == 1) {</span>
-<span class="nc" id="L60">            taskType = &quot;Διάβασμα&quot;;</span>
-<span class="nc bnc" id="L61" title="All 2 branches missed.">          } else if (task.getTaskType() == 2) {</span>
-<span class="nc" id="L62">            taskType = &quot;Επανάληψη&quot;;</span>
+<span class="nc" id="L52">      scheduledTasksForDay.clear();</span>
+<span class="nc bnc" id="L53" title="All 2 branches missed.">      for (int taskIndex = 0; taskIndex &lt; schedule.length; taskIndex++) {</span>
+<span class="nc" id="L54">        int taskId = schedule[taskIndex][dayIndex];</span>
+<span class="nc" id="L55">        String taskType = &quot; &quot;;</span>
+<span class="nc bnc" id="L56" title="All 2 branches missed.">        if (taskId &gt; 0) { // If there is a task for the specific slot</span>
+<span class="nc" id="L57">          Task task = bestTask.get(taskId); // Retrieve the Task from the list</span>
+<span class="nc bnc" id="L58" title="All 2 branches missed.">          if (task.getTaskType() == 1) {</span>
+<span class="nc" id="L59">            taskType = &quot;Διάβασμα&quot;;</span>
+<span class="nc bnc" id="L60" title="All 2 branches missed.">          } else if (task.getTaskType() == 2) {</span>
+<span class="nc" id="L61">            taskType = &quot;Επανάληψη&quot;;</span>
           } else {
-<span class="nc" id="L64">            taskType = &quot;Εργασία&quot;;</span>
+<span class="nc" id="L63">            taskType = &quot;Εργασία&quot;;</span>
           }
 
-<span class="nc" id="L67">          ScheduledTask scheduledTask =</span>
+<span class="nc" id="L66">          ScheduledTask scheduledTask =</span>
               new ScheduledTask(
-<span class="nc" id="L69">                  task.getSubject(),</span>
+<span class="nc" id="L68">                  task.getSubject(),</span>
                   taskType,
-<span class="nc" id="L71">                  (int) Math.ceil(task.getTaskHours()),</span>
+<span class="nc" id="L70">                  (int) Math.ceil(task.getTaskHours()),</span>
                   currentDate,
-<span class="nc" id="L73">                  new Subject(task.getSubject()) // Create Subject from the Task</span>
+<span class="nc" id="L72">                  new Subject(task.getSubject()) // Create Subject from the Task</span>
                   );
-<span class="nc" id="L75">          scheduledTasksForDay.add(scheduledTask);</span>
+<span class="nc" id="L74">          scheduledTasksForDay.add(scheduledTask);</span>
         }
       }
 
       // Create a Day object for the current day
-<span class="nc" id="L80">      Day currentDay = new Day();</span>
-<span class="nc" id="L81">      currentDay.todayTasks.addAll(scheduledTasksForDay);</span>
+<span class="nc" id="L79">      Day currentDay = new Day();</span>
+<span class="nc" id="L80">      currentDay.todayTasks.addAll(scheduledTasksForDay);</span>
 
       // Add the day to the week
-<span class="nc" id="L84">      currentWeek.getDaysOfWeek().add(currentDay);</span>
+<span class="nc" id="L83">      currentWeek.getDaysOfWeek().add(currentDay);</span>
 
       // If the week is complete or it's the last day, save it
-<span class="nc bnc" id="L87" title="All 4 branches missed.">      if (currentWeek.getDaysOfWeek().size() == 7 || dayIndex == colSize - 1) {</span>
-<span class="nc" id="L88">        totalWeeks.add(currentWeek);</span>
-<span class="nc" id="L89">        currentWeek = new Week(); // Start a new week</span>
+<span class="nc bnc" id="L86" title="All 4 branches missed.">      if (currentWeek.getDaysOfWeek().size() == 7 || dayIndex == colSize - 1) {</span>
+<span class="nc" id="L87">        totalWeeks.add(currentWeek);</span>
+<span class="nc" id="L88">        currentWeek = new Week(); // Start a new week</span>
       }
     }
-<span class="nc" id="L92">    staticUser.setTotalWeeks(totalWeeks);</span>
-<span class="nc" id="L93">    PrintWeeks printWeeks = new PrintWeeks();</span>
-<span class="nc" id="L94">    printWeeks.printWeeks(totalWeeks);</span>
-<span class="nc" id="L95">  }</span>
+<span class="nc" id="L91">    staticUser.setTotalWeeks(totalWeeks);</span>
+<span class="nc" id="L92">    PrintWeeks printWeeks = new PrintWeeks();</span>
+<span class="nc" id="L93">    printWeeks.printWeeks(totalWeeks);</span>
+<span class="nc" id="L94">  }</span>
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

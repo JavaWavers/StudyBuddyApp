@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <checkstyle version="9.3">
-<file name="C:\Users\Αντιγόνη\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\calculations\Availability.java">
+<file name="C:\Users\Dell\Programming2StudyBuddy\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\calculations\Availability.java">
 <error line="11" column="1" severity="warning" message="Missing a Javadoc comment." source="com.puppycrawl.tools.checkstyle.checks.javadoc.MissingJavadocTypeCheck"/>
 <error line="31" column="3" severity="warning" message="Missing a Javadoc comment." source="com.puppycrawl.tools.checkstyle.checks.javadoc.MissingJavadocMethodCheck"/>
 <error line="44" column="3" severity="warning" message="Missing a Javadoc comment." source="com.puppycrawl.tools.checkstyle.checks.javadoc.MissingJavadocMethodCheck"/>
@@ -8,26 +8,25 @@
 <error line="87" column="3" severity="warning" message="Missing a Javadoc comment." source="com.puppycrawl.tools.checkstyle.checks.javadoc.MissingJavadocMethodCheck"/>
 <error line="137" column="3" severity="warning" message="Missing a Javadoc comment." source="com.puppycrawl.tools.checkstyle.checks.javadoc.MissingJavadocMethodCheck"/>
 </file>
-<file name="C:\Users\Αντιγόνη\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\calculations\CalculativeAlgorithm.java">
+<file name="C:\Users\Dell\Programming2StudyBuddy\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\calculations\CalculativeAlgorithm.java">
 <error line="10" column="1" severity="warning" message="Missing a Javadoc comment." source="com.puppycrawl.tools.checkstyle.checks.javadoc.MissingJavadocTypeCheck"/>
 </file>
-<file name="C:\Users\Αντιγόνη\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\calculations\CreateWeekDay.java">
+<file name="C:\Users\Dell\Programming2StudyBuddy\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\calculations\CreateWeekDay.java">
 <error line="9" column="41" severity="warning" message="Using the &apos;.*&apos; form of import should be avoided - org.javawavers.studybuddy.courses.*." source="com.puppycrawl.tools.checkstyle.checks.imports.AvoidStarImportCheck"/>
 <error line="11" column="1" severity="warning" message="Missing a Javadoc comment." source="com.puppycrawl.tools.checkstyle.checks.javadoc.MissingJavadocTypeCheck"/>
 </file>
-<file name="C:\Users\Αντιγόνη\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\calculations\Dates.java">
-<error line="20" column="1" severity="warning" message="Missing a Javadoc comment." source="com.puppycrawl.tools.checkstyle.checks.javadoc.MissingJavadocTypeCheck"/>
-<error line="49" column="3" severity="warning" message="Missing a Javadoc comment." source="com.puppycrawl.tools.checkstyle.checks.javadoc.MissingJavadocMethodCheck"/>
-<error line="57" column="3" severity="warning" message="Missing a Javadoc comment." source="com.puppycrawl.tools.checkstyle.checks.javadoc.MissingJavadocMethodCheck"/>
-<error line="101" column="3" severity="warning" message="Missing a Javadoc comment." source="com.puppycrawl.tools.checkstyle.checks.javadoc.MissingJavadocMethodCheck"/>
-<error line="124" column="3" severity="warning" message="Missing a Javadoc comment." source="com.puppycrawl.tools.checkstyle.checks.javadoc.MissingJavadocMethodCheck"/>
-<error line="136" column="3" severity="warning" message="Missing a Javadoc comment." source="com.puppycrawl.tools.checkstyle.checks.javadoc.MissingJavadocMethodCheck"/>
+<file name="C:\Users\Dell\Programming2StudyBuddy\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\calculations\Dates.java">
+<error line="48" column="3" severity="warning" message="Missing a Javadoc comment." source="com.puppycrawl.tools.checkstyle.checks.javadoc.MissingJavadocMethodCheck"/>
+<error line="56" column="3" severity="warning" message="Missing a Javadoc comment." source="com.puppycrawl.tools.checkstyle.checks.javadoc.MissingJavadocMethodCheck"/>
+<error line="100" column="3" severity="warning" message="Missing a Javadoc comment." source="com.puppycrawl.tools.checkstyle.checks.javadoc.MissingJavadocMethodCheck"/>
+<error line="123" column="3" severity="warning" message="Missing a Javadoc comment." source="com.puppycrawl.tools.checkstyle.checks.javadoc.MissingJavadocMethodCheck"/>
+<error line="135" column="3" severity="warning" message="Missing a Javadoc comment." source="com.puppycrawl.tools.checkstyle.checks.javadoc.MissingJavadocMethodCheck"/>
 </file>
-<file name="C:\Users\Αντιγόνη\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\calculations\Day.java">
+<file name="C:\Users\Dell\Programming2StudyBuddy\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\calculations\Day.java">
 <error line="5" column="41" severity="warning" message="Using the &apos;.*&apos; form of import should be avoided - org.javawavers.studybuddy.courses.*." source="com.puppycrawl.tools.checkstyle.checks.imports.AvoidStarImportCheck"/>
 <error line="7" column="1" severity="warning" message="Missing a Javadoc comment." source="com.puppycrawl.tools.checkstyle.checks.javadoc.MissingJavadocTypeCheck"/>
 </file>
-<file name="C:\Users\Αντιγόνη\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\calculations\MainTest.java">
+<file name="C:\Users\Dell\Programming2StudyBuddy\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\calculations\MainTest.java">
 <error line="5" column="41" severity="warning" message="Using the &apos;.*&apos; form of import should be avoided - org.javawavers.studybuddy.courses.*." source="com.puppycrawl.tools.checkstyle.checks.imports.AvoidStarImportCheck"/>
 <error line="7" column="1" severity="warning" message="Missing a Javadoc comment." source="com.puppycrawl.tools.checkstyle.checks.javadoc.MissingJavadocTypeCheck"/>
 <error line="8" column="3" severity="warning" message="Missing a Javadoc comment." source="com.puppycrawl.tools.checkstyle.checks.javadoc.MissingJavadocMethodCheck"/>
@@ -35,40 +34,40 @@
 <error line="17" column="13" severity="warning" message="Local variable name &apos;History&apos; must match pattern &apos;^[a-z]([a-z0-9][a-zA-Z0-9]*)?$&apos;." source="com.puppycrawl.tools.checkstyle.checks.naming.LocalVariableNameCheck"/>
 <error line="40" column="23" severity="warning" message="Local variable name &apos;sAnnealing&apos; must match pattern &apos;^[a-z]([a-z0-9][a-zA-Z0-9]*)?$&apos;." source="com.puppycrawl.tools.checkstyle.checks.naming.LocalVariableNameCheck"/>
 </file>
-<file name="C:\Users\Αντιγόνη\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\calculations\PrintSchedule.java">
+<file name="C:\Users\Dell\Programming2StudyBuddy\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\calculations\PrintSchedule.java">
 <error line="6" column="1" severity="warning" message="Missing a Javadoc comment." source="com.puppycrawl.tools.checkstyle.checks.javadoc.MissingJavadocTypeCheck"/>
 <error line="8" column="3" severity="warning" message="Missing a Javadoc comment." source="com.puppycrawl.tools.checkstyle.checks.javadoc.MissingJavadocMethodCheck"/>
 </file>
-<file name="C:\Users\Αντιγόνη\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\calculations\PrintWeeks.java">
+<file name="C:\Users\Dell\Programming2StudyBuddy\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\calculations\PrintWeeks.java">
 <error line="4" column="41" severity="warning" message="Using the &apos;.*&apos; form of import should be avoided - org.javawavers.studybuddy.courses.*." source="com.puppycrawl.tools.checkstyle.checks.imports.AvoidStarImportCheck"/>
 <error line="6" column="1" severity="warning" message="Missing a Javadoc comment." source="com.puppycrawl.tools.checkstyle.checks.javadoc.MissingJavadocTypeCheck"/>
 <error line="7" column="3" severity="warning" message="Missing a Javadoc comment." source="com.puppycrawl.tools.checkstyle.checks.javadoc.MissingJavadocMethodCheck"/>
 </file>
-<file name="C:\Users\Αντιγόνη\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\calculations\Repetition.java">
+<file name="C:\Users\Dell\Programming2StudyBuddy\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\calculations\Repetition.java">
 <error line="8" column="1" severity="warning" message="Missing a Javadoc comment." source="com.puppycrawl.tools.checkstyle.checks.javadoc.MissingJavadocTypeCheck"/>
 <error line="20" column="3" severity="warning" message="Missing a Javadoc comment." source="com.puppycrawl.tools.checkstyle.checks.javadoc.MissingJavadocMethodCheck"/>
 <error line="54" column="3" severity="warning" message="Missing a Javadoc comment." source="com.puppycrawl.tools.checkstyle.checks.javadoc.MissingJavadocMethodCheck"/>
 <error line="94" column="3" severity="warning" message="Missing a Javadoc comment." source="com.puppycrawl.tools.checkstyle.checks.javadoc.MissingJavadocTypeCheck"/>
 </file>
-<file name="C:\Users\Αντιγόνη\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\calculations\ScheduleResult.java">
+<file name="C:\Users\Dell\Programming2StudyBuddy\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\calculations\ScheduleResult.java">
 <error line="13" column="1" severity="warning" message="Missing a Javadoc comment." source="com.puppycrawl.tools.checkstyle.checks.javadoc.MissingJavadocTypeCheck"/>
 </file>
-<file name="C:\Users\Αντιγόνη\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\calculations\Scoring.java">
+<file name="C:\Users\Dell\Programming2StudyBuddy\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\calculations\Scoring.java">
 <error line="20" column="1" severity="warning" message="Missing a Javadoc comment." source="com.puppycrawl.tools.checkstyle.checks.javadoc.MissingJavadocTypeCheck"/>
 <error line="21" column="3" severity="warning" message="Missing a Javadoc comment." source="com.puppycrawl.tools.checkstyle.checks.javadoc.MissingJavadocMethodCheck"/>
 </file>
-<file name="C:\Users\Αντιγόνη\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\calculations\SimulateAnnealing.java">
+<file name="C:\Users\Dell\Programming2StudyBuddy\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\calculations\SimulateAnnealing.java">
 <error line="20" column="1" severity="warning" message="Missing a Javadoc comment." source="com.puppycrawl.tools.checkstyle.checks.javadoc.MissingJavadocTypeCheck"/>
 <error line="36" column="3" severity="warning" message="Missing a Javadoc comment." source="com.puppycrawl.tools.checkstyle.checks.javadoc.MissingJavadocMethodCheck"/>
 <error line="45" column="3" severity="warning" message="Missing a Javadoc comment." source="com.puppycrawl.tools.checkstyle.checks.javadoc.MissingJavadocMethodCheck"/>
 <error line="127" column="3" severity="warning" message="Missing a Javadoc comment." source="com.puppycrawl.tools.checkstyle.checks.javadoc.MissingJavadocMethodCheck"/>
 <error line="154" column="15" severity="warning" message="Local variable name &apos;vSchedule&apos; must match pattern &apos;^[a-z]([a-z0-9][a-zA-Z0-9]*)?$&apos;." source="com.puppycrawl.tools.checkstyle.checks.naming.LocalVariableNameCheck"/>
 </file>
-<file name="C:\Users\Αντιγόνη\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\calculations\SubjectTest.java">
+<file name="C:\Users\Dell\Programming2StudyBuddy\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\calculations\SubjectTest.java">
 <error line="5" column="1" severity="warning" message="Missing a Javadoc comment." source="com.puppycrawl.tools.checkstyle.checks.javadoc.MissingJavadocTypeCheck"/>
 <error line="12" column="3" severity="warning" message="Missing a Javadoc comment." source="com.puppycrawl.tools.checkstyle.checks.javadoc.MissingJavadocMethodCheck"/>
 </file>
-<file name="C:\Users\Αντιγόνη\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\calculations\Task.java">
+<file name="C:\Users\Dell\Programming2StudyBuddy\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\calculations\Task.java">
 <error line="5" column="1" severity="warning" message="Missing a Javadoc comment." source="com.puppycrawl.tools.checkstyle.checks.javadoc.MissingJavadocTypeCheck"/>
 <error line="9" severity="warning" message="First sentence of Javadoc is missing an ending period." source="com.puppycrawl.tools.checkstyle.checks.javadoc.SummaryJavadocCheck"/>
 <error line="13" column="3" severity="warning" message="Missing a Javadoc comment." source="com.puppycrawl.tools.checkstyle.checks.javadoc.MissingJavadocMethodCheck"/>
@@ -80,23 +79,23 @@
 <error line="65" column="11" severity="warning" message="&apos;case&apos; child has incorrect indentation level 10, expected level should be 6." source="com.puppycrawl.tools.checkstyle.checks.indentation.IndentationCheck"/>
 <error line="66" column="9" severity="warning" message="&apos;switch rcurly&apos; has incorrect indentation level 8, expected level should be 4." source="com.puppycrawl.tools.checkstyle.checks.indentation.IndentationCheck"/>
 </file>
-<file name="C:\Users\Αντιγόνη\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\calculations\TaskAssignment.java">
+<file name="C:\Users\Dell\Programming2StudyBuddy\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\calculations\TaskAssignment.java">
 <error line="8" column="1" severity="warning" message="Missing a Javadoc comment." source="com.puppycrawl.tools.checkstyle.checks.javadoc.MissingJavadocTypeCheck"/>
 <error line="42" column="3" severity="warning" message="Missing a Javadoc comment." source="com.puppycrawl.tools.checkstyle.checks.javadoc.MissingJavadocMethodCheck"/>
 <error line="72" column="15" severity="warning" message="Abbreviation in name &apos;flagNAv&apos; must contain no more than &apos;1&apos; consecutive capital letters." source="com.puppycrawl.tools.checkstyle.checks.naming.AbbreviationAsWordInNameCheck"/>
 </file>
-<file name="C:\Users\Αντιγόνη\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\calculations\Validate.java">
+<file name="C:\Users\Dell\Programming2StudyBuddy\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\calculations\Validate.java">
 <error line="7" column="1" severity="warning" message="Missing a Javadoc comment." source="com.puppycrawl.tools.checkstyle.checks.javadoc.MissingJavadocTypeCheck"/>
 <error line="13" column="13" severity="warning" message="Local variable name &apos;dValidSchedule&apos; must match pattern &apos;^[a-z]([a-z0-9][a-zA-Z0-9]*)?$&apos;." source="com.puppycrawl.tools.checkstyle.checks.naming.LocalVariableNameCheck"/>
 </file>
-<file name="C:\Users\Αντιγόνη\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\calculations\Week.java">
+<file name="C:\Users\Dell\Programming2StudyBuddy\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\calculations\Week.java">
 <error line="6" column="1" severity="warning" message="Missing a Javadoc comment." source="com.puppycrawl.tools.checkstyle.checks.javadoc.MissingJavadocTypeCheck"/>
 </file>
-<file name="C:\Users\Αντιγόνη\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\courses\Assignment.java">
+<file name="C:\Users\Dell\Programming2StudyBuddy\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\courses\Assignment.java">
 <error line="6" column="1" severity="warning" message="Missing a Javadoc comment." source="com.puppycrawl.tools.checkstyle.checks.javadoc.MissingJavadocTypeCheck"/>
 <error line="19" column="3" severity="warning" message="Missing a Javadoc comment." source="com.puppycrawl.tools.checkstyle.checks.javadoc.MissingJavadocMethodCheck"/>
 </file>
-<file name="C:\Users\Αντιγόνη\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\courses\Exam.java">
+<file name="C:\Users\Dell\Programming2StudyBuddy\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\courses\Exam.java">
 <error line="6" column="1" severity="warning" message="Missing a Javadoc comment." source="com.puppycrawl.tools.checkstyle.checks.javadoc.MissingJavadocTypeCheck"/>
 <error line="9" column="15" severity="warning" message="Abbreviation in name &apos;revisionPerXPages&apos; must contain no more than &apos;1&apos; consecutive capital letters." source="com.puppycrawl.tools.checkstyle.checks.naming.AbbreviationAsWordInNameCheck"/>
 <error line="23" column="3" severity="warning" message="Missing a Javadoc comment." source="com.puppycrawl.tools.checkstyle.checks.javadoc.MissingJavadocMethodCheck"/>
@@ -108,7 +107,7 @@
 <error line="72" column="15" severity="warning" message="Abbreviation in name &apos;setRevisionPerXPages&apos; must contain no more than &apos;1&apos; consecutive capital letters." source="com.puppycrawl.tools.checkstyle.checks.naming.AbbreviationAsWordInNameCheck"/>
 <error line="72" column="40" severity="warning" message="Abbreviation in name &apos;revisionPerXPages&apos; must contain no more than &apos;1&apos; consecutive capital letters." source="com.puppycrawl.tools.checkstyle.checks.naming.AbbreviationAsWordInNameCheck"/>
 </file>
-<file name="C:\Users\Αντιγόνη\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\courses\ScheduledTask.java">
+<file name="C:\Users\Dell\Programming2StudyBuddy\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\courses\ScheduledTask.java">
 <error line="7" column="1" severity="warning" message="Missing a Javadoc comment." source="com.puppycrawl.tools.checkstyle.checks.javadoc.MissingJavadocTypeCheck"/>
 <error line="20" column="3" severity="warning" message="Missing a Javadoc comment." source="com.puppycrawl.tools.checkstyle.checks.javadoc.MissingJavadocTypeCheck"/>
 <error line="28" column="3" severity="warning" message="Missing a Javadoc comment." source="com.puppycrawl.tools.checkstyle.checks.javadoc.MissingJavadocMethodCheck"/>
@@ -116,10 +115,10 @@
 <error line="123" column="3" severity="warning" message="Missing a Javadoc comment." source="com.puppycrawl.tools.checkstyle.checks.javadoc.MissingJavadocMethodCheck"/>
 <error line="148" column="5" severity="warning" message="&apos;method def&apos; child has incorrect indentation level 4, expected level should be 6." source="com.puppycrawl.tools.checkstyle.checks.indentation.IndentationCheck"/>
 </file>
-<file name="C:\Users\Αντιγόνη\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\courses\StaticUser.java">
+<file name="C:\Users\Dell\Programming2StudyBuddy\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\courses\StaticUser.java">
 <error line="3" column="1" severity="warning" message="Missing a Javadoc comment." source="com.puppycrawl.tools.checkstyle.checks.javadoc.MissingJavadocTypeCheck"/>
 </file>
-<file name="C:\Users\Αντιγόνη\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\courses\Subject.java">
+<file name="C:\Users\Dell\Programming2StudyBuddy\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\courses\Subject.java">
 <error line="6" column="1" severity="warning" message="Missing a Javadoc comment." source="com.puppycrawl.tools.checkstyle.checks.javadoc.MissingJavadocTypeCheck"/>
 <error line="8" column="3" severity="warning" message="Missing a Javadoc comment." source="com.puppycrawl.tools.checkstyle.checks.javadoc.MissingJavadocTypeCheck"/>
 <error line="16" column="3" severity="warning" message="Missing a Javadoc comment." source="com.puppycrawl.tools.checkstyle.checks.javadoc.MissingJavadocTypeCheck"/>
@@ -128,61 +127,66 @@
 <error line="80" column="3" severity="warning" message="Missing a Javadoc comment." source="com.puppycrawl.tools.checkstyle.checks.javadoc.MissingJavadocMethodCheck"/>
 <error line="104" column="3" severity="warning" message="Missing a Javadoc comment." source="com.puppycrawl.tools.checkstyle.checks.javadoc.MissingJavadocMethodCheck"/>
 </file>
-<file name="C:\Users\Αντιγόνη\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\courses\SubjectElement.java">
+<file name="C:\Users\Dell\Programming2StudyBuddy\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\courses\SubjectElement.java">
 <error line="6" column="1" severity="warning" message="Missing a Javadoc comment." source="com.puppycrawl.tools.checkstyle.checks.javadoc.MissingJavadocTypeCheck"/>
 <error line="31" column="3" severity="warning" message="Missing a Javadoc comment." source="com.puppycrawl.tools.checkstyle.checks.javadoc.MissingJavadocMethodCheck"/>
 </file>
-<file name="C:\Users\Αντιγόνη\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\courses\User.java">
+<file name="C:\Users\Dell\Programming2StudyBuddy\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\courses\User.java">
 <error line="6" column="46" severity="warning" message="Using the &apos;.*&apos; form of import should be avoided - org.javawavers.studybuddy.calculations.*." source="com.puppycrawl.tools.checkstyle.checks.imports.AvoidStarImportCheck"/>
 <error line="8" column="1" severity="warning" message="Missing a Javadoc comment." source="com.puppycrawl.tools.checkstyle.checks.javadoc.MissingJavadocTypeCheck"/>
 <error line="12" column="15" severity="warning" message="Abbreviation in name &apos;userID&apos; must contain no more than &apos;1&apos; consecutive capital letters." source="com.puppycrawl.tools.checkstyle.checks.naming.AbbreviationAsWordInNameCheck"/>
-<error line="28" column="3" severity="warning" message="Missing a Javadoc comment." source="com.puppycrawl.tools.checkstyle.checks.javadoc.MissingJavadocMethodCheck"/>
-<error line="48" column="3" severity="warning" message="Missing a Javadoc comment." source="com.puppycrawl.tools.checkstyle.checks.javadoc.MissingJavadocMethodCheck"/>
-<error line="54" column="3" severity="warning" message="Missing a Javadoc comment." source="com.puppycrawl.tools.checkstyle.checks.javadoc.MissingJavadocMethodCheck"/>
-<error line="54" column="19" severity="warning" message="Abbreviation in name &apos;userID&apos; must contain no more than &apos;1&apos; consecutive capital letters." source="com.puppycrawl.tools.checkstyle.checks.naming.AbbreviationAsWordInNameCheck"/>
-<error line="62" column="3" severity="warning" message="Missing a Javadoc comment." source="com.puppycrawl.tools.checkstyle.checks.javadoc.MissingJavadocMethodCheck"/>
-<error line="63" column="11" severity="warning" message="Abbreviation in name &apos;userID&apos; must contain no more than &apos;1&apos; consecutive capital letters." source="com.puppycrawl.tools.checkstyle.checks.naming.AbbreviationAsWordInNameCheck"/>
-<error line="127" column="15" severity="warning" message="Abbreviation in name &apos;setUserID&apos; must contain no more than &apos;1&apos; consecutive capital letters." source="com.puppycrawl.tools.checkstyle.checks.naming.AbbreviationAsWordInNameCheck"/>
-<error line="127" column="29" severity="warning" message="Abbreviation in name &apos;userID&apos; must contain no more than &apos;1&apos; consecutive capital letters." source="com.puppycrawl.tools.checkstyle.checks.naming.AbbreviationAsWordInNameCheck"/>
-<error line="131" column="14" severity="warning" message="Abbreviation in name &apos;getUserID&apos; must contain no more than &apos;1&apos; consecutive capital letters." source="com.puppycrawl.tools.checkstyle.checks.naming.AbbreviationAsWordInNameCheck"/>
+<error line="29" column="3" severity="warning" message="Missing a Javadoc comment." source="com.puppycrawl.tools.checkstyle.checks.javadoc.MissingJavadocMethodCheck"/>
+<error line="49" column="3" severity="warning" message="Missing a Javadoc comment." source="com.puppycrawl.tools.checkstyle.checks.javadoc.MissingJavadocMethodCheck"/>
+<error line="55" column="3" severity="warning" message="Missing a Javadoc comment." source="com.puppycrawl.tools.checkstyle.checks.javadoc.MissingJavadocMethodCheck"/>
+<error line="55" column="19" severity="warning" message="Abbreviation in name &apos;userID&apos; must contain no more than &apos;1&apos; consecutive capital letters." source="com.puppycrawl.tools.checkstyle.checks.naming.AbbreviationAsWordInNameCheck"/>
+<error line="63" column="3" severity="warning" message="Missing a Javadoc comment." source="com.puppycrawl.tools.checkstyle.checks.javadoc.MissingJavadocMethodCheck"/>
+<error line="64" column="11" severity="warning" message="Abbreviation in name &apos;userID&apos; must contain no more than &apos;1&apos; consecutive capital letters." source="com.puppycrawl.tools.checkstyle.checks.naming.AbbreviationAsWordInNameCheck"/>
+<error line="128" column="15" severity="warning" message="Abbreviation in name &apos;setUserID&apos; must contain no more than &apos;1&apos; consecutive capital letters." source="com.puppycrawl.tools.checkstyle.checks.naming.AbbreviationAsWordInNameCheck"/>
+<error line="128" column="29" severity="warning" message="Abbreviation in name &apos;userID&apos; must contain no more than &apos;1&apos; consecutive capital letters." source="com.puppycrawl.tools.checkstyle.checks.naming.AbbreviationAsWordInNameCheck"/>
+<error line="132" column="14" severity="warning" message="Abbreviation in name &apos;getUserID&apos; must contain no more than &apos;1&apos; consecutive capital letters." source="com.puppycrawl.tools.checkstyle.checks.naming.AbbreviationAsWordInNameCheck"/>
+<error line="229" column="3" severity="warning" message="Missing a Javadoc comment." source="com.puppycrawl.tools.checkstyle.checks.javadoc.MissingJavadocMethodCheck"/>
+<error line="233" severity="warning" message="Line is longer than 100 characters (found 101)." source="com.puppycrawl.tools.checkstyle.checks.sizes.LineLengthCheck"/>
 </file>
-<file name="C:\Users\Αντιγόνη\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\database\SQLiteConnection.java">
+<file name="C:\Users\Dell\Programming2StudyBuddy\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\database\SQLiteConnection.java">
 <error line="7" column="1" severity="warning" message="Missing a Javadoc comment." source="com.puppycrawl.tools.checkstyle.checks.javadoc.MissingJavadocTypeCheck"/>
 <error line="7" column="14" severity="warning" message="Abbreviation in name &apos;SQLiteConnection&apos; must contain no more than &apos;1&apos; consecutive capital letters." source="com.puppycrawl.tools.checkstyle.checks.naming.AbbreviationAsWordInNameCheck"/>
 <error line="13" column="3" severity="warning" message="Missing a Javadoc comment." source="com.puppycrawl.tools.checkstyle.checks.javadoc.MissingJavadocMethodCheck"/>
 <error line="34" column="3" severity="warning" message="Missing a Javadoc comment." source="com.puppycrawl.tools.checkstyle.checks.javadoc.MissingJavadocMethodCheck"/>
 <error line="46" column="3" severity="warning" message="Missing a Javadoc comment." source="com.puppycrawl.tools.checkstyle.checks.javadoc.MissingJavadocMethodCheck"/>
 </file>
-<file name="C:\Users\Αντιγόνη\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\GitLabTes.java">
+<file name="C:\Users\Dell\Programming2StudyBuddy\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\GitLabTes.java">
 <error line="3" column="1" severity="warning" message="Missing a Javadoc comment." source="com.puppycrawl.tools.checkstyle.checks.javadoc.MissingJavadocTypeCheck"/>
 </file>
-<file name="C:\Users\Αντιγόνη\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\graphs\ProgressCalculator.java">
+<file name="C:\Users\Dell\Programming2StudyBuddy\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\graphs\AssDistributionCalc.java">
+<error line="13" column="1" severity="warning" message="Missing a Javadoc comment." source="com.puppycrawl.tools.checkstyle.checks.javadoc.MissingJavadocTypeCheck"/>
+</file>
+<file name="C:\Users\Dell\Programming2StudyBuddy\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\graphs\ProgressCalculator.java">
 <error line="7" column="1" severity="warning" message="Missing a Javadoc comment." source="com.puppycrawl.tools.checkstyle.checks.javadoc.MissingJavadocTypeCheck"/>
 <error line="29" column="3" severity="warning" message="Missing a Javadoc comment." source="com.puppycrawl.tools.checkstyle.checks.javadoc.MissingJavadocMethodCheck"/>
 <error line="87" column="3" severity="warning" message="Missing a Javadoc comment." source="com.puppycrawl.tools.checkstyle.checks.javadoc.MissingJavadocMethodCheck"/>
 <error line="110" column="3" severity="warning" message="Missing a Javadoc comment." source="com.puppycrawl.tools.checkstyle.checks.javadoc.MissingJavadocMethodCheck"/>
 </file>
-<file name="C:\Users\Αντιγόνη\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\graphs\SubjDistributionCalc.java">
-<error line="11" column="1" severity="warning" message="Missing a Javadoc comment." source="com.puppycrawl.tools.checkstyle.checks.javadoc.MissingJavadocTypeCheck"/>
+<file name="C:\Users\Dell\Programming2StudyBuddy\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\graphs\SubjDistributionCalc.java">
+<error line="13" column="1" severity="warning" message="Missing a Javadoc comment." source="com.puppycrawl.tools.checkstyle.checks.javadoc.MissingJavadocTypeCheck"/>
 </file>
-<file name="C:\Users\Αντιγόνη\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\graphs\SummaryBoxCalc.java">
+<file name="C:\Users\Dell\Programming2StudyBuddy\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\graphs\SummaryBoxCalc.java">
 <error line="10" column="1" severity="warning" message="Missing a Javadoc comment." source="com.puppycrawl.tools.checkstyle.checks.javadoc.MissingJavadocTypeCheck"/>
 <error line="22" column="3" severity="warning" message="Missing a Javadoc comment." source="com.puppycrawl.tools.checkstyle.checks.javadoc.MissingJavadocMethodCheck"/>
 <error line="43" column="3" severity="warning" message="Missing a Javadoc comment." source="com.puppycrawl.tools.checkstyle.checks.javadoc.MissingJavadocMethodCheck"/>
 <error line="66" column="3" severity="warning" message="Missing a Javadoc comment." source="com.puppycrawl.tools.checkstyle.checks.javadoc.MissingJavadocMethodCheck"/>
 <error line="89" column="3" severity="warning" message="Missing a Javadoc comment." source="com.puppycrawl.tools.checkstyle.checks.javadoc.MissingJavadocMethodCheck"/>
 </file>
-<file name="C:\Users\Αντιγόνη\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\graphs\TaskProgess.java">
+<file name="C:\Users\Dell\Programming2StudyBuddy\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\graphs\TaskProgess.java">
 <error line="10" column="1" severity="warning" message="Missing a Javadoc comment." source="com.puppycrawl.tools.checkstyle.checks.javadoc.MissingJavadocTypeCheck"/>
 <error line="18" column="3" severity="warning" message="Missing a Javadoc comment." source="com.puppycrawl.tools.checkstyle.checks.javadoc.MissingJavadocMethodCheck"/>
 <error line="37" column="3" severity="warning" message="Missing a Javadoc comment." source="com.puppycrawl.tools.checkstyle.checks.javadoc.MissingJavadocMethodCheck"/>
 <error line="59" column="3" severity="warning" message="Missing a Javadoc comment." source="com.puppycrawl.tools.checkstyle.checks.javadoc.MissingJavadocMethodCheck"/>
 <error line="85" column="3" severity="warning" message="Missing a Javadoc comment." source="com.puppycrawl.tools.checkstyle.checks.javadoc.MissingJavadocMethodCheck"/>
 </file>
-<file name="C:\Users\Αντιγόνη\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\StudyBuddyApp.java">
+<file name="C:\Users\Dell\Programming2StudyBuddy\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\StudyBuddyApp.java">
 <error line="16" column="1" severity="warning" message="Missing a Javadoc comment." source="com.puppycrawl.tools.checkstyle.checks.javadoc.MissingJavadocTypeCheck"/>
 </file>
-<file name="C:\Users\Αντιγόνη\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\AssignmentPage.java">
+<file name="C:\Users\Dell\Programming2StudyBuddy\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\AssignmentPage.java">
 <error line="1" column="9" severity="warning" message="Package name &apos;org.javawavers.studybuddy.ui_ux&apos; must match pattern &apos;^[a-z]+(\.[a-z][a-z0-9]*)*$&apos;." source="com.puppycrawl.tools.checkstyle.checks.naming.PackageNameCheck"/>
 <error line="8" column="1" severity="warning" message="Extra separation in import group before &apos;org.javawavers.studybuddy.courses.Assignment&apos;" source="com.puppycrawl.tools.checkstyle.checks.imports.CustomImportOrderCheck"/>
 <error line="9" column="1" severity="warning" message="Import statement for &apos;org.javawavers.studybuddy.courses.StaticUser.staticUser&apos; is in the wrong order. Should be in the &apos;STATIC&apos; group, expecting not assigned imports on this line." source="com.puppycrawl.tools.checkstyle.checks.imports.CustomImportOrderCheck"/>
@@ -212,7 +216,7 @@
 <error line="281" column="3" severity="warning" message="Missing a Javadoc comment." source="com.puppycrawl.tools.checkstyle.checks.javadoc.MissingJavadocMethodCheck"/>
 <error line="282" column="5" severity="warning" message="Distance between variable &apos;assignViewWithBtn&apos; declaration and its first usage is 4, but allowed 3.  Consider making that variable final if you still need to store its value in advance (before method calls that might have side effects on the original value)." source="com.puppycrawl.tools.checkstyle.checks.coding.VariableDeclarationUsageDistanceCheck"/>
 </file>
-<file name="C:\Users\Αντιγόνη\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\AvailabilityPage.java">
+<file name="C:\Users\Dell\Programming2StudyBuddy\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\AvailabilityPage.java">
 <error line="1" column="9" severity="warning" message="Package name &apos;org.javawavers.studybuddy.ui_ux&apos; must match pattern &apos;^[a-z]+(\.[a-z][a-z0-9]*)*$&apos;." source="com.puppycrawl.tools.checkstyle.checks.naming.PackageNameCheck"/>
 <error line="8" column="1" severity="warning" message="Extra separation in import group before &apos;org.javawavers.studybuddy.calculations.Availability&apos;" source="com.puppycrawl.tools.checkstyle.checks.imports.CustomImportOrderCheck"/>
 <error line="9" column="1" severity="warning" message="Import statement for &apos;org.javawavers.studybuddy.courses.StaticUser.staticUser&apos; is in the wrong order. Should be in the &apos;STATIC&apos; group, expecting not assigned imports on this line." source="com.puppycrawl.tools.checkstyle.checks.imports.CustomImportOrderCheck"/>
@@ -255,7 +259,7 @@
 <error line="371" severity="warning" message="Line is longer than 100 characters (found 102)." source="com.puppycrawl.tools.checkstyle.checks.sizes.LineLengthCheck"/>
 <error line="392" severity="warning" message="Line is longer than 100 characters (found 108)." source="com.puppycrawl.tools.checkstyle.checks.sizes.LineLengthCheck"/>
 </file>
-<file name="C:\Users\Αντιγόνη\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\Calendar.java">
+<file name="C:\Users\Dell\Programming2StudyBuddy\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\Calendar.java">
 <error line="1" column="9" severity="warning" message="Package name &apos;org.javawavers.studybuddy.ui_ux&apos; must match pattern &apos;^[a-z]+(\.[a-z][a-z0-9]*)*$&apos;." source="com.puppycrawl.tools.checkstyle.checks.naming.PackageNameCheck"/>
 <error line="10" column="1" severity="warning" message="Extra separation in import group before &apos;org.javawavers.studybuddy.calculations.CreateWeekDay&apos;" source="com.puppycrawl.tools.checkstyle.checks.imports.CustomImportOrderCheck"/>
 <error line="16" column="1" severity="warning" message="Import statement for &apos;org.javawavers.studybuddy.courses.StaticUser.staticUser&apos; is in the wrong order. Should be in the &apos;STATIC&apos; group, expecting not assigned imports on this line." source="com.puppycrawl.tools.checkstyle.checks.imports.CustomImportOrderCheck"/>
@@ -307,24 +311,19 @@
 <error line="629" severity="warning" message="Line is longer than 100 characters (found 111)." source="com.puppycrawl.tools.checkstyle.checks.sizes.LineLengthCheck"/>
 <error line="631" severity="warning" message="Line is longer than 100 characters (found 128)." source="com.puppycrawl.tools.checkstyle.checks.sizes.LineLengthCheck"/>
 </file>
-<file name="C:\Users\Αντιγόνη\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\CenterPanelManager.java">
+<file name="C:\Users\Dell\Programming2StudyBuddy\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\CenterPanelManager.java">
 <error line="1" column="9" severity="warning" message="Package name &apos;org.javawavers.studybuddy.ui_ux&apos; must match pattern &apos;^[a-z]+(\.[a-z][a-z0-9]*)*$&apos;." source="com.puppycrawl.tools.checkstyle.checks.naming.PackageNameCheck"/>
 <error line="13" column="3" severity="warning" message="Missing a Javadoc comment." source="com.puppycrawl.tools.checkstyle.checks.javadoc.MissingJavadocMethodCheck"/>
 <error line="19" severity="warning" message="First sentence of Javadoc is missing an ending period." source="com.puppycrawl.tools.checkstyle.checks.javadoc.SummaryJavadocCheck"/>
 <error line="38" column="9" severity="warning" message="Comment has incorrect indentation level 8, expected is 6, indentation should be the same level as line 39." source="com.puppycrawl.tools.checkstyle.checks.indentation.CommentsIndentationCheck"/>
 <error line="58" severity="warning" message="Summary javadoc is missing." source="com.puppycrawl.tools.checkstyle.checks.javadoc.SummaryJavadocCheck"/>
 </file>
-<file name="C:\Users\Αντιγόνη\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\DashboardPage.java">
+<file name="C:\Users\Dell\Programming2StudyBuddy\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\DashboardPage.java">
 <error line="1" column="9" severity="warning" message="Package name &apos;org.javawavers.studybuddy.ui_ux&apos; must match pattern &apos;^[a-z]+(\.[a-z][a-z0-9]*)*$&apos;." source="com.puppycrawl.tools.checkstyle.checks.naming.PackageNameCheck"/>
-<error line="8" column="26" severity="warning" message="Using the &apos;.*&apos; form of import should be avoided - javafx.scene.chart.*." source="com.puppycrawl.tools.checkstyle.checks.imports.AvoidStarImportCheck"/>
-<error line="18" column="1" severity="warning" message="Missing a Javadoc comment." source="com.puppycrawl.tools.checkstyle.checks.javadoc.MissingJavadocTypeCheck"/>
-<error line="20" column="3" severity="warning" message="Missing a Javadoc comment." source="com.puppycrawl.tools.checkstyle.checks.javadoc.MissingJavadocMethodCheck"/>
-<error line="67" column="16" severity="warning" message="Local variable name &apos;xAxis&apos; must match pattern &apos;^[a-z]([a-z0-9][a-zA-Z0-9]*)?$&apos;." source="com.puppycrawl.tools.checkstyle.checks.naming.LocalVariableNameCheck"/>
-<error line="68" column="16" severity="warning" message="Local variable name &apos;yAxis&apos; must match pattern &apos;^[a-z]([a-z0-9][a-zA-Z0-9]*)?$&apos;." source="com.puppycrawl.tools.checkstyle.checks.naming.LocalVariableNameCheck"/>
-<error line="93" column="18" severity="warning" message="Local variable name &apos;xAxis&apos; must match pattern &apos;^[a-z]([a-z0-9][a-zA-Z0-9]*)?$&apos;." source="com.puppycrawl.tools.checkstyle.checks.naming.LocalVariableNameCheck"/>
-<error line="94" column="16" severity="warning" message="Local variable name &apos;yAxis&apos; must match pattern &apos;^[a-z]([a-z0-9][a-zA-Z0-9]*)?$&apos;." source="com.puppycrawl.tools.checkstyle.checks.naming.LocalVariableNameCheck"/>
+<error line="25" column="1" severity="warning" message="Missing a Javadoc comment." source="com.puppycrawl.tools.checkstyle.checks.javadoc.MissingJavadocTypeCheck"/>
+<error line="27" column="3" severity="warning" message="Missing a Javadoc comment." source="com.puppycrawl.tools.checkstyle.checks.javadoc.MissingJavadocMethodCheck"/>
 </file>
-<file name="C:\Users\Αντιγόνη\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\ExamPage.java">
+<file name="C:\Users\Dell\Programming2StudyBuddy\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\ExamPage.java">
 <error line="1" column="9" severity="warning" message="Package name &apos;org.javawavers.studybuddy.ui_ux&apos; must match pattern &apos;^[a-z]+(\.[a-z][a-z0-9]*)*$&apos;." source="com.puppycrawl.tools.checkstyle.checks.naming.PackageNameCheck"/>
 <error line="10" column="1" severity="warning" message="Extra separation in import group before &apos;javafx.geometry.Insets&apos;" source="com.puppycrawl.tools.checkstyle.checks.imports.CustomImportOrderCheck"/>
 <error line="17" column="1" severity="warning" message="Wrong lexicographical order for &apos;javafx.scene.control.ComboBox&apos; import. Should be before &apos;javafx.scene.control.DialogPane&apos;." source="com.puppycrawl.tools.checkstyle.checks.imports.CustomImportOrderCheck"/>
@@ -344,7 +343,7 @@
 <error line="335" column="3" severity="warning" message="Missing a Javadoc comment." source="com.puppycrawl.tools.checkstyle.checks.javadoc.MissingJavadocMethodCheck"/>
 <error line="336" column="5" severity="warning" message="Distance between variable &apos;examViewWithBtn&apos; declaration and its first usage is 4, but allowed 3.  Consider making that variable final if you still need to store its value in advance (before method calls that might have side effects on the original value)." source="com.puppycrawl.tools.checkstyle.checks.coding.VariableDeclarationUsageDistanceCheck"/>
 </file>
-<file name="C:\Users\Αντιγόνη\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\HomePage.java">
+<file name="C:\Users\Dell\Programming2StudyBuddy\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\HomePage.java">
 <error line="1" column="9" severity="warning" message="Package name &apos;org.javawavers.studybuddy.ui_ux&apos; must match pattern &apos;^[a-z]+(\.[a-z][a-z0-9]*)*$&apos;." source="com.puppycrawl.tools.checkstyle.checks.naming.PackageNameCheck"/>
 <error line="12" column="27" severity="warning" message="Using the &apos;.*&apos; form of import should be avoided - javafx.scene.layout.*." source="com.puppycrawl.tools.checkstyle.checks.imports.AvoidStarImportCheck"/>
 <error line="16" column="1" severity="warning" message="Missing a Javadoc comment." source="com.puppycrawl.tools.checkstyle.checks.javadoc.MissingJavadocTypeCheck"/>
@@ -356,7 +355,7 @@
 <error line="70" column="10" severity="warning" message="Abbreviation in name &apos;rightVBox&apos; must contain no more than &apos;1&apos; consecutive capital letters." source="com.puppycrawl.tools.checkstyle.checks.naming.AbbreviationAsWordInNameCheck"/>
 <error line="105" column="3" severity="warning" message="Missing a Javadoc comment." source="com.puppycrawl.tools.checkstyle.checks.javadoc.MissingJavadocMethodCheck"/>
 </file>
-<file name="C:\Users\Αντιγόνη\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\LoginPage.java">
+<file name="C:\Users\Dell\Programming2StudyBuddy\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\LoginPage.java">
 <error line="1" column="9" severity="warning" message="Package name &apos;org.javawavers.studybuddy.ui_ux&apos; must match pattern &apos;^[a-z]+(\.[a-z][a-z0-9]*)*$&apos;." source="com.puppycrawl.tools.checkstyle.checks.naming.PackageNameCheck"/>
 <error line="23" column="1" severity="warning" message="Missing a Javadoc comment." source="com.puppycrawl.tools.checkstyle.checks.javadoc.MissingJavadocTypeCheck"/>
 <error line="34" column="3" severity="warning" message="Missing a Javadoc comment." source="com.puppycrawl.tools.checkstyle.checks.javadoc.MissingJavadocMethodCheck"/>
@@ -375,23 +374,23 @@
 <error line="199" column="5" severity="warning" message="Distance between variable &apos;passwordBox&apos; declaration and its first usage is 7, but allowed 3.  Consider making that variable final if you still need to store its value in advance (before method calls that might have side effects on the original value)." source="com.puppycrawl.tools.checkstyle.checks.coding.VariableDeclarationUsageDistanceCheck"/>
 <error line="359" column="16" severity="warning" message="Method name &apos;PasswordVisibility&apos; must match pattern &apos;^[a-z][a-z0-9][a-zA-Z0-9_]*$&apos;." source="com.puppycrawl.tools.checkstyle.checks.naming.MethodNameCheck"/>
 </file>
-<file name="C:\Users\Αντιγόνη\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\MainFrame.java">
+<file name="C:\Users\Dell\Programming2StudyBuddy\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\MainFrame.java">
 <error line="1" column="9" severity="warning" message="Package name &apos;org.javawavers.studybuddy.ui_ux&apos; must match pattern &apos;^[a-z]+(\.[a-z][a-z0-9]*)*$&apos;." source="com.puppycrawl.tools.checkstyle.checks.naming.PackageNameCheck"/>
 <error line="9" column="1" severity="warning" message="Missing a Javadoc comment." source="com.puppycrawl.tools.checkstyle.checks.javadoc.MissingJavadocTypeCheck"/>
 <error line="13" column="3" severity="warning" message="Missing a Javadoc comment." source="com.puppycrawl.tools.checkstyle.checks.javadoc.MissingJavadocMethodCheck"/>
 </file>
-<file name="C:\Users\Αντιγόνη\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\MenuPage.java">
+<file name="C:\Users\Dell\Programming2StudyBuddy\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\MenuPage.java">
 <error line="1" column="9" severity="warning" message="Package name &apos;org.javawavers.studybuddy.ui_ux&apos; must match pattern &apos;^[a-z]+(\.[a-z][a-z0-9]*)*$&apos;." source="com.puppycrawl.tools.checkstyle.checks.naming.PackageNameCheck"/>
 <error line="15" column="1" severity="warning" message="Missing a Javadoc comment." source="com.puppycrawl.tools.checkstyle.checks.javadoc.MissingJavadocTypeCheck"/>
 <error line="34" column="8" severity="warning" message="Abbreviation in name &apos;optionVBox&apos; must contain no more than &apos;1&apos; consecutive capital letters." source="com.puppycrawl.tools.checkstyle.checks.naming.AbbreviationAsWordInNameCheck"/>
 <error line="238" column="40" severity="warning" message="Abbreviation in name &apos;optionVBox&apos; must contain no more than &apos;1&apos; consecutive capital letters." source="com.puppycrawl.tools.checkstyle.checks.naming.AbbreviationAsWordInNameCheck"/>
 </file>
-<file name="C:\Users\Αντιγόνη\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\Popupdiathesimotita.java">
+<file name="C:\Users\Dell\Programming2StudyBuddy\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\Popupdiathesimotita.java">
 <error line="1" column="9" severity="warning" message="Package name &apos;org.javawavers.studybuddy.ui_ux&apos; must match pattern &apos;^[a-z]+(\.[a-z][a-z0-9]*)*$&apos;." source="com.puppycrawl.tools.checkstyle.checks.naming.PackageNameCheck"/>
 <error line="16" column="1" severity="warning" message="Missing a Javadoc comment." source="com.puppycrawl.tools.checkstyle.checks.javadoc.MissingJavadocTypeCheck"/>
 <error line="122" severity="warning" message="Line is longer than 100 characters (found 114)." source="com.puppycrawl.tools.checkstyle.checks.sizes.LineLengthCheck"/>
 </file>
-<file name="C:\Users\Αντιγόνη\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\RegisterPage.java">
+<file name="C:\Users\Dell\Programming2StudyBuddy\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\RegisterPage.java">
 <error line="1" column="9" severity="warning" message="Package name &apos;org.javawavers.studybuddy.ui_ux&apos; must match pattern &apos;^[a-z]+(\.[a-z][a-z0-9]*)*$&apos;." source="com.puppycrawl.tools.checkstyle.checks.naming.PackageNameCheck"/>
 <error line="7" column="1" severity="warning" message="Extra separation in import group before &apos;org.javawavers.studybuddy.courses.StaticUser&apos;" source="com.puppycrawl.tools.checkstyle.checks.imports.CustomImportOrderCheck"/>
 <error line="10" column="1" severity="warning" message="Extra separation in import group before &apos;javafx.geometry.Insets&apos;" source="com.puppycrawl.tools.checkstyle.checks.imports.CustomImportOrderCheck"/>
@@ -429,7 +428,7 @@
 <error line="450" column="16" severity="warning" message="Method name &apos;PasswordVisibility&apos; must match pattern &apos;^[a-z][a-z0-9][a-zA-Z0-9_]*$&apos;." source="com.puppycrawl.tools.checkstyle.checks.naming.MethodNameCheck"/>
 <error line="466" column="16" severity="warning" message="Method name &apos;ConfPasswordVisibility&apos; must match pattern &apos;^[a-z][a-z0-9][a-zA-Z0-9_]*$&apos;." source="com.puppycrawl.tools.checkstyle.checks.naming.MethodNameCheck"/>
 </file>
-<file name="C:\Users\Αντιγόνη\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\RightPanel.java">
+<file name="C:\Users\Dell\Programming2StudyBuddy\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\RightPanel.java">
 <error line="1" column="9" severity="warning" message="Package name &apos;org.javawavers.studybuddy.ui_ux&apos; must match pattern &apos;^[a-z]+(\.[a-z][a-z0-9]*)*$&apos;." source="com.puppycrawl.tools.checkstyle.checks.naming.PackageNameCheck"/>
 <error line="23" column="1" severity="warning" message="Missing a Javadoc comment." source="com.puppycrawl.tools.checkstyle.checks.javadoc.MissingJavadocTypeCheck"/>
 <error line="29" column="3" severity="warning" message="Missing a Javadoc comment." source="com.puppycrawl.tools.checkstyle.checks.javadoc.MissingJavadocMethodCheck"/>
@@ -439,7 +438,7 @@
 <error line="100" severity="warning" message="Line is longer than 100 characters (found 113)." source="com.puppycrawl.tools.checkstyle.checks.sizes.LineLengthCheck"/>
 <error line="102" severity="warning" message="Line is longer than 100 characters (found 130)." source="com.puppycrawl.tools.checkstyle.checks.sizes.LineLengthCheck"/>
 </file>
-<file name="C:\Users\Αντιγόνη\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\SceneManager.java">
+<file name="C:\Users\Dell\Programming2StudyBuddy\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\SceneManager.java">
 <error line="1" column="9" severity="warning" message="Package name &apos;org.javawavers.studybuddy.ui_ux&apos; must match pattern &apos;^[a-z]+(\.[a-z][a-z0-9]*)*$&apos;." source="com.puppycrawl.tools.checkstyle.checks.naming.PackageNameCheck"/>
 <error line="6" column="1" severity="warning" message="Missing a Javadoc comment." source="com.puppycrawl.tools.checkstyle.checks.javadoc.MissingJavadocTypeCheck"/>
 </file>

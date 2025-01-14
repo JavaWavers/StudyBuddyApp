@@ -1,18 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Calendar.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">studybuddy</a> &gt; <a href="index.source.html" class="el_package">org.javawavers.studybuddy.ui_ux</a> &gt; <span class="el_source">Calendar.java</span></div><h1>Calendar.java</h1><pre class="source lang-java linenums">package org.javawavers.studybuddy.ui_ux;
 
-import static org.javawavers.studybuddy.courses.StaticUser.staticUser;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoField;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
+import org.javawavers.studybuddy.calculations.CreateWeekDay;
+import org.javawavers.studybuddy.calculations.Day;
+import org.javawavers.studybuddy.calculations.SimulateAnnealing;
+import org.javawavers.studybuddy.calculations.Week;
+import org.javawavers.studybuddy.courses.Exam;
+import org.javawavers.studybuddy.courses.ScheduledTask;
+import static org.javawavers.studybuddy.courses.StaticUser.staticUser;
+import org.javawavers.studybuddy.courses.Subject;
+
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
@@ -27,262 +38,274 @@ import javafx.scene.text.FontWeight;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import org.javawavers.studybuddy.calculations.*;
-import org.javawavers.studybuddy.courses.Exam;
-import org.javawavers.studybuddy.courses.ScheduledTask;
-import org.javawavers.studybuddy.courses.Subject;
 
-<span class="nc" id="L35">public class Calendar {</span>
+<span class="nc" id="L42">public class Calendar {</span>
   private LocalDate currentWeekStart;
   // αρχικοποιουμε την μεταβλητη count
-<span class="nc" id="L38">  int count = 0;</span>
+<span class="nc" id="L45">  int count = 0;</span>
   private ArrayList&lt;Week&gt; totalWeeks;
 
   // αρχικοποιουμε τις λιστες και τα vbox τα οποια χρησιμευουν στην δυναμικη επεξεργασια και
   // εμφανιση των task
-<span class="nc" id="L43">  public static List&lt;String&gt; notStartedYet = new ArrayList&lt;&gt;();</span>
-<span class="nc" id="L44">  public static List&lt;String&gt; completed = new ArrayList&lt;&gt;();</span>
-<span class="nc" id="L45">  private VBox upcomingTasksBox = new VBox(10);</span>
-<span class="nc" id="L46">  private VBox completedTasksBox = new VBox(10);</span>
+<span class="nc" id="L50">  public static List&lt;String&gt; notStartedYet = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L51">  public static List&lt;String&gt; completed = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L52">  private static final GridPane calendarGrid = new GridPane();</span>
+  List&lt;Subject&gt; subject;
+<span class="nc" id="L54">  private VBox upcomingTasksBox = new VBox(10);</span>
+<span class="nc" id="L55">  private VBox completedTasksBox = new VBox(10);</span>
 
   public Node calendar() {
     // Αρχικοποιουμε ολα τα panel
-<span class="nc" id="L50">    VBox centerPanel = createCenterPanel();</span>
-<span class="nc" id="L51">    centerPanel.setPadding(new Insets(20));</span>
-<span class="nc" id="L52">    return centerPanel;</span>
+<span class="nc" id="L59">    VBox centerPanel = createCenterPanel();</span>
+<span class="nc" id="L60">    centerPanel.setPadding(new Insets(20));</span>
+<span class="nc" id="L61">    return centerPanel;</span>
   }
 
   // μεθοδος για την δημιουργια του κεντρικου panel
   private VBox createCenterPanel() {
-<span class="nc" id="L57">    VBox centerPanel = new VBox(10);</span>
-<span class="nc" id="L58">    centerPanel.setPadding(new Insets(20));</span>
-<span class="nc" id="L59">    centerPanel.setStyle(&quot;-fx-background-color: white;&quot;);</span>
+<span class="nc" id="L66">    VBox centerPanel = new VBox(10);</span>
+<span class="nc" id="L67">    centerPanel.setPadding(new Insets(20));</span>
+<span class="nc" id="L68">    centerPanel.setStyle(&quot;-fx-background-color: white;&quot;);</span>
 
     /*Δημιουργουμε ενα hbox για την διαταξη τον στοιχειων σε οριζοντια θεση
      *οριζουμε την θεση του οριζουμε την σημερινη μερα καθως και την εβδομαδα την οποια διανυει ο χρηστης
      *με την datetimeformater οριζουμε τον τροπο με τον οποιο θα εμφανιζεται το weeklabel
      *δημιουργουμε δυο κουμπια τα οποια θα ειναι για την πλοηγηση του χρηστη στις εβδομαδες και να μπορει να δει το προγραμμα του
      */
-<span class="nc" id="L66">    HBox weekSwitcher = new HBox(10);</span>
-<span class="nc" id="L67">    weekSwitcher.setTranslateY(40);</span>
-<span class="nc" id="L68">    weekSwitcher.setAlignment(Pos.CENTER);</span>
+<span class="nc" id="L75">    HBox weekSwitcher = new HBox(10);</span>
+<span class="nc" id="L76">    weekSwitcher.setTranslateY(40);</span>
+<span class="nc" id="L77">    weekSwitcher.setAlignment(Pos.CENTER);</span>
 
-<span class="nc" id="L70">    LocalDate today = LocalDate.now();</span>
-<span class="nc" id="L71">    currentWeekStart = LocalDate.now().with(ChronoField.DAY_OF_WEEK, 1);</span>
-<span class="nc" id="L72">    final DateTimeFormatter formatter = DateTimeFormatter.ofPattern(&quot;d MMM yyyy&quot;);</span>
+<span class="nc" id="L79">    LocalDate today = LocalDate.now();</span>
+<span class="nc" id="L80">    currentWeekStart = LocalDate.now().with(ChronoField.DAY_OF_WEEK, 1);</span>
+<span class="nc" id="L81">    final DateTimeFormatter formatter = DateTimeFormatter.ofPattern(&quot;d MMM yyyy&quot;);</span>
 
     // αρχικοποιουμε την μεταβλητη weeklabel
-<span class="nc" id="L75">    Label weekLabel = new Label(formatWeekLabel(currentWeekStart, formatter));</span>
-<span class="nc" id="L76">    weekLabel.setFont(Font.font(&quot;System&quot;, FontWeight.BOLD, 16));</span>
-<span class="nc" id="L77">    weekLabel.setStyle(&quot;-fx-text-fill: black;&quot;);</span>
+<span class="nc" id="L84">    Label weekLabel = new Label(formatWeekLabel(currentWeekStart, formatter));</span>
+<span class="nc" id="L85">    weekLabel.setFont(Font.font(&quot;System&quot;, FontWeight.BOLD, 16));</span>
+<span class="nc" id="L86">    weekLabel.setStyle(&quot;-fx-text-fill: black;&quot;);</span>
 
     // HBox.setHgrow(weekLabel, Priority.ALWAYS);
     // βαζουμε τα κουμπια για να πλοηγειτε ο χρηστης στις εβδομαδες
-<span class="nc" id="L81">    Button prevButton = new Button(&quot;&lt;&quot;);</span>
-<span class="nc" id="L82">    prevButton.setStyle(</span>
+<span class="nc" id="L90">    Button prevButton = new Button(&quot;&lt;&quot;);</span>
+<span class="nc" id="L91">    prevButton.setStyle(</span>
         &quot;-fx-background-color: #CF308C; -fx-text-fill: white; -fx-font-size: 14px; -fx-background-radius: 30px;&quot;);
-<span class="nc" id="L84">    prevButton.setPrefSize(30, 30);</span>
+<span class="nc" id="L93">    prevButton.setPrefSize(30, 30);</span>
 
-<span class="nc" id="L86">    Button nextButton = new Button(&quot;&gt;&quot;);</span>
-<span class="nc" id="L87">    nextButton.setStyle(</span>
+<span class="nc" id="L95">    Button nextButton = new Button(&quot;&gt;&quot;);</span>
+<span class="nc" id="L96">    nextButton.setStyle(</span>
         &quot;-fx-background-color: #CF308C; -fx-text-fill: white; -fx-font-size: 14px; -fx-background-radius: 30px;&quot;);
-<span class="nc" id="L89">    nextButton.setPrefSize(30, 30);</span>
+<span class="nc" id="L98">    nextButton.setPrefSize(30, 30);</span>
 
-<span class="nc" id="L91">    GridPane calendarGrid = new GridPane();</span>
-<span class="nc" id="L92">    calendarGrid.setStyle(&quot;-fx-border-color: black;&quot;);</span>
-<span class="nc" id="L93">    calendarGrid.setGridLinesVisible(true);</span>
+   // GridPane calendarGrid = new GridPane();
+<span class="nc" id="L101">    calendarGrid.setStyle(&quot;-fx-border-color: black;&quot;);</span>
+<span class="nc" id="L102">    calendarGrid.setGridLinesVisible(true);</span>
+<span class="nc" id="L103">    createCalendarGrid(calendarGrid, count, subject, totalWeeks);</span>
     // μεταβλητη count η οποια μολις ο χρηστης παταει το κουμπι που παει τις εβδομαδες μπροστα
     // αυξανεται αλλιως μειωνεται οταν count == 0 τοτε θα εεμφανιζετε το κουμπι today
-<span class="nc" id="L96">    prevButton.setOnAction(</span>
+<span class="nc" id="L106">    prevButton.setOnAction(</span>
         event -&gt; {
-<span class="nc" id="L98">          currentWeekStart = currentWeekStart.minusWeeks(1);</span>
-<span class="nc" id="L99">          weekLabel.setText(formatWeekLabel(currentWeekStart, formatter));</span>
-<span class="nc bnc" id="L100" title="All 2 branches missed.">          if (count &gt; 0) {</span>
-<span class="nc" id="L101">            count = count - 1;</span>
-<span class="nc" id="L102">            createCalendarGrid(calendarGrid, count, SimulateAnnealing.getSubjects(), totalWeeks);</span>
+<span class="nc bnc" id="L108" title="All 2 branches missed.">          if (count &gt; 0) {</span>
+<span class="nc" id="L109">            count = count - 1;</span>
+<span class="nc bnc" id="L110" title="All 2 branches missed.">            if (count &lt; totalWeeks.size()) {</span>
+<span class="nc" id="L111">              currentWeekStart = currentWeekStart.minusWeeks(1);</span>
+<span class="nc" id="L112">              weekLabel.setText(formatWeekLabel(currentWeekStart, formatter));</span>
+<span class="nc" id="L113">              createCalendarGrid(calendarGrid, count, SimulateAnnealing.getSubjects(), totalWeeks);</span>
+            }
           } else {
-<span class="nc" id="L104">            Alert alert = new Alert(Alert.AlertType.WARNING);</span>
-<span class="nc" id="L105">            alert.setTitle(&quot;oupss!&quot;);</span>
-<span class="nc" id="L106">            alert.setHeaderText(null);</span>
-<span class="nc" id="L107">            alert.setContentText(&quot;Δεν υπάρχουν προηγούμενες εβδομάδες&quot;);</span>
-<span class="nc" id="L108">            alert</span>
-<span class="nc" id="L109">                .getDialogPane()</span>
-<span class="nc" id="L110">                .getStylesheets()</span>
-<span class="nc" id="L111">                .add(getClass().getResource(&quot;alert.css&quot;).toExternalForm());</span>
-<span class="nc" id="L112">            alert.getDialogPane().setMinWidth(500);</span>
-<span class="nc" id="L113">            alert.getDialogPane().setMinHeight(300);</span>
-<span class="nc" id="L114">            alert.showAndWait();</span>
+<span class="nc" id="L116">            Alert alert = new Alert(Alert.AlertType.WARNING);</span>
+<span class="nc" id="L117">            alert.setTitle(null);</span>
+<span class="nc" id="L118">            alert.setHeaderText(null);</span>
+<span class="nc" id="L119">            alert.setContentText(&quot;Προς το παρόν, δεν υπάρχουν προηγούμενες εβδομάδες. Αλλά μην ανησυχείς, όλα ξεκινούν από εδώ!&quot;);</span>
+<span class="nc" id="L120">            alert</span>
+<span class="nc" id="L121">                .getDialogPane()</span>
+<span class="nc" id="L122">                .getStylesheets()</span>
+<span class="nc" id="L123">                .add(getClass().getResource(&quot;/alert.css&quot;).toExternalForm());</span>
+<span class="nc" id="L124">            alert.getDialogPane().setMinWidth(500);</span>
+<span class="nc" id="L125">            alert.getDialogPane().setMinHeight(300);</span>
+<span class="nc" id="L126">            alert.showAndWait();</span>
           }
-<span class="nc" id="L116">        });</span>
+<span class="nc" id="L128">        });</span>
 
-<span class="nc" id="L118">    nextButton.setOnAction(</span>
+<span class="nc" id="L130">    nextButton.setOnAction(</span>
         event -&gt; {
-<span class="nc bnc" id="L120" title="All 2 branches missed.">          if (count &lt; totalWeeks.size() - 1) {</span>
-<span class="nc" id="L121">            count++;</span>
-<span class="nc" id="L122">            createCalendarGrid(calendarGrid, count, SimulateAnnealing.getSubjects(), totalWeeks);</span>
-          } else {
-<span class="nc" id="L124">            Alert alert = new Alert(Alert.AlertType.WARNING);</span>
-<span class="nc" id="L125">            alert.setTitle(&quot;oupss!&quot;);</span>
-<span class="nc" id="L126">            alert.setHeaderText(null);</span>
-<span class="nc" id="L127">            alert.setContentText(&quot;Το πρόγραμμα της εξεταστικής σταματάει εδώ&quot;);</span>
-<span class="nc" id="L128">            alert</span>
-<span class="nc" id="L129">                .getDialogPane()</span>
-<span class="nc" id="L130">                .getStylesheets()</span>
-<span class="nc" id="L131">                .add(getClass().getResource(&quot;/alert.css&quot;).toExternalForm());</span>
-<span class="nc" id="L132">            alert.getDialogPane().setMinWidth(500);</span>
-<span class="nc" id="L133">            alert.getDialogPane().setMinHeight(300);</span>
-<span class="nc" id="L134">            alert.showAndWait();</span>
+<span class="nc" id="L132">          count++;</span>
+<span class="nc bnc" id="L133" title="All 2 branches missed.">          if (count &gt; totalWeeks.size()) {</span>
+<span class="nc" id="L134">            Alert alert = new Alert(Alert.AlertType.WARNING);</span>
+<span class="nc" id="L135">              alert.setTitle(null);</span>
+<span class="nc" id="L136">              alert.setHeaderText(null);</span>
+<span class="nc" id="L137">              alert.setContentText(&quot;Πάει κι αυτό! 🎉 Ώρα για λίγη ξεκούραση τώρα! Η εξεταστική σου σταματάει εδώ&quot;);</span>
+<span class="nc" id="L138">              alert</span>
+<span class="nc" id="L139">                  .getDialogPane()</span>
+<span class="nc" id="L140">                  .getStylesheets()</span>
+<span class="nc" id="L141">                  .add(getClass().getResource(&quot;/alert.css&quot;).toExternalForm());</span>
+<span class="nc" id="L142">              alert.getDialogPane().setMinWidth(500);</span>
+<span class="nc" id="L143">              alert.getDialogPane().setMinHeight(300);</span>
+<span class="nc" id="L144">              alert.showAndWait();</span>
+<span class="nc" id="L145">          } else {</span>
+<span class="nc" id="L146">            currentWeekStart = currentWeekStart.plusWeeks(1);</span>
+<span class="nc" id="L147">            weekLabel.setText(formatWeekLabel(currentWeekStart, formatter));</span>
+<span class="nc" id="L148">            createCalendarGrid(calendarGrid, count, SimulateAnnealing.getSubjects(), totalWeeks);</span>
+              
           }
-<span class="nc" id="L136">          currentWeekStart = currentWeekStart.plusWeeks(1);</span>
-<span class="nc" id="L137">          weekLabel.setText(formatWeekLabel(currentWeekStart, formatter));</span>
-<span class="nc" id="L138">        });</span>
-
-<span class="nc" id="L140">    weekSwitcher.setTranslateY(40);</span>
-<span class="nc" id="L141">    weekSwitcher.setAlignment(Pos.CENTER);</span>
-<span class="nc" id="L142">    weekSwitcher.getChildren().addAll(prevButton, weekLabel, nextButton);</span>
-
-<span class="nc" id="L144">    Button todayButton = new Button(&quot;Today&quot;);</span>
-<span class="nc" id="L145">    todayButton.setStyle(</span>
-        &quot;-fx-background-color: #CF308C; -fx-background-radius: 30px; -fx-border-color: black; -fx-border-radius: 30px;&quot;);
-<span class="nc" id="L147">    todayButton.setFont(Font.font(&quot;System&quot;, FontWeight.BOLD, 14));</span>
-<span class="nc" id="L148">    todayButton.setTextFill(Color.WHITE);</span>
-<span class="nc" id="L149">    todayButton.setOnAction(</span>
-        event -&gt; {
-<span class="nc" id="L151">          createCalendarGrid(calendarGrid, 0, SimulateAnnealing.getSubjects(), totalWeeks);</span>
+        
 <span class="nc" id="L152">        });</span>
 
-    // κουμπι για να βαζει ο χρηστης την διαθεσημοτητα
-<span class="nc" id="L155">    Button availabilityButton = new Button(&quot;Availiability&quot;);</span>
-<span class="nc" id="L156">    availabilityButton.setStyle(</span>
+<span class="nc" id="L154">    weekSwitcher.setTranslateY(40);</span>
+<span class="nc" id="L155">    weekSwitcher.setAlignment(Pos.CENTER);</span>
+<span class="nc" id="L156">    weekSwitcher.getChildren().addAll(prevButton, weekLabel, nextButton);</span>
+
+<span class="nc" id="L158">    Button todayButton = new Button(&quot;Today&quot;);</span>
+<span class="nc" id="L159">    todayButton.setStyle(</span>
         &quot;-fx-background-color: #CF308C; -fx-background-radius: 30px; -fx-border-color: black; -fx-border-radius: 30px;&quot;);
-<span class="nc" id="L158">    availabilityButton.setFont(Font.font(&quot;System&quot;, FontWeight.BOLD, 14));</span>
-<span class="nc" id="L159">    availabilityButton.setTextFill(Color.WHITE);</span>
-<span class="nc" id="L160">    availabilityButton.setPrefWidth(160);</span>
+<span class="nc" id="L161">    todayButton.setFont(Font.font(&quot;System&quot;, FontWeight.BOLD, 14));</span>
+<span class="nc" id="L162">    todayButton.setTextFill(Color.WHITE);</span>
+<span class="nc" id="L163">    todayButton.setOnAction(</span>
+        event -&gt; {
+<span class="nc" id="L165">          createCalendarGrid(calendarGrid, 0, SimulateAnnealing.getSubjects(), totalWeeks);</span>
+<span class="nc" id="L166">        });</span>
+
+    // κουμπι για να βαζει ο χρηστης την διαθεσημοτητα
+<span class="nc" id="L169">    Button availabilityButton = new Button(&quot;Availiability&quot;);</span>
+<span class="nc" id="L170">    availabilityButton.setStyle(</span>
+        &quot;-fx-background-color: #CF308C; -fx-background-radius: 30px; -fx-border-color: black; -fx-border-radius: 30px;&quot;);
+<span class="nc" id="L172">    availabilityButton.setFont(Font.font(&quot;System&quot;, FontWeight.BOLD, 14));</span>
+<span class="nc" id="L173">    availabilityButton.setTextFill(Color.WHITE);</span>
+<span class="nc" id="L174">    availabilityButton.setPrefWidth(160);</span>
 
     // οριζουμε οταν ο ζρηστης παταει πανω στο κουμπι να ανοιγει την σελιδα popupdia
-<span class="nc" id="L163">    availabilityButton.setOnAction(</span>
+<span class="nc" id="L177">    availabilityButton.setOnAction(</span>
         event -&gt; {
-<span class="nc" id="L165">          Stage popUpStage = new Stage();</span>
-<span class="nc" id="L166">          AvailabilityPage availabilityPage = new AvailabilityPage(popUpStage);</span>
-<span class="nc" id="L167">          VBox availPageLayout = availabilityPage.availabilityPage();</span>
+<span class="nc" id="L179">          Stage popUpStage = new Stage();</span>
+<span class="nc" id="L180">          AvailabilityPage availabilityPage = new AvailabilityPage(popUpStage);</span>
+<span class="nc" id="L181">          VBox availPageLayout = availabilityPage.availabilityPage();</span>
 
-<span class="nc" id="L169">          popUpStage.initStyle(StageStyle.UTILITY);</span>
-<span class="nc" id="L170">          popUpStage.initModality(Modality.APPLICATION_MODAL);</span>
-<span class="nc" id="L171">          Stage parentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();</span>
+<span class="nc" id="L183">          popUpStage.initStyle(StageStyle.UTILITY);</span>
+<span class="nc" id="L184">          popUpStage.initModality(Modality.APPLICATION_MODAL);</span>
+<span class="nc" id="L185">          Stage parentStage = (Stage) ((Node) event.getSource()).getScene().getWindow();</span>
 
-<span class="nc" id="L173">          double centerX = parentStage.getX() + parentStage.getWidth() / 2 - 300;</span>
-<span class="nc" id="L174">          double centerY = parentStage.getY() + parentStage.getHeight() / 2 - 200;</span>
+<span class="nc" id="L187">          double centerX = parentStage.getX() + parentStage.getWidth() / 2 - 300;</span>
+<span class="nc" id="L188">          double centerY = parentStage.getY() + parentStage.getHeight() / 2 - 200;</span>
 
-<span class="nc" id="L176">          popUpStage.setX(centerX);</span>
-<span class="nc" id="L177">          popUpStage.setY(centerY);</span>
+<span class="nc" id="L190">          popUpStage.setX(centerX);</span>
+<span class="nc" id="L191">          popUpStage.setY(centerY);</span>
 
-<span class="nc" id="L179">          Scene popUpScene = new Scene(availPageLayout, 600, 400);</span>
-<span class="nc" id="L180">          popUpStage.setScene(popUpScene);</span>
-<span class="nc" id="L181">          popUpStage.show();</span>
-<span class="nc" id="L182">        });</span>
+<span class="nc" id="L193">          Scene popUpScene = new Scene(availPageLayout, 600, 400);</span>
+<span class="nc" id="L194">          popUpStage.setScene(popUpScene);</span>
+<span class="nc" id="L195">          popUpStage.show();</span>
+<span class="nc" id="L196">        });</span>
 
     // οριζουμε την θεση του κουμπιου availiability
-<span class="nc" id="L185">    StackPane availabilityPane = new StackPane(availabilityButton);</span>
-<span class="nc" id="L186">    availabilityPane.setPrefSize(150, 30);</span>
-<span class="nc" id="L187">    availabilityPane.setLayoutX(centerPanel.getWidth() - 300);</span>
-<span class="nc" id="L188">    availabilityPane.setLayoutY(200);</span>
+<span class="nc" id="L199">    StackPane availabilityPane = new StackPane(availabilityButton);</span>
+<span class="nc" id="L200">    availabilityPane.setPrefSize(150, 30);</span>
+<span class="nc" id="L201">    availabilityPane.setLayoutX(centerPanel.getWidth() - 300);</span>
+<span class="nc" id="L202">    availabilityPane.setLayoutY(200);</span>
 
     // κουμπι για Refresh του προογραμματος
-<span class="nc" id="L191">    Button refreshButton = new Button();</span>
-<span class="nc" id="L192">    refreshButton.setStyle(</span>
+<span class="nc" id="L205">    Button refreshButton = new Button();</span>
+<span class="nc" id="L206">    refreshButton.setStyle(</span>
         &quot;-fx-background-color: #CF308C; -fx-text-fill: white; -fx-font-size: 14px; -fx-background-radius: 30px;&quot;);
-<span class="nc" id="L194">    refreshButton.setPrefSize(30, 30);</span>
+<span class="nc" id="L208">    refreshButton.setPrefSize(30, 30);</span>
 
     // προσθηκη εικονιδιου στο κουμπι για κυκλικα βελη
-<span class="nc" id="L197">    SVGPath refreshIcon = new SVGPath();</span>
-<span class="nc" id="L198">    refreshIcon.setContent(</span>
+<span class="nc" id="L211">    SVGPath refreshIcon = new SVGPath();</span>
+<span class="nc" id="L212">    refreshIcon.setContent(</span>
         &quot;M12 2V5C7.58 5 4 8.58 4 13C4 15.27 5.05 17.36 6.77 18.63L8.22 17.18C7.04 16.17 6.27 14.67 6.27 13C6.27 9.8 8.8 7.27 12 7.27V10L16 6L12 2ZM18.23 4.37L16.78 5.82C17.96 6.83 18.73 8.33 18.73 10C18.73 13.2 16.2 15.73 13 15.73V12L9 16L13 20V17C17.42 17 21 13.42 21 9C21 6.73 19.95 4.64 18.23 4.37Z&quot;);
-<span class="nc" id="L200">    refreshIcon.setFill(Color.WHITE);</span>
-<span class="nc" id="L201">    refreshButton.setGraphic(refreshIcon);</span>
+<span class="nc" id="L214">    refreshIcon.setFill(Color.WHITE);</span>
+<span class="nc" id="L215">    refreshButton.setGraphic(refreshIcon);</span>
 
-<span class="nc" id="L203">    refreshButton.setOnAction(</span>
+<span class="nc" id="L217">    refreshButton.setOnAction(</span>
         event -&gt; {
-<span class="nc" id="L205">          SimulateAnnealing sAnnealing = new SimulateAnnealing();</span>
-<span class="nc" id="L206">          ExamPage exPage = new ExamPage();</span>
-<span class="nc bnc" id="L207" title="All 2 branches missed.">          if (!exPage.getSubjects().isEmpty()) {</span>
-<span class="nc" id="L208">            System.out.print(&quot;Not empty subject list&quot;);</span>
-          } else {
-<span class="nc" id="L210">            System.out.println(&quot;empty&quot;);</span>
-          }
+<span class="nc" id="L219">          Alert confirmRefresh = new Alert(Alert.AlertType.CONFIRMATION);</span>
+<span class="nc" id="L220">          confirmRefresh.setTitle(&quot;Επιβεβαίωση Refresh&quot;);</span>
+<span class="nc" id="L221">          confirmRefresh.setHeaderText(null);</span>
+<span class="nc" id="L222">          DialogPane dialogPane = confirmRefresh.getDialogPane();</span>
+<span class="nc" id="L223">          dialogPane.getStylesheets().add(getClass().getResource(&quot;/alert.css&quot;).toExternalForm());</span>
+<span class="nc" id="L224">          confirmRefresh.setContentText(&quot;σίγουρα θέλεις να αλλάξεις το τωρινό πρόγραμμα σου&quot;);</span>
+<span class="nc" id="L225">          Optional&lt;ButtonType&gt; answer = confirmRefresh.showAndWait();</span>
+<span class="nc bnc" id="L226" title="All 4 branches missed.">          if (answer.isPresent() &amp;&amp; answer.get() == ButtonType.OK) {</span>
+<span class="nc" id="L227">            SimulateAnnealing sAnnealing = new SimulateAnnealing();</span>
+<span class="nc" id="L228">            ExamPage exPage = new ExamPage();</span>
+<span class="nc bnc" id="L229" title="All 2 branches missed.">            if (!exPage.getSubjects().isEmpty()) {</span>
+<span class="nc" id="L230">              System.out.print(&quot;Not empty subject list&quot;);</span>
+            } else {
+<span class="nc" id="L232">              System.out.println(&quot;empty&quot;);</span>
+            }
 
-<span class="nc" id="L213">          List&lt;Subject&gt; subject = staticUser.getSubjects();</span>
-<span class="nc" id="L214">          SimulateAnnealing.scheduleResult();</span>
-<span class="nc" id="L215">          totalWeeks = new ArrayList&lt;&gt;(staticUser.getTotalWeeks());</span>
-          /*
-          int [][] schedule = SimulateAnnealing.getSchedule();
-          int colSize = schedule[0].length;
-          ArrayList&lt;Task&gt; bestTask = new ArrayList&lt;&gt;(SimulateAnnealing.getBestTask());
-          LocalDate today2 = LocalDate.now(); // Today's date
-          DayOfWeek currentDayOfWeek = today2.getDayOfWeek();
-          int daysUntilMonday = currentDayOfWeek.getValue() - DayOfWeek.MONDAY.getValue();
+<span class="nc" id="L235">            subject = staticUser.getSubjects();</span>
+<span class="nc" id="L236">            SimulateAnnealing.scheduleResult();</span>
+<span class="nc" id="L237">            totalWeeks = new ArrayList&lt;&gt;(staticUser.getTotalWeeks());</span>
+            /*
+            int [][] schedule = SimulateAnnealing.getSchedule();
+            int colSize = schedule[0].length;
+            ArrayList&lt;Task&gt; bestTask = new ArrayList&lt;&gt;(SimulateAnnealing.getBestTask());
+            LocalDate today2 = LocalDate.now(); // Today's date
+            DayOfWeek currentDayOfWeek = today2.getDayOfWeek();
+            int daysUntilMonday = currentDayOfWeek.getValue() - DayOfWeek.MONDAY.getValue();
 
-          // Initialize the first week
-          Week currentWeek = new Week();
+            // Initialize the first week
+            Week currentWeek = new Week();
 
-          // Fill days before today with empty tasks
-          for (int i = 0; i &lt; daysUntilMonday; i++) {
-            Day emptyDay = new Day(); // Day with no tasks
-            currentWeek.getDaysOfWeek().add(emptyDay);
-          }
+            // Fill days before today with empty tasks
+            for (int i = 0; i &lt; daysUntilMonday; i++) {
+              Day emptyDay = new Day(); // Day with no tasks
+              currentWeek.getDaysOfWeek().add(emptyDay);
+            }
 
-          List&lt;ScheduledTask&gt; scheduledTasksForDay = new ArrayList&lt;&gt;();
+            List&lt;ScheduledTask&gt; scheduledTasksForDay = new ArrayList&lt;&gt;();
 
-          for (int dayIndex = 0; dayIndex &lt; colSize; dayIndex++) {
-            LocalDate currentDate = today2.plusDays(dayIndex - daysUntilMonday); // Calculate current date
+            for (int dayIndex = 0; dayIndex &lt; colSize; dayIndex++) {
+              LocalDate currentDate = today2.plusDays(dayIndex - daysUntilMonday); // Calculate current date
 
-            // Clear the scheduled tasks for the day
-            scheduledTasksForDay.clear();
-            for (int taskIndex = 0; taskIndex &lt; schedule.length; taskIndex++) {
-              int taskId = schedule[taskIndex][dayIndex];
-              String taskType = &quot; &quot;;
-              if (taskId &gt; 0) { // If there is a task for the specific slot
-                Task task = bestTask.get(taskId); // Retrieve the Task from the list
-                if (task.getTaskType() == 1) {
-                  taskType = &quot;Διάβασμα&quot;;
-                } else if (task.getTaskType() == 2) {
-                  taskType = &quot;Επανάληψη&quot;;
-                } else {
-                  taskType = &quot;Εργασία&quot;;
+              // Clear the scheduled tasks for the day
+              scheduledTasksForDay.clear();
+              for (int taskIndex = 0; taskIndex &lt; schedule.length; taskIndex++) {
+                int taskId = schedule[taskIndex][dayIndex];
+                String taskType = &quot; &quot;;
+                if (taskId &gt; 0) { // If there is a task for the specific slot
+                  Task task = bestTask.get(taskId); // Retrieve the Task from the list
+                  if (task.getTaskType() == 1) {
+                    taskType = &quot;Διάβασμα&quot;;
+                  } else if (task.getTaskType() == 2) {
+                    taskType = &quot;Επανάληψη&quot;;
+                  } else {
+                    taskType = &quot;Εργασία&quot;;
+                  }
+
+                  ScheduledTask scheduledTask = new ScheduledTask(
+                          task.getSubject(), taskType,
+                          (int) Math.ceil(task.getTaskHours()),
+                          currentDate,
+                          new Subject(task.getSubject()) // Create Subject from the Task
+                  );
+                  scheduledTasksForDay.add(scheduledTask);
                 }
+              }
 
-                ScheduledTask scheduledTask = new ScheduledTask(
-                        task.getSubject(), taskType,
-                        (int) Math.ceil(task.getTaskHours()),
-                        currentDate,
-                        new Subject(task.getSubject()) // Create Subject from the Task
-                );
-                scheduledTasksForDay.add(scheduledTask);
+              // Create a Day object for the current day
+              Day currentDay = new Day();
+              currentDay.todayTasks.addAll(scheduledTasksForDay);
+
+              // Add the day to the week
+              currentWeek.getDaysOfWeek().add(currentDay);
+
+              // If the week is complete or it's the last day, save it
+              if (currentWeek.getDaysOfWeek().size() == 7 || dayIndex == colSize - 1) {
+                totalWeeks.add(currentWeek);
+                currentWeek = new Week(); // Start a new week
               }
             }
-
-            // Create a Day object for the current day
-            Day currentDay = new Day();
-            currentDay.todayTasks.addAll(scheduledTasksForDay);
-
-            // Add the day to the week
-            currentWeek.getDaysOfWeek().add(currentDay);
-
-            // If the week is complete or it's the last day, save it
-            if (currentWeek.getDaysOfWeek().size() == 7 || dayIndex == colSize - 1) {
-              totalWeeks.add(currentWeek);
-              currentWeek = new Week(); // Start a new week
-            }
+            */
+<span class="nc" id="L299">            createCalendarGrid(calendarGrid, 0, subject, totalWeeks);</span>
           }
-          */
-<span class="nc" id="L277">          createCalendarGrid(calendarGrid, 0, subject, totalWeeks);</span>
-<span class="nc" id="L278">        });</span>
+<span class="nc" id="L301">        });</span>
 
     // βαζουμε ολα τα στοιχεια του κεντρου μαζι και τα επιστρεφουμε
-<span class="nc" id="L281">    centerPanel</span>
-<span class="nc" id="L282">        .getChildren()</span>
-<span class="nc" id="L283">        .addAll(weekSwitcher, todayButton, calendarGrid, availabilityPane, refreshButton);</span>
+<span class="nc" id="L304">    centerPanel</span>
+<span class="nc" id="L305">        .getChildren()</span>
+<span class="nc" id="L306">        .addAll(weekSwitcher, todayButton, calendarGrid, availabilityPane, refreshButton);</span>
 
-<span class="nc" id="L285">    return centerPanel;</span>
+<span class="nc" id="L308">    return centerPanel;</span>
   }
 
   // δημιουργουμε τα checkbox
@@ -324,93 +347,95 @@ import org.javawavers.studybuddy.courses.Subject;
 
   private void createCalendarGrid(
       GridPane grid, int weeknumber, List&lt;Subject&gt; subject, List&lt;Week&gt; weeks) {
-<span class="nc" id="L327">    grid.getChildren().removeIf(node -&gt; node instanceof Label);</span>
-<span class="nc" id="L328">    grid.getColumnConstraints().clear();</span>
-<span class="nc" id="L329">    grid.getRowConstraints().clear();</span>
+<span class="nc" id="L350">    grid.getChildren().removeIf(node -&gt; node instanceof Label);</span>
+<span class="nc" id="L351">    grid.getColumnConstraints().clear();</span>
+<span class="nc" id="L352">    grid.getRowConstraints().clear();</span>
 
-<span class="nc" id="L331">    String[] days = {&quot;Δευτέρα&quot;, &quot;Τρίτη&quot;, &quot;Τετάρτη&quot;, &quot;Πέμπτη&quot;, &quot;Παρασκευή&quot;, &quot;Σάββατο&quot;, &quot;Κυριακή&quot;};</span>
-    // Get the list of weeks
-<span class="nc" id="L333">    CreateWeekDay createWeekDay = new CreateWeekDay();</span>
-
-    // Select the current week (adjust &quot;weeknumber&quot; based on your logic)
-<span class="nc" id="L336">    Week thisWeek = weeks.get(weeknumber);</span>
-
+<span class="nc" id="L354">    String[] days = {&quot;Δευτέρα&quot;, &quot;Τρίτη&quot;, &quot;Τετάρτη&quot;, &quot;Πέμπτη&quot;, &quot;Παρασκευή&quot;, &quot;Σάββατο&quot;, &quot;Κυριακή&quot;};</span>
     // Define grid dimensions
-<span class="nc" id="L339">    int daysInWeek = 7;</span>
-
+<span class="nc" id="L356">    int daysInWeek = 7;</span>
     // Set column constraints (for 7 days)
-<span class="nc bnc" id="L342" title="All 2 branches missed.">    for (int i = 0; i &lt; daysInWeek; i++) {</span>
-<span class="nc" id="L343">      ColumnConstraints column = new ColumnConstraints();</span>
-<span class="nc" id="L344">      column.setPercentWidth(100.0 / 7); // Distribute columns equally</span>
-<span class="nc" id="L345">      grid.getColumnConstraints().add(column);</span>
+<span class="nc bnc" id="L358" title="All 2 branches missed.">    for (int i = 0; i &lt; daysInWeek; i++) {</span>
+<span class="nc" id="L359">      ColumnConstraints column = new ColumnConstraints();</span>
+<span class="nc" id="L360">      column.setPercentWidth(100.0 / 7); // Distribute columns equally</span>
+<span class="nc" id="L361">      grid.getColumnConstraints().add(column);</span>
     }
 
     // Add day titles (Δευτέρα, Τρίτη, ...)
-<span class="nc bnc" id="L349" title="All 2 branches missed.">    for (int i = 0; i &lt; daysInWeek; i++) {</span>
-<span class="nc" id="L350">      Label dayLabel = new Label(days[i]);</span>
-<span class="nc" id="L351">      dayLabel.setStyle(</span>
+<span class="nc bnc" id="L365" title="All 2 branches missed.">    for (int i = 0; i &lt; daysInWeek; i++) {</span>
+<span class="nc" id="L366">      Label dayLabel = new Label(days[i]);</span>
+<span class="nc" id="L367">      dayLabel.setStyle(</span>
           &quot;-fx-font-weight: bold; -fx-border-color: gray; -fx-border-width: 0; -fx-alignment: center;&quot;);
-<span class="nc" id="L353">      dayLabel.setFont(Font.font(&quot;System&quot;, FontWeight.BOLD, 18));</span>
-<span class="nc" id="L354">      dayLabel.setPrefHeight(60);</span>
-<span class="nc" id="L355">      dayLabel.setPrefWidth(140);</span>
-<span class="nc" id="L356">      GridPane.setConstraints(dayLabel, i, 0); // Place titles in the first row</span>
-<span class="nc" id="L357">      grid.getChildren().add(dayLabel);</span>
+<span class="nc" id="L369">      dayLabel.setFont(Font.font(&quot;System&quot;, FontWeight.BOLD, 18));</span>
+<span class="nc" id="L370">      dayLabel.setPrefHeight(60);</span>
+<span class="nc" id="L371">      dayLabel.setPrefWidth(140);</span>
+<span class="nc" id="L372">      GridPane.setConstraints(dayLabel, i, 0); // Place titles in the first row</span>
+<span class="nc" id="L373">      grid.getChildren().add(dayLabel);</span>
     }
 
     // Set row constraints (for tasks in each day)
-<span class="nc" id="L361">    int maxTasksPerDay = 13; // Adjust based on your needs</span>
-<span class="nc bnc" id="L362" title="All 2 branches missed.">    for (int i = 1; i &lt;= maxTasksPerDay; i++) {</span>
-<span class="nc" id="L363">      RowConstraints row = new RowConstraints();</span>
-<span class="nc" id="L364">      row.setPercentHeight(100.0 / (maxTasksPerDay)); // Distribute rows equally</span>
-<span class="nc" id="L365">      grid.getRowConstraints().add(row);</span>
+<span class="nc" id="L377">    int maxTasksPerDay = 13; // Adjust based on your needs</span>
+<span class="nc bnc" id="L378" title="All 2 branches missed.">    for (int i = 1; i &lt;= maxTasksPerDay; i++) {</span>
+<span class="nc" id="L379">      RowConstraints row = new RowConstraints();</span>
+<span class="nc" id="L380">      row.setPercentHeight(100.0 / (maxTasksPerDay)); // Distribute rows equally</span>
+<span class="nc" id="L381">      grid.getRowConstraints().add(row);</span>
     }
+    // Get the list of weeks
+<span class="nc" id="L384">    CreateWeekDay createWeekDay = new CreateWeekDay();</span>
+
+    // Select the current week (adjust &quot;weeknumber&quot; based on your logic)
+<span class="nc bnc" id="L387" title="All 4 branches missed.">    if (weeks == null || weeks.isEmpty()) {</span>
+<span class="nc" id="L388">      System.out.println(&quot;Η λίστα εβδομάδων είναι null.&quot;);</span>
+<span class="nc" id="L389">      return;</span>
+    }
+<span class="nc" id="L391">    Week thisWeek = weeks.get(weeknumber);</span>
 
     // Start populating the grid with data
-<span class="nc" id="L369">    int dayCount = 0;</span>
-<span class="nc bnc" id="L370" title="All 2 branches missed.">    for (Day d : thisWeek.getDaysOfWeek()) {</span>
-<span class="nc" id="L371">      int rowCount = 1;</span>
-<span class="nc bnc" id="L372" title="All 2 branches missed.">      if (!d.getTodayTasks().isEmpty()) {</span>
-<span class="nc bnc" id="L373" title="All 2 branches missed.">        for (ScheduledTask s : d.getTodayTasks()) {</span>
-<span class="nc" id="L374">          Label cell = new Label();</span>
-<span class="nc" id="L375">          cell.setStyle(&quot;-fx-border-color: gray; -fx-border-width: 0; -fx-alignment: center;&quot;);</span>
-<span class="nc" id="L376">          cell.setFont(Font.font(&quot;System&quot;, FontWeight.NORMAL, 14));</span>
-<span class="nc" id="L377">          cell.setPrefSize(140, 60);</span>
-<span class="nc" id="L378">          String taskText = s.getSubjectName() + &quot;: &quot; + s.getTaskName();</span>
-<span class="nc" id="L379">          cell.setText(taskText);</span>
+<span class="nc" id="L394">    int dayCount = 0;</span>
+<span class="nc bnc" id="L395" title="All 2 branches missed.">    for (Day d : thisWeek.getDaysOfWeek()) {</span>
+<span class="nc" id="L396">      int rowCount = 1;</span>
+<span class="nc bnc" id="L397" title="All 2 branches missed.">      if (!d.getTodayTasks().isEmpty()) {</span>
+<span class="nc bnc" id="L398" title="All 2 branches missed.">        for (ScheduledTask s : d.getTodayTasks()) {</span>
+<span class="nc" id="L399">          Label cell = new Label();</span>
+<span class="nc" id="L400">          cell.setStyle(&quot;-fx-border-color: gray; -fx-border-width: 0; -fx-alignment: center;&quot;);</span>
+<span class="nc" id="L401">          cell.setFont(Font.font(&quot;System&quot;, FontWeight.NORMAL, 14));</span>
+<span class="nc" id="L402">          cell.setPrefSize(140, 60);</span>
+<span class="nc" id="L403">          String taskText = s.getSubjectName() + &quot;: &quot; + s.getTaskName();</span>
+<span class="nc" id="L404">          cell.setText(taskText);</span>
 
           // Add the task to the grid
-<span class="nc" id="L382">          GridPane.setConstraints(cell, dayCount, rowCount);</span>
-<span class="nc" id="L383">          grid.getChildren().add(cell);</span>
-<span class="nc" id="L384">          cell.setOnMouseClicked(</span>
+<span class="nc" id="L407">          GridPane.setConstraints(cell, dayCount, rowCount);</span>
+<span class="nc" id="L408">          grid.getChildren().add(cell);</span>
+<span class="nc" id="L409">          cell.setOnMouseClicked(</span>
               event -&gt; {
-<span class="nc" id="L386">                String taskDescription = &quot;κενο&quot;;</span>
-<span class="nc" id="L387">                taskDescription = s.toString();</span>
-<span class="nc" id="L388">                LocalDate examDate = null;</span>
-<span class="nc" id="L389">                List&lt;Exam&gt; exams = Subject.getExams();</span>
+<span class="nc" id="L411">                String taskDescription = &quot;κενο&quot;;</span>
+<span class="nc" id="L412">                taskDescription = s.toString();</span>
+<span class="nc" id="L413">                LocalDate examDate = null;</span>
+<span class="nc" id="L414">                List&lt;Exam&gt; exams = Subject.getExams();</span>
 
-<span class="nc bnc" id="L391" title="All 2 branches missed.">                if (subject != null) {</span>
-<span class="nc bnc" id="L392" title="All 2 branches missed.">                  for (Subject subj : subject) {</span>
-<span class="nc bnc" id="L393" title="All 2 branches missed.">                    if (taskDescription.contains(subj.getCourseName())) {</span>
-<span class="nc bnc" id="L394" title="All 2 branches missed.">                      for (Exam exam : exams) {</span>
-<span class="nc" id="L395">                        examDate = exam.getExamDate();</span>
-<span class="nc" id="L396">                      }</span>
-<span class="nc" id="L397">                      break;</span>
+<span class="nc bnc" id="L416" title="All 2 branches missed.">                if (subject != null) {</span>
+<span class="nc bnc" id="L417" title="All 2 branches missed.">                  for (Subject subj : subject) {</span>
+<span class="nc bnc" id="L418" title="All 2 branches missed.">                    if (taskDescription.contains(subj.getCourseName())) {</span>
+<span class="nc bnc" id="L419" title="All 2 branches missed.">                      for (Exam exam : exams) {</span>
+<span class="nc" id="L420">                        examDate = exam.getExamDate();</span>
+<span class="nc" id="L421">                      }</span>
+<span class="nc" id="L422">                      break;</span>
                     }
-<span class="nc" id="L399">                  }</span>
+<span class="nc" id="L424">                  }</span>
                 }
-<span class="nc" id="L401">                Popupdiathesimotita popup = new Popupdiathesimotita();</span>
-<span class="nc" id="L402">                popup.setTaskLists(notStartedYet, completed);</span>
-<span class="nc" id="L403">                popup.setTaskDescription(taskDescription, examDate);</span>
-<span class="nc" id="L404">                Stage popupStage = new Stage();</span>
-<span class="nc" id="L405">                popup.start(popupStage);</span>
-<span class="nc" id="L406">              });</span>
-<span class="nc" id="L407">          rowCount++;</span>
-<span class="nc" id="L408">        }</span>
-<span class="nc" id="L409">        dayCount++;</span>
+<span class="nc" id="L426">                Popupdiathesimotita popup = new Popupdiathesimotita();</span>
+<span class="nc" id="L427">                popup.setTaskLists(notStartedYet, completed);</span>
+<span class="nc" id="L428">                popup.setTaskDescription(taskDescription, examDate);</span>
+<span class="nc" id="L429">                Stage popupStage = new Stage();</span>
+<span class="nc" id="L430">                popup.start(popupStage);</span>
+<span class="nc" id="L431">              });</span>
+<span class="nc" id="L432">          rowCount++;</span>
+<span class="nc" id="L433">        }</span>
+<span class="nc" id="L434">        dayCount++;</span>
       } else {
-<span class="nc" id="L411">        dayCount++;</span>
+<span class="nc" id="L436">        dayCount++;</span>
       }
-<span class="nc" id="L413">    }</span>
+<span class="nc" id="L438">    }</span>
     // int rowIndex = 1; // Start from the second row
     // for (int dayIndex = 0; dayIndex &lt; thisWeek.daysOfWeek.size(); dayIndex++) {
     // Day currentDay = thisWeek.daysOfWeek.get(dayIndex);
@@ -431,11 +456,11 @@ import org.javawavers.studybuddy.courses.Subject;
     // Add the task to the grid
     // GridPane.setConstraints(taskLabel, dayIndex, rowIndex + taskIndex);
     // grid.getChildren().add(taskLabel);
-<span class="nc" id="L434">  }</span>
+<span class="nc" id="L459">  }</span>
 
   private String formatWeekLabel(LocalDate weekStart, DateTimeFormatter formatter) {
-<span class="nc" id="L437">    LocalDate weekEnd = weekStart.plusDays(6);</span>
-<span class="nc" id="L438">    return String.format(&quot;%s - %s&quot;, formatter.format(weekStart), formatter.format(weekEnd));</span>
+<span class="nc" id="L462">    LocalDate weekEnd = weekStart.plusDays(6);</span>
+<span class="nc" id="L463">    return String.format(&quot;%s - %s&quot;, formatter.format(weekStart), formatter.format(weekEnd));</span>
   }
 }
 

@@ -76,6 +76,7 @@ public class DashboardPage {
     LineChart<Number, Number> lineChart = new LineChart<>(x, y);
     lineChart.setTitle("Productivity");
     XYChart.Series<Number, Number> series = new XYChart.Series<>();
+    HashMap<Integer, Integer> productivity = new HashMap<>();
     int[] studying = staticUser.getAvPerDay();
     for (int i = 1; i < studying.length; i++) {
       series.getData().add(new XYChart.Data<>(i, studying[i]));

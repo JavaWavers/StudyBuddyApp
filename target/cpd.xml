@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <pmd-cpd>
    <duplication lines="15" tokens="171">
-      <file begintoken="23604" column="23" endcolumn="71" endline="192" endtoken="23774"
+      <file begintoken="24718" column="23" endcolumn="71" endline="192" endtoken="24888"
             line="178"
-            path="C:\Users\Αντιγόνη\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\RegisterPage.java"/>
-      <file begintoken="23836" column="24" endcolumn="71" endline="226" endtoken="24006"
+            path="C:\Users\Dell\Programming2StudyBuddy\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\RegisterPage.java"/>
+      <file begintoken="24950" column="24" endcolumn="71" endline="226" endtoken="25120"
             line="212"
-            path="C:\Users\Αντιγόνη\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\RegisterPage.java"/>
+            path="C:\Users\Dell\Programming2StudyBuddy\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\RegisterPage.java"/>
       <codefragment><![CDATA[        .widthProperty()
         .addListener(
             (obs, oldVal, newVal) -> {
@@ -24,12 +24,12 @@
               confirmPasswordField.setFont(Font.font("Arial", newSize));]]></codefragment>
    </duplication>
    <duplication lines="57" tokens="137">
-      <file begintoken="11645" column="3" endcolumn="14" endline="281" endtoken="11781"
+      <file begintoken="12511" column="3" endcolumn="14" endline="281" endtoken="12647"
             line="225"
-            path="C:\Users\Αντιγόνη\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\AssignmentPage.java"/>
-      <file begintoken="17418" column="3" endcolumn="14" endline="335" endtoken="17554"
+            path="C:\Users\Dell\Programming2StudyBuddy\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\AssignmentPage.java"/>
+      <file begintoken="18532" column="3" endcolumn="14" endline="335" endtoken="18668"
             line="279"
-            path="C:\Users\Αντιγόνη\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\ExamPage.java"/>
+            path="C:\Users\Dell\Programming2StudyBuddy\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\ExamPage.java"/>
       <codefragment><![CDATA[  }
 
   // titlePane style
@@ -89,12 +89,12 @@
   public Scene assignmentStartingPage(SceneManager sceneManager) {]]></codefragment>
    </duplication>
    <duplication lines="19" tokens="137">
-      <file begintoken="19559" column="23" endcolumn="23" endline="231" endtoken="19695"
+      <file begintoken="20673" column="23" endcolumn="23" endline="231" endtoken="20809"
             line="213"
-            path="C:\Users\Αντιγόνη\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\LoginPage.java"/>
-      <file begintoken="19711" column="24" endcolumn="23" endline="257" endtoken="19847"
+            path="C:\Users\Dell\Programming2StudyBuddy\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\LoginPage.java"/>
+      <file begintoken="20825" column="24" endcolumn="23" endline="257" endtoken="20961"
             line="239"
-            path="C:\Users\Αντιγόνη\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\LoginPage.java"/>
+            path="C:\Users\Dell\Programming2StudyBuddy\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\LoginPage.java"/>
       <codefragment><![CDATA[        .widthProperty()
         .addListener(
             (obs, oldVal, newVal) -> {
@@ -116,12 +116,12 @@
                       + "-fx-background-color:  rgba(14, 164, 43, 0.81); "]]></codefragment>
    </duplication>
    <duplication lines="17" tokens="119">
-      <file begintoken="10707" column="20" endcolumn="14" endline="64" endtoken="10825"
+      <file begintoken="11573" column="20" endcolumn="14" endline="64" endtoken="11691"
             line="48"
-            path="C:\Users\Αντιγόνη\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\AssignmentPage.java"/>
-      <file begintoken="16254" column="14" endcolumn="14" endline="89" endtoken="16372"
+            path="C:\Users\Dell\Programming2StudyBuddy\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\AssignmentPage.java"/>
+      <file begintoken="17368" column="14" endcolumn="14" endline="89" endtoken="17486"
             line="73"
-            path="C:\Users\Αντιγόνη\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\ExamPage.java"/>
+            path="C:\Users\Dell\Programming2StudyBuddy\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\ExamPage.java"/>
       <codefragment><![CDATA[    assignmentPanel.setPadding(new Insets(20));
 
     // Create sections as titledPanes in order to be foldable
@@ -141,15 +141,15 @@
         e -> {]]></codefragment>
    </duplication>
    <duplication lines="18" tokens="103">
-      <file begintoken="11052" column="59" endcolumn="34" endline="117" endtoken="11154"
+      <file begintoken="11918" column="59" endcolumn="34" endline="117" endtoken="12020"
             line="100"
-            path="C:\Users\Αντιγόνη\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\AssignmentPage.java"/>
-      <file begintoken="12793" column="98" endcolumn="34" endline="184" endtoken="12895"
+            path="C:\Users\Dell\Programming2StudyBuddy\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\AssignmentPage.java"/>
+      <file begintoken="13659" column="98" endcolumn="34" endline="184" endtoken="13761"
             line="168"
-            path="C:\Users\Αντιγόνη\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\AvailabilityPage.java"/>
-      <file begintoken="16845" column="87" endcolumn="34" endline="185" endtoken="16947"
+            path="C:\Users\Dell\Programming2StudyBuddy\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\AvailabilityPage.java"/>
+      <file begintoken="17959" column="87" endcolumn="34" endline="185" endtoken="18061"
             line="168"
-            path="C:\Users\Αντιγόνη\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\ExamPage.java"/>
+            path="C:\Users\Dell\Programming2StudyBuddy\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\ExamPage.java"/>
       <codefragment><![CDATA[            errors.add("• Πρέπει να προσθέσεις ένα μάθημα");
           }
 

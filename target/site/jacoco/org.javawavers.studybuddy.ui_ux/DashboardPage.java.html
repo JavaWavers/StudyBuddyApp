@@ -1,105 +1,158 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DashboardPage.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">studybuddy</a> &gt; <a href="index.source.html" class="el_package">org.javawavers.studybuddy.ui_ux</a> &gt; <span class="el_source">DashboardPage.java</span></div><h1>DashboardPage.java</h1><pre class="source lang-java linenums">package org.javawavers.studybuddy.ui_ux;
 
+import static org.javawavers.studybuddy.courses.StaticUser.staticUser;
+
+import java.util.HashMap;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
-
-import javafx.scene.chart.*;
+import javafx.scene.chart.BarChart;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.PieChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import org.javawavers.studybuddy.graphs.AssDistributionCalc;
+import org.javawavers.studybuddy.graphs.BarChartCalc;
 import org.javawavers.studybuddy.graphs.SubjDistributionCalc;
 import org.javawavers.studybuddy.graphs.SummaryBoxCalc;
 
-import java.util.HashMap;
+<span class="nc" id="L25">public class DashboardPage {</span>
+  // Center panel
+  public Node createDashboard() {
+<span class="nc" id="L28">    VBox centerPanel = new VBox(10);</span>
+<span class="nc" id="L29">    centerPanel.setPadding(new Insets(20));</span>
+<span class="nc" id="L30">    centerPanel.setStyle(&quot;-fx-background-color: white;&quot;);</span>
 
-import static org.javawavers.studybuddy.courses.StaticUser.staticUser;
+<span class="nc" id="L32">    Label overviewLabel = new Label(&quot;Overview&quot;);</span>
+<span class="nc" id="L33">    overviewLabel.setFont(Font.font(&quot;System&quot;, FontWeight.BOLD, 20));</span>
+<span class="nc" id="L34">    overviewLabel.setStyle(&quot;-fx-text-fill: black;&quot;);</span>
 
-<span class="nc" id="L20">public class DashboardPage {</span>
-    // Center panel
-    public Node createDashboard() {
-<span class="nc" id="L23">        VBox centerPanel = new VBox(10);</span>
-<span class="nc" id="L24">        centerPanel.setPadding(new Insets(20));</span>
-<span class="nc" id="L25">        centerPanel.setStyle(&quot;-fx-background-color: white;&quot;);</span>
+    // Summary Boxes
+<span class="nc" id="L37">    HBox summaryBox = new HBox(10);</span>
+<span class="nc" id="L38">    summaryBox</span>
+<span class="nc" id="L39">        .getChildren()</span>
+<span class="nc" id="L40">        .addAll(</span>
+<span class="nc" id="L41">            createSummaryBox(</span>
+<span class="nc" id="L42">                &quot;Goals Completed&quot;, SummaryBoxCalc.percentageCalculatorGoals(), &quot;#57C4E5&quot;),</span>
+<span class="nc" id="L43">            createSummaryBox(</span>
+<span class="nc" id="L44">                &quot;Study Completed&quot;, SummaryBoxCalc.percentageCalculatorStudying(), &quot;#D4915D&quot;),</span>
+<span class="nc" id="L45">            createSummaryBox(</span>
+                &quot;Assignment Completed&quot;,
+<span class="nc" id="L47">                SummaryBoxCalc.percentageCalculatorAssignments(),</span>
+                &quot;#57C4E5&quot;),
+<span class="nc" id="L49">            createSummaryBox(</span>
+<span class="nc" id="L50">                &quot;Revision Completed&quot;, SummaryBoxCalc.percentageCalculatorRevision(), &quot;#D4915D&quot;));</span>
 
-<span class="nc" id="L27">        Label overviewLabel = new Label(&quot;Overview&quot;);</span>
-<span class="nc" id="L28">        overviewLabel.setFont(Font.font(&quot;System&quot;, FontWeight.BOLD, 20));</span>
-<span class="nc" id="L29">        overviewLabel.setStyle(&quot;-fx-text-fill: black;&quot;);</span>
+    // Charts
+<span class="nc" id="L53">    HBox chartsBox = new HBox(10, createLineChart(), createSubjectsPieChart());</span>
+<span class="nc" id="L54">    HBox barChartsBox = new HBox(10, createAssignmentPieChart(), createBarChart());</span>
 
-        // Summary Boxes
-<span class="nc" id="L32">        HBox summaryBox = new HBox(10);</span>
-<span class="nc" id="L33">        summaryBox.getChildren().addAll(</span>
-<span class="nc" id="L34">                createSummaryBox(&quot;Goals Completed&quot;, SummaryBoxCalc.percentageCalculatorGoals(), &quot;#57C4E5&quot;),</span>
-<span class="nc" id="L35">                createSummaryBox(&quot;Study Completed&quot;, SummaryBoxCalc.percentageCalculatorStudying(), &quot;#D4915D&quot;),</span>
-<span class="nc" id="L36">                createSummaryBox(&quot;Assignment Completed&quot;, SummaryBoxCalc.percentageCalculatorAssignments(), &quot;#57C4E5&quot;),</span>
-<span class="nc" id="L37">                createSummaryBox(&quot;Revision Completed&quot;, SummaryBoxCalc.percentageCalculatorRevision(), &quot;#D4915D&quot;)</span>
-        );
+<span class="nc" id="L56">    centerPanel.getChildren().addAll(overviewLabel, summaryBox, chartsBox, barChartsBox);</span>
+<span class="nc" id="L57">    return centerPanel;</span>
+  }
 
-        // Charts
-<span class="nc" id="L41">        HBox chartsBox = new HBox(10, createLineChart(), createPieChart());</span>
-<span class="nc" id="L42">        HBox barChartsBox = new HBox(10, createBarChart(&quot;Study&quot;), createBarChart(&quot;Assignments&quot;));</span>
+  // Summary box
+  private VBox createSummaryBox(String title, double percentage, String color) {
+<span class="nc" id="L62">    VBox box = new VBox(5);</span>
+<span class="nc" id="L63">    box.setStyle(&quot;-fx-background-color: &quot; + color + &quot;; -fx-padding: 10;&quot;);</span>
+<span class="nc" id="L64">    Label titleLabel = new Label(title);</span>
+<span class="nc" id="L65">    String value = String.valueOf(percentage);</span>
+<span class="nc" id="L66">    Label percentageLabel = new Label(value);</span>
+<span class="nc" id="L67">    percentageLabel.setStyle(&quot;-fx-font-size: 20px; -fx-font-weight: bold;&quot;);</span>
+<span class="nc" id="L68">    box.getChildren().addAll(titleLabel, percentageLabel);</span>
+<span class="nc" id="L69">    return box;</span>
+  }
 
-<span class="nc" id="L44">        centerPanel.getChildren().addAll(overviewLabel, summaryBox, chartsBox, barChartsBox);</span>
-<span class="nc" id="L45">        return centerPanel;</span>
+  // Line Chart
+  private LineChart&lt;Number, Number&gt; createLineChart() {
+<span class="nc" id="L74">    NumberAxis x = new NumberAxis(&quot;Μέρα&quot;, 1, 7, 1);</span>
+<span class="nc" id="L75">    NumberAxis y = new NumberAxis(&quot;Ώρες μελέτης&quot;, 0, 10, 1);</span>
+<span class="nc" id="L76">    LineChart&lt;Number, Number&gt; lineChart = new LineChart&lt;&gt;(x, y);</span>
+<span class="nc" id="L77">    lineChart.setTitle(&quot;Productivity&quot;);</span>
+<span class="nc" id="L78">    XYChart.Series&lt;Number, Number&gt; series = new XYChart.Series&lt;&gt;();</span>
+<span class="nc" id="L79">    HashMap&lt;Integer, Integer&gt; productivity = new HashMap&lt;&gt;();</span>
+<span class="nc" id="L80">    int[] studying = staticUser.getAvPerDay();</span>
+<span class="nc bnc" id="L81" title="All 2 branches missed.">    for (int i = 1; i &lt; studying.length; i++) {</span>
+<span class="nc" id="L82">      series.getData().add(new XYChart.Data&lt;&gt;(i, studying[i]));</span>
     }
+<span class="nc" id="L84">    lineChart.getData().add(series);</span>
+<span class="nc" id="L85">    return lineChart;</span>
+  }
+
+  // Pie Chart for subject distribution
+  private PieChart createSubjectsPieChart() {
+<span class="nc" id="L90">    PieChart pieChart = new PieChart();</span>
+<span class="nc" id="L91">    pieChart. setTitle(&quot;Subjects Distribution&quot;);</span>
+<span class="nc" id="L92">    HashMap&lt;String, Double&gt; subjDist = SubjDistributionCalc.subjectsDistribution();</span>
+<span class="nc bnc" id="L93" title="All 2 branches missed.">    for (String s : subjDist.keySet()) {</span>
+<span class="nc" id="L94">      double percentage = subjDist.get(s);</span>
+<span class="nc" id="L95">      pieChart.getData().add(new PieChart.Data(s, percentage));</span>
+<span class="nc" id="L96">    }</span>
+<span class="nc" id="L97">    return pieChart;</span>
+  }
+
+  // Pie Chart for subject distribution
+  private PieChart createAssignmentPieChart() {
+<span class="nc" id="L102">    PieChart pieChart = new PieChart();</span>
+<span class="nc" id="L103">    pieChart. setTitle(&quot;Assignment Distribution&quot;);</span>
+<span class="nc" id="L104">    HashMap&lt;String, Double&gt; assDist = AssDistributionCalc.assignmentsDistribution();</span>
+<span class="nc bnc" id="L105" title="All 2 branches missed.">    for (String a : assDist.keySet()) {</span>
+<span class="nc" id="L106">      double percentage = assDist.get(a);</span>
+<span class="nc" id="L107">      pieChart.getData().add(new PieChart.Data(a, percentage));</span>
+<span class="nc" id="L108">    }</span>
+<span class="nc" id="L109">    return pieChart;</span>
+  }
 
 
-    // Summary box
-    private VBox createSummaryBox(String title, double percentage, String color) {
-<span class="nc" id="L51">        VBox box = new VBox(5);</span>
-<span class="nc" id="L52">        box.setStyle(&quot;-fx-background-color: &quot; + color + &quot;; -fx-padding: 10;&quot;);</span>
-<span class="nc" id="L53">        Label titleLabel = new Label(title);</span>
-<span class="nc" id="L54">        String value = String.valueOf(percentage);</span>
-<span class="nc" id="L55">        Label percentageLabel = new Label(value);</span>
-<span class="nc" id="L56">        percentageLabel.setStyle(&quot;-fx-font-size: 20px; -fx-font-weight: bold;&quot;);</span>
-<span class="nc" id="L57">        box.getChildren().addAll(titleLabel, percentageLabel);</span>
-<span class="nc" id="L58">        return box;</span>
-    }
+  // Bar Chart
+  private BarChart&lt;String, Number&gt; createBarChart() {
+    //Axis creation
+<span class="nc" id="L116">    CategoryAxis x = new CategoryAxis();</span>
+<span class="nc" id="L117">    NumberAxis y = new NumberAxis();</span>
+<span class="nc" id="L118">    x.setLabel(&quot;Κατηγορίες διαβάσματος&quot;);</span>
+<span class="nc" id="L119">    y.setStyle(&quot;Ώρες μελέτης&quot;);</span>
+    // stable size
+<span class="nc" id="L121">    y.setAutoRanging(false);</span>
+<span class="nc" id="L122">    y.setLowerBound(0);</span>
+<span class="nc" id="L123">    y.setUpperBound(100);</span>
+<span class="nc" id="L124">    y.setTickUnit(10);</span>
 
-    // Line Chart
-    private LineChart&lt;Number, Number&gt; createLineChart() {
-<span class="nc" id="L63">        NumberAxis xAxis = new NumberAxis(&quot;Μέρα&quot;,1,7,1);</span>
-<span class="nc" id="L64">        NumberAxis yAxis = new NumberAxis(&quot;Ώρες μελέτης&quot;,0,10,1);</span>
-<span class="nc" id="L65">        LineChart&lt;Number, Number&gt; lineChart = new LineChart&lt;&gt;(xAxis, yAxis);</span>
-<span class="nc" id="L66">        lineChart.setTitle(&quot;Productivity&quot;);</span>
-<span class="nc" id="L67">        XYChart.Series&lt;Number, Number&gt; series = new XYChart.Series&lt;&gt;();</span>
-<span class="nc" id="L68">        int [] studying = staticUser.getAvPerDay();</span>
-<span class="nc bnc" id="L69" title="All 2 branches missed.">        for(int i = 1; i &lt; studying.length; i++) {</span>
-<span class="nc" id="L70">            series.getData().add(new XYChart.Data&lt;&gt;(i, studying[i]));</span>
-        }
-<span class="nc" id="L72">        lineChart.getData().add(series);</span>
-<span class="nc" id="L73">        return lineChart;</span>
-    }
+<span class="nc" id="L126">    BarChart&lt;String, Number&gt; barChart = new BarChart&lt;&gt;(x, y);</span>
+<span class="nc" id="L127">    barChart.setTitle(&quot;Weekly Study Distribution&quot;);</span>
 
-    // Pie Chart
-    private PieChart createPieChart() {
-<span class="nc" id="L78">        PieChart pieChart = new PieChart();</span>
-<span class="nc" id="L79">        HashMap&lt;String, Double&gt; subjDistr = SubjDistributionCalc.subjectsDistribution();</span>
-<span class="nc bnc" id="L80" title="All 2 branches missed.">        for (String s : subjDistr.keySet()){</span>
-<span class="nc" id="L81">            double percentage = subjDistr.get(s);</span>
-<span class="nc" id="L82">            pieChart.getData().add( new PieChart.Data(s,percentage));</span>
-<span class="nc" id="L83">        }</span>
-<span class="nc" id="L84">        return pieChart;</span>
-    }
+    //Data import
+<span class="nc" id="L130">    XYChart.Series&lt;String, Number&gt; series = new XYChart.Series&lt;&gt;();</span>
+<span class="nc" id="L131">    series.setName(&quot;&quot;);</span>
 
-    // Bar Chart
-    private BarChart&lt;String, Number&gt; createBarChart(String title) {
-<span class="nc" id="L89">        CategoryAxis xAxis = new CategoryAxis();</span>
-<span class="nc" id="L90">        NumberAxis yAxis = new NumberAxis();</span>
-<span class="nc" id="L91">        BarChart&lt;String, Number&gt; barChart = new BarChart&lt;&gt;(xAxis, yAxis);</span>
-<span class="nc" id="L92">        barChart.setTitle(title);</span>
-<span class="nc" id="L93">        return barChart;</span>
-    }
+    //Data calculation
+<span class="nc" id="L134">    int totalHours = BarChartCalc.calcTotalHours();</span>
+<span class="nc" id="L135">    int studyHours = BarChartCalc.calcStudyHours();</span>
+<span class="nc" id="L136">    int assignmentHours = BarChartCalc.calcAssignmentHours();</span>
+<span class="nc" id="L137">    int revisionHours = BarChartCalc.calcRevisionHours();</span>
 
+    //Data addition in the series
+<span class="nc" id="L140">    series.getData().add(new XYChart.Data&lt;&gt;(&quot;Συνολική μελέτη&quot;, totalHours));</span>
+<span class="nc" id="L141">    series.getData().add(new XYChart.Data&lt;&gt;(&quot;Διάβασμα&quot;, studyHours));</span>
+<span class="nc" id="L142">    series.getData().add(new XYChart.Data&lt;&gt;(&quot;Εργασίες&quot;, assignmentHours));</span>
+<span class="nc" id="L143">    series.getData().add(new XYChart.Data&lt;&gt;(&quot;Επανάληψη&quot;, revisionHours));</span>
 
+<span class="nc" id="L145">    barChart.getData().add(series);</span>
 
-    // Side Buttons
-    private Button createSideButton(String text) {
-<span class="nc" id="L100">        Button button = new Button(text);</span>
-<span class="nc" id="L101">        button.setStyle(&quot;-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 18px;&quot;);</span>
-<span class="nc" id="L102">        return button;</span>
-    }
+<span class="nc" id="L147">    return barChart;</span>
+  }
+
+  // Side Buttons
+  /*private Button createSideButton(String text) {
+    Button button = new Button(text);
+    button.setStyle(
+        &quot;-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 18px;&quot;);
+    return button;
+  }*/
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

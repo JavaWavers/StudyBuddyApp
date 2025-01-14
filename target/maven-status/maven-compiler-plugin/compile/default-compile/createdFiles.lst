@@ -21,8 +21,10 @@ org\javawavers\studybuddy\calculations\Repetition.class
 org\javawavers\studybuddy\courses\Exam.class
 org\javawavers\studybuddy\graphs\TaskProgess.class
 org\javawavers\studybuddy\calculations\Day.class
+org\javawavers\studybuddy\graphs\AssDistributionCalc.class
 org\javawavers\studybuddy\calculations\Dates.class
 org\javawavers\studybuddy\ui_ux\ExamPage.class
+org\javawavers\studybuddy\graphs\BarChartCalc.class
 org\javawavers\studybuddy\calculations\PrintWeeks.class
 org\javawavers\studybuddy\calculations\Task.class
 org\javawavers\studybuddy\courses\User.class
