@@ -6,12 +6,14 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
@@ -20,8 +22,11 @@ import javafx.scene.control.TitledPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
+
 import org.javawavers.studybuddy.courses.Exam;
 import org.javawavers.studybuddy.courses.Subject;
+
+import com.sun.jdi.Value;
 
 /*
 TODO:
@@ -84,16 +89,35 @@ public class ExamPage {
         e -> {
           courseName = nameField.getText();
           String value = pageField.getText();
-          pages = Integer.parseInt(value);
-          revision = Integer.parseInt(revisionField.getText());
+          List<String> errors = new ArrayList<>();
+          if (!String.valueOf(value).matches("\\d+")) {
+            errors.add("• Η παράμετρος 'Σελίδες': μπόρει να περιέχει μόνο αριθμούς");
+          } else {
+            pages = Integer.parseInt(value);
+          }
+          String value3 = revisionField.getText();
+          if (!String.valueOf(value3).matches("\\d+")) {
+            errors.add("• Η παράμετρος 'Επανάληψη ανά (σελίδες): ' μπόρει να περιέχει μόνο αριθμούς");
+          } else {
+            revision = Integer.parseInt(value3);
+          }
           deadline =
               datePicker.getValue() != null
                   ? LocalDate.parse(datePicker.getValue().toString())
                   : null;
           courseType = typeCourseList.getValue();
           String value2 = difficulty.getText();
-          diffi = Integer.parseInt(value2);
-          time = Double.parseDouble(timePer20Slides.getText());
+          if (!String.valueOf(value2).matches("\\d+")) {
+            errors.add("• Η δυσκολία μπόρει να περιέχει μόνο αριθμούς");
+          } else {
+            diffi = Integer.parseInt(value2);
+          }
+          String value4 = timePer20Slides.getText();
+          if (!String.valueOf(value4).matches("\\d+")) {
+            errors.add("• Ο χρόνος ανά 20 διαφάνειες μπόρει να περιέχει μόνο αριθμούς");
+          } else {
+            time = Integer.parseInt(value4);
+          }
 
           // create a subject object
           Subject subject1 = new Subject(courseName, courseType, diffi);
@@ -112,10 +136,11 @@ public class ExamPage {
           // subjects.add(subject1);
           // add(subject1);
           System.out.println("Subjects in ExamPage after add: " + getSubjects().size());
-          List<String> errors = new ArrayList<>();
 
           if (courseName.isEmpty()) {
             errors.add("• Εισήγαγε όνομα μαθήματος");
+          }  else if (!courseName.matches("[a-zA-Zα-ωΑ-ΩάέήίΰϊϋόύώΆΈΉΊΪΫΌΎΏ]+")) {
+            errors.add("• Η Ονομασία του μαθήματος μπορεί να περιέχει μόνο γράμματα");
           }
 
           if (pages <= 0) {
@@ -152,9 +177,20 @@ public class ExamPage {
             alert
                 .getDialogPane()
                 .getStylesheets()
-                .add(Objects.requireNonNull(getClass().getResource("alert.css")).toExternalForm());
+                .add(getClass().getResource("/alert.css").toExternalForm());
             alert.showAndWait();
             return;
+          } else {
+            Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
+            successAlert.setTitle("Εισαγωγή Μαθήματος Επιτυχής");
+            successAlert.setHeaderText(null);
+            successAlert.setContentText("Το Μάθημα προστέθηκε!!");
+            DialogPane dialogPane = successAlert.getDialogPane();
+            dialogPane.getStyleClass().add("success-alert");
+            dialogPane
+                  .getStylesheets()
+                  .add(Objects.requireNonNull(getClass().getResource("/success.css")).toExternalForm());
+            successAlert.showAndWait();
           }
 
           nameField.clear();

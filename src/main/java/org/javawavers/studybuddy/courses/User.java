@@ -11,6 +11,7 @@ public class User {
   private String password;
   private int userID;
   int[] avPerDay; // availability for each day of the week
+  private Week currentWeek;
   List<LocalDate> nonAvailDays = new ArrayList<>();
   List<Subject> subjects = new ArrayList<>();
   List<Assignment> assignments = new ArrayList<>();
@@ -164,6 +165,14 @@ public class User {
     this.totalWeeks = totalWeeks;
   }
 
+  public Week getCurrentWeek() {
+    return currentWeek;
+  }
+
+  public void setCurrentWeek(Week currentWeek) {
+    this.currentWeek = currentWeek;
+  }
+
   // add, remove and update objects from the lists
   public void addSubject(Subject subj) {
     subjects.add(subj);
@@ -215,6 +224,19 @@ public class User {
 
   public void updateAvPerDay(int index, int av) {
     avPerDay[index] = av;
+  }
+
+  public void calculateCurrentWeek() {
+    LocalDate today = LocalDate.now();
+    for (Week w : totalWeeks) {
+      for (Day d : w.getDaysOfWeek()) {
+        if (!d.getTodayTasks().isEmpty() && d.getTodayScheduledTask(0).getTaskDate().equals(today)) {
+          this.currentWeek = w;
+          return;
+        }
+      }
+    }
+    throw new IllegalArgumentException("No week found for the current date");
   }
   /*
    input: list tasks and list days

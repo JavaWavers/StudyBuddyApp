@@ -22,7 +22,7 @@ public class MenuPage {
   private ToggleButton btnCourses = new ToggleButton("Courses");
 
   private CenterPanelManager centerPanelManager;
-
+  private RightPanel rightPanel;
   private ImageView arrowIconCourses;
   private Image arrowRight;
   private Image arrowDown;
@@ -33,8 +33,10 @@ public class MenuPage {
   private String btnInsideSelected;
   VBox optionVBox = new VBox(15);
 
-  public MenuPage(CenterPanelManager centerPanelManager) {
+
+  public MenuPage(CenterPanelManager centerPanelManager, RightPanel rightPanel) {
     this.centerPanelManager = centerPanelManager;
+    this.rightPanel = rightPanel;
     initVariables();
   }
 
@@ -54,8 +56,7 @@ public class MenuPage {
     leftBoxMenu.setPrefWidth(212);
     leftBoxMenu.setMinWidth(212); // or 88.33
     leftBoxMenu.setMaxWidth(212);
-    leftBoxMenu.setStyle(/*"-fx-padding: 68 0 0 0;"
-                + */ "-fx-background-color: #F7B267; ");
+    leftBoxMenu.setStyle("-fx-background-color: #F7B267; ");
 
     leftBoxMenu.setMaxHeight(Double.MAX_VALUE);
   }
@@ -194,21 +195,20 @@ public class MenuPage {
   private void configNavigationBtns() {
     setButtonGraphs();
 
-    btnHome.setOnAction(e -> centerPanelManager.changeCenterPanel("Home"));
-    btnExam.setOnAction(e -> centerPanelManager.changeCenterPanel("Exam"));
-    btnAssignment.setOnAction(e -> centerPanelManager.changeCenterPanel("Assignments"));
-    btnCalendar.setOnAction(
-        e -> {
-          closeCoursesOption(optionVBox);
-          centerPanelManager.changeCenterPanel("Calendar");
-        });
-    btnDashboard.setOnAction(
-        e -> {
-          closeCoursesOption(optionVBox);
-          centerPanelManager.changeCenterPanel("Dashboard");
-        });
+    btnHome.setOnAction(e -> changeRight("Home"));
+    btnExam.setOnAction(e -> changeRight("Exam"));
+    btnAssignment.setOnAction(e -> changeRight("Assignments"));
+    btnCalendar.setOnAction(e -> changeRight("Calendar"));
+    btnDashboard.setOnAction(e -> changeRight("Dashboard"));
 
     leftBoxMenu.getChildren().addAll(btnHome, btnCourses, btnCalendar, btnDashboard);
+  }
+
+  private void changeRight(String panelName) {
+    centerPanelManager.changeCenterPanel(panelName);
+
+    rightPanel.updateRightPaneContent(panelName);
+    System.out.println("Changing panel to: " + panelName);
   }
 
   private void configCourses() {
