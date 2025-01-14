@@ -80,6 +80,7 @@ public class DataBaseManager {
                     estimateHours INTEGER NOT NULL,
                     completedDate TEXT,
                     userID INTEGER NOT NULL,
+                    difficulty INTEGER NOT NULL,
                     FOREIGN KEY (userID) REFERENCES User (userID)
                     );
                     """;

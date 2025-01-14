@@ -277,7 +277,7 @@ public class ActiveUser {
     }*/
 
     public static List<ScheduledTask> getTasks(int userID) {
-        String sql = "SELECT taskName, hoursAllocated, timeStarted, timeCompleted, taskStatus, taskDate, subjectName, taskType FROM Task WHERE userID = ?;";
+        String sql = "SELECT taskName, hoursAllocated, taskStatus, taskDate, subjectName, taskType, timeStarted, timeCompleted FROM Task WHERE userID = ?;";
         List<ScheduledTask> scheduledTasks = new ArrayList<>();
 
         try (Connection c = DataBaseManager.connect();
@@ -287,16 +287,16 @@ public class ActiveUser {
                 while (rs.next()) {
                     String taskName = rs.getString("taskName");
                     int hoursAllocated = rs.getInt("hoursAllocated");
-                    String timeStartedString = rs.getString("timeStarted");
-                    LocalTime timeStarted = LocalTime.parse(timeStartedString, DateTimeFormatter.ofPattern("HH:mm"));
-                    String timeCompletedString = rs.getString("timeCompleted");
-                    LocalTime timeCompleted = LocalTime.parse(timeCompletedString, DateTimeFormatter.ofPattern("HH:mm"));
                     String taskTypeString = rs.getString("taskStatus");
                     ScheduledTask.TaskStatus taskStatus = ScheduledTask.TaskStatus.valueOf(taskTypeString.toUpperCase());
                     String dString = rs.getString("taskDate");
                     LocalDate taskDate = LocalDate.parse(dString, FORMATTER);
                     String subjectName = rs.getString("subjectName");
                     String taskType = rs.getString("taskType");
+                    String  timeStString = rs.getString("timeStarted");
+                    LocalTime timeStarted = LocalTime.parse(timeStString);
+                    String timeComString = rs.getString("timeCompleted");
+                    LocalTime timeCompleted = LocalTime.parse(timeComString);
                     ScheduledTask t = new ScheduledTask(taskName, taskType, hoursAllocated,
                             taskStatus, timeStarted, timeCompleted, taskDate, subjectName);
                     scheduledTasks.add(t);
@@ -325,10 +325,11 @@ public class ActiveUser {
                     LocalDate deadline = LocalDate.parse(rs.getString("deadline"));
                     int estimateHours = rs.getInt("estimateHours");
                     String completedDateString = rs.getString("completedDate");
+                    int difficulty = rs.getInt("difficulty");
                     LocalDate completedDate = (completedDateString != null && !completedDateString.isEmpty())
                             ? LocalDate.parse(completedDateString)
                             : null;
-                    Assignment assignment = new Assignment(title, deadline, estimateHours, completedDate);
+                    Assignment assignment = new Assignment(title, deadline, estimateHours, difficulty);
                     assignments.add(assignment);
                 }
 

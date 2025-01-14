@@ -44,6 +44,25 @@ public class ScheduledTask {
     this.subjectName = subject.getCourseName();
   }
 
+  public ScheduledTask(
+          String taskName,
+          String taskType,
+          int hoursAllocated,
+          TaskStatus taskStatus,
+          LocalTime timeStarted,
+          LocalTime timeCompleted,
+          LocalDate taskDate,
+          String subjectName) {
+    this.taskName = taskName;
+    this.taskType = taskType;
+    this.hoursAllocated = hoursAllocated;
+    this.taskStatus = taskStatus;
+    this.timeStarted = timeStarted;
+    this.timeCompleted = timeCompleted;
+    this.taskDate = taskDate;
+    this.subjectName = subjectName;
+  }
+
   // Constructor with default settings
   /// //////////////////////////////////////////////////////////////////////////////////////////// sbiseeeee
   public ScheduledTask(

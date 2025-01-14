@@ -45,15 +45,16 @@ public class DataInserter {
         }
     }
 
-    public static void insertAssignment(String title, LocalDate deadline, int estimateHours, LocalDate completedDate, int userID) {
-        String sql = "INSERT INTO Assignment (title, deadline, estimateHours, completedDate, userID) VALUES (?, ?, ?, ?, ?);";
+    public static void insertAssignment(String title, LocalDate deadline, int estimateHours, int difficulty, LocalDate completedDate, int userID) {
+        String sql = "INSERT INTO Assignment (title, deadline, estimateHours, difficulty, completedDate, userID) VALUES (?, ?, ?, ?, ?, ?);";
         try (Connection c = DataBaseManager.connect();
              PreparedStatement ps = c.prepareStatement(sql)) {
             ps.setString(1, title);
             ps.setString(2, deadline.format(FORMATTER));
             ps.setInt(3, estimateHours);
-            ps.setString(4, completedDate == null ? null : completedDate.format(FORMATTER));
-            ps.setInt(5, userID);
+            ps.setInt(4, difficulty);
+            ps.setString(5, completedDate == null ? null : completedDate.format(FORMATTER));
+            ps.setInt(6, userID);
             ps.executeUpdate();
             System.out.println("Η εργασία εισάχθηκε με επιτυχία.");
         } catch (SQLException e) {

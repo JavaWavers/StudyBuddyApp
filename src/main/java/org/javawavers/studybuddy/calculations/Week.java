@@ -16,6 +16,10 @@ public class Week {
     return daysOfWeek;
   }
 
+  public void setDaysOfWeek(List<Day> daysOfWeek) {
+    this.daysOfWeek = daysOfWeek;
+  }
+
   // returns the specified task from the list
   public Day getTheDay(int index) {
     return daysOfWeek.get(index);
