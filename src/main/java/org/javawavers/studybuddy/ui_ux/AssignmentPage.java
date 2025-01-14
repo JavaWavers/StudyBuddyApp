@@ -1,10 +1,13 @@
 package org.javawavers.studybuddy.ui_ux;
 
-import static org.javawavers.studybuddy.courses.StaticUser.staticUser;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+
+import org.javawavers.studybuddy.courses.Assignment;
+import static org.javawavers.studybuddy.courses.StaticUser.staticUser;
+
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -13,13 +16,13 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
-import org.javawavers.studybuddy.courses.Assignment;
 
 /*
 TODO :
@@ -63,21 +66,26 @@ public class AssignmentPage {
           title = assignmentField.getText();
           estimate = estimateHours.getText();
           String value = difficultyField.getText();
-          difficulty = Integer.parseInt(value);
           deadline = datePicker.getValue() != null ? datePicker.getValue().toString() : null;
           courseType = coursesList.getValue();
 
           List<String> errors = new ArrayList<>();
-          /*  if (courseName.isEmpty()) {
-              errors.add("• Εισήγαγε Μάθημα");
-          }*/
+          if (!String.valueOf(value).matches("\\d+")) {
+            errors.add("• Η δυσκολία μπόρει να περιέχει μόνο αριθμούς");
+          } else {
+            difficulty = Integer.parseInt(value);
+          }
 
           if (title.isEmpty()) {
             errors.add("• Όρισε τον Τίτλο της εργασίας");
+          }  else if (!title.matches("[a-zA-Zα-ωΑ-ΩάέήίΰϊϋόύώΆΈΉΊΪΫΌΎΏ]+")) {
+            errors.add("• Η Ονομασία της εργασίας μπορεί να περιέχει μόνο γράμματα");
           }
 
           if (estimate.isEmpty()) {
             errors.add("• Όρισε εκτιμώμενη ώρα για το μάθημα");
+          } else if (!estimate.matches("\\d+")) {
+            errors.add("• H εκτιμώμενη ώρα πρέπει να είναι αριθμός");
           }
 
           if (difficulty < 1 || difficulty > 10) {
@@ -101,9 +109,20 @@ public class AssignmentPage {
             alert
                 .getDialogPane()
                 .getStylesheets()
-                .add(getClass().getResource("alert.css").toExternalForm());
+                .add(getClass().getResource("/alert.css").toExternalForm());
             alert.showAndWait();
             return;
+          }  else {
+            Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
+            successAlert.setTitle("Εισαγωγή Εργασίας Επιτυχής");
+            successAlert.setHeaderText(null);
+            successAlert.setContentText("Η εργασία προστέθηκε!!");
+            DialogPane dialogPane = successAlert.getDialogPane();
+            dialogPane.getStyleClass().add("success-alert");
+            dialogPane
+                  .getStylesheets()
+                  .add(Objects.requireNonNull(getClass().getResource("/success.css")).toExternalForm());
+            successAlert.showAndWait();
           }
           localDeadline = LocalDate.parse(deadline);
           estimateHour = Integer.parseInt(estimate);

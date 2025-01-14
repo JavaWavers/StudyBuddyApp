@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <pmd-cpd>
    <duplication lines="15" tokens="171">
-      <file begintoken="22690" column="23" endcolumn="71" endline="186" endtoken="22860"
-            line="172"
-            path="C:\Users\Marina\DET\ProgII\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\RegisterPage.java"/>
-      <file begintoken="22922" column="24" endcolumn="71" endline="220" endtoken="23092"
-            line="206"
-            path="C:\Users\Marina\DET\ProgII\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\RegisterPage.java"/>
+      <file begintoken="23448" column="23" endcolumn="71" endline="192" endtoken="23618"
+            line="178"
+            path="C:\Users\Αντιγόνη\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\RegisterPage.java"/>
+      <file begintoken="23680" column="24" endcolumn="71" endline="226" endtoken="23850"
+            line="212"
+            path="C:\Users\Αντιγόνη\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\RegisterPage.java"/>
       <codefragment><![CDATA[        .widthProperty()
         .addListener(
             (obs, oldVal, newVal) -> {
@@ -24,12 +24,12 @@
               confirmPasswordField.setFont(Font.font("Arial", newSize));]]></codefragment>
    </duplication>
    <duplication lines="57" tokens="137">
-      <file begintoken="11499" column="3" endcolumn="14" endline="262" endtoken="11635"
-            line="206"
-            path="C:\Users\Marina\DET\ProgII\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\AssignmentPage.java"/>
-      <file begintoken="16602" column="3" endcolumn="14" endline="299" endtoken="16738"
-            line="243"
-            path="C:\Users\Marina\DET\ProgII\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\ExamPage.java"/>
+      <file begintoken="11645" column="3" endcolumn="14" endline="281" endtoken="11781"
+            line="225"
+            path="C:\Users\Αντιγόνη\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\AssignmentPage.java"/>
+      <file begintoken="17265" column="3" endcolumn="14" endline="335" endtoken="17401"
+            line="279"
+            path="C:\Users\Αντιγόνη\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\ExamPage.java"/>
       <codefragment><![CDATA[  }
 
   // titlePane style
@@ -89,12 +89,12 @@
   public Scene assignmentStartingPage(SceneManager sceneManager) {]]></codefragment>
    </duplication>
    <duplication lines="19" tokens="137">
-      <file begintoken="18648" column="23" endcolumn="23" endline="209" endtoken="18784"
-            line="191"
-            path="C:\Users\Marina\DET\ProgII\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\LoginPage.java"/>
-      <file begintoken="18800" column="24" endcolumn="23" endline="235" endtoken="18936"
-            line="217"
-            path="C:\Users\Marina\DET\ProgII\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\LoginPage.java"/>
+      <file begintoken="19406" column="23" endcolumn="23" endline="231" endtoken="19542"
+            line="213"
+            path="C:\Users\Αντιγόνη\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\LoginPage.java"/>
+      <file begintoken="19558" column="24" endcolumn="23" endline="257" endtoken="19694"
+            line="239"
+            path="C:\Users\Αντιγόνη\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\LoginPage.java"/>
       <codefragment><![CDATA[        .widthProperty()
         .addListener(
             (obs, oldVal, newVal) -> {
@@ -116,12 +116,12 @@
                       + "-fx-background-color:  rgba(14, 164, 43, 0.81); "]]></codefragment>
    </duplication>
    <duplication lines="17" tokens="119">
-      <file begintoken="10707" column="20" endcolumn="14" endline="61" endtoken="10825"
-            line="45"
-            path="C:\Users\Marina\DET\ProgII\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\AssignmentPage.java"/>
-      <file begintoken="15646" column="14" endcolumn="14" endline="84" endtoken="15764"
-            line="68"
-            path="C:\Users\Marina\DET\ProgII\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\ExamPage.java"/>
+      <file begintoken="10707" column="20" endcolumn="14" endline="64" endtoken="10825"
+            line="48"
+            path="C:\Users\Αντιγόνη\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\AssignmentPage.java"/>
+      <file begintoken="16101" column="14" endcolumn="14" endline="89" endtoken="16219"
+            line="73"
+            path="C:\Users\Αντιγόνη\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\ExamPage.java"/>
       <codefragment><![CDATA[    assignmentPanel.setPadding(new Insets(20));
 
     // Create sections as titledPanes in order to be foldable
@@ -139,5 +139,34 @@
     okBtn.setOnMouseEntered(e -> okBtn.setStyle(btnMouseEntered()));
     okBtn.setOnMouseClicked(
         e -> {]]></codefragment>
+   </duplication>
+   <duplication lines="18" tokens="103">
+      <file begintoken="11052" column="59" endcolumn="34" endline="117" endtoken="11154"
+            line="100"
+            path="C:\Users\Αντιγόνη\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\AssignmentPage.java"/>
+      <file begintoken="12793" column="98" endcolumn="34" endline="184" endtoken="12895"
+            line="168"
+            path="C:\Users\Αντιγόνη\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\AvailabilityPage.java"/>
+      <file begintoken="16692" column="87" endcolumn="34" endline="185" endtoken="16794"
+            line="168"
+            path="C:\Users\Αντιγόνη\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\ExamPage.java"/>
+      <codefragment><![CDATA[            errors.add("• Πρέπει να προσθέσεις ένα μάθημα");
+          }
+
+          if (!errors.isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Η φόρμα δεν έχει ολοκληρωθεί");
+            alert.setHeaderText(null);
+            String errorMessage = String.join("\n", errors);
+            alert.setContentText(errorMessage);
+            alert
+                .getDialogPane()
+                .getStylesheets()
+                .add(getClass().getResource("/alert.css").toExternalForm());
+            alert.showAndWait();
+            return;
+          }  else {
+            Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
+            successAlert.setTitle("Εισαγωγή Εργασίας Επιτυχής");]]></codefragment>
    </duplication>
 </pmd-cpd>

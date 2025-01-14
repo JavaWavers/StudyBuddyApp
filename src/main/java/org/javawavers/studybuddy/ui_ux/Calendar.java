@@ -1,18 +1,29 @@
 package org.javawavers.studybuddy.ui_ux;
 
-import static org.javawavers.studybuddy.courses.StaticUser.staticUser;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoField;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
+import org.javawavers.studybuddy.calculations.CreateWeekDay;
+import org.javawavers.studybuddy.calculations.Day;
+import org.javawavers.studybuddy.calculations.SimulateAnnealing;
+import org.javawavers.studybuddy.calculations.Week;
+import org.javawavers.studybuddy.courses.Exam;
+import org.javawavers.studybuddy.courses.ScheduledTask;
+import static org.javawavers.studybuddy.courses.StaticUser.staticUser;
+import org.javawavers.studybuddy.courses.Subject;
+
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
@@ -27,10 +38,6 @@ import javafx.scene.text.FontWeight;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import org.javawavers.studybuddy.calculations.*;
-import org.javawavers.studybuddy.courses.Exam;
-import org.javawavers.studybuddy.courses.ScheduledTask;
-import org.javawavers.studybuddy.courses.Subject;
 
 public class Calendar {
   private LocalDate currentWeekStart;
@@ -104,7 +111,7 @@ public class Calendar {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("oupss!");
             alert.setHeaderText(null);
-            alert.setContentText("Δεν υπάρχουν προηγούμενες εβδομάδες");
+            alert.setContentText("Προς το παρόν, δεν υπάρχουν προηγούμενες εβδομάδες. Αλλά μην ανησυχείς, όλα ξεκινούν από εδώ!");
             alert
                 .getDialogPane()
                 .getStylesheets()
@@ -122,9 +129,9 @@ public class Calendar {
             createCalendarGrid(calendarGrid, count, SimulateAnnealing.getSubjects(), totalWeeks);
           } else {
             Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("oupss!");
+            alert.setTitle(null);
             alert.setHeaderText(null);
-            alert.setContentText("Το πρόγραμμα της εξεταστικής σταματάει εδώ");
+            alert.setContentText("Πάει κι αυτό! 🎉 Ώρα για λίγη ξεκούραση τώρα! Η εξεταστική σου σταματάει εδώ");
             alert
                 .getDialogPane()
                 .getStylesheets()
@@ -202,79 +209,88 @@ public class Calendar {
 
     refreshButton.setOnAction(
         event -> {
-          SimulateAnnealing sAnnealing = new SimulateAnnealing();
-          ExamPage exPage = new ExamPage();
-          if (!exPage.getSubjects().isEmpty()) {
-            System.out.print("Not empty subject list");
-          } else {
-            System.out.println("empty");
-          }
+          Alert confirmRefresh = new Alert(Alert.AlertType.CONFIRMATION);
+          confirmRefresh.setTitle("Επιβεβαίωση Refresh");
+          confirmRefresh.setHeaderText(null);
+          DialogPane dialogPane = confirmRefresh.getDialogPane();
+          dialogPane.getStylesheets().add(getClass().getResource("/alert.css").toExternalForm());
+          confirmRefresh.setContentText("σίγουρα θέλεις να αλλάξεις το τωρινό πρόγραμμα σου");
+          Optional<ButtonType> answer = confirmRefresh.showAndWait();
+          if (answer.isPresent() && answer.get() == ButtonType.OK) {
+            SimulateAnnealing sAnnealing = new SimulateAnnealing();
+            ExamPage exPage = new ExamPage();
+            if (!exPage.getSubjects().isEmpty()) {
+              System.out.print("Not empty subject list");
+            } else {
+              System.out.println("empty");
+            }
 
-          List<Subject> subject = staticUser.getSubjects();
-          SimulateAnnealing.scheduleResult();
-          totalWeeks = new ArrayList<>(staticUser.getTotalWeeks());
-          /*
-          int [][] schedule = SimulateAnnealing.getSchedule();
-          int colSize = schedule[0].length;
-          ArrayList<Task> bestTask = new ArrayList<>(SimulateAnnealing.getBestTask());
-          LocalDate today2 = LocalDate.now(); // Today's date
-          DayOfWeek currentDayOfWeek = today2.getDayOfWeek();
-          int daysUntilMonday = currentDayOfWeek.getValue() - DayOfWeek.MONDAY.getValue();
+            List<Subject> subject = staticUser.getSubjects();
+            SimulateAnnealing.scheduleResult();
+            totalWeeks = new ArrayList<>(staticUser.getTotalWeeks());
+            /*
+            int [][] schedule = SimulateAnnealing.getSchedule();
+            int colSize = schedule[0].length;
+            ArrayList<Task> bestTask = new ArrayList<>(SimulateAnnealing.getBestTask());
+            LocalDate today2 = LocalDate.now(); // Today's date
+            DayOfWeek currentDayOfWeek = today2.getDayOfWeek();
+            int daysUntilMonday = currentDayOfWeek.getValue() - DayOfWeek.MONDAY.getValue();
 
-          // Initialize the first week
-          Week currentWeek = new Week();
+            // Initialize the first week
+            Week currentWeek = new Week();
 
-          // Fill days before today with empty tasks
-          for (int i = 0; i < daysUntilMonday; i++) {
-            Day emptyDay = new Day(); // Day with no tasks
-            currentWeek.getDaysOfWeek().add(emptyDay);
-          }
+            // Fill days before today with empty tasks
+            for (int i = 0; i < daysUntilMonday; i++) {
+              Day emptyDay = new Day(); // Day with no tasks
+              currentWeek.getDaysOfWeek().add(emptyDay);
+            }
 
-          List<ScheduledTask> scheduledTasksForDay = new ArrayList<>();
+            List<ScheduledTask> scheduledTasksForDay = new ArrayList<>();
 
-          for (int dayIndex = 0; dayIndex < colSize; dayIndex++) {
-            LocalDate currentDate = today2.plusDays(dayIndex - daysUntilMonday); // Calculate current date
+            for (int dayIndex = 0; dayIndex < colSize; dayIndex++) {
+              LocalDate currentDate = today2.plusDays(dayIndex - daysUntilMonday); // Calculate current date
 
-            // Clear the scheduled tasks for the day
-            scheduledTasksForDay.clear();
-            for (int taskIndex = 0; taskIndex < schedule.length; taskIndex++) {
-              int taskId = schedule[taskIndex][dayIndex];
-              String taskType = " ";
-              if (taskId > 0) { // If there is a task for the specific slot
-                Task task = bestTask.get(taskId); // Retrieve the Task from the list
-                if (task.getTaskType() == 1) {
-                  taskType = "Διάβασμα";
-                } else if (task.getTaskType() == 2) {
-                  taskType = "Επανάληψη";
-                } else {
-                  taskType = "Εργασία";
+              // Clear the scheduled tasks for the day
+              scheduledTasksForDay.clear();
+              for (int taskIndex = 0; taskIndex < schedule.length; taskIndex++) {
+                int taskId = schedule[taskIndex][dayIndex];
+                String taskType = " ";
+                if (taskId > 0) { // If there is a task for the specific slot
+                  Task task = bestTask.get(taskId); // Retrieve the Task from the list
+                  if (task.getTaskType() == 1) {
+                    taskType = "Διάβασμα";
+                  } else if (task.getTaskType() == 2) {
+                    taskType = "Επανάληψη";
+                  } else {
+                    taskType = "Εργασία";
+                  }
+
+                  ScheduledTask scheduledTask = new ScheduledTask(
+                          task.getSubject(), taskType,
+                          (int) Math.ceil(task.getTaskHours()),
+                          currentDate,
+                          new Subject(task.getSubject()) // Create Subject from the Task
+                  );
+                  scheduledTasksForDay.add(scheduledTask);
                 }
+              }
 
-                ScheduledTask scheduledTask = new ScheduledTask(
-                        task.getSubject(), taskType,
-                        (int) Math.ceil(task.getTaskHours()),
-                        currentDate,
-                        new Subject(task.getSubject()) // Create Subject from the Task
-                );
-                scheduledTasksForDay.add(scheduledTask);
+              // Create a Day object for the current day
+              Day currentDay = new Day();
+              currentDay.todayTasks.addAll(scheduledTasksForDay);
+
+              // Add the day to the week
+              currentWeek.getDaysOfWeek().add(currentDay);
+
+              // If the week is complete or it's the last day, save it
+              if (currentWeek.getDaysOfWeek().size() == 7 || dayIndex == colSize - 1) {
+                totalWeeks.add(currentWeek);
+                currentWeek = new Week(); // Start a new week
               }
             }
-
-            // Create a Day object for the current day
-            Day currentDay = new Day();
-            currentDay.todayTasks.addAll(scheduledTasksForDay);
-
-            // Add the day to the week
-            currentWeek.getDaysOfWeek().add(currentDay);
-
-            // If the week is complete or it's the last day, save it
-            if (currentWeek.getDaysOfWeek().size() == 7 || dayIndex == colSize - 1) {
-              totalWeeks.add(currentWeek);
-              currentWeek = new Week(); // Start a new week
-            }
+            */
+            createCalendarGrid(calendarGrid, 0, subject, totalWeeks);
           }
-          */
-          createCalendarGrid(calendarGrid, 0, subject, totalWeeks);
         });
 
     // βαζουμε ολα τα στοιχεια του κεντρου μαζι και τα επιστρεφουμε
