@@ -19,8 +19,10 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import org.javawavers.studybuddy.graphs.AssDistributionCalc;
 import org.javawavers.studybuddy.graphs.BarChartCalc;
+import org.javawavers.studybuddy.graphs.LineChartCalc;
 import org.javawavers.studybuddy.graphs.SubjDistributionCalc;
 import org.javawavers.studybuddy.graphs.SummaryBoxCalc;
+
 
 public class DashboardPage {
   // Center panel
@@ -76,10 +78,9 @@ public class DashboardPage {
     LineChart<Number, Number> lineChart = new LineChart<>(x, y);
     lineChart.setTitle("Productivity");
     XYChart.Series<Number, Number> series = new XYChart.Series<>();
-    HashMap<Integer, Integer> productivity = new HashMap<>();
-    int[] studying = staticUser.getAvPerDay();
-    for (int i = 1; i < studying.length; i++) {
-      series.getData().add(new XYChart.Data<>(i, studying[i]));
+    HashMap<Integer, Integer> productivity = new HashMap<>(LineChartCalc.weekProgress());
+    for (Integer day : productivity.keySet()) {
+      series.getData().add(new XYChart.Data<>(day, productivity.get(day)));
     }
     lineChart.getData().add(series);
     return lineChart;
@@ -89,7 +90,7 @@ public class DashboardPage {
   private PieChart createSubjectsPieChart() {
     PieChart pieChart = new PieChart();
     pieChart. setTitle("Subjects Distribution");
-    HashMap<String, Double> subjDist = SubjDistributionCalc.subjectsDistribution();
+    HashMap<String, Double> subjDist = new HashMap<>(SubjDistributionCalc.subjectsDistribution());
     for (String s : subjDist.keySet()) {
       double percentage = subjDist.get(s);
       pieChart.getData().add(new PieChart.Data(s, percentage));
@@ -101,7 +102,7 @@ public class DashboardPage {
   private PieChart createAssignmentPieChart() {
     PieChart pieChart = new PieChart();
     pieChart. setTitle("Assignment Distribution");
-    HashMap<String, Double> assDist = AssDistributionCalc.assignmentsDistribution();
+    HashMap<String, Double> assDist = new HashMap<>(AssDistributionCalc.assignmentsDistribution());
     for (String a : assDist.keySet()) {
       double percentage = assDist.get(a);
       pieChart.getData().add(new PieChart.Data(a, percentage));
