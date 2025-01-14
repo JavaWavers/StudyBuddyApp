@@ -7,6 +7,8 @@ import org.javawavers.studybuddy.courses.*;
 public class Day {
   public List<ScheduledTask> todayTasks;
 
+  public Day(List<ScheduledTask> todayTasks) {this.todayTasks = todayTasks; }
+
   // constructor
   public Day() {
     todayTasks = new ArrayList<>();
