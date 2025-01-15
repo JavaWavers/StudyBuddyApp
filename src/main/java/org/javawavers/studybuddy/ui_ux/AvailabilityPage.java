@@ -163,6 +163,11 @@ public class AvailabilityPage {
               }
             });
           }
+          // test for registration or login
+          boolean flag = true;
+          if (staticUser.getAvPerDay() == null) {
+            flag = false;
+          }
           // static user for availability
           staticUser.setAvPerDay(avPerDay);
 
@@ -195,7 +200,7 @@ public class AvailabilityPage {
                   .add(Objects.requireNonNull(getClass().getResource("/success.css")).toExternalForm());
             successAlert.showAndWait();
 
-            if (staticUser.getAvPerDay() == null) {
+            if (flag == false) {
               DataInserter.insertAvailability(avPerDay[1], avPerDay[2], avPerDay[3],
                       avPerDay[4], avPerDay[5], avPerDay[6], avPerDay[7], StaticUser.staticUser.getUserID());
             } else {

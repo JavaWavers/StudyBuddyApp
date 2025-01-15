@@ -86,17 +86,7 @@ public class CreateWeekDay {
                   subject // Create Subject from the Task
                   );
           scheduledTasksForDay.add(scheduledTask);
-          DataInserter.insertTask(scheduledTask.getTaskName(),
-                  (int) Math.ceil(task.getTaskHours()),
-                  scheduledTask.getTimeStarted(),
-                  scheduledTask.getTimeCompleted(),
-                  scheduledTask.getTaskStatus(),
-                  currentDate,
-                  subject.getCourseName(),
-                  taskType,
-                  StaticUser.staticUser.getUserID(),
-                  numOfDay
-                  );
+
         }
       }
 
@@ -114,6 +104,9 @@ public class CreateWeekDay {
       }
     }
     staticUser.setTotalWeeks(totalWeeks);
+    PrintWeeks printWeeks = new PrintWeeks();
+    printWeeks.printWeeks(totalWeeks);
+
     int id = staticUser.getUserID();
     int i = 0;
     int j = 0;
@@ -131,7 +124,6 @@ public class CreateWeekDay {
     }
 
 
-    PrintWeeks printWeeks = new PrintWeeks();
-    printWeeks.printWeeks(totalWeeks);
+
   }
 }
