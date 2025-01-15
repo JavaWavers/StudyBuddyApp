@@ -1,7 +1,9 @@
 package org.javawavers.studybuddy.database;
 
+import org.checkerframework.checker.units.qual.A;
 import org.javawavers.studybuddy.calculations.*;
 import org.javawavers.studybuddy.courses.*;
+import org.javawavers.studybuddy.courses.StaticUser;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -30,6 +32,17 @@ public class ActiveUser {
             List<Exam> exams = getExam(getUserID(email, password));
             List<ScheduledTask> scheduledTasks = getTasks(getUserID(email, password));
             List<Week> weeks = getWeeks(getUserID(email, password));
+            StaticUser.staticUser.setUserID(getUserID(email, password));
+            StaticUser.staticUser.setEmail(email);
+            StaticUser.staticUser.setPassword(password);
+            StaticUser.staticUser.setAvPerDay(availability);
+            StaticUser.staticUser.setTotalWeeks(weeks);
+            StaticUser.staticUser.setAssignments(assignments);
+            StaticUser.staticUser.setExams(exams);
+            StaticUser.staticUser.setNonAvailDays(nonAvDates);
+            StaticUser.staticUser.setSubjects(subjects);
+            StaticUser.staticUser.setDays(days);
+            StaticUser.staticUser.setTasks(scheduledTasks);
         } else {
             System.out.println("Username or password is incorrect");
         }

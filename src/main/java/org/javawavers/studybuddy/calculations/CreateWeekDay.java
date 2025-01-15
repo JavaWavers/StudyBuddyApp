@@ -22,8 +22,7 @@ public class CreateWeekDay {
   long daysPassed = ChronoUnit.DAYS.between(FIRSTDAY, LocalDate.now());
   numOfDay = 1 + daysPassed;
   static int numOfWeek = (numOfDay / 7) + 1;
- */
-
+*/
 
   public CreateWeekDay() {
     totalWeeks = new ArrayList<>();
