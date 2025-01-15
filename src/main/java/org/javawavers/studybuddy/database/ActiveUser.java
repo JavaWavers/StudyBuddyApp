@@ -32,6 +32,7 @@ public class ActiveUser {
             List<Exam> exams = getExam(getUserID(email, password));
             List<ScheduledTask> scheduledTasks = getTasks(getUserID(email, password));
             List<Week> weeks = getWeeks(getUserID(email, password));
+
             StaticUser.staticUser.setUserID(getUserID(email, password));
             StaticUser.staticUser.setEmail(email);
             StaticUser.staticUser.setPassword(password);
@@ -43,6 +44,30 @@ public class ActiveUser {
             StaticUser.staticUser.setSubjects(subjects);
             StaticUser.staticUser.setDays(days);
             StaticUser.staticUser.setTasks(scheduledTasks);
+
+            for (Subject subject : subjects) {
+                System.out.println(subject.toString());
+            }
+            for (Assignment assignment : assignments) {
+                System.out.println(assignment);
+            }
+            for (Exam exam : exams) {
+                System.out.println(exam);
+            }
+            for (LocalDate nonAvDate : nonAvDates) {
+                System.out.println(nonAvDate);
+            }
+            for (Week week : weeks) {
+                System.out.println(week);
+            }
+            for (int i = 1; i < 8; i++) {
+                System.out.println(availability[i]);
+            }
+            for (ScheduledTask scheduledTask : scheduledTasks) {
+                System.out.println(scheduledTask);
+            }
+
+
         } else {
             System.out.println("Username or password is incorrect");
         }
@@ -135,7 +160,7 @@ public class ActiveUser {
     }
 
     public static List<Subject> getSubjects(int userID) {
-        String sql = "SELECT subjectName, difficultyLevel, subjectType, studyGoal FROM Subject WHERE userID = ?;";
+        String sql = "SELECT subjectName, difficultyLevel, subjectType, FROM Subject WHERE userID = ?;";
         List<Subject> subjects = new ArrayList<>();
         List<Exam> ex = new ArrayList<>();
 
@@ -164,7 +189,7 @@ public class ActiveUser {
     public static List<Exam> getExamForSubject(int subjectID) {
         List<Exam> exams = new ArrayList<>();
         String sql = "SELECT e.deadline, e.pages, e.revisionPerXPages, e.minutesPer20Slides, s.subjectName " +
-                "FROM Exam e WHERE subjectID = ";
+                "FROM Exam e Subject s WHERE e.subjectID = s.subjectID AND e.subjectID = ?;";
         try (Connection c = DataBaseManager.connect();
              PreparedStatement ps = c.prepareStatement(sql)) {
             ps.setInt(1, subjectID);
@@ -358,7 +383,7 @@ public class ActiveUser {
     public static List<Assignment> getAssignments(int userID) {
         List<Assignment> assignments = new ArrayList<>();
 
-        String sql = "SELECT a.title, a.deadline, a.estimateHours, a.completedDate  " +
+        String sql = "SELECT a.title, a.deadline, a.estimateHours, a.completedDate, a.diffilclty " +
                 "FROM Assignment a WHERE userID = ?";
 
         try (Connection connection = DataBaseManager.connect();
