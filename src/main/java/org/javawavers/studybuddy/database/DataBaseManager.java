@@ -144,7 +144,7 @@ public class DataBaseManager {
              Statement s = c.createStatement()) {
             String sql = """
                     CREATE TABLE IF NOT EXISTS Day (
-                    dayID INTEGER PRIMARY KEY AUTOINCREMENT,
+                    dayID INTEGER PRIMARY KEY,
                     userID INTEGER NOT NULL,
                     weekID INTEGER NOT NULL,
                     FOREIGN KEY (userID) REFERENCES User (userID),
@@ -162,7 +162,7 @@ public class DataBaseManager {
              Statement s = c.createStatement()) {
             String sql = """
                     CREATE TABLE IF NOT EXISTS Week (
-                    weekID INTEGER PRIMARY KEY AUTOINCREMENT,
+                    weekID INTEGER PRIMARY KEY,
                     userID TEXT NOT NULL,
                     FOREIGN KEY (userID) REFERENCES User (userID)
                     );

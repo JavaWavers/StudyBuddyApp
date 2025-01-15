@@ -113,12 +113,13 @@ public class DataInserter {
         }
     }
 
-    public static void insertDay(int userID, int weekID) {
-        String sql = "INSERT INTO Day (userID, weekID) VALUES (?, ?);";
+    public static void insertDay(int dayID, int userID, int weekID) {
+        String sql = "INSERT INTO Day (int dayID, userID, weekID) VALUES (?, ?, ?);";
         try (Connection c = DataBaseManager.connect();
              PreparedStatement ps = c.prepareStatement(sql)) {
-            ps.setInt(1, userID);
-            ps.setInt(2, weekID);
+            ps.setInt(1, dayID);
+            ps.setInt(2, userID);
+            ps.setInt(3, weekID);
             ps.executeUpdate();
             System.out.println("Η ημέρα εισάχθηκε με επιτυχία.");
         } catch (SQLException e) {
@@ -126,11 +127,12 @@ public class DataInserter {
         }
     }
 
-    public static void insertWeek(int userID) {
-        String sql = "INSERT INTO Week (userID) VALUES (?);";
+    public static void insertWeek(int weekID, int userID) {
+        String sql = "INSERT INTO Week int weekID, int userID) VALUES (?, ?);";
         try (Connection c = DataBaseManager.connect();
              PreparedStatement ps = c.prepareStatement(sql)) {
-            ps.setInt(1, userID);
+            ps.setInt(1, weekID);
+            ps.setInt(2, userID);
             ps.executeUpdate();
             System.out.println("Η εβδομάδα εισάχθηκε με επιτυχία.");
         } catch (SQLException e) {
@@ -167,6 +169,33 @@ public class DataInserter {
             System.out.println("Η μη διαθέσιμη ημερομηνία εισάχθηκε με επιτυχία.");
         } catch (SQLException e) {
             System.err.println("Σφάλμα κατά την εισαγωγή μη διαθέσιμης ημερομηνίας: ");
+        }
+    }
+
+    // update availability
+    public static void updateAvailability(int mondayAv, int tuesdayAv, int wednesdayAv, int thursdayAv, int fridayAv, int saturdayAv, int sundayAv, int userID) {
+        String sql = "UPDATE Availability " +
+                "SET mondayAv = ?, tuesdayAv = ?, wednesdayAv = ?, thursdayAv = ?, fridayAv = ?, saturdayAv = ?, sundayAv = ? " +
+                "WHERE userID = ?;";
+        try (Connection c = DataBaseManager.connect();
+             PreparedStatement ps = c.prepareStatement(sql)) {
+            ps.setInt(1, mondayAv);
+            ps.setInt(2, tuesdayAv);
+            ps.setInt(3, wednesdayAv);
+            ps.setInt(4, thursdayAv);
+            ps.setInt(5, fridayAv);
+            ps.setInt(6, saturdayAv);
+            ps.setInt(7, sundayAv);
+            ps.setInt(8, userID);
+
+            int rowsUpdated = ps.executeUpdate();
+            if (rowsUpdated > 0) {
+                System.out.println("Η διαθεσιμότητα ενημερώθηκε με επιτυχία.");
+            } else {
+                System.out.println("Δεν βρέθηκε χρήστης με το συγκεκριμένο ID.");
+            }
+        } catch (SQLException e) {
+            System.err.println("Σφάλμα κατά την ενημέρωση διαθεσιμότητας: " + e.getMessage());
         }
     }
 }

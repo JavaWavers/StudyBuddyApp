@@ -12,9 +12,9 @@ import org.javawavers.studybuddy.database.DataInserter;
 
 public class CreateWeekDay {
   private ArrayList<Week> totalWeeks; // The list containing all weeks
-
-  static int numOfDay = 1;
 /*
+  static int numOfDay = 1;
+
   static final LocalDate FIRSTDAY;
   if (numOfDay == 1) {
     FIRSTDAY = LocalDate.now();
@@ -114,6 +114,23 @@ public class CreateWeekDay {
       }
     }
     staticUser.setTotalWeeks(totalWeeks);
+    int id = staticUser.getUserID();
+    int i = 0;
+    int j = 0;
+    for (Week w : totalWeeks) {
+        DataInserter.insertWeek(i, id);
+        for (Day d : w.getDaysOfWeek()) {
+          DataInserter.insertDay(j, id, i);
+          for (ScheduledTask t : d.getAllTasks()) {
+            DataInserter.insertTask(t.getTaskName(), t.getHoursAllocated(), t.getTimeStarted(), t.getTimeCompleted(),
+                    t.getTaskStatus(), t.getTaskDate(), t.getSubjectName(), t.getTaskType(), id, j);
+          }
+          j ++;
+        }
+        i ++;
+    }
+
+
     PrintWeeks printWeeks = new PrintWeeks();
     printWeeks.printWeeks(totalWeeks);
   }
