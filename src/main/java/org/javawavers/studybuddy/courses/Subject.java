@@ -59,6 +59,10 @@ public class Subject {
     this.studyGoal = studyGoal;
   }
 
+  public void setExams(List<Exam> exams) {
+    this.exams = exams;
+  }
+
   // Constructors
   // Constructor with just the course name
   public Subject(String courseName) {

@@ -119,6 +119,7 @@ public class ActiveUser {
     public static List<Subject> getSubjects(int userID) {
         String sql = "SELECT subjectName, difficultyLevel, subjectType, studyGoal FROM Subject WHERE userID = ?;";
         List<Subject> subjects = new ArrayList<>();
+        List<Exam> ex = new ArrayList<>();
 
         try (Connection c = DataBaseManager.connect();
              PreparedStatement ps = c.prepareStatement(sql)) {
@@ -130,6 +131,9 @@ public class ActiveUser {
                     Subject.SubjectType subjectType = Subject.SubjectType.valueOf(rs.getString("subjectType"));
                     Subject.StudyGoal studyGoal = Subject.StudyGoal.valueOf(rs.getString("studyGoal"));
                     Subject subject = new Subject(subjectName, difficultyLevel, subjectType, studyGoal);
+                    int subID = getSubjectID(userID, subjectName);
+                    ex = getExamForSubject(subID);
+                    subject.setExams(ex);
                     subjects.add(subject);
                 }
             }
@@ -205,6 +209,39 @@ public class ActiveUser {
         }
         return days;
     }
+
+    public static List<Exam> getExamForSubject(int subjectID) {
+        List<Exam> exams = new ArrayList<>();
+
+
+        String sql = "SELECT e.deadline, e.pages, e.revisionPerXPages, e.minutesPer20Slides, s.subjectName " +
+                "FROM Exam e WHERE subjectID = ";
+
+        try (Connection c = DataBaseManager.connect();
+             PreparedStatement ps = c.prepareStatement(sql)) {
+
+                ps.setInt(1, subjectID);
+
+
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    LocalDate deadline = rs.getDate("deadline").toLocalDate();
+                    int pages = rs.getInt("pages");
+                    int revisionPerXPages = rs.getInt("revisionPerXPages");
+                    double minutesPer20Slides = rs.getDouble("minutesPer20Slides");
+                    String subjectName = rs.getString("subjectName");
+
+                    Exam exam = new Exam(pages, revisionPerXPages, deadline, minutesPer20Slides);
+                    exams.add(exam);
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("Σφάλμα κατά την ανάκτηση exams: " + e.getMessage());
+        }
+
+        return exams;
+    }
+
 
     public static List<Exam> getExam(int userID) {
         List<Exam> exams = new ArrayList<>();
