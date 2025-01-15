@@ -19,17 +19,17 @@ public class ActiveUser {
     public static int connectedID = -1;
 
     public static void loadData(String email, String password) {
-        User connectedID = authenticateUser(email, password);
-        if (connectedID != null) {
-            StaticUser.staticUser = connectedID;
-            List<Subject> subjects = getSubjects(connectedID.getUserID());
-            List<LocalDate> nonAvDates = getNonAvDates(connectedID.getUserID());
-            int[] availability = getAvailability(connectedID.getUserID());
-            List<Day> days = getDays(connectedID.getUserID());
-            List<Assignment> assignments = getAssignments(connectedID.getUserID());
-            List<Exam> exams = getExam(connectedID.getUserID());
-            List<ScheduledTask> scheduledTasks = getTasks(connectedID.getUserID());
-            List<Week> weeks = getWeeks(connectedID.getUserID());
+        User connectedUser = authenticateUser(email, password);
+        if (connectedUser != null) {
+            StaticUser.staticUser = connectedUser;
+            List<Subject> subjects = getSubjects(getUserID(email, password));
+            List<LocalDate> nonAvDates = getNonAvDates(getUserID(email, password));
+            int[] availability = getAvailability(getUserID(email, password));
+            List<Day> days = getDays(getUserID(email, password));
+            List<Assignment> assignments = getAssignments(getUserID(email, password));
+            List<Exam> exams = getExam(getUserID(email, password));
+            List<ScheduledTask> scheduledTasks = getTasks(getUserID(email, password));
+            List<Week> weeks = getWeeks(getUserID(email, password));
         } else {
             System.out.println("Username or password is incorrect");
         }

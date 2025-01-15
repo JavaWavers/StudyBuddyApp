@@ -296,11 +296,11 @@ public class LoginPage {
     loginButton.setOnAction(
         event -> {
           validateLogin();
-          clearFields();
           if (validateLogin()) {
             MainFrame mainFrame = new MainFrame();
             sceneManager.switchScene(mainFrame.mainFrame(sceneManager));
           }
+          clearFields();
         });
   }
 
@@ -332,7 +332,6 @@ public class LoginPage {
       DialogPane dialogPane = alert.getDialogPane();
       dialogPane.getStyleClass().add("success-alert");
       dialogPane.getStylesheets().add(getClass().getResource("/success.css").toExternalForm());
-      ActiveUser.loadData(email, password);
       return true;
     } else {
       Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -346,6 +345,7 @@ public class LoginPage {
       alert.getDialogPane().setMinWidth(500);
       alert.getDialogPane().setMinHeight(300);
       alert.showAndWait();
+      ActiveUser.loadData(email, password);
       return false;
     }
   }
