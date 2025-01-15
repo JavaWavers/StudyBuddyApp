@@ -130,6 +130,10 @@ public class ActiveUser {
                     Subject.SubjectType subjectType = Subject.SubjectType.valueOf(rs.getString("subjectType"));
                     Subject subject = new Subject(subjectName, difficultyLevel, subjectType);
                     subjects.add(subject);
+                    int subID = getSubjectID(userID, subjectName);
+                    ex = getExamForSubject(subID);
+                    subject.setExams(ex);
+                    subjects.add(subject);
                 }
             }
         } catch (SQLException e) {
