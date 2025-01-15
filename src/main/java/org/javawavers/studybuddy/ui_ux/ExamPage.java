@@ -197,7 +197,7 @@ public class ExamPage {
             DataInserter.insertSubject(courseName, diffi, courseType.toString(), StaticUser.staticUser.getUserID());
             int subjectID = ActiveUser.getSubjectID(StaticUser.staticUser.getUserID(), courseName);
             System.out.println("subjectID:" + subjectID);
-            DataInserter.insertExam(deadline, pages,revision,time, subjectID);
+            DataInserter.insertExam(deadline, pages, revision, time, subjectID);
             StaticUser.staticUser.addSubject(subject1);
             StaticUser.staticUser.addExam(e1);
           }

@@ -96,7 +96,7 @@ public class DataBaseManager {
             String sql = """
                     CREATE TABLE IF NOT EXISTS Exam (
                     examID INTEGER PRIMARY KEY AUTOINCREMENT,
-                    name TEXT NOT NULL UNIQUE,
+                    name TEXT,
                     deadline TEXT NOT NULL,
                     pages INT NOT NULL,
                     revisionPerXPages INT NOT NULL,

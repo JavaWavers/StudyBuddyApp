@@ -499,7 +499,7 @@
     <routine id="190" parent="1" name="fts5"/>
     <schema id="191" parent="1" name="main">
       <Current>1</Current>
-      <LastIntrospectionLocalTimestamp>2025-01-14.20:06:04</LastIntrospectionLocalTimestamp>
+      <LastIntrospectionLocalTimestamp>2025-01-15.03:52:09</LastIntrospectionLocalTimestamp>
     </schema>
     <argument id="192" parent="16">
       <ArgumentDirection>R</ArgumentDirection>
@@ -1737,7 +1737,6 @@
       <StoredType>INTEGER|0s</StoredType>
     </column>
     <column id="593" parent="558" name="name">
-      <NotNull>1</NotNull>
       <Position>2</Position>
       <StoredType>TEXT|0s</StoredType>
     </column>
@@ -1771,214 +1770,205 @@
       <RefColNames>subjectID</RefColNames>
       <RefTableName>Subject</RefTableName>
     </foreign-key>
-    <index id="600" parent="558" name="sqlite_autoindex_Exam_1">
-      <ColNames>name</ColNames>
-      <NameSurrogate>1</NameSurrogate>
-      <Unique>1</Unique>
-    </index>
-    <key id="601" parent="558">
+    <key id="600" parent="558">
       <ColNames>examID</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="602" parent="558">
-      <ColNames>name</ColNames>
-      <UnderlyingIndexName>sqlite_autoindex_Exam_1</UnderlyingIndexName>
-    </key>
-    <column id="603" parent="559" name="nonAvDateID">
+    <column id="601" parent="559" name="nonAvDateID">
       <AutoIncrement>1</AutoIncrement>
       <Position>1</Position>
       <StoredType>INTEGER|0s</StoredType>
     </column>
-    <column id="604" parent="559" name="date">
+    <column id="602" parent="559" name="date">
       <NotNull>1</NotNull>
       <Position>2</Position>
       <StoredType>TEXT|0s</StoredType>
     </column>
-    <column id="605" parent="559" name="userID">
+    <column id="603" parent="559" name="userID">
       <NotNull>1</NotNull>
       <Position>3</Position>
       <StoredType>TEXT|0s</StoredType>
     </column>
-    <foreign-key id="606" parent="559">
+    <foreign-key id="604" parent="559">
       <ColNames>userID</ColNames>
       <RefColNames>userID</RefColNames>
       <RefTableName>User</RefTableName>
     </foreign-key>
-    <key id="607" parent="559">
+    <key id="605" parent="559">
       <ColNames>nonAvDateID</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="608" parent="560" name="subjectID">
+    <column id="606" parent="560" name="subjectID">
       <AutoIncrement>1</AutoIncrement>
       <Position>1</Position>
       <StoredType>INTEGER|0s</StoredType>
     </column>
-    <column id="609" parent="560" name="subjectName">
+    <column id="607" parent="560" name="subjectName">
       <NotNull>1</NotNull>
       <Position>2</Position>
       <StoredType>TEXT|0s</StoredType>
     </column>
-    <column id="610" parent="560" name="difficultyLevel">
+    <column id="608" parent="560" name="difficultyLevel">
       <NotNull>1</NotNull>
       <Position>3</Position>
       <StoredType>INTEGER|0s</StoredType>
     </column>
-    <column id="611" parent="560" name="subjectType">
+    <column id="609" parent="560" name="subjectType">
       <NotNull>1</NotNull>
       <Position>4</Position>
       <StoredType>TEXT|0s</StoredType>
     </column>
-    <column id="612" parent="560" name="userID">
+    <column id="610" parent="560" name="userID">
       <NotNull>1</NotNull>
       <Position>5</Position>
       <StoredType>INTEGER|0s</StoredType>
     </column>
-    <foreign-key id="613" parent="560">
+    <foreign-key id="611" parent="560">
       <ColNames>userID</ColNames>
       <RefColNames>userID</RefColNames>
       <RefTableName>User</RefTableName>
     </foreign-key>
-    <key id="614" parent="560">
+    <key id="612" parent="560">
       <ColNames>subjectID</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="615" parent="561" name="taskID">
+    <column id="613" parent="561" name="taskID">
       <AutoIncrement>1</AutoIncrement>
       <Position>1</Position>
       <StoredType>INTEGER|0s</StoredType>
     </column>
-    <column id="616" parent="561" name="taskName">
+    <column id="614" parent="561" name="taskName">
       <Position>2</Position>
       <StoredType>TEXT|0s</StoredType>
     </column>
-    <column id="617" parent="561" name="hoursAllocated">
+    <column id="615" parent="561" name="hoursAllocated">
       <Position>3</Position>
       <StoredType>INTEGER|0s</StoredType>
     </column>
-    <column id="618" parent="561" name="timeStarted">
+    <column id="616" parent="561" name="timeStarted">
       <Position>4</Position>
       <StoredType>TEXT|0s</StoredType>
     </column>
-    <column id="619" parent="561" name="timeCompleted">
+    <column id="617" parent="561" name="timeCompleted">
       <Position>5</Position>
       <StoredType>TEXT|0s</StoredType>
     </column>
-    <column id="620" parent="561" name="taskStatus">
+    <column id="618" parent="561" name="taskStatus">
       <Position>6</Position>
       <StoredType>TEXT|0s</StoredType>
     </column>
-    <column id="621" parent="561" name="taskDate">
+    <column id="619" parent="561" name="taskDate">
       <Position>7</Position>
       <StoredType>TEXT|0s</StoredType>
     </column>
-    <column id="622" parent="561" name="subjectName">
+    <column id="620" parent="561" name="subjectName">
       <Position>8</Position>
       <StoredType>TEXT|0s</StoredType>
     </column>
-    <column id="623" parent="561" name="taskType">
+    <column id="621" parent="561" name="taskType">
       <Position>9</Position>
       <StoredType>TEXT|0s</StoredType>
     </column>
-    <column id="624" parent="561" name="userID">
+    <column id="622" parent="561" name="userID">
       <NotNull>1</NotNull>
       <Position>10</Position>
       <StoredType>INTEGER|0s</StoredType>
     </column>
-    <column id="625" parent="561" name="dayID">
+    <column id="623" parent="561" name="dayID">
       <NotNull>1</NotNull>
       <Position>11</Position>
       <StoredType>INTEGER|0s</StoredType>
     </column>
-    <foreign-key id="626" parent="561">
+    <foreign-key id="624" parent="561">
       <ColNames>userID</ColNames>
       <RefColNames>userID</RefColNames>
       <RefTableName>User</RefTableName>
     </foreign-key>
-    <foreign-key id="627" parent="561">
+    <foreign-key id="625" parent="561">
       <ColNames>dayID</ColNames>
       <RefColNames>dayID</RefColNames>
       <RefTableName>Day</RefTableName>
     </foreign-key>
-    <key id="628" parent="561">
+    <key id="626" parent="561">
       <ColNames>taskID</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="629" parent="562" name="userID">
+    <column id="627" parent="562" name="userID">
       <AutoIncrement>1</AutoIncrement>
       <Position>1</Position>
       <StoredType>INTEGER|0s</StoredType>
     </column>
-    <column id="630" parent="562" name="name">
+    <column id="628" parent="562" name="name">
       <NotNull>1</NotNull>
       <Position>2</Position>
       <StoredType>TEXT|0s</StoredType>
     </column>
-    <column id="631" parent="562" name="password">
+    <column id="629" parent="562" name="password">
       <NotNull>1</NotNull>
       <Position>3</Position>
       <StoredType>TEXT|0s</StoredType>
     </column>
-    <column id="632" parent="562" name="email">
+    <column id="630" parent="562" name="email">
       <NotNull>1</NotNull>
       <Position>4</Position>
       <StoredType>TEXT|0s</StoredType>
     </column>
-    <index id="633" parent="562" name="sqlite_autoindex_User_1">
+    <index id="631" parent="562" name="sqlite_autoindex_User_1">
       <ColNames>name</ColNames>
       <NameSurrogate>1</NameSurrogate>
       <Unique>1</Unique>
     </index>
-    <key id="634" parent="562">
+    <key id="632" parent="562">
       <ColNames>userID</ColNames>
       <Primary>1</Primary>
     </key>
-    <key id="635" parent="562">
+    <key id="633" parent="562">
       <ColNames>name</ColNames>
       <UnderlyingIndexName>sqlite_autoindex_User_1</UnderlyingIndexName>
     </key>
-    <column id="636" parent="563" name="weekID">
+    <column id="634" parent="563" name="weekID">
       <AutoIncrement>1</AutoIncrement>
       <Position>1</Position>
       <StoredType>INTEGER|0s</StoredType>
     </column>
-    <column id="637" parent="563" name="userID">
+    <column id="635" parent="563" name="userID">
       <NotNull>1</NotNull>
       <Position>2</Position>
       <StoredType>TEXT|0s</StoredType>
     </column>
-    <foreign-key id="638" parent="563">
+    <foreign-key id="636" parent="563">
       <ColNames>userID</ColNames>
       <RefColNames>userID</RefColNames>
       <RefTableName>User</RefTableName>
     </foreign-key>
-    <key id="639" parent="563">
+    <key id="637" parent="563">
       <ColNames>weekID</ColNames>
       <Primary>1</Primary>
     </key>
-    <column id="640" parent="564" name="type">
+    <column id="638" parent="564" name="type">
       <Position>1</Position>
       <StoredType>TEXT|0s</StoredType>
     </column>
-    <column id="641" parent="564" name="name">
+    <column id="639" parent="564" name="name">
       <Position>2</Position>
       <StoredType>TEXT|0s</StoredType>
     </column>
-    <column id="642" parent="564" name="tbl_name">
+    <column id="640" parent="564" name="tbl_name">
       <Position>3</Position>
       <StoredType>TEXT|0s</StoredType>
     </column>
-    <column id="643" parent="564" name="rootpage">
+    <column id="641" parent="564" name="rootpage">
       <Position>4</Position>
       <StoredType>INT|0s</StoredType>
     </column>
-    <column id="644" parent="564" name="sql">
+    <column id="642" parent="564" name="sql">
       <Position>5</Position>
       <StoredType>TEXT|0s</StoredType>
     </column>
-    <column id="645" parent="565" name="name">
+    <column id="643" parent="565" name="name">
       <Position>1</Position>
     </column>
-    <column id="646" parent="565" name="seq">
+    <column id="644" parent="565" name="seq">
       <Position>2</Position>
     </column>
   </database-model>
