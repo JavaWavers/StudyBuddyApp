@@ -46,24 +46,31 @@ public class ActiveUser {
             StaticUser.staticUser.setTasks(scheduledTasks);
 
             for (Subject subject : subjects) {
+                System.out.println("subject:");
                 System.out.println(subject.toString());
             }
             for (Assignment assignment : assignments) {
+                System.out.println("assignment:");
                 System.out.println(assignment);
             }
             for (Exam exam : exams) {
+                System.out.println("exam:");
                 System.out.println(exam);
             }
             for (LocalDate nonAvDate : nonAvDates) {
+                System.out.println("nonAvDate:");
                 System.out.println(nonAvDate);
             }
             for (Week week : weeks) {
+                System.out.println("week:");
                 System.out.println(week);
             }
             for (int i = 1; i < 8; i++) {
+                System.out.println("availability:");
                 System.out.println(availability[i]);
             }
             for (ScheduledTask scheduledTask : scheduledTasks) {
+                System.out.println("scheduledTask:");
                 System.out.println(scheduledTask);
             }
 
@@ -160,7 +167,7 @@ public class ActiveUser {
     }
 
     public static List<Subject> getSubjects(int userID) {
-        String sql = "SELECT subjectName, difficultyLevel, subjectType, FROM Subject WHERE userID = ?;";
+        String sql = "SELECT subjectName, difficultyLevel, subjectType FROM Subject WHERE userID = ?;";
         List<Subject> subjects = new ArrayList<>();
         List<Exam> ex = new ArrayList<>();
 
@@ -195,7 +202,8 @@ public class ActiveUser {
             ps.setInt(1, subjectID);
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
-                    LocalDate deadline = rs.getDate("deadline").toLocalDate();
+                    String deadlineSt = rs.getString("deadline");
+                    LocalDate deadline = LocalDate.parse(deadlineSt);
                     int pages = rs.getInt("pages");
                     int revisionPerXPages = rs.getInt("revisionPerXPages");
                     double minutesPer20Slides = rs.getDouble("minutesPer20Slides");
@@ -281,6 +289,10 @@ public class ActiveUser {
     public static List<Exam> getExam(int userID) {
         List<Exam> exams = new ArrayList<>();
         List<Integer> subjectID = getSubjectID(userID);
+        for (int id : subjectID) {
+            System.out.println("subjectIDs in getexam: ");
+            System.out.println("subjectID: " + subjectID);
+        }
 
         if (subjectID.isEmpty()) {
             return exams; // Επιστρέφει κενή λίστα αν δεν υπάρχουν subjectID
@@ -300,7 +312,8 @@ public class ActiveUser {
 
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
-                    LocalDate deadline = rs.getDate("deadline").toLocalDate();
+                    String deadlineSt = rs.getString("deadline");
+                    LocalDate deadline = LocalDate.parse(deadlineSt, FORMATTER);
                     int pages = rs.getInt("pages");
                     int revisionPerXPages = rs.getInt("revisionPerXPages");
                     double minutesPer20Slides = rs.getDouble("minutesPer20Slides");
@@ -383,7 +396,7 @@ public class ActiveUser {
     public static List<Assignment> getAssignments(int userID) {
         List<Assignment> assignments = new ArrayList<>();
 
-        String sql = "SELECT a.title, a.deadline, a.estimateHours, a.completedDate, a.diffilclty " +
+        String sql = "SELECT a.title, a.deadline, a.estimateHours, a.completedDate, a.difficulty " +
                 "FROM Assignment a WHERE userID = ?";
 
         try (Connection connection = DataBaseManager.connect();
