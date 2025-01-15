@@ -196,7 +196,7 @@ public class ActiveUser {
     public static List<Exam> getExamForSubject(int subjectID) {
         List<Exam> exams = new ArrayList<>();
         String sql = "SELECT e.deadline, e.pages, e.revisionPerXPages, e.minutesPer20Slides, s.subjectName " +
-                "FROM Exam e Subject s WHERE e.subjectID = s.subjectID AND e.subjectID = ?;";
+                "FROM Exam e, Subject s WHERE e.subjectID = s.subjectID AND e.subjectID = ?;";
         try (Connection c = DataBaseManager.connect();
              PreparedStatement ps = c.prepareStatement(sql)) {
             ps.setInt(1, subjectID);
