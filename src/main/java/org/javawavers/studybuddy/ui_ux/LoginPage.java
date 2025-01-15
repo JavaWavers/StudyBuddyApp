@@ -307,7 +307,7 @@ public class LoginPage {
   private boolean validateLogin() {
     String email = emailField.getText();
     String password = passwordField.getText();
-
+    System.out.println("activeUser: " + ActiveUser.authenticateUser(email, password));
     if (email.isEmpty() || password.isEmpty()) {
       Alert alert = new Alert(Alert.AlertType.WARNING);
       alert.setTitle("Η φόρμα δεν έχει ολοκληρωθεί");

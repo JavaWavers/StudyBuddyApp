@@ -81,6 +81,7 @@ public class ActiveUser {
 
 
     public static int getSubjectID(int userID, String courseName) {
+        System.out.println("userID: " + userID + ", courseName: " + courseName);
         String sql = "SELECT subjectID FROM Subject WHERE userID = ? AND subjectName = ?";
         int subjectID = -1;
 
