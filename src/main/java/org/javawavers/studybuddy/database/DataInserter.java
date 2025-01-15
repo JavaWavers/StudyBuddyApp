@@ -80,9 +80,20 @@ public class DataInserter {
         }
     }
 
-    public static void insertTask(String taskName, int hoursAllocated, LocalTime timeStarted, LocalTime timeCompleted, ScheduledTask.TaskStatus taskStatus, LocalDate taskDate, String subjectName, String taskType, int userID, int dayID) {
+    public static void insertTask(String taskName,
+                                  int hoursAllocated,
+                                  LocalTime timeStarted,
+                                  LocalTime timeCompleted,
+                                  ScheduledTask.TaskStatus taskStatus,
+                                  LocalDate taskDate,
+                                  String subjectName,
+                                  String taskType,
+                                  int userID,
+                                  int dayID) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
-        String sql = "INSERT INTO Task (taskName, hoursAllocated, timeStarted, timeCompleted, taskStatus, taskDate, subjectName, taskType, userID, dayID) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+        String sql = "INSERT INTO Task (taskName, hoursAllocated, timeStarted," +
+                "timeCompleted, taskStatus, taskDate, subjectName, taskType," +
+                "userID, dayID) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
         try (Connection c = DataBaseManager.connect();
              PreparedStatement ps = c.prepareStatement(sql)) {
             ps.setString(1, taskName);
