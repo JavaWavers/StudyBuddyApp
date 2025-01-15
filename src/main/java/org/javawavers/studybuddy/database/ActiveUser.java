@@ -114,14 +114,14 @@ public class ActiveUser {
                     String userEmail = resultSet.getString("email");
                     String name = resultSet.getString("name");
 
-                    // Δημιουργία του User αντικειμένου
+                    // create a User object
                     return new User(userID, name ,userEmail, password);
                 }
             }
         } catch (SQLException e) {
             System.err.println("Σφάλμα κατά την αναζήτηση χρήστη: " + e.getMessage());
         }
-        return null; // Αν αποτύχει η αυθεντικοποίηση
+        return null; // If authentication fails
     }
 
 

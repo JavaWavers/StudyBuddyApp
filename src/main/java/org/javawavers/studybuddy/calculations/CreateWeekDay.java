@@ -112,18 +112,18 @@ public class CreateWeekDay {
     int j = 0;
     for (Week w : totalWeeks) {
         DataInserter.insertWeek(i, id);
+        System.out.print(w);
         for (Day d : w.getDaysOfWeek()) {
           DataInserter.insertDay(j, id, i);
+          System.out.print("day base" + d);
           for (ScheduledTask t : d.getAllTasks()) {
             DataInserter.insertTask(t.getTaskName(), t.getHoursAllocated(), t.getTimeStarted(), t.getTimeCompleted(),
                     t.getTaskStatus(), t.getTaskDate(), t.getSubjectName(), t.getTaskType(), id, j);
+              System.out.print(t.getTaskName());
           }
           j ++;
         }
         i ++;
     }
-
-
-
   }
 }
