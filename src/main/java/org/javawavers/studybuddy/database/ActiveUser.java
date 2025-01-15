@@ -131,7 +131,7 @@ public class ActiveUser {
                     Subject subject = new Subject(subjectName, difficultyLevel, subjectType);
                     subjects.add(subject);
                     int subID = getSubjectID(userID, subjectName);
-                    ex = getExamForSubject(subID);
+                     = getExamForSubject(subID);
                     subject.setExams(ex);
                     subjects.add(subject);
                 }
