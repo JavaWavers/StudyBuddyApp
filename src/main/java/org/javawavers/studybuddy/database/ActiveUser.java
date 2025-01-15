@@ -57,6 +57,7 @@ public class ActiveUser {
 
     public static User authenticateUser(String email, String password) {
         String query = "SELECT userID, email, name FROM User WHERE email = ? AND password = ?";
+
         try (Connection c = DataBaseManager.connect();
              PreparedStatement ps = c.prepareStatement(query)) {
             ps.setString(1, email);
@@ -88,8 +89,11 @@ public class ActiveUser {
             ps.setInt(1, userID);
             ps.setString(2, courseName);
             try (ResultSet rs = ps.executeQuery()) {
-                while (rs.next()) {
+                if (rs.next()) {
                     subjectID = rs.getInt("subjectID");
+                    System.out.println("Βρέθηκε subjectID: " + subjectID);
+                } else {
+                    System.err.println("Δεν βρέθηκε subjectID για τον χρήστη: " + userID + ", μάθημα: " + courseName);
                 }
             }
         } catch (SQLException e) {
@@ -132,7 +136,7 @@ public class ActiveUser {
                     Subject subject = new Subject(subjectName, difficultyLevel, subjectType);
                     subjects.add(subject);
                     int subID = getSubjectID(userID, subjectName);
-                     = getExamForSubject(subID);
+                    ex = getExamForSubject(subID);
                     subject.setExams(ex);
                     subjects.add(subject);
                 }
