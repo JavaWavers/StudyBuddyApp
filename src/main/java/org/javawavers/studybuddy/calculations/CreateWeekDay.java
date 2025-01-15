@@ -7,6 +7,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import org.javawavers.studybuddy.courses.*;
+import org.javawavers.studybuddy.database.DataInserter;
 
 public class CreateWeekDay {
   private ArrayList<Week> totalWeeks; // The list containing all weeks
@@ -63,15 +64,27 @@ public class CreateWeekDay {
             taskType = "Εργασία";
           }
 
+          Subject subject = new Subject(task.getSubject());
           ScheduledTask scheduledTask =
               new ScheduledTask(
                   task.getSubject(),
                   taskType,
                   (int) Math.ceil(task.getTaskHours()),
                   currentDate,
-                  new Subject(task.getSubject()) // Create Subject from the Task
+                  subject // Create Subject from the Task
                   );
           scheduledTasksForDay.add(scheduledTask);
+          DataInserter.insertTask(scheduledTask.getTaskName(),
+                  (int) Math.ceil(task.getTaskHours()),
+                  scheduledTask.getTimeStarted(),
+                  scheduledTask.getTimeCompleted(),
+                  scheduledTask.getTaskStatus(),
+                  currentDate,
+                  subject.getCourseName(),
+                  taskType,
+                  StaticUser.staticUser.getUserID(),
+                  1
+                  );
         }
       }
 
