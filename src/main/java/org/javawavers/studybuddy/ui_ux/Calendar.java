@@ -394,8 +394,10 @@ public class Calendar {
     int dayCount = 0;
     for (Day d : thisWeek.getDaysOfWeek()) {
       int rowCount = 1;
+        System.out.println("Ημέρα: ελεγχος των ημερολογιου" + d);
       if (!d.getTodayTasks().isEmpty()) {
         for (ScheduledTask s : d.getTodayTasks()) {
+            System.out.println(s);
           Label cell = new Label();
           cell.setStyle("-fx-border-color: gray; -fx-border-width: 0; -fx-alignment: center;");
           cell.setFont(Font.font("System", FontWeight.NORMAL, 14));

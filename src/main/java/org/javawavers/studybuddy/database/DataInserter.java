@@ -114,7 +114,7 @@ public class DataInserter {
     }
 
     public static void insertDay(int dayID, int userID, int weekID) {
-        String sql = "INSERT INTO Day (int dayID, userID, weekID) VALUES (?, ?, ?);";
+        String sql = "INSERT INTO Day (dayID, userID, weekID) VALUES (?, ?, ?);";
         try (Connection c = DataBaseManager.connect();
              PreparedStatement ps = c.prepareStatement(sql)) {
             ps.setInt(1, dayID);
@@ -128,7 +128,7 @@ public class DataInserter {
     }
 
     public static void insertWeek(int weekID, int userID) {
-        String sql = "INSERT INTO Week int weekID, int userID) VALUES (?, ?);";
+        String sql = "INSERT INTO Week weekID, userID) VALUES (?, ?);";
         try (Connection c = DataBaseManager.connect();
              PreparedStatement ps = c.prepareStatement(sql)) {
             ps.setInt(1, weekID);
