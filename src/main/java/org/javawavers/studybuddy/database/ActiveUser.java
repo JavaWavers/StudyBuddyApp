@@ -128,8 +128,7 @@ public class ActiveUser {
                     String subjectName = rs.getString("subjectName");
                     int difficultyLevel = rs.getInt("difficultyLevel");
                     Subject.SubjectType subjectType = Subject.SubjectType.valueOf(rs.getString("subjectType"));
-                    Subject.StudyGoal studyGoal = Subject.StudyGoal.valueOf(rs.getString("studyGoal"));
-                    Subject subject = new Subject(subjectName, difficultyLevel, subjectType, studyGoal);
+                    Subject subject = new Subject(subjectName, difficultyLevel, subjectType);
                     subjects.add(subject);
                 }
             }

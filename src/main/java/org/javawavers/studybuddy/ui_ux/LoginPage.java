@@ -325,7 +325,7 @@ public class LoginPage {
 
       return false;
     } else if (ActiveUser.authenticateUser(email, password) != null) {
-
+      System.out.println(ActiveUser.authenticateUser(email, password));
       Alert alert = new Alert(Alert.AlertType.INFORMATION);
       alert.setTitle("Σύνδεση Επιτυχής");
       alert.setHeaderText(null);

@@ -68,6 +68,12 @@ public class Subject {
     this.studyGoal = StudyGoal.GOOD; // Default study goal
   }
 
+  public Subject(String courseName, int difficultyLevel, SubjectType subjectType) {
+    this.courseName = courseName;
+    this.difficultyLevel = difficultyLevel;
+    this.subjectType = subjectType;
+  }
+
   // Constructor with all fields
   public Subject(
       String courseName, int difficultyLevel, SubjectType subjectType, StudyGoal studyGoal) {
