@@ -95,7 +95,7 @@ public class CreateWeekDay {
                   subject.getCourseName(),
                   taskType,
                   StaticUser.staticUser.getUserID(),
-                  numOfDay
+                  1
                   );
         }
       }
