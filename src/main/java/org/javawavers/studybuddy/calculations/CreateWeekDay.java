@@ -12,13 +12,17 @@ import org.javawavers.studybuddy.database.DataInserter;
 
 public class CreateWeekDay {
   private ArrayList<Week> totalWeeks; // The list containing all weeks
+
   static int numOfDay = 1;
+/*
   static final LocalDate FIRSTDAY;
   if (numOfDay == 1) {
     FIRSTDAY = LocalDate.now();
   }
   long daysPassed = ChronoUnit.DAYS.between(FIRSTDAY, LocalDate.now());
   numOfDay = 1 + daysPassed;
+  static int numOfWeek = (numOfDay / 7) + 1;
+ */
 
 
   public CreateWeekDay() {
