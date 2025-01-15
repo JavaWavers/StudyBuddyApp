@@ -1,0 +1,28 @@
+-------------------------------------------------------------------------------
+Test set: org.javawavers.studybuddy.StaticUserTest
+-------------------------------------------------------------------------------
+Tests run: 6, Failures: 0, Errors: 6, Skipped: 0, Time elapsed: 2.061 s <<< FAILURE! - in org.javawavers.studybuddy.StaticUserTest
+testStaticUserInitialization  Time elapsed: 1.226 s  <<< ERROR!
+java.lang.IllegalArgumentException: Invalid estimate hours: Hours must fit within the given deadline.
+	at org.javawavers.studybuddy.StaticUserTest.setup(StaticUserTest.java:28)
+
+testAddSubject  Time elapsed: 0.012 s  <<< ERROR!
+java.lang.IllegalArgumentException: Invalid estimate hours: Hours must fit within the given deadline.
+	at org.javawavers.studybuddy.StaticUserTest.setup(StaticUserTest.java:28)
+
+testAddNonAvailDay  Time elapsed: 0.001 s  <<< ERROR!
+java.lang.IllegalArgumentException: Invalid estimate hours: Hours must fit within the given deadline.
+	at org.javawavers.studybuddy.StaticUserTest.setup(StaticUserTest.java:28)
+
+testRemoveNonAvailDay  Time elapsed: 0.004 s  <<< ERROR!
+java.lang.IllegalArgumentException: Invalid estimate hours: Hours must fit within the given deadline.
+	at org.javawavers.studybuddy.StaticUserTest.setup(StaticUserTest.java:28)
+
+testRemoveSubject  Time elapsed: 0.003 s  <<< ERROR!
+java.lang.IllegalArgumentException: Invalid estimate hours: Hours must fit within the given deadline.
+	at org.javawavers.studybuddy.StaticUserTest.setup(StaticUserTest.java:28)
+
+testUpdateUserDetails  Time elapsed: 0.001 s  <<< ERROR!
+java.lang.IllegalArgumentException: Invalid estimate hours: Hours must fit within the given deadline.
+	at org.javawavers.studybuddy.StaticUserTest.setup(StaticUserTest.java:28)
+

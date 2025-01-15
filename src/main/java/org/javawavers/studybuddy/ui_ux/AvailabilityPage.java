@@ -195,15 +195,20 @@ public class AvailabilityPage {
                   .add(Objects.requireNonNull(getClass().getResource("/success.css")).toExternalForm());
             successAlert.showAndWait();
 
-            DataInserter.insertAvailability(avPerDay[1], avPerDay[2], avPerDay[3],
-            avPerDay[4], avPerDay[5], avPerDay[6], avPerDay[7], StaticUser.staticUser.getUserID());
-            DataInserter.insertNonAvDate(setNoAvailability, StaticUser.staticUser.getUserID());
+            if (staticUser.getAvPerDay() == null) {
+              DataInserter.insertAvailability(avPerDay[1], avPerDay[2], avPerDay[3],
+                      avPerDay[4], avPerDay[5], avPerDay[6], avPerDay[7], StaticUser.staticUser.getUserID());
+            } else {
+              DataInserter.updateAvailability(avPerDay[1], avPerDay[2], avPerDay[3],
+                      avPerDay[4], avPerDay[5], avPerDay[6], avPerDay[7], StaticUser.staticUser.getUserID());
+            }
             StaticUser.staticUser.setAvPerDay(avPerDay);
-            StaticUser.staticUser.addNonAvailDays(setNoAvailability);
           }
 
           if (setNoAvailability != null) {
             Availability.setNonAvailability(setNoAvailability);
+            DataInserter.insertNonAvDate(setNoAvailability, StaticUser.staticUser.getUserID());
+            StaticUser.staticUser.addNonAvailDays(setNoAvailability);
           }
           for (TextField dayField : dayFields) {
             dayField.clear();
