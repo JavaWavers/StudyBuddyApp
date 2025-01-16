@@ -104,7 +104,14 @@ public class Calendar {
         System.out.println("call subject in createCalandar");
         System.out.println(sub);
     }
-    createCalendarGrid(calendarGrid, count, subject, totalWeeks);
+    /*createCalendarGrid(calendarGrid, count, subject, totalWeeks);///////////////////////////////////////////
+    System.out.println("test calendar" + staticUser.getTotalWeeks());
+    if (staticUser.getTotalWeeks() !=  null) {
+        PrintWeeks printWeek = new PrintWeeks();
+        printWeek.printWeeks(staticUser.getTotalWeeks());
+    }
+*/
+
     // μεταβλητη count η οποια μολις ο χρηστης παταει το κουμπι που παει τις εβδομαδες μπροστα
     // αυξανεται αλλιως μειωνεται οταν count == 0 τοτε θα εεμφανιζετε το κουμπι today
     prevButton.setOnAction(

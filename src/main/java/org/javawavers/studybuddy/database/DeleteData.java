@@ -95,5 +95,22 @@ public class DeleteData {
             System.err.println("Σφάλμα κατά την διαγραφή NonAvDate: " + e.getMessage());
         }
     }
+
+    public static void deleteCompletedTask(ScheduledTask task) {
+        String sql = "DELETE FROM CompletedTask WHERE taskID = ?";
+        try (Connection c = DataBaseManager.connect();
+             PreparedStatement ps = c.prepareStatement(sql)) {
+            ps.setInt(1, task.getTaskId());
+
+            int rowsAffected = ps.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("ScheduledTask διαγράφτηκε με επιτυχία.");
+            } else {
+                System.out.println("Δεν βρέθηκε ScheduledTask με αυτό το ID.");
+            }
+        } catch (SQLException e) {
+            System.err.println("Σφάλμα κατά την διαγραφή ScheduledTask: " + e.getMessage());
+        }
+    }
 }
 

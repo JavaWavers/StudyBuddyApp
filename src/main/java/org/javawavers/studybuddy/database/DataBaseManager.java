@@ -31,6 +31,7 @@ public class DataBaseManager {
         CreateWeek();
         CreateDay();
         CreateScheduledTask();
+        CreateCompletedScheduledTask();
     }
 
     public static void CreateUser() {
@@ -206,6 +207,32 @@ public class DataBaseManager {
                     FOREIGN KEY (userID) REFERENCES User (userID)
                     );
                     """;
+            s.execute(sql);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public static void CreateCompletedScheduledTask() {
+        try (Connection c = DataBaseManager.connect();
+             Statement s = c.createStatement()) {
+            String sql = """
+                CREATE TABLE IF NOT EXISTS CompletedTask (
+                taskID INTEGER PRIMARY KEY AUTOINCREMENT,
+                taskName TEXT,
+                hoursAllocated INTEGER,
+                timeStarted TEXT,
+                timeCompleted TEXT,
+                taskStatus TEXT,
+                taskDate TEXT,
+                subjectName TEXT,
+                taskType TEXT,
+                userID INTEGER NOT NULL,
+                dayID INTEGER NOT NULL,
+                FOREIGN KEY (dayID) REFERENCES Day (dayID),
+                FOREIGN KEY (userID) REFERENCES User (userID)
+                );
+                """;
             s.execute(sql);
         } catch (SQLException e) {
             System.out.println(e.getMessage());

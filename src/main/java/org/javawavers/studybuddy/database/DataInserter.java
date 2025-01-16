@@ -206,4 +206,45 @@ public class DataInserter {
             System.err.println("Σφάλμα κατά την ενημέρωση διαθεσιμότητας: " + e.getMessage());
         }
     }
+
+    public static void insertCompletedTask(String taskName,
+                                  int hoursAllocated,
+                                  LocalTime timeStarted,
+                                  LocalTime timeCompleted,
+                                  ScheduledTask.TaskStatus taskStatus,
+                                  LocalDate taskDate,
+                                  String subjectName,
+                                  String taskType,
+                                  int userID,
+                                  int dayID) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+        String sql = "INSERT INTO CompletedTask (taskName, hoursAllocated, timeStarted," +
+                "timeCompleted, taskStatus, taskDate, subjectName, taskType," +
+                "userID, dayID) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+        try (Connection c = DataBaseManager.connect();
+             PreparedStatement ps = c.prepareStatement(sql)) {
+            ps.setString(1, taskName);
+            ps.setInt(2, hoursAllocated);
+            if (timeStarted == null) {
+                System.out.println("timeStarted είναι null. Χρησιμοποιώ προεπιλεγμένη ώρα 09:00");
+                timeStarted = LocalTime.of(9, 0);
+            }
+            if (timeCompleted == null) {
+                System.out.println("timeCompleted is null, set to 11:00");
+                timeCompleted = LocalTime.of(11, 0);
+            }
+            ps.setString(3, timeStarted.format(formatter));
+            ps.setString(4, timeCompleted.format(formatter));
+            ps.setString(5, taskStatus.name());
+            ps.setString(6, taskDate.format(FORMATTER));
+            ps.setString(7, subjectName);
+            ps.setString(8, taskType);
+            ps.setInt(9, userID);
+            ps.setInt(10, dayID);
+            ps.executeUpdate();
+            System.out.println("Το task εισάχθηκε με επιτυχία.");
+        } catch (SQLException e) {
+            System.err.println("Σφάλμα κατά την εισαγωγή εργασίας.");
+        }
+    }
 }

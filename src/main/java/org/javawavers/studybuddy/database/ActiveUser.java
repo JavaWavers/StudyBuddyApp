@@ -491,4 +491,39 @@ public class ActiveUser {
         }
         return scheduledTasks;
     }
+
+    public static List<ScheduledTask> getCompletedTasks(int userID) {
+        String sql = "SELECT taskName, hoursAllocated, taskStatus, taskDate, subjectName," +
+                "taskType, timeStarted, timeCompleted, taskID FROM CompletedTask WHERE userID = ?;";
+        List<ScheduledTask> scheduledTasks = new ArrayList<>();
+
+        try (Connection c = DataBaseManager.connect();
+             PreparedStatement ps = c.prepareStatement(sql)) {
+            ps.setInt(1, userID);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    String taskName = rs.getString("taskName");
+                    int hoursAllocated = rs.getInt("hoursAllocated");
+                    String taskTypeString = rs.getString("taskStatus");
+                    ScheduledTask.TaskStatus taskStatus = ScheduledTask.TaskStatus.valueOf(taskTypeString.toUpperCase());
+                    String dString = rs.getString("taskDate");
+                    LocalDate taskDate = LocalDate.parse(dString, FORMATTER);
+                    String subjectName = rs.getString("subjectName");
+                    String taskType = rs.getString("taskType");
+                    String  timeStString = rs.getString("timeStarted");
+                    LocalTime timeStarted = LocalTime.parse(timeStString);
+                    String timeComString = rs.getString("timeCompleted");
+                    LocalTime timeCompleted = LocalTime.parse(timeComString);
+                    int taskID = rs.getInt("taskID");
+                    ScheduledTask t = new ScheduledTask(taskName, taskType, hoursAllocated,
+                            taskStatus, timeStarted, timeCompleted, taskDate, subjectName);
+                    t.setTaskId(taskID);
+                    scheduledTasks.add(t);
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println("Σφάλμα κατά την ανάκτηση CompletedTask : " + e.getMessage());
+        }
+        return scheduledTasks;
+    }
 }
