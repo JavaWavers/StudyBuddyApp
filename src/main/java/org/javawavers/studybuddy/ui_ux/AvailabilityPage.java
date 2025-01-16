@@ -200,14 +200,25 @@ public class AvailabilityPage {
                   .add(Objects.requireNonNull(getClass().getResource("/success.css")).toExternalForm());
             successAlert.showAndWait();
 
+            // checks for empty availability
+            int c = 0;
+            for (int i = 1; i < avPerDay.length; i++){
+              if (avPerDay[i] != 0) {
+                c++;
+              }
+
+            } // inserts for the first time or it update the already inserted one
             if (flag == false) {
               DataInserter.insertAvailability(avPerDay[1], avPerDay[2], avPerDay[3],
                       avPerDay[4], avPerDay[5], avPerDay[6], avPerDay[7], StaticUser.staticUser.getUserID());
+              StaticUser.staticUser.setAvPerDay(avPerDay);
             } else {
-              DataInserter.updateAvailability(avPerDay[1], avPerDay[2], avPerDay[3],
-                      avPerDay[4], avPerDay[5], avPerDay[6], avPerDay[7], StaticUser.staticUser.getUserID());
+              if (c > 1) {
+                DataInserter.updateAvailability(avPerDay[1], avPerDay[2], avPerDay[3],
+                        avPerDay[4], avPerDay[5], avPerDay[6], avPerDay[7], StaticUser.staticUser.getUserID());
+                StaticUser.staticUser.setAvPerDay(avPerDay);
+              }
             }
-            StaticUser.staticUser.setAvPerDay(avPerDay);
           }
 
           if (setNoAvailability != null) {
