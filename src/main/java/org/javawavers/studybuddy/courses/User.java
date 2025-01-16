@@ -4,7 +4,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.sf.saxon.functions.AccessorFn;
 import org.javawavers.studybuddy.calculations.*;
 
 public class User {
