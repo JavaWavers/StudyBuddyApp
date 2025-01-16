@@ -1,6 +1,10 @@
 package org.javawavers.studybuddy.calculations;
 
-/* This class is used to assign a score to each valid result
+
+
+import java.util.ArrayList;
+import java.util.List;
+/**  This class is used to assign a score to each valid result
  * that could be used as a recommended study schedule for the user.
  * The SimulateAnnealing class produces 50 valid results.
  * Validity means that the tasks are distributed according to the user's
@@ -14,10 +18,24 @@ package org.javawavers.studybuddy.calculations;
  * should study the same subject two days in a row
  */
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Scoring {
+  /**
+   * Calculates the score for a study schedule based on task assignments and subject distribution.
+   * The scoring considers various factors such as:
+   * - Task repetition penalties for the same subject on the same day.
+   * - Penalties for scheduling the same subject for study two days in a row.
+   * The score starts at 5.0 and is reduced based on the conditions outlined above.
+   *
+   * @param taskList The list of tasks (study, revision, assignments) that have been assigned in
+   *                 the schedule.
+   *
+   * @param sch The 2D schedule array, where each cell contains the index of the task assigned
+   *            to that time slot.
+   *
+   * @param colSize The number of days in the schedule (number of columns in the schedule array).
+   *
+   * @return The calculated score of the schedule.
+   */
   public static double calculateScore(List<Task> taskList, int[][] sch, int colSize) {
     // set the score at 5.0. The higher that can possibly be achieved
     double score = 5.0;

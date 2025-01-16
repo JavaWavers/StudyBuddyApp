@@ -1,25 +1,51 @@
 package org.javawavers.studybuddy.calculations;
 
-/*This class is responsible for calculating and dividing the total studying
- * time into groups (referred also as tasks) equally for each week till the
- * due day
+import org.javawavers.studybuddy.courses.Subject;
+/**
+ * The {@code CalculativeAlgorithm} class is responsible for calculating and dividing
+ * the total study time into tasks or groups that can be distributed equally over a
+ * period of weeks until the due date of an exam, revision, or assignment.
+ *
+ * <p>This class includes methods to:
+ *   <li>Set and retrieve the study speed in pages per minute.</li>
+ *   <li>Calculate the total study time required for a subject.</li>
+ *   <li>Determine the number of study tasks required per week.</li>
+ *   <li>Divide the total study time into tasks of two-hour durations.</li>
+ * The class is designed to work with the {@code Subject} class to calculate study time
+ * based on the subject's difficulty level, number of pages, and the user's speed in studying.
  */
 
-import org.javawavers.studybuddy.courses.Subject;
+
 
 public class CalculativeAlgorithm {
-  // The page number that a user is physically possible to study per min
+  /**
+   * The number of pages a user can study per minute.
+   * This value is calculated based on the user's input of how much time
+   * it takes to study 20 slides.
+   */
   private static double pagesPerMin = 0.2;
 
   // setters & getters
 
-  // setter for pages per minute
+  /**
+   * Sets the user's study speed in pages per minute.
+   *
+   * <p>This method takes the time (in minutes) required to study 20 slides
+   * as input and calculates the pages per minute. The result is stored
+   * in the {@code pagesPerMin} variable.
+   *
+   * @param timePer20Slides the time (in minutes) it takes for the user to study 20 slides.
+   */
   public static void setPagesPerMin(double timePer20Slides) {
 
     pagesPerMin = 20 / timePer20Slides;
   }
 
-  // getter for pages per minute
+  /**
+   * Retrieves the user's study speed in pages per minute.
+   *
+   * @return the current value of {@code pagesPerMin}.
+   */
   public static double getPagesPerMin() {
     return pagesPerMin;
   }
@@ -30,13 +56,22 @@ public class CalculativeAlgorithm {
     return (s.getExams().get(0).getPages() * s.getDifficultyLevel()) / (pagesPerMin * 60);
   }
 
-  // total studying tasks per week
+  /**
+   * Calculates the total studying time required for a specific subject.
+   *
+   * <p>The total study time is determined by considering the number of pages
+   * in the subject's exam, the subject's difficulty level, and the user's
+   * study speed in pages per minute. The result is returned in hours.
+   *
+   * @param s the {@code Subject} for which the total study time is calculated.
+   * @return the total study time in hours.
+   */
   public static int studyingTasks(Subject s) {
     double totalTimeWeek = totalStudyingTime(s);
     return numberOfScheduledTask(totalTimeWeek);
   }
 
-  /*
+  /**
    * Calculates the number of the tasks that have to be scheduled during the week
    * The static method numberOfScheduledTask takes as an argument the total
    * studying time whether it refers to total studying time for the exam, for

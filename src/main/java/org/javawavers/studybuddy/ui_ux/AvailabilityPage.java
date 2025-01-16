@@ -2,6 +2,7 @@ package org.javawavers.studybuddy.ui_ux;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -26,6 +27,9 @@ import javafx.scene.text.Font;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.util.converter.IntegerStringConverter;
+import org.javawavers.studybuddy.courses.StaticUser;
+import org.javawavers.studybuddy.database.ActiveUser;
+import org.javawavers.studybuddy.database.DataInserter;
 
 public class AvailabilityPage {
   // int [] avPerDay = new int[8];
@@ -159,6 +163,11 @@ public class AvailabilityPage {
               }
             });
           }
+          // test for registration or login
+          boolean flag = true;
+          if (staticUser.getAvPerDay() == null) {
+            flag = false;
+          }
           // static user for availability
           staticUser.setAvPerDay(avPerDay);
 
@@ -190,11 +199,35 @@ public class AvailabilityPage {
                   .getStylesheets()
                   .add(Objects.requireNonNull(getClass().getResource("/success.css")).toExternalForm());
             successAlert.showAndWait();
+
+            // checks for empty availability
+            int c = 0;
+            for (int i = 1; i < avPerDay.length; i++){
+              if (avPerDay[i] != 0) {
+                c++;
+              }
+
+            } // inserts for the first time or it update the already inserted one
+            if (flag == false) {
+              DataInserter.insertAvailability(avPerDay[1], avPerDay[2], avPerDay[3],
+                      avPerDay[4], avPerDay[5], avPerDay[6], avPerDay[7], StaticUser.staticUser.getUserID());
+              StaticUser.staticUser.setAvPerDay(avPerDay);
+            } else {
+              if (c > 1) {
+                DataInserter.updateAvailability(avPerDay[1], avPerDay[2], avPerDay[3],
+                        avPerDay[4], avPerDay[5], avPerDay[6], avPerDay[7], StaticUser.staticUser.getUserID());
+                StaticUser.staticUser.setAvPerDay(avPerDay);
+              }
+            }
           }
 
           if (setNoAvailability != null) {
             Availability.setNonAvailability(setNoAvailability);
+            DataInserter.insertNonAvDate(setNoAvailability, StaticUser.staticUser.getUserID());
+            StaticUser.staticUser.addNonAvailDays(setNoAvailability);
           }
+          ActiveUser.loadData(staticUser.getEmail(), staticUser.getPassword());
+
           for (TextField dayField : dayFields) {
             dayField.clear();
           }

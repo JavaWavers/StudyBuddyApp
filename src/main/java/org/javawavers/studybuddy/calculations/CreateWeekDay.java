@@ -4,12 +4,25 @@ import static org.javawavers.studybuddy.courses.StaticUser.staticUser;
 
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import org.javawavers.studybuddy.courses.*;
+import org.javawavers.studybuddy.database.DataInserter;
 
 public class CreateWeekDay {
   private ArrayList<Week> totalWeeks; // The list containing all weeks
+/*
+  static int numOfDay = 1;
+
+  static final LocalDate FIRSTDAY;
+  if (numOfDay == 1) {
+    FIRSTDAY = LocalDate.now();
+  }
+  long daysPassed = ChronoUnit.DAYS.between(FIRSTDAY, LocalDate.now());
+  numOfDay = 1 + daysPassed;
+  static int numOfWeek = (numOfDay / 7) + 1;
+*/
 
   public CreateWeekDay() {
     totalWeeks = new ArrayList<>();
@@ -63,15 +76,17 @@ public class CreateWeekDay {
             taskType = "Εργασία";
           }
 
+          Subject subject = new Subject(task.getSubject());
           ScheduledTask scheduledTask =
               new ScheduledTask(
                   task.getSubject(),
                   taskType,
                   (int) Math.ceil(task.getTaskHours()),
                   currentDate,
-                  new Subject(task.getSubject()) // Create Subject from the Task
+                  subject // Create Subject from the Task
                   );
           scheduledTasksForDay.add(scheduledTask);
+
         }
       }
 
@@ -91,5 +106,26 @@ public class CreateWeekDay {
     staticUser.setTotalWeeks(totalWeeks);
     PrintWeeks printWeeks = new PrintWeeks();
     printWeeks.printWeeks(totalWeeks);
+
+    int id = staticUser.getUserID();
+    int i = 0;
+    int j = 0;
+    for (Week w : totalWeeks) {
+        DataInserter.insertWeek(i, id);
+        for (Day d : w.getDaysOfWeek()) {
+          DataInserter.insertDay(j, id, i);
+          for (ScheduledTask t : d.getAllTasks()) {
+            System.out.println("scheduledTask: test in createWeekDay");
+            System.out.println(t.toString());
+            DataInserter.insertTask(t.getTaskName(), t.getHoursAllocated(), t.getTimeStarted(), t.getTimeCompleted(),
+                    t.getTaskStatus(), t.getTaskDate(), t.getSubjectName(), t.getTaskType(), id, j);
+          }
+          j ++;
+        }
+        i ++;
+    }
+
+
+
   }
 }

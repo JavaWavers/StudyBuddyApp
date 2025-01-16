@@ -3,8 +3,16 @@ package org.javawavers.studybuddy.calculations;
 import java.time.LocalDate;
 import java.util.List;
 
+/**
+ * The {@code PrintSchedule} class is responsible for printing the user's study
+ * schedule in a human-readable format. This includes displaying daily tasks
+ * based on the provided schedule matrix and task list, as well as indicating
+ * non-available days.
+ */
 public class PrintSchedule {
-  // The below method prints the schedule to the user
+  /**
+  *The below method prints the schedule for the user.
+   */
   public static void printSchedule(int[][] schedule, List<Task> bestTask, int colSize) {
 
     System.out.println("Προτεινόμενο πρόγραμμα");

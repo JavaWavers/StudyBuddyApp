@@ -7,9 +7,20 @@ import java.time.format.TextStyle;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
+/**
+ * The {@code Availability} class is responsible for managing the availability of study time
+ * for each day of the week and handling specific non-available dates.
+ * This class provides methods to:
+ * Set the available study hours per day of the week.
+ * Mark specific dates as non-available for studying.
+ * Check if a specific day is available for scheduling tasks.
+ * Retrieve total available study hours for a given day.
+ * Merge repetitive tasks in a schedule.
+ * Reduce available study hours based on tasks assigned.
+*/
 
 public class Availability {
-  /*
+  /**
    * A table for the available studying time for each day of the week
    * The first element of the table is never used.
    * Each number from 1 to 7 represents a day of the week starting with Monday
@@ -22,11 +33,14 @@ public class Availability {
    */
   private static LinkedList<LocalDate> dates = new LinkedList<>();
 
-  // constructor
+  /**
+   *Default constructor.
+    */
+
   public Availability() {}
 
-  /*
-   * setting the availability per day of the week
+  /**
+   * Setting the availability per day of the week.
    */
   public static void setAvailability(int i, int av) {
     if (i <= 0 || i > 7) {
@@ -35,26 +49,34 @@ public class Availability {
     avPerDay[i] = av;
   }
 
+  /**
+   * Sets the availability per day of the week using the values from the
+   * {@code StaticUser}.
+   */
   public static void setAvPerDay() {
     System.out.println("DONE");
     avPerDay = staticUser.getAvPerDay();
   }
 
-  // insert a day that there is no availability for studying
+  /**
+   * Marks a specific date as non-available for studying.
+   *
+   * @param l the {@code LocalDate} to mark as non-available
+   */
   public static void setNonAvailability(LocalDate l) {
     // checks if a date is already used
     if (!dates.contains(l)) {
-      dates.add(l);
+      dates.add(l); //insert a day that there is no availability for studying
     } else {
       // if the date is already used, a message is given to the user
       System.out.println("Η ημερομηνία " + l + " έχει ήδη καταχωρηθεί");
     }
   }
 
-  /*
-   * checks if the day that the program asserts a task to the user is set as
+  /**
+   * Checks if the day that the program asserts a task to the user is set as
    * non-available
-   * and returns true if the day is Available
+   * and returns true if the day is Available.
    */
 
   public static boolean checkAvailability(int day) {
@@ -62,7 +84,15 @@ public class Availability {
     return !dates.contains(taskDate);
   }
 
-  // returns the total available hours for the day that is asked
+  /**
+   * Retrieves the total available study hours for a specific day.
+   *
+   * @param i the number of days from today (e.g., 0 for today, 1 for tomorrow,
+   *          etc.)
+   * @return the total available study hours for the specified day
+   * @throws IllegalArgumentException if the day name is invalid
+   */
+
   public static int getTotalAvailableHours(int i) {
     LocalDate today = LocalDate.now(); // The date of the day that we currently are
     // The date that we want to assert the tasks
@@ -83,6 +113,15 @@ public class Availability {
       default -> throw new IllegalArgumentException("Ημέρα μη έγκυρη: " + dayName);
     };
   }
+  /**
+   * Merges repetitive tasks (of type 2) for a specific column in the schedule.
+   * When multiple repetitive tasks for the same subject exist, they are merged
+   * into one task, and their total hours are updated.
+   *
+   * @param schedule the 2D array representing the schedule
+   * @param tasks    the list of tasks
+   * @param col      the column index in the schedule to process
+   */
 
   public static void mergeRepTasks(int[][] schedule, List<Task> tasks, int col) {
     // Get a list of subject names from the tasks
@@ -130,7 +169,7 @@ public class Availability {
     TaskAssignment.setValSchedule(schedule);
   }
 
-  /*
+  /**
    * This method reduces the available hours for a specific day based on the tasks
    * scheduled in a given column.
    */
