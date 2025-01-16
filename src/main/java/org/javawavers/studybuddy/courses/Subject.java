@@ -59,6 +59,10 @@ public class Subject {
     this.studyGoal = studyGoal;
   }
 
+  public void setExams(List<Exam> exams) {
+    this.exams = exams;
+  }
+
   // Constructors
   // Constructor with just the course name
   public Subject(String courseName) {
@@ -66,6 +70,12 @@ public class Subject {
     this.difficultyLevel = 1; // Default difficulty level
     this.subjectType = SubjectType.Αγνωστο; // Default subject type
     this.studyGoal = StudyGoal.GOOD; // Default study goal
+  }
+
+  public Subject(String courseName, int difficultyLevel, SubjectType subjectType) {
+    this.courseName = courseName;
+    this.difficultyLevel = difficultyLevel;
+    this.subjectType = subjectType;
   }
 
   // Constructor with all fields

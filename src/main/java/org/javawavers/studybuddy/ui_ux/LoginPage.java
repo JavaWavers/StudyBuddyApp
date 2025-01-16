@@ -19,6 +19,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Screen;
+import org.javawavers.studybuddy.database.ActiveUser;
 
 public class LoginPage {
 
@@ -295,18 +296,18 @@ public class LoginPage {
     loginButton.setOnAction(
         event -> {
           validateLogin();
-          clearFields();
           if (validateLogin()) {
             MainFrame mainFrame = new MainFrame();
             sceneManager.switchScene(mainFrame.mainFrame(sceneManager));
           }
+          clearFields();
         });
   }
 
   private boolean validateLogin() {
     String email = emailField.getText();
     String password = passwordField.getText();
-
+    System.out.println("activeUser: " + ActiveUser.authenticateUser(email, password));
     if (email.isEmpty() || password.isEmpty()) {
       Alert alert = new Alert(Alert.AlertType.WARNING);
       alert.setTitle("Η φόρμα δεν έχει ολοκληρωθεί");
@@ -322,9 +323,8 @@ public class LoginPage {
       alert.showAndWait();
 
       return false;
-    } else if (email.equals(RegisterPage.storedEmail)
-        && password.equals(RegisterPage.storedPassword)) {
-
+    } else if (ActiveUser.authenticateUser(email, password) != null) {
+      System.out.println(ActiveUser.authenticateUser(email, password));
       Alert alert = new Alert(Alert.AlertType.INFORMATION);
       alert.setTitle("Σύνδεση Επιτυχής");
       alert.setHeaderText(null);
@@ -332,7 +332,7 @@ public class LoginPage {
       DialogPane dialogPane = alert.getDialogPane();
       dialogPane.getStyleClass().add("success-alert");
       dialogPane.getStylesheets().add(getClass().getResource("/success.css").toExternalForm());
-
+      ActiveUser.loadData(email, password);
       return true;
     } else {
       Alert alert = new Alert(Alert.AlertType.ERROR);
