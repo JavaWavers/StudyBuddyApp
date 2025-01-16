@@ -4,6 +4,16 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+/**
+ * This class is responsible for assigning tasks to a schedule. The tasks include
+ * studying, revision, and assignments. It allocates the tasks based on the available
+ * hours for each day and also manages the merging of repetition tasks and assignment deadlines.
+ * The task assignment follows a randomized process, and the goal is to ensure that all tasks are
+ * scheduled within the given time slots.
+ * The assignment process involves checking for available time, handling repetitions for study
+ * tasks, ensuring that tasks are scheduled within their respective deadlines, and providing a
+ * fallback mechanism if no dedicated slot is available for assignments.
+ */
 
 public class TaskAssignment {
   // table for the task indexes
@@ -39,6 +49,22 @@ public class TaskAssignment {
     return tasks;
   }
 
+  /**
+   * Assigns tasks to a schedule based on available hours and deadlines.
+   * The tasks are randomly shuffled and then allocated to time slots for each day.
+   * The method checks for task types, available hours, and deadlines (such as exam
+   * or assignment dates).Special consideration is given to assignment tasks to ensure
+   * they are assigned even if no dedicated  time slots are available.
+   * This method performs the task assignment in multiple stages:
+   * 1. Merges repetition tasks if necessary.
+   * 2. Allocates tasks to available time slots, respecting task durations and remaining hours.
+   * 3. Ensures all assignment tasks (type 3) are assigned, even when no specific slot is available.
+   *
+   * @param assTasks The list of tasks to be assigned.
+   * @param colSize  The number of columns (days) in the schedule.
+   * @return A 2D array representing the task schedule after assignments are made.
+   * @throws IllegalStateException if there is an error with task assignment.
+   */
   public static int[][] assignTask(List<Task> assTasks, int colSize) {
     Collections.shuffle(assTasks);
     tasks = new ArrayList<>(assTasks);
@@ -69,9 +95,9 @@ public class TaskAssignment {
       Availability.reduceRepAvailability(col, tasks);
 
       // Check if there is any availability for the day
-      boolean flagNAv = Availability.checkAvailability(col);
+      boolean flagNav = Availability.checkAvailability(col);
 
-      if (flagNAv) {
+      if (flagNav) {
         for (int row = 0; row < 12; row++) { // Max 12 tasks per day
           if (taskIndex > taskLength) {
             break;

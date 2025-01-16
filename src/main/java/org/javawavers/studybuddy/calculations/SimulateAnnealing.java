@@ -1,14 +1,6 @@
 package org.javawavers.studybuddy.calculations;
 
-/*
- * This class distributes three kinds of tasks (studying -1, repetition -2,
- * assignment -3) into the available days randomly. The algorithm produces 50
- *  valid results,where the tasks are distributed into the available studying
- * hours per day differently (although there are chances for the same results).
- * Then, each result gains a score based on certain criteria, described in the
- * README file. The result with the higher score is considered the final result
- * and is given to the user as a recommended studying schedule.
- */
+
 
 import static org.javawavers.studybuddy.courses.StaticUser.staticUser;
 
@@ -17,6 +9,15 @@ import java.util.List;
 import org.javawavers.studybuddy.courses.Assignment;
 import org.javawavers.studybuddy.courses.Subject;
 
+/**
+ * This class distributes three kinds of tasks (studying -1, repetition -2,
+ * assignment -3) into the available days randomly. The algorithm produces 50
+ *  valid results,where the tasks are distributed into the available studying
+ * hours per day differently (although there are chances for the same results).
+ * Then, each result gains a score based on certain criteria, described in the
+ * README file. The result with the higher score is considered the final result
+ * and is given to the user as a recommended studying schedule.
+ */
 public class SimulateAnnealing {
   /*
    * The 12 rows represent the maximum tasks that can be assigned to a day,
@@ -33,6 +34,9 @@ public class SimulateAnnealing {
   private static List<Dates>
       assignments; // List for each assignment that is connected with a subject
 
+  /**
+  *default constructor.
+   */
   public SimulateAnnealing() {
     subjects = new ArrayList<>();
     tasks = new ArrayList<>();
@@ -41,7 +45,9 @@ public class SimulateAnnealing {
     scheduleResults = new ArrayList<>();
   }
 
-  // Add the users Subjects
+  /**
+   * Adds the user's subjects to the list and sets exams and tasks for each subject.
+   */
   public static void addSubject() {
     for (Subject s : staticUser.getSubjects()) {
       subjects.add(s);
@@ -52,7 +58,13 @@ public class SimulateAnnealing {
     }
   }
 
-  // Setting exams for each subject
+  /**
+   * Sets the exams for each subject and adds them to the exams list.
+   *
+   * @param subject The subject whose exams are being added.
+   *
+   * @throws IllegalArgumentException if the subject or its exams list is invalid.
+   */
   private static void subExams(Subject subject) {
     // Check if the subject or its exams list is null
     if (subject.getExams() == null || subject.getExams().isEmpty()) {
@@ -63,7 +75,9 @@ public class SimulateAnnealing {
     exams.add(examDate);
   }
 
-  // Setting Assignments
+  /**
+   * Sets the assignments for the user and creates corresponding tasks.
+   */
   private static void subAssignment() {
     for (Assignment a : staticUser.getAssignments()) {
       Dates assDate = new Dates(a.getName(), a.getDate());
@@ -72,7 +86,12 @@ public class SimulateAnnealing {
     }
   }
 
-  // Creating tasks for each subject
+  /**
+   * Creates tasks for each subject based on its exams.
+   *
+   * @param subject The subject for which the tasks are being created.
+   * @throws IllegalArgumentException if the subject has no exams.
+   */
   private static void subTasks(Subject subject) {
     if (Subject.getExams() == null || Subject.getExams().isEmpty()) {
       throw new IllegalArgumentException("Cannot create tasks: No exams found for the subject.");
@@ -87,7 +106,14 @@ public class SimulateAnnealing {
     }
   }
 
-  // Creating tasks for assignments
+  /**
+   * Creates tasks for assignments.
+   *
+   * @param name The name of the assignment.
+   *
+   * @param estimateHours The estimated hours to complete the assignment.
+   *
+   */
   private static void subTask2(String name, int estimateHours) {
     int taskType3 = CalculativeAlgorithm.numberOfScheduledTask(estimateHours);
     // Task creation type
@@ -123,7 +149,10 @@ public class SimulateAnnealing {
     return subjects;
   }
 
-  // Κατανομή tasks στο πρόγραμμα
+  /**
+   * Generates and evaluates different schedule results. The best scoring schedule is selected
+   * based on the provided scoring mechanism.
+   */
   public static void scheduleResult() {
     /*
      * each time the method is called in order to produce the best result

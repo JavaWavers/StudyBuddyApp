@@ -23,6 +23,8 @@ import javafx.scene.control.TitledPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
+import org.javawavers.studybuddy.courses.StaticUser;
+import org.javawavers.studybuddy.database.DataInserter;
 
 /*
 TODO :
@@ -133,6 +135,9 @@ public class AssignmentPage {
           Assignment assignment1 = new Assignment(title, localDeadline, estimateHour, difficulty);
           // add the assignment to the static user
           staticUser.addAssignment(assignment1);
+
+          DataInserter.insertAssignment(title, localDeadline, estimateHour, difficulty, null, StaticUser.staticUser.getUserID());
+          StaticUser.staticUser.addAssignment(assignment1);
 
           // ExamPage exampage = new ExamPage();
           // Subject course = exampage.coursename;
