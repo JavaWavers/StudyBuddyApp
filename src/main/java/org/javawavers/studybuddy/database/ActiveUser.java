@@ -1,6 +1,5 @@
 package org.javawavers.studybuddy.database;
 
-import org.checkerframework.checker.units.qual.A;
 import org.javawavers.studybuddy.calculations.*;
 import org.javawavers.studybuddy.courses.*;
 import org.javawavers.studybuddy.courses.StaticUser;
