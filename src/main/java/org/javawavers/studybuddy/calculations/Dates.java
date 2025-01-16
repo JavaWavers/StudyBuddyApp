@@ -7,7 +7,7 @@ import java.util.List;
 import org.javawavers.studybuddy.courses.Subject;
 
 /**
- * This class is used to store the exam date for each subject.
+ * This {@code Dates} class is used to store the exam date for each subject.
  * It holds information about the subject and the specific date of the exam.
  * Additionally, this class is responsible for controlling the distribution of tasks
  * for a subject up until the exam date. In other words, the exam date is the last day
@@ -20,12 +20,23 @@ public class Dates {
   private String subjName;
   private LocalDate deadLine;
 
-  // Constructor
+  /**
+   * Constructs a {@code Dates} object for a given subject and its deadline.
+   *
+   * @param subj the {@code Subject} object representing the subject.
+   * @param deadLine the {@code LocalDate} representing the deadline or exam date.
+   */
   public Dates(Subject subj, LocalDate deadLine) {
     this.subjName = subj.getCourseName();
     this.deadLine = deadLine;
   }
 
+  /**
+   * Constructs a {@code Dates} object for a given subject name and its deadline.
+   *
+   * @param name the name of the subject.
+   * @param deadLine the {@code LocalDate} representing the deadline or exam date.
+   */
   public Dates(String name, LocalDate deadLine) {
     this.subjName = name;
     this.deadLine = deadLine;
@@ -40,19 +51,24 @@ public class Dates {
     return deadLine;
   }
 
-  /*
+  /**
    * Sorts the list of ExamDates by the exam date.
    * The list will be sorted in ascending order,
    * with the earliest exam date at the beginning and the latest at the end.
    */
-  public static List<Dates> sortList(List<Dates> list) {
+  public static void sortList(List<Dates> list) {
 
     // Sort the list of exams by exam date in ascending order
     list.sort(Comparator.comparing(Dates::getDate));
-    return list;
   }
 
-  // calculates in how many days the last exam is due to
+  /**
+   * Calculates the number of days remaining until the last exam or assignment deadline.
+   *
+   * @param exams the list of exam {@code Dates}.
+   * @param assignments the list of assignment {@code Dates}.
+   * @return the number of days until the furthest deadline (exam or assignment).
+   */
   public static int lastIsDue(List<Dates> exams, List<Dates> assignments) {
     if (exams.isEmpty() && !assignments.isEmpty()) {
       // Get the current date
@@ -89,14 +105,15 @@ public class Dates {
     }
   }
 
-  // The method accepts the task that needs to be registered in the results table.
-  // From this task, we retrieve its name and check, for each ExamDates object,
-  // if the day when we want to assign the task is before the exam date.
-  // If this condition is met, the method returns true; otherwise, it returns
-  // false.
-  // It accepts the task, the number of days until the exam, AND the list of exam
-  // dates.
-
+  /**
+  *The method accepts the task that needs to be registered in the results table.
+  * From this task, we retrieve its name and check, for each ExamDates object,
+  * if the day when we want to assign the task is before the exam date.
+  * If this condition is met, the method returns true; otherwise, it returns
+  * false.
+  * It accepts the task, the number of days until the exam, AND the list of exam
+  * dates.
+  */
   public static boolean checkDate(Task task, int day, List<Dates> elements) {
     String subj = task.getSubject(); // keeps the name of the subject in order to find the exam date
     LocalDate date = null; // keeps the exam date or the deadline
@@ -120,6 +137,13 @@ public class Dates {
         date); // Returns true if the assigned date is before the exam/deadline
   }
 
+  /**
+   * Retrieves the exam date associated with a specific task's subject.
+   *
+   * @param task the {@code Task} whose subject's exam date is needed.
+   * @param exams the list of exam {@code Dates}.
+   * @return the {@code LocalDate} representing the exam date, or {@code null} if not found.
+   */
   public static LocalDate getExDate(Task task, List<Dates> exams) {
     String subj = task.getSubject(); // keeps the name of the subject in order to find the exam date
     LocalDate exD = null; // keeps the exam date
@@ -132,6 +156,13 @@ public class Dates {
     return exD;
   }
 
+  /**
+   * Retrieves the assignment deadline associated with a specific task's subject.
+   *
+   * @param task the {@code Task} whose subject's assignment deadline is needed.
+   * @param assignments the list of assignment {@code Dates}.
+   * @return the {@code LocalDate} representing the assignment deadline, or {@code null} if not found.
+   */
   public static LocalDate getAssDate(Task task, List<Dates> assignments) {
     String subj = task.getSubject(); // keeps the name of the subject in order to find the deadline
     LocalDate assD = null; // keeps the exam deadline

@@ -26,6 +26,8 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Screen;
+import org.javawavers.studybuddy.database.ActiveUser;
+import org.javawavers.studybuddy.database.DataInserter;
 
 public class RegisterPage {
 
@@ -365,6 +367,11 @@ public class RegisterPage {
           if (validateLogin()) {
             ExamPage examPage = new ExamPage();
             sceneManager.switchScene(examPage.examStartingPage(sceneManager));
+            DataInserter.insertUser(storedUsername, storedPassword, storedEmail);
+            StaticUser.staticUser.setUsername(storedUsername);
+            StaticUser.staticUser.setPassword(storedPassword);
+            StaticUser.staticUser.setEmail(storedEmail);
+            StaticUser.staticUser.setUserID(ActiveUser.getUserID(storedEmail, storedPassword));
           }
         });
   }
