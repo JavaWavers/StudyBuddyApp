@@ -64,12 +64,21 @@ public class Availability {
    */
   public static void setNonAvailability(LocalDate l) {
     // checks if a date is already used
-    if (!dates.contains(l)) {
-      dates.add(l); //insert a day that there is no availability for studying
-    } else {
-      // if the date is already used, a message is given to the user
-      System.out.println("Η ημερομηνία " + l + " έχει ήδη καταχωρηθεί");
+    try {
+      if (l == null) {
+        throw new IllegalArgumentException("Date cannot be null");
+      }
+
+      if (!dates.contains(l)) {
+        dates.add(l); // Insert a day that there is no availability for studying
+      } else {
+        // Throwing an exception instead of just printing a message for consistency
+        throw new IllegalArgumentException("The date " + l + " has already been registered.");
+      }
+    } catch (IllegalArgumentException e) {
+      System.err.println("Error: " + e.getMessage());
     }
+
   }
 
   /**

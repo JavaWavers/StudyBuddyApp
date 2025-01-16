@@ -1,31 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <checkstyle version="9.3">
-<file name="C:\Users\Dell\Programming2StudyBuddy\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\calculations\Availability.java">
-</file>
-<file name="C:\Users\Dell\Programming2StudyBuddy\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\calculations\CalculativeAlgorithm.java">
-</file>
-<file name="C:\Users\Dell\Programming2StudyBuddy\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\calculations\CreateWeekDay.java">
-<error line="10" column="41" severity="warning" message="Using the &apos;.*&apos; form of import should be avoided - org.javawavers.studybuddy.courses.*." source="com.puppycrawl.tools.checkstyle.checks.imports.AvoidStarImportCheck"/>
-<error line="13" column="1" severity="warning" message="Missing a Javadoc comment." source="com.puppycrawl.tools.checkstyle.checks.javadoc.MissingJavadocTypeCheck"/>
-<error line="15" column="1" severity="warning" message="Block comment has incorrect indentation level 0, expected is 2, indentation should be the same level as line 27." source="com.puppycrawl.tools.checkstyle.checks.indentation.CommentsIndentationCheck"/>
-<error line="114" column="9" severity="warning" message="&apos;for&apos; child has incorrect indentation level 8, expected level should be 6." source="com.puppycrawl.tools.checkstyle.checks.indentation.IndentationCheck"/>
-<error line="115" column="9" severity="warning" message="&apos;for&apos; has incorrect indentation level 8, expected level should be 6." source="com.puppycrawl.tools.checkstyle.checks.indentation.IndentationCheck"/>
-<error line="116" column="11" severity="warning" message="&apos;for&apos; child has incorrect indentation level 10, expected level should be 8." source="com.puppycrawl.tools.checkstyle.checks.indentation.IndentationCheck"/>
-<error line="117" column="11" severity="warning" message="&apos;for&apos; has incorrect indentation level 10, expected level should be 8." source="com.puppycrawl.tools.checkstyle.checks.indentation.IndentationCheck"/>
-<error line="118" column="13" severity="warning" message="&apos;for&apos; child has incorrect indentation level 12, expected level should be 10." source="com.puppycrawl.tools.checkstyle.checks.indentation.IndentationCheck"/>
-<error line="119" column="13" severity="warning" message="&apos;for&apos; child has incorrect indentation level 12, expected level should be 10." source="com.puppycrawl.tools.checkstyle.checks.indentation.IndentationCheck"/>
-<error line="120" severity="warning" message="Line is longer than 100 characters (found 117)." source="com.puppycrawl.tools.checkstyle.checks.sizes.LineLengthCheck"/>
-<error line="120" column="13" severity="warning" message="&apos;for&apos; child has incorrect indentation level 12, expected level should be 10." source="com.puppycrawl.tools.checkstyle.checks.indentation.IndentationCheck"/>
-<error line="122" column="11" severity="warning" message="&apos;for rcurly&apos; has incorrect indentation level 10, expected level should be 8." source="com.puppycrawl.tools.checkstyle.checks.indentation.IndentationCheck"/>
-<error line="123" column="11" severity="warning" message="&apos;for&apos; child has incorrect indentation level 10, expected level should be 8." source="com.puppycrawl.tools.checkstyle.checks.indentation.IndentationCheck"/>
-<error line="123" column="13" severity="warning" message="&apos;++&apos; is preceded with whitespace." source="com.puppycrawl.tools.checkstyle.checks.whitespace.NoWhitespaceBeforeCheck"/>
-<error line="124" column="9" severity="warning" message="&apos;for rcurly&apos; has incorrect indentation level 8, expected level should be 6." source="com.puppycrawl.tools.checkstyle.checks.indentation.IndentationCheck"/>
-<error line="125" column="9" severity="warning" message="&apos;for&apos; child has incorrect indentation level 8, expected level should be 6." source="com.puppycrawl.tools.checkstyle.checks.indentation.IndentationCheck"/>
-<error line="125" column="11" severity="warning" message="&apos;++&apos; is preceded with whitespace." source="com.puppycrawl.tools.checkstyle.checks.whitespace.NoWhitespaceBeforeCheck"/>
-</file>
-<file name="C:\Users\Dell\Programming2StudyBuddy\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\calculations\Dates.java">
-<error line="164" severity="warning" message="Line is longer than 100 characters (found 102)." source="com.puppycrawl.tools.checkstyle.checks.sizes.LineLengthCheck"/>
-</file>
 <file name="C:\Users\Dell\Programming2StudyBuddy\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\calculations\Day.java">
 <error line="5" column="41" severity="warning" message="Using the &apos;.*&apos; form of import should be avoided - org.javawavers.studybuddy.courses.*." source="com.puppycrawl.tools.checkstyle.checks.imports.AvoidStarImportCheck"/>
 <error line="7" column="1" severity="warning" message="Missing a Javadoc comment." source="com.puppycrawl.tools.checkstyle.checks.javadoc.MissingJavadocTypeCheck"/>
@@ -38,16 +12,6 @@
 <error line="17" column="13" severity="warning" message="Local variable name &apos;History&apos; must match pattern &apos;^[a-z]([a-z0-9][a-zA-Z0-9]*)?$&apos;." source="com.puppycrawl.tools.checkstyle.checks.naming.LocalVariableNameCheck"/>
 <error line="40" column="23" severity="warning" message="Local variable name &apos;sAnnealing&apos; must match pattern &apos;^[a-z]([a-z0-9][a-zA-Z0-9]*)?$&apos;." source="com.puppycrawl.tools.checkstyle.checks.naming.LocalVariableNameCheck"/>
 </file>
-<file name="C:\Users\Dell\Programming2StudyBuddy\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\calculations\PrintSchedule.java">
-</file>
-<file name="C:\Users\Dell\Programming2StudyBuddy\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\calculations\PrintWeeks.java">
-</file>
-<file name="C:\Users\Dell\Programming2StudyBuddy\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\calculations\Repetition.java">
-</file>
-<file name="C:\Users\Dell\Programming2StudyBuddy\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\calculations\ScheduleResult.java">
-</file>
-<file name="C:\Users\Dell\Programming2StudyBuddy\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\calculations\Scoring.java">
-</file>
 <file name="C:\Users\Dell\Programming2StudyBuddy\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\calculations\SimulateAnnealing.java">
 <error line="183" column="15" severity="warning" message="Local variable name &apos;vSchedule&apos; must match pattern &apos;^[a-z]([a-z0-9][a-zA-Z0-9]*)?$&apos;." source="com.puppycrawl.tools.checkstyle.checks.naming.LocalVariableNameCheck"/>
 </file>
@@ -57,8 +21,6 @@
 <file name="C:\Users\Dell\Programming2StudyBuddy\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\calculations\Task.java">
 <error line="6" severity="warning" message="Line is longer than 100 characters (found 106)." source="com.puppycrawl.tools.checkstyle.checks.sizes.LineLengthCheck"/>
 <error line="12" severity="warning" message="Line is longer than 100 characters (found 118)." source="com.puppycrawl.tools.checkstyle.checks.sizes.LineLengthCheck"/>
-</file>
-<file name="C:\Users\Dell\Programming2StudyBuddy\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\calculations\TaskAssignment.java">
 </file>
 <file name="C:\Users\Dell\Programming2StudyBuddy\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\calculations\Validate.java">
 <error line="23" column="13" severity="warning" message="Local variable name &apos;dValidSchedule&apos; must match pattern &apos;^[a-z]([a-z0-9][a-zA-Z0-9]*)?$&apos;." source="com.puppycrawl.tools.checkstyle.checks.naming.LocalVariableNameCheck"/>
@@ -901,8 +863,6 @@
 <file name="C:\Users\Dell\Programming2StudyBuddy\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\graphs\AssDistributionCalc.java">
 <error line="13" column="1" severity="warning" message="Missing a Javadoc comment." source="com.puppycrawl.tools.checkstyle.checks.javadoc.MissingJavadocTypeCheck"/>
 </file>
-<file name="C:\Users\Dell\Programming2StudyBuddy\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\graphs\BarChartCalc.java">
-</file>
 <file name="C:\Users\Dell\Programming2StudyBuddy\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\graphs\LineChartCalc.java">
 <error line="10" column="1" severity="warning" message="Missing a Javadoc comment." source="com.puppycrawl.tools.checkstyle.checks.javadoc.MissingJavadocTypeCheck"/>
 <error line="12" column="3" severity="warning" message="Missing a Javadoc comment." source="com.puppycrawl.tools.checkstyle.checks.javadoc.MissingJavadocMethodCheck"/>
@@ -1058,14 +1018,14 @@
 <error line="375" severity="warning" message="Line is longer than 100 characters (found 104)." source="com.puppycrawl.tools.checkstyle.checks.sizes.LineLengthCheck"/>
 <error line="404" column="9" severity="warning" message="&apos;for&apos; child has incorrect indentation level 8, expected level should be 6." source="com.puppycrawl.tools.checkstyle.checks.indentation.IndentationCheck"/>
 <error line="407" column="13" severity="warning" message="&apos;for&apos; child has incorrect indentation level 12, expected level should be 10." source="com.puppycrawl.tools.checkstyle.checks.indentation.IndentationCheck"/>
-<error line="528" severity="warning" message="Line is longer than 100 characters (found 107)." source="com.puppycrawl.tools.checkstyle.checks.sizes.LineLengthCheck"/>
-<error line="536" severity="warning" message="Line is longer than 100 characters (found 107)." source="com.puppycrawl.tools.checkstyle.checks.sizes.LineLengthCheck"/>
-<error line="537" severity="warning" message="Line is longer than 100 characters (found 124)." source="com.puppycrawl.tools.checkstyle.checks.sizes.LineLengthCheck"/>
-<error line="593" severity="warning" message="Line is longer than 100 characters (found 121)." source="com.puppycrawl.tools.checkstyle.checks.sizes.LineLengthCheck"/>
-<error line="610" severity="warning" message="Line is longer than 100 characters (found 135)." source="com.puppycrawl.tools.checkstyle.checks.sizes.LineLengthCheck"/>
-<error line="624" severity="warning" message="Line is longer than 100 characters (found 113)." source="com.puppycrawl.tools.checkstyle.checks.sizes.LineLengthCheck"/>
-<error line="638" severity="warning" message="Line is longer than 100 characters (found 111)." source="com.puppycrawl.tools.checkstyle.checks.sizes.LineLengthCheck"/>
-<error line="640" severity="warning" message="Line is longer than 100 characters (found 128)." source="com.puppycrawl.tools.checkstyle.checks.sizes.LineLengthCheck"/>
+<error line="526" severity="warning" message="Line is longer than 100 characters (found 107)." source="com.puppycrawl.tools.checkstyle.checks.sizes.LineLengthCheck"/>
+<error line="534" severity="warning" message="Line is longer than 100 characters (found 107)." source="com.puppycrawl.tools.checkstyle.checks.sizes.LineLengthCheck"/>
+<error line="535" severity="warning" message="Line is longer than 100 characters (found 124)." source="com.puppycrawl.tools.checkstyle.checks.sizes.LineLengthCheck"/>
+<error line="591" severity="warning" message="Line is longer than 100 characters (found 121)." source="com.puppycrawl.tools.checkstyle.checks.sizes.LineLengthCheck"/>
+<error line="608" severity="warning" message="Line is longer than 100 characters (found 135)." source="com.puppycrawl.tools.checkstyle.checks.sizes.LineLengthCheck"/>
+<error line="622" severity="warning" message="Line is longer than 100 characters (found 113)." source="com.puppycrawl.tools.checkstyle.checks.sizes.LineLengthCheck"/>
+<error line="636" severity="warning" message="Line is longer than 100 characters (found 111)." source="com.puppycrawl.tools.checkstyle.checks.sizes.LineLengthCheck"/>
+<error line="638" severity="warning" message="Line is longer than 100 characters (found 128)." source="com.puppycrawl.tools.checkstyle.checks.sizes.LineLengthCheck"/>
 </file>
 <file name="C:\Users\Dell\Programming2StudyBuddy\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\CenterPanelManager.java">
 <error line="1" column="9" severity="warning" message="Package name &apos;org.javawavers.studybuddy.ui_ux&apos; must match pattern &apos;^[a-z]+(\.[a-z][a-z0-9]*)*$&apos;." source="com.puppycrawl.tools.checkstyle.checks.naming.PackageNameCheck"/>

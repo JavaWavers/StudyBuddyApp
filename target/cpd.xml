@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <pmd-cpd>
    <duplication lines="15" tokens="171">
-      <file begintoken="31061" column="23" endcolumn="71" endline="194" endtoken="31231"
+      <file begintoken="31444" column="23" endcolumn="71" endline="194" endtoken="31614"
             line="180"
             path="C:\Users\Dell\Programming2StudyBuddy\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\RegisterPage.java"/>
-      <file begintoken="31293" column="24" endcolumn="71" endline="228" endtoken="31463"
+      <file begintoken="31676" column="24" endcolumn="71" endline="228" endtoken="31846"
             line="214"
             path="C:\Users\Dell\Programming2StudyBuddy\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\RegisterPage.java"/>
       <codefragment><![CDATA[        .widthProperty()
@@ -24,10 +24,10 @@
               confirmPasswordField.setFont(Font.font("Arial", newSize));]]></codefragment>
    </duplication>
    <duplication lines="57" tokens="137">
-      <file begintoken="18010" column="3" endcolumn="14" endline="286" endtoken="18146"
+      <file begintoken="18404" column="3" endcolumn="14" endline="286" endtoken="18540"
             line="230"
             path="C:\Users\Dell\Programming2StudyBuddy\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\AssignmentPage.java"/>
-      <file begintoken="24405" column="3" endcolumn="14" endline="344" endtoken="24541"
+      <file begintoken="24788" column="3" endcolumn="14" endline="344" endtoken="24924"
             line="288"
             path="C:\Users\Dell\Programming2StudyBuddy\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\ExamPage.java"/>
       <codefragment><![CDATA[  }
@@ -89,10 +89,10 @@
   public Scene assignmentStartingPage(SceneManager sceneManager) {]]></codefragment>
    </duplication>
    <duplication lines="19" tokens="137">
-      <file begintoken="26960" column="23" endcolumn="23" endline="232" endtoken="27096"
+      <file begintoken="27343" column="23" endcolumn="23" endline="232" endtoken="27479"
             line="214"
             path="C:\Users\Dell\Programming2StudyBuddy\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\LoginPage.java"/>
-      <file begintoken="27112" column="24" endcolumn="23" endline="258" endtoken="27248"
+      <file begintoken="27495" column="24" endcolumn="23" endline="258" endtoken="27631"
             line="240"
             path="C:\Users\Dell\Programming2StudyBuddy\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\LoginPage.java"/>
       <codefragment><![CDATA[        .widthProperty()
@@ -116,10 +116,10 @@
                       + "-fx-background-color:  rgba(14, 164, 43, 0.81); "]]></codefragment>
    </duplication>
    <duplication lines="17" tokens="119">
-      <file begintoken="17042" column="20" endcolumn="14" endline="66" endtoken="17160"
+      <file begintoken="17436" column="20" endcolumn="14" endline="66" endtoken="17554"
             line="50"
             path="C:\Users\Dell\Programming2StudyBuddy\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\AssignmentPage.java"/>
-      <file begintoken="23162" column="14" endcolumn="14" endline="92" endtoken="23280"
+      <file begintoken="23545" column="14" endcolumn="14" endline="92" endtoken="23663"
             line="76"
             path="C:\Users\Dell\Programming2StudyBuddy\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\ExamPage.java"/>
       <codefragment><![CDATA[    assignmentPanel.setPadding(new Insets(20));
@@ -141,13 +141,13 @@
         e -> {]]></codefragment>
    </duplication>
    <duplication lines="18" tokens="103">
-      <file begintoken="17387" column="59" endcolumn="34" endline="119" endtoken="17489"
+      <file begintoken="17781" column="59" endcolumn="34" endline="119" endtoken="17883"
             line="102"
             path="C:\Users\Dell\Programming2StudyBuddy\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\AssignmentPage.java"/>
-      <file begintoken="19177" column="98" endcolumn="34" endline="193" endtoken="19279"
+      <file begintoken="19571" column="98" endcolumn="34" endline="193" endtoken="19673"
             line="177"
             path="C:\Users\Dell\Programming2StudyBuddy\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\AvailabilityPage.java"/>
-      <file begintoken="23753" column="87" endcolumn="34" endline="188" endtoken="23855"
+      <file begintoken="24136" column="87" endcolumn="34" endline="188" endtoken="24238"
             line="171"
             path="C:\Users\Dell\Programming2StudyBuddy\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\ExamPage.java"/>
       <codefragment><![CDATA[            errors.add("• Πρέπει να προσθέσεις ένα μάθημα");
