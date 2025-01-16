@@ -215,6 +215,8 @@ public class AvailabilityPage {
             DataInserter.insertNonAvDate(setNoAvailability, StaticUser.staticUser.getUserID());
             StaticUser.staticUser.addNonAvailDays(setNoAvailability);
           }
+          ActiveUser.loadData(staticUser.getEmail(), staticUser.getPassword());
+
           for (TextField dayField : dayFields) {
             dayField.clear();
           }

@@ -115,6 +115,8 @@ public class CreateWeekDay {
         for (Day d : w.getDaysOfWeek()) {
           DataInserter.insertDay(j, id, i);
           for (ScheduledTask t : d.getAllTasks()) {
+            System.out.println("scheduledTask: test in createWeekDay");
+            System.out.println(t.toString());
             DataInserter.insertTask(t.getTaskName(), t.getHoursAllocated(), t.getTimeStarted(), t.getTimeCompleted(),
                     t.getTaskStatus(), t.getTaskDate(), t.getSubjectName(), t.getTaskType(), id, j);
           }

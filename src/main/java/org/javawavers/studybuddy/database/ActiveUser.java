@@ -362,7 +362,8 @@ public class ActiveUser {
     }*/
 
     public static List<ScheduledTask> getTasks(int userID) {
-        String sql = "SELECT taskName, hoursAllocated, taskStatus, taskDate, subjectName, taskType, timeStarted, timeCompleted FROM Task WHERE userID = ?;";
+        String sql = "SELECT taskName, hoursAllocated, taskStatus, taskDate, subjectName," +
+                "taskType, timeStarted, timeCompleted FROM Task WHERE userID = ?;";
         List<ScheduledTask> scheduledTasks = new ArrayList<>();
 
         try (Connection c = DataBaseManager.connect();

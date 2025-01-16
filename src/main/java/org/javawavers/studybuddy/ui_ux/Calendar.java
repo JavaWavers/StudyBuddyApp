@@ -7,10 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import org.javawavers.studybuddy.calculations.CreateWeekDay;
-import org.javawavers.studybuddy.calculations.Day;
-import org.javawavers.studybuddy.calculations.SimulateAnnealing;
-import org.javawavers.studybuddy.calculations.Week;
+import org.javawavers.studybuddy.calculations.*;
 import org.javawavers.studybuddy.courses.Exam;
 import org.javawavers.studybuddy.courses.ScheduledTask;
 import static org.javawavers.studybuddy.courses.StaticUser.staticUser;
@@ -38,6 +35,7 @@ import javafx.scene.text.FontWeight;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import org.javawavers.studybuddy.database.ActiveUser;
 
 public class Calendar {
   private LocalDate currentWeekStart;
@@ -50,7 +48,7 @@ public class Calendar {
   public static List<String> notStartedYet = new ArrayList<>();
   public static List<String> completed = new ArrayList<>();
   private static final GridPane calendarGrid = new GridPane();
-  List<Subject> subject;
+  List<Subject> subject = new ArrayList<>();
   private VBox upcomingTasksBox = new VBox(10);
   private VBox completedTasksBox = new VBox(10);
 
@@ -100,6 +98,12 @@ public class Calendar {
    // GridPane calendarGrid = new GridPane();
     calendarGrid.setStyle("-fx-border-color: black;");
     calendarGrid.setGridLinesVisible(true);
+
+    subject = staticUser.getSubjects();
+    for (Subject sub : subject) {
+        System.out.println("call subject in createCalandar");
+        System.out.println(sub);
+    }
     createCalendarGrid(calendarGrid, count, subject, totalWeeks);
     // μεταβλητη count η οποια μολις ο χρηστης παταει το κουμπι που παει τις εβδομαδες μπροστα
     // αυξανεται αλλιως μειωνεται οταν count == 0 τοτε θα εεμφανιζετε το κουμπι today
@@ -226,15 +230,18 @@ public class Calendar {
           if (answer.isPresent() && answer.get() == ButtonType.OK) {
             SimulateAnnealing sAnnealing = new SimulateAnnealing();
             ExamPage exPage = new ExamPage();
+
+            subject = staticUser.getSubjects();
             if (!exPage.getSubjects().isEmpty()) {
               System.out.print("Not empty subject list");
             } else {
-              System.out.println("empty");
+              System.out.println("empty subject list");
             }
 
-            subject = staticUser.getSubjects();
             SimulateAnnealing.scheduleResult();
             totalWeeks = new ArrayList<>(staticUser.getTotalWeeks());
+              PrintWeeks printWeek = new PrintWeeks();
+              printWeek.printWeeks(totalWeeks);
             /*
             int [][] schedule = SimulateAnnealing.getSchedule();
             int colSize = schedule[0].length;

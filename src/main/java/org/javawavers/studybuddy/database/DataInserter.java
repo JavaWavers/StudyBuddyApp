@@ -98,6 +98,14 @@ public class DataInserter {
              PreparedStatement ps = c.prepareStatement(sql)) {
             ps.setString(1, taskName);
             ps.setInt(2, hoursAllocated);
+            if (timeStarted == null) {
+                System.out.println("timeStarted είναι null. Χρησιμοποιώ προεπιλεγμένη ώρα 09:00");
+                timeStarted = LocalTime.of(9, 0);
+            }
+            if (timeCompleted == null) {
+                System.out.println("timeCompleted is null, set to 11:00");
+                timeCompleted = LocalTime.of(11, 0);
+            }
             ps.setString(3, timeStarted.format(formatter));
             ps.setString(4, timeCompleted.format(formatter));
             ps.setString(5, taskStatus.name());
@@ -128,7 +136,7 @@ public class DataInserter {
     }
 
     public static void insertWeek(int weekID, int userID) {
-        String sql = "INSERT INTO Week weekID, userID) VALUES (?, ?);";
+        String sql = "INSERT INTO Week (weekID, userID) VALUES (?, ?);";
         try (Connection c = DataBaseManager.connect();
              PreparedStatement ps = c.prepareStatement(sql)) {
             ps.setInt(1, weekID);

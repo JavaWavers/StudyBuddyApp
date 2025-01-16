@@ -163,7 +163,7 @@ public class DataBaseManager {
             String sql = """
                     CREATE TABLE IF NOT EXISTS Week (
                     weekID INTEGER PRIMARY KEY,
-                    userID TEXT NOT NULL,
+                    userID INNTEGER NOT NULL,
                     FOREIGN KEY (userID) REFERENCES User (userID)
                     );
                     """;

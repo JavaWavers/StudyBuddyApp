@@ -499,7 +499,7 @@
     <routine id="190" parent="1" name="fts5"/>
     <schema id="191" parent="1" name="main">
       <Current>1</Current>
-      <LastIntrospectionLocalTimestamp>2025-01-15.04:33:22</LastIntrospectionLocalTimestamp>
+      <LastIntrospectionLocalTimestamp>2025-01-16.07:00:19</LastIntrospectionLocalTimestamp>
     </schema>
     <argument id="192" parent="16">
       <ArgumentDirection>R</ArgumentDirection>
@@ -1703,7 +1703,6 @@
       <UnderlyingIndexName>sqlite_autoindex_Availability_1</UnderlyingIndexName>
     </key>
     <column id="586" parent="557" name="dayID">
-      <AutoIncrement>1</AutoIncrement>
       <Position>1</Position>
       <StoredType>INTEGER|0s</StoredType>
     </column>
@@ -1927,7 +1926,6 @@
       <UnderlyingIndexName>sqlite_autoindex_User_1</UnderlyingIndexName>
     </key>
     <column id="634" parent="563" name="weekID">
-      <AutoIncrement>1</AutoIncrement>
       <Position>1</Position>
       <StoredType>INTEGER|0s</StoredType>
     </column>
