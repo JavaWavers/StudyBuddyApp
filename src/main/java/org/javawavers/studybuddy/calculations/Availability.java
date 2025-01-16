@@ -54,7 +54,6 @@ public class Availability {
    * {@code StaticUser}.
    */
   public static void setAvPerDay() {
-    System.out.println("DONE");
     avPerDay = staticUser.getAvPerDay();
   }
 
