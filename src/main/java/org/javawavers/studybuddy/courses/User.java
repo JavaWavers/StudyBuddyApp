@@ -6,6 +6,7 @@ import java.util.List;
 
 import net.sf.saxon.functions.AccessorFn;
 import org.javawavers.studybuddy.calculations.*;
+import org.javawavers.studybuddy.database.DeleteData;
 
 public class User {
   private String username;
@@ -191,6 +192,7 @@ public class User {
 
   public void removeSubject(Subject subj) {
     subjects.remove(subj);
+    DeleteData.deleteSubject(subj);
   }
 
   public void updateSubject(int index, Subject subj) {
@@ -203,6 +205,7 @@ public class User {
 
   public void removeAssignment(Assignment assign) {
     assignments.remove(assign);
+    DeleteData.deleteAssignment(assign);
   }
 
   public void updateAssignment(int index, Assignment assign) {
@@ -215,6 +218,7 @@ public class User {
 
   public void removeExam(Exam exam) {
     exams.remove(exam);
+    DeleteData.deleteExam(exam);
   }
 
   public void updateExam(int index, Exam exam) {

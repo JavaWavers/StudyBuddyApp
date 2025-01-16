@@ -8,6 +8,7 @@ public class Assignment extends SubjectElement {
   private String description;
   private LocalDate completedDate;
   private int difficulty;
+  private int assignmentId;
 
   // different types of constructors
   // constructor without any parameter
@@ -57,7 +58,15 @@ public class Assignment extends SubjectElement {
     return description;
   }
 
+  public int getAssignmentId() {
+    return assignmentId;
+  }
+
   // setters
+  public void setAssignmentId(int assignmentId) {
+    this.assignmentId = assignmentId;
+  }
+
   public void setTitle(String title) {
     super.setName(title);
   }

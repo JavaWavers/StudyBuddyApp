@@ -167,7 +167,7 @@ public class ActiveUser {
     }
 
     public static List<Subject> getSubjects(int userID) {
-        String sql = "SELECT subjectName, difficultyLevel, subjectType FROM Subject WHERE userID = ?;";
+        String sql = "SELECT subjectName, difficultyLevel, subjectType, subjectID FROM Subject WHERE userID = ?;";
         List<Subject> subjects = new ArrayList<>();
         List<Exam> ex = new ArrayList<>();
 
@@ -176,10 +176,12 @@ public class ActiveUser {
             ps.setInt(1, userID);
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
+                    int subjectID = rs.getInt("subjectID");
                     String subjectName = rs.getString("subjectName");
                     int difficultyLevel = rs.getInt("difficultyLevel");
                     Subject.SubjectType subjectType = Subject.SubjectType.valueOf(rs.getString("subjectType"));
                     Subject subject = new Subject(subjectName, difficultyLevel, subjectType);
+                    subject.setSubjectId(subjectID);
                     subjects.add(subject);
                     int subID = getSubjectID(userID, subjectName);
                     ex = getExamForSubject(subID);
@@ -298,7 +300,7 @@ public class ActiveUser {
             return exams; // Επιστρέφει κενή λίστα αν δεν υπάρχουν subjectID
         }
 
-        String sql = "SELECT e.deadline, e.pages, e.revisionPerXPages, e.minutesPer20Slides, s.subjectName " +
+        String sql = "SELECT e.deadline, e.pages, e.revisionPerXPages, e.minutesPer20Slides, e.examID, s.subjectName " +
                 "FROM Exam e JOIN Subject s ON e.subjectID = s.subjectID WHERE e.subjectID IN (" +
                 subjectID.stream().map(id -> "?").collect(Collectors.joining(",")) + ")";
 
@@ -318,8 +320,10 @@ public class ActiveUser {
                     int revisionPerXPages = rs.getInt("revisionPerXPages");
                     double minutesPer20Slides = rs.getDouble("minutesPer20Slides");
                     String subjectName = rs.getString("subjectName");
+                    int examID = rs.getInt("examID");
 
                     Exam exam = new Exam(pages, revisionPerXPages, deadline, minutesPer20Slides);
+                    exam.setExamId(examID);
                     exams.add(exam);
                 }
             }
@@ -412,10 +416,12 @@ public class ActiveUser {
                     int estimateHours = rs.getInt("estimateHours");
                     String completedDateString = rs.getString("completedDate");
                     int difficulty = rs.getInt("difficulty");
+                    int assignmentID = rs.getInt("assignmentID");
                     LocalDate completedDate = (completedDateString != null && !completedDateString.isEmpty())
                             ? LocalDate.parse(completedDateString)
                             : null;
                     Assignment assignment = new Assignment(title, deadline, estimateHours, difficulty);
+                    assignment.setAssignmentId(assignmentID);
                     assignments.add(assignment);
                 }
 

@@ -25,8 +25,17 @@ public class Subject {
   private StudyGoal studyGoal; // Study goal for the course
   private static List<Exam> exams = new ArrayList<>(); // List of exams
   private List<Assignment> assignments = new ArrayList<>(); // List of assignments
+  private int subjectId;
 
   // Getters and Setters
+  public int getSubjectId() {
+    return subjectId;
+  }
+
+  public void setSubjectId(int subjectId) {
+    this.subjectId = subjectId;
+  }
+
   public String getCourseName() {
     return courseName;
   }
