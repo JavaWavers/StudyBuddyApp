@@ -367,7 +367,7 @@ public class ActiveUser {
 
     public static List<ScheduledTask> getTasks(int userID) {
         String sql = "SELECT taskName, hoursAllocated, taskStatus, taskDate, subjectName," +
-                "taskType, timeStarted, timeCompleted FROM Task WHERE userID = ?;";
+                "taskType, timeStarted, timeCompleted, taskID FROM Task WHERE userID = ?;";
         List<ScheduledTask> scheduledTasks = new ArrayList<>();
 
         try (Connection c = DataBaseManager.connect();
@@ -387,8 +387,10 @@ public class ActiveUser {
                     LocalTime timeStarted = LocalTime.parse(timeStString);
                     String timeComString = rs.getString("timeCompleted");
                     LocalTime timeCompleted = LocalTime.parse(timeComString);
+                    int taskID = rs.getInt("taskID");
                     ScheduledTask t = new ScheduledTask(taskName, taskType, hoursAllocated,
                             taskStatus, timeStarted, timeCompleted, taskDate, subjectName);
+                    t.setTaskId(taskID);
                     scheduledTasks.add(t);
                 }
             }

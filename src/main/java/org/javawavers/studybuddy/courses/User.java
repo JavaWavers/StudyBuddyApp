@@ -231,6 +231,7 @@ public class User {
 
   public void removeNonAvailDays(LocalDate date) {
     nonAvailDays.remove(date);
+    DeleteData.deleteNonAvDay(date);
   }
 
   public void updateNonAvailDays(int index, LocalDate date) {

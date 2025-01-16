@@ -2,11 +2,13 @@ package org.javawavers.studybuddy.database;
 
 import org.javawavers.studybuddy.courses.Assignment;
 import org.javawavers.studybuddy.courses.Exam;
+import org.javawavers.studybuddy.courses.ScheduledTask;
 import org.javawavers.studybuddy.courses.Subject;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.time.LocalDate;
 
 public class DeleteData {
     public static void deleteExam(Exam exam) {
@@ -57,6 +59,40 @@ public class DeleteData {
             }
         } catch (SQLException e) {
             System.err.println("Σφάλμα κατά την διαγραφή assignment: " + e.getMessage());
+        }
+    }
+
+    public static void deleteTask(ScheduledTask task) {
+        String sql = "DELETE FROM Task WHERE taskID = ?";
+        try (Connection c = DataBaseManager.connect();
+             PreparedStatement ps = c.prepareStatement(sql)) {
+            ps.setInt(1, task.getTaskId());
+
+            int rowsAffected = ps.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("ScheduledTask διαγράφτηκε με επιτυχία.");
+            } else {
+                System.out.println("Δεν βρέθηκε ScheduledTask με αυτό το ID.");
+            }
+        } catch (SQLException e) {
+            System.err.println("Σφάλμα κατά την διαγραφή ScheduledTask: " + e.getMessage());
+        }
+    }
+
+    public static void deleteNonAvDay(LocalDate date) {
+        String sql = "DELETE FROM NonAvDates WHERE date = ?";
+        try (Connection c = DataBaseManager.connect();
+             PreparedStatement ps = c.prepareStatement(sql)) {
+            ps.setString(1, date.toString());
+
+            int rowsAffected = ps.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("NonAvDate διαγράφτηκε με επιτυχία.");
+            } else {
+                System.out.println("Δεν βρέθηκε NonAvDate");
+            }
+        } catch (SQLException e) {
+            System.err.println("Σφάλμα κατά την διαγραφή NonAvDate: " + e.getMessage());
         }
     }
 }
