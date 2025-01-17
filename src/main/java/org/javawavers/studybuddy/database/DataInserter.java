@@ -236,7 +236,7 @@ public class DataInserter {
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
     String sql = "INSERT INTO CompletedTask (taskName, hoursAllocated, timeStarted,"
         + "timeCompleted, taskStatus, taskDate, subjectName, taskType,"
-        + "userID, dayID) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+        + "userId, dayId) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
     try (Connection c = DataBaseManager.connect();
          PreparedStatement ps = c.prepareStatement(sql)) {
       ps.setString(1, taskName);

@@ -12,7 +12,7 @@ public class DataBaseManager {
   private static final String DATABASE_URL =
       "jdbc:sqlite:src/main/java/org/javawavers/studybuddy/DataBase.db";
 
-  /** creates the connction with the database. */
+  /** creates the connection with the database. */
   public static Connection connect() {
     try {
       Class.forName("org.sqlite.JDBC");
@@ -172,7 +172,7 @@ public class DataBaseManager {
       String sql = """
                    CREATE TABLE IF NOT EXISTS Week (
                    weekId INTEGER PRIMARY KEY,
-                   userId INNTEGER NOT NULL,
+                   userId INTEGER NOT NULL,
                    FOREIGN KEY (userId) REFERENCES User (userId)
                    );
                    """;

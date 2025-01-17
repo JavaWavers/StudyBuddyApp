@@ -32,7 +32,7 @@ public class DeleteData {
 
   /** delete subject. */
   public static void deleteSubject(Subject subject) {
-    String sql = "DELETE FROM Subject WHERE subjectID = ?";
+    String sql = "DELETE FROM Subject WHERE subjectId = ?";
     try (Connection c = DataBaseManager.connect();
          PreparedStatement ps = c.prepareStatement(sql)) {
       ps.setInt(1, subject.getSubjectId());
@@ -41,16 +41,16 @@ public class DeleteData {
       if (rowsAffected > 0) {
         System.out.println("Το μάθημα διαγράφτηκε με επιτυχία.");
       } else {
-        System.out.println("Δεν βρέθηκε μάθημα με αυτό το ID.");
+        System.out.println("Δεν βρέθηκε μάθημα με αυτό το Id.");
       }
     } catch (SQLException e) {
       System.err.println("Σφάλμα κατά την διαγραφή μαθήματος: " + e.getMessage());
     }
   }
 
-  /** delete assignement. */
+  /** delete assignment. */
   public static void deleteAssignment(Assignment assignment) {
-    String sql = "DELETE FROM Assignment WHERE assignmentID = ?";
+    String sql = "DELETE FROM Assignment WHERE assignmentId = ?";
     try (Connection c = DataBaseManager.connect();
          PreparedStatement ps = c.prepareStatement(sql)) {
       ps.setInt(1, assignment.getAssignmentId());
@@ -68,7 +68,7 @@ public class DeleteData {
 
   /** delete task. */
   public static void deleteTask(ScheduledTask task) {
-    String sql = "DELETE FROM Task WHERE taskID = ?";
+    String sql = "DELETE FROM Task WHERE taskId = ?";
     try (Connection c = DataBaseManager.connect();
          PreparedStatement ps = c.prepareStatement(sql)) {
       ps.setInt(1, task.getTaskId());
@@ -77,7 +77,7 @@ public class DeleteData {
       if (rowsAffected > 0) {
         System.out.println("ScheduledTask διαγράφτηκε με επιτυχία.");
       } else {
-        System.out.println("Δεν βρέθηκε ScheduledTask με αυτό το ID.");
+        System.out.println("Δεν βρέθηκε ScheduledTask με αυτό το Id.");
       }
     } catch (SQLException e) {
       System.err.println("Σφάλμα κατά την διαγραφή ScheduledTask: " + e.getMessage());

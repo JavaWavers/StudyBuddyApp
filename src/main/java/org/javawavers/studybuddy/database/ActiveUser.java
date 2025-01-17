@@ -25,21 +25,21 @@ import org.javawavers.studybuddy.courses.User;
  */
 public class ActiveUser {
   private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-  public static int connectedID = -1;
+  public static int connectedId = -1;
 
   /** loading all data after authenticating user. */
   public static void loadData(String email, String password) {
     User connectedUser = authenticateUser(email, password);
     if (connectedUser != null) {
       StaticUser.staticUser = connectedUser;
-      List<Subject> subjects = getSubjects(getUserID(email, password));
-      List<LocalDate> nonAvDates = getNonAvDates(getUserID(email, password));
-      int[] availability = getAvailability(getUserID(email, password));
-      List<Day> days = getDays(getUserID(email, password));
-      List<Assignment> assignments = getAssignments(getUserID(email, password));
-      List<Exam> exams = getExam(getUserID(email, password));
-      List<ScheduledTask> scheduledTasks = getTasks(getUserID(email, password));
-      List<Week> weeks = getWeeks(getUserID(email, password));
+      List<Subject> subjects = getSubjects(getUserId(email, password));
+      List<LocalDate> nonAvDates = getNonAvDates(getUserId(email, password));
+      int[] availability = getAvailability(getUserId(email, password));
+      List<Day> days = getDays(getUserId(email, password));
+      List<Assignment> assignments = getAssignments(getUserId(email, password));
+      List<Exam> exams = getExam(getUserId(email, password));
+      List<ScheduledTask> scheduledTasks = getTasks(getUserId(email, password));
+      List<Week> weeks = getWeeks(getUserId(email, password));
 
       StaticUser.staticUser.setUserId(getUserId(email, password));
       StaticUser.staticUser.setEmail(email);
@@ -142,7 +142,7 @@ public class ActiveUser {
       try (ResultSet rs = ps.executeQuery()) {
         if (rs.next()) {
           subjectId = rs.getInt("subjectId");
-          System.out.println("Βρέθηκε subjectId: " + subjectID);
+          System.out.println("Βρέθηκε subjectId: " + subjectId);
         } else {
           System.err.println("Δεν βρέθηκε subjectId για τον χρήστη: "
               + userId + ", μάθημα: " + courseName);
@@ -208,7 +208,7 @@ public class ActiveUser {
   /** returns the list of exams for a specific user. */
   public static List<Exam> getExamForSubject(int subjectId) {
     List<Exam> exams = new ArrayList<>();
-    String sql = "SELECT e.deadline, e.pages, e.revisionPerXPages, e.minutesPer20Slides,"
+    String sql = "SELECT e.deadline, e.pages, e.revisionPerxPages, e.minutesPer20Slides,"
         + " s.subjectName FROM Exam e, Subject s "
         + "WHERE e.subjectId = s.subjectId AND e.subjectId = ?;";
     try (Connection c = DataBaseManager.connect();
@@ -390,7 +390,7 @@ public class ActiveUser {
           ScheduledTask.TaskStatus taskStatus =
               ScheduledTask.TaskStatus.valueOf(taskTypeString.toUpperCase());
           String dstring = rs.getString("taskDate");
-          LocalDate taskDate = LocalDate.parse(dString, FORMATTER);
+          LocalDate taskDate = LocalDate.parse(dstring, FORMATTER);
           String subjectName = rs.getString("subjectName");
           String taskType = rs.getString("taskType");
           String  timeStString = rs.getString("timeStarted");
@@ -497,7 +497,7 @@ public class ActiveUser {
               ScheduledTask.TaskStatus.valueOf(taskTypeString.toUpperCase());
           String dstring =
               rs.getString("taskDate");
-          LocalDate taskDate = LocalDate.parse(dString, FORMATTER);
+          LocalDate taskDate = LocalDate.parse(dstring, FORMATTER);
           String subjectName = rs.getString("subjectName");
           String taskType = rs.getString("taskType");
           ScheduledTask t = new ScheduledTask(taskName, taskType, hoursAllocated,
@@ -528,7 +528,7 @@ public class ActiveUser {
           ScheduledTask.TaskStatus taskStatus =
               ScheduledTask.TaskStatus.valueOf(taskTypeString.toUpperCase());
           String dstring = rs.getString("taskDate");
-          LocalDate taskDate = LocalDate.parse(dString, FORMATTER);
+          LocalDate taskDate = LocalDate.parse(dstring, FORMATTER);
           String subjectName = rs.getString("subjectName");
           String taskType = rs.getString("taskType");
           String  timeStString = rs.getString("timeStarted");
