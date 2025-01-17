@@ -116,7 +116,7 @@ public class Popupdiathesimotita extends Application {
     inPane.getChildren().add(inLabel);
     root.getChildren().add(inPane);
 
-    // προσθηκη κουμπιου (οκ) για να κλεινει το παραθυρο
+    // add a button (OK) to close the window
     Button okButton = new Button("OK");
     okButton.setStyle(
         "-fx-background-color: #CF308C; -fx-background-radius: 30px; -fx-text-fill: white; -fx-font-size: 14px;");
@@ -127,11 +127,11 @@ public class Popupdiathesimotita extends Application {
 
     okButton.setOnAction(
         event -> {
-          // οταν ο χρηστης επιλεγει το οκ ελενγουμε αν το finished ειναι επιλεγμενο
+          // When the user selects OK, we check if 'finished' is selected
           isFinishedChecked = finishedCheckBox.isSelected();
 
-          // αν ειναι βαζουμε το συγκεκριμενο task στην λιστα complete και το αφαιρουμε απο την
-          // λιστα notstartedyet
+          // If it is, we add the specific task to the complete list and remove it
+          // from the not started yet list
           if (isFinishedChecked) {
             if (notStartedYet != null && notStartedYet.contains(taskDescription)) {
               notStartedYet.remove(taskDescription);
