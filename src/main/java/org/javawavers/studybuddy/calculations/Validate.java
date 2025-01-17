@@ -20,8 +20,8 @@ public class Validate {
    * array representing the schedule taskList - the list of tasks return - the validated schedule
    */
   public static int[][] validateSchedule(int[][] validSchedule, List<Task> taskList) {
-    int[][] dValidSchedule = deadlineValidity(validSchedule, taskList);
-    int[][] avValidSchedule = availabilityValidity(dValidSchedule, taskList);
+    int[][] deadValidSchedule = deadlineValidity(validSchedule, taskList);
+    int[][] avValidSchedule = availabilityValidity(deadValidSchedule, taskList);
     return assignmentsValidity(avValidSchedule, taskList);
   }
 

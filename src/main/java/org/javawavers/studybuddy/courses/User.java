@@ -246,7 +246,7 @@ public class User {
         }
       }
     }
-    throw new IllegalArgumentException("No week found for the current date");
+    //throw new IllegalArgumentException("No week found for the current date");
   }
   /*
    input: list tasks and list days
