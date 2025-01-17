@@ -9,7 +9,11 @@ import org.javawavers.studybuddy.calculations.Week;
 import org.javawavers.studybuddy.courses.Assignment;
 import org.javawavers.studybuddy.courses.ScheduledTask;
 
-
+/**
+ * The {@code AssDistributionCalc} class is responsible for calculating the distribution
+ * of tasks across assignments. It provides utilities to compute and retrieve
+ * the percentage of tasks assigned to each assignment.
+ */
 public class AssDistributionCalc {
   // Stores the percentage distribution of tasks for each Assignment
   private static HashMap<String, Double> assDist;
