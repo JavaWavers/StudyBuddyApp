@@ -1,9 +1,5 @@
 package org.javawavers.studybuddy.database;
 
-import org.javawavers.studybuddy.calculations.*;
-import org.javawavers.studybuddy.courses.*;
-import org.javawavers.studybuddy.courses.StaticUser;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,89 +10,96 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import org.javawavers.studybuddy.calculations.Day;
+import org.javawavers.studybuddy.calculations.Week;
+import org.javawavers.studybuddy.courses.Assignment;
+import org.javawavers.studybuddy.courses.Exam;
+import org.javawavers.studybuddy.courses.ScheduledTask;
+import org.javawavers.studybuddy.courses.StaticUser;
+import org.javawavers.studybuddy.courses.Subject;
+import org.javawavers.studybuddy.courses.User;
+
+
+
 
 public class ActiveUser {
-    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-    public static int connectedID = -1;
+  private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+  public static int connectedID = -1;
 
-    public static void loadData(String email, String password) {
-        User connectedUser = authenticateUser(email, password);
-        if (connectedUser != null) {
-            StaticUser.staticUser = connectedUser;
-            List<Subject> subjects = getSubjects(getUserID(email, password));
-            List<LocalDate> nonAvDates = getNonAvDates(getUserID(email, password));
-            int[] availability = getAvailability(getUserID(email, password));
-            List<Day> days = getDays(getUserID(email, password));
-            List<Assignment> assignments = getAssignments(getUserID(email, password));
-            List<Exam> exams = getExam(getUserID(email, password));
-            List<ScheduledTask> scheduledTasks = getTasks(getUserID(email, password));
-            List<Week> weeks = getWeeks(getUserID(email, password));
+  public static void loadData(String email, String password) {
+    User connectedUser = authenticateUser(email, password);
+    if (connectedUser != null) {
+      StaticUser.staticUser = connectedUser;
+      List<Subject> subjects = getSubjects(getUserID(email, password));
+      List<LocalDate> nonAvDates = getNonAvDates(getUserID(email, password));
+      int[] availability = getAvailability(getUserID(email, password));
+      List<Day> days = getDays(getUserID(email, password));
+      List<Assignment> assignments = getAssignments(getUserID(email, password));
+      List<Exam> exams = getExam(getUserID(email, password));
+      List<ScheduledTask> scheduledTasks = getTasks(getUserID(email, password));
+      List<Week> weeks = getWeeks(getUserID(email, password));
 
-            StaticUser.staticUser.setUserID(getUserID(email, password));
-            StaticUser.staticUser.setEmail(email);
-            StaticUser.staticUser.setPassword(password);
-            StaticUser.staticUser.setAvPerDay(availability);
-            StaticUser.staticUser.setTotalWeeks(weeks);
-            StaticUser.staticUser.setAssignments(assignments);
-            StaticUser.staticUser.setExams(exams);
-            StaticUser.staticUser.setNonAvailDays(nonAvDates);
-            StaticUser.staticUser.setSubjects(subjects);
-            StaticUser.staticUser.setDays(days);
-            StaticUser.staticUser.setTasks(scheduledTasks);
-
-            for (Subject subject : subjects) {
-                System.out.println("subject:");
-                System.out.println(subject.toString());
-            }
-            for (Assignment assignment : assignments) {
-                System.out.println("assignment:");
-                System.out.println(assignment);
-            }
-            for (Exam exam : exams) {
-                System.out.println("exam:");
-                System.out.println(exam);
-            }
-            for (LocalDate nonAvDate : nonAvDates) {
-                System.out.println("nonAvDate:");
-                System.out.println(nonAvDate);
-            }
-            for (Week week : weeks) {
-                System.out.println("week:");
-                System.out.println(week);
-            }
-            for (int i = 1; i < 8; i++) {
-                System.out.println("availability:");
-                System.out.println(availability[i]);
-            }
-            for (ScheduledTask scheduledTask : scheduledTasks) {
-                System.out.println("scheduledTask:");
-                System.out.println(scheduledTask);
-            }
-
-
-        } else {
-            System.out.println("Username or password is incorrect");
-        }
-
+      StaticUser.staticUser.setUserID(getUserID(email, password));
+      StaticUser.staticUser.setEmail(email);
+      StaticUser.staticUser.setPassword(password);
+      StaticUser.staticUser.setAvPerDay(availability);
+      StaticUser.staticUser.setTotalWeeks(weeks);
+      StaticUser.staticUser.setAssignments(assignments);
+      StaticUser.staticUser.setExams(exams);
+      StaticUser.staticUser.setNonAvailDays(nonAvDates);
+      StaticUser.staticUser.setSubjects(subjects);
+      StaticUser.staticUser.setDays(days);
+      StaticUser.staticUser.setTasks(scheduledTasks);
+      for (Subject subject : subjects) {
+        System.out.println("subject:");
+        System.out.println(subject.toString());
+      }
+      for (Assignment assignment : assignments) {
+        System.out.println("assignment:");
+        System.out.println(assignment);
+      }
+      for (Exam exam : exams) {
+        System.out.println("exam:");
+        System.out.println(exam);
+      }
+      for (LocalDate nonAvDate : nonAvDates) {
+        System.out.println("nonAvDate:");
+        System.out.println(nonAvDate);
+      }
+      for (Week week : weeks) {
+        System.out.println("week:");
+        System.out.println(week);
+      }
+      for (int i = 1; i < 8; i++) {
+        System.out.println("availability:");
+        System.out.println(availability[i]);
+      }
+      for (ScheduledTask scheduledTask : scheduledTasks) {
+        System.out.println("scheduledTask:");
+        System.out.println(scheduledTask);
+      }
+    } else {
+      System.out.println("Username or password is incorrect");
     }
 
-    public static int getUserID(String email, String password) {
-        String query = "SELECT userID FROM User WHERE email = ? AND password = ?";
-        try (Connection c = DataBaseManager.connect();
-             PreparedStatement ps = c.prepareStatement(query)) {
-            ps.setString(1, email);
-            ps.setString(2, password);
+  }
 
-            try (ResultSet resultSet = ps.executeQuery()) {
-                if (resultSet.next()) {
-                    int userID = resultSet.getInt("userID");
-                    return userID;
-                }
-            }
-        } catch (SQLException e) {
-            System.err.println("Σφάλμα κατά την αναζήτηση κωδικου χρήστη: " + e.getMessage());
+  public static int getUserID(String email, String password) {
+    String query = "SELECT userID FROM User WHERE email = ? AND password = ?";
+    try (Connection c = DataBaseManager.connect();
+      PreparedStatement ps = c.prepareStatement(query)) {
+      ps.setString(1, email);
+      ps.setString(2, password);
+      try (ResultSet resultSet = ps.executeQuery()) {
+        if (resultSet.next()) {
+          int userID = resultSet.getInt("userID");
+          return userID;
         }
-        return -1;
+      }
+    } catch (SQLException e) {
+      System.err.println("Σφάλμα κατά την αναζήτηση κωδικου χρήστη: " + e.getMessage());
+    }
+    return -1;
     }
 
     public static User authenticateUser(String email, String password) {
