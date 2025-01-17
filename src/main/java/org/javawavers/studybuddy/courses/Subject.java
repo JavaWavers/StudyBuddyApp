@@ -3,16 +3,26 @@ package org.javawavers.studybuddy.courses;
 import java.util.ArrayList;
 import java.util.List;
 
+
+/**
+ * Represents a subject.
+ * A subject includes details such as its name, difficulty level,
+ * type, study goals, and related exams and assignments.
+ */
 public class Subject {
-  // Enum for the course types
+  /**
+   * Enum representing the type of the course (e.g., theoretical, practical).
+   */
   public enum SubjectType {
-    Θεωρητικό,
-    Θετικό,
-    Συνδυασμός,
-    Αγνωστο
+    Θεωρητικό, //Theoretical
+    Θετικό, // Practical
+    Συνδυασμός, // Combination
+    Αγνωστο // Unknown
   }
 
-  // Enum for the study goal
+  /**
+   * Enum representing the study goal for the course (e.g., average, good, excellent).
+   */
   public enum StudyGoal {
     AVERAGE,
     GOOD,
@@ -64,7 +74,12 @@ public class Subject {
   }
 
   // Constructors
-  // Constructor with just the course name
+  /**
+   * Constructs a Subject with the given name.
+   * Default values: difficulty level = 1, subject type = Αγνωστο, study goal = GOOD.
+   *
+   * @param courseName the name of the course
+   */
   public Subject(String courseName) {
     this.courseName = courseName;
     this.difficultyLevel = 1; // Default difficulty level
@@ -72,13 +87,19 @@ public class Subject {
     this.studyGoal = StudyGoal.GOOD; // Default study goal
   }
 
+  /**
+  *constructor only for setting courseName, difficulty level and subject type.
+   *
+   */
   public Subject(String courseName, int difficultyLevel, SubjectType subjectType) {
     this.courseName = courseName;
     this.difficultyLevel = difficultyLevel;
     this.subjectType = subjectType;
   }
 
-  // Constructor with all fields
+  /**
+   *Constructor for setting course name,  difficulty Level, subject type, and study goal.
+   */
   public Subject(
       String courseName, int difficultyLevel, SubjectType subjectType, StudyGoal studyGoal) {
     this.courseName = courseName;
@@ -87,13 +108,9 @@ public class Subject {
     this.studyGoal = studyGoal;
   }
 
-  public Subject(String courseName, SubjectType subjectType, int difficultyLevel) {
-    this.courseName = courseName;
-    this.difficultyLevel = difficultyLevel;
-    this.subjectType = subjectType;
-  }
-
-  // Methods to manage exams
+  /**
+   *Methods to manage exams.
+   */
   public void addExam(Exam exam) { // Add an exam to the course
     exams.add(exam);
   }
@@ -102,7 +119,9 @@ public class Subject {
     return exams;
   }
 
-  // Methods to manage assignments
+  /**
+   *Methods to manage assignments.
+   */
   public void addAssignment(Assignment assignment) { // Add an assignment to the course
     assignments.add(assignment);
   }
@@ -111,6 +130,11 @@ public class Subject {
     return assignments;
   }
 
+  /**
+   * Calculates the total estimated hours for all assignments in the course.
+   *
+   * @return the total estimated hours
+   */
   public double getTotalAssHours() {
     double sum = 0.0;
 
@@ -121,4 +145,16 @@ public class Subject {
 
     return sum;
   }
+
+  @Override
+  public String toString() {
+    return "Subject{" + "courseName='" + courseName + '\''
+            + ", difficultyLevel=" + difficultyLevel
+            + ", subjectType=" + subjectType
+            + ", studyGoal=" + studyGoal
+            + ", totalExams=" + exams.size()
+            + ", totalAssignments=" + assignments.size()
+            + '}';
+  }
+
 }
