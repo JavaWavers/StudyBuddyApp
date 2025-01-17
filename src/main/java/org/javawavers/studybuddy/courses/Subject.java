@@ -23,7 +23,7 @@ public class Subject {
   private int difficultyLevel; // Difficulty level of the course
   private SubjectType subjectType; // Type of the course
   private StudyGoal studyGoal; // Study goal for the course
-  private static List<Exam> exams = new ArrayList<>(); // List of exams
+  private List<Exam> exams = new ArrayList<>(); // List of exams
   private List<Assignment> assignments = new ArrayList<>(); // List of assignments
   private int subjectId;
 
@@ -107,7 +107,7 @@ public class Subject {
     exams.add(exam);
   }
 
-  public static List<Exam> getExams() { // Retrieve the list of exams for the course
+  public List<Exam> getExams() { // Retrieve the list of exams for the course
     return exams;
   }
 

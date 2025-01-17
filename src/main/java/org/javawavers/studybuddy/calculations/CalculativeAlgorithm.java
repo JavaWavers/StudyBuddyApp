@@ -42,15 +42,9 @@ public class CalculativeAlgorithm {
   }
 
   /**
-   * Retrieves the user's study speed in pages per minute.
-   *
-   * @return the current value of {@code pagesPerMin}.
+   * Τhe above method calculates the total studying time in hours
+   * for a subject.
    */
-  public static double getPagesPerMin() {
-    return pagesPerMin;
-  }
-
-  // calculates total studying time in hours
   public static double totalStudyingTime(Subject s) {
     // The total studying time required for a subject
     return (s.getExams().get(0).getPages() * s.getDifficultyLevel()) / (pagesPerMin * 60);

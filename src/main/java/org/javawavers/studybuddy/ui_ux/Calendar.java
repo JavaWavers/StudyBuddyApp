@@ -427,14 +427,12 @@ public class Calendar {
                 String taskDescription = "κενο";
                 taskDescription = s.toString();
                 LocalDate examDate = null;
-                List<Exam> exams = Subject.getExams();
+                //List<Exam> exams = s.getExams();
 
                 if (subject != null) {
                   for (Subject subj : subject) {
                     if (taskDescription.contains(subj.getCourseName())) {
-                      for (Exam exam : exams) {
-                        examDate = exam.getExamDate();
-                      }
+                        examDate = subj.getExams().get(0).getExamDate();
                       break;
                     }
                   }

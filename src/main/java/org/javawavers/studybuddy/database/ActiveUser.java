@@ -1,6 +1,5 @@
 package org.javawavers.studybuddy.database;
 
-import org.checkerframework.checker.units.qual.A;
 import org.javawavers.studybuddy.calculations.*;
 import org.javawavers.studybuddy.courses.*;
 import org.javawavers.studybuddy.courses.StaticUser;
@@ -460,7 +459,7 @@ public class ActiveUser {
     }
 
     public static List<ScheduledTask> getTasksForDay(int dayID) {
-        String sql = "SELECT taskName, hoursAllocated, timeStarted, timeCompleted, taskStatus, taskDate, subjectName, taskType FROM ScheduledTask WHERE dayID = ?";
+        String sql = "SELECT taskName, hoursAllocated, timeStarted, timeCompleted, taskStatus, taskDate, subjectName, taskType FROM Task WHERE dayID = ?";
         List<ScheduledTask> scheduledTasks = new ArrayList<>();
 
         try (Connection c = DataBaseManager.connect();

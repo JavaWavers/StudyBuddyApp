@@ -4,7 +4,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.sf.saxon.functions.AccessorFn;
 import org.javawavers.studybuddy.calculations.*;
 import org.javawavers.studybuddy.database.DeleteData;
 
@@ -252,7 +251,7 @@ public class User {
         }
       }
     }
-    throw new IllegalArgumentException("No week found for the current date");
+    //throw new IllegalArgumentException("No week found for the current date");
   }
   /*
    input: list tasks and list days
