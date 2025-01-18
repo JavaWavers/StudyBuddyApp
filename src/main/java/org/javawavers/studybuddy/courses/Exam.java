@@ -70,12 +70,12 @@ public class Exam extends SubjectElement {
    * @param timePer20Slides The estimated time (in minutes) required for 20 slides.
    */
   public Exam(
-      Subject subject,
-      LocalDate examDate,
-      int pages,
-      String name,
-      int revisionPerPages,
-      int timePer20Slides) {
+          Subject subject,
+          LocalDate examDate,
+          int pages,
+          String name,
+          int revisionPerPages,
+          int timePer20Slides) {
     super(examDate, subject.getCourseName());
     this.pages = pages;
     this.name = name;
@@ -146,7 +146,7 @@ public class Exam extends SubjectElement {
   @Override
   public String toString() {
     StringBuilder builder =
-        new StringBuilder(); // StringBuilder provides efficiency and flexibility
+            new StringBuilder(); // StringBuilder provides efficiency and flexibility
     builder.append("Εξέταση{Όνομα Μαθήματος: '").append(super.getName()).append("'");
 
     if (getExamDate() != null) {
@@ -163,9 +163,9 @@ public class Exam extends SubjectElement {
 
     if (timePer20Slides != 0.0) {
       builder
-          .append("\nΑπαιτούμενα λεπτά για 20 διαφάνειες: '")
-          .append(timePer20Slides)
-          .append("'");
+              .append("\nΑπαιτούμενα λεπτά για 20 διαφάνειες: '")
+              .append(timePer20Slides)
+              .append("'");
     }
 
     builder.append("}");
