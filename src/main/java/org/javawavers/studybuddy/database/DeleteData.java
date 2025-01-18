@@ -1,9 +1,6 @@
 package org.javawavers.studybuddy.database;
 
-import org.javawavers.studybuddy.courses.Assignment;
-import org.javawavers.studybuddy.courses.Exam;
-import org.javawavers.studybuddy.courses.ScheduledTask;
-import org.javawavers.studybuddy.courses.Subject;
+import org.javawavers.studybuddy.courses.*;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -80,10 +77,11 @@ public class DeleteData {
     }
 
     public static void deleteNonAvDay(LocalDate date) {
-        String sql = "DELETE FROM NonAvDates WHERE date = ?";
+        String sql = "DELETE FROM NonAvDates WHERE date = ? AND userID = ?";
         try (Connection c = DataBaseManager.connect();
              PreparedStatement ps = c.prepareStatement(sql)) {
             ps.setString(1, date.toString());
+            ps.setInt(2, StaticUser.staticUser.getUserID());
 
             int rowsAffected = ps.executeUpdate();
             if (rowsAffected > 0) {
