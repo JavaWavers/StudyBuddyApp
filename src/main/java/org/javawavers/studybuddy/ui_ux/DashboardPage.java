@@ -1,7 +1,5 @@
 package org.javawavers.studybuddy.ui_ux;
 
-import static org.javawavers.studybuddy.courses.StaticUser.staticUser;
-
 import java.util.HashMap;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
@@ -11,7 +9,6 @@ import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -22,7 +19,6 @@ import org.javawavers.studybuddy.graphs.BarChartCalc;
 import org.javawavers.studybuddy.graphs.LineChartCalc;
 import org.javawavers.studybuddy.graphs.SubjDistributionCalc;
 import org.javawavers.studybuddy.graphs.SummaryBoxCalc;
-
 
 public class DashboardPage {
   // Center panel
@@ -89,7 +85,7 @@ public class DashboardPage {
   // Pie Chart for subject distribution
   private PieChart createSubjectsPieChart() {
     PieChart pieChart = new PieChart();
-    pieChart. setTitle("Subjects Distribution");
+    pieChart.setTitle("Subjects Distribution");
     HashMap<String, Double> subjDist = new HashMap<>(SubjDistributionCalc.subjectsDistribution());
     for (String s : subjDist.keySet()) {
       double percentage = subjDist.get(s);
@@ -101,7 +97,7 @@ public class DashboardPage {
   // Pie Chart for subject distribution
   private PieChart createAssignmentPieChart() {
     PieChart pieChart = new PieChart();
-    pieChart. setTitle("Assignment Distribution");
+    pieChart.setTitle("Assignment Distribution");
     HashMap<String, Double> assDist = new HashMap<>(AssDistributionCalc.assignmentsDistribution());
     for (String a : assDist.keySet()) {
       double percentage = assDist.get(a);
@@ -110,10 +106,9 @@ public class DashboardPage {
     return pieChart;
   }
 
-
   // Bar Chart
   private BarChart<String, Number> createBarChart() {
-    //Axis creation
+    // Axis creation
     CategoryAxis x = new CategoryAxis();
     NumberAxis y = new NumberAxis();
     x.setLabel("Κατηγορίες διαβάσματος");
@@ -127,17 +122,17 @@ public class DashboardPage {
     BarChart<String, Number> barChart = new BarChart<>(x, y);
     barChart.setTitle("Weekly Study Distribution");
 
-    //Data import
+    // Data import
     XYChart.Series<String, Number> series = new XYChart.Series<>();
     series.setName("");
 
-    //Data calculation
+    // Data calculation
     int totalHours = BarChartCalc.calcTotalHours();
     int studyHours = BarChartCalc.calcStudyHours();
     int assignmentHours = BarChartCalc.calcAssignmentHours();
     int revisionHours = BarChartCalc.calcRevisionHours();
 
-    //Data addition in the series
+    // Data addition in the series
     series.getData().add(new XYChart.Data<>("Συνολική μελέτη", totalHours));
     series.getData().add(new XYChart.Data<>("Διάβασμα", studyHours));
     series.getData().add(new XYChart.Data<>("Εργασίες", assignmentHours));

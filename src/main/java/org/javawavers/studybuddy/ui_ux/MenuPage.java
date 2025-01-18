@@ -1,7 +1,10 @@
 package org.javawavers.studybuddy.ui_ux;
 
+import java.net.URL;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
@@ -11,59 +14,60 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+import org.javawavers.studybuddy.StudyBuddyApp;
+import org.javawavers.studybuddy.courses.StaticUser;
+
+import static org.javawavers.studybuddy.courses.StaticUser.staticUser;
 
 public class MenuPage {
   private VBox leftBoxMenu = new VBox(15);
-  private ToggleButton btnHome = new ToggleButton("Home");
   private ToggleButton btnExam = new ToggleButton("Exam");
   private ToggleButton btnAssignment = new ToggleButton("Assignments");
   private ToggleButton btnCalendar = new ToggleButton("Calendar");
   private ToggleButton btnDashboard = new ToggleButton("Dashboard");
   private ToggleButton btnCourses = new ToggleButton("Courses");
+  private Button disconnectBtn = new Button("Αποσύνδεση");
 
   private CenterPanelManager centerPanelManager;
   private RightPanel rightPanel;
   private ImageView arrowIconCourses;
   private Image arrowRight;
   private Image arrowDown;
-
-  private String btnStyle;
-  private String btnInsideStyle;
-  private String btnSelected;
-  private String btnInsideSelected;
+  private ImageView arrowIconCalendar;
+  private ImageView arrowIconDashboard;
   VBox optionVBox = new VBox(15);
-
 
   public MenuPage(CenterPanelManager centerPanelManager, RightPanel rightPanel) {
     this.centerPanelManager = centerPanelManager;
     this.rightPanel = rightPanel;
-    initVariables();
+    initializeMenu();
   }
 
-  private void initVariables() {
-
-    configMenu();
-    initToggleGroup();
-    configBtnStyles();
-    setButtonSelectedStyles();
-    configUserImgBtn();
-    configNavigationBtns();
-    configCourses();
-    configLogo();
+  private void initializeMenu() {
+    configureLayout();
+    configureUserSection();
+    configureButtons();
+    setButtonGraphs();
+    configureLogo();
   }
 
-  private void configMenu() {
+  private void configureLayout() {
     leftBoxMenu.setPrefWidth(212);
-    leftBoxMenu.setMinWidth(212); // or 88.33
-    leftBoxMenu.setMaxWidth(212);
-    leftBoxMenu.setStyle("-fx-background-color: #F7B267; ");
-
+    leftBoxMenu.setStyle("-fx-background-color: #F7B267;");
+    leftBoxMenu.setPadding(new Insets(20));
     leftBoxMenu.setMaxHeight(Double.MAX_VALUE);
   }
 
-  private void initToggleGroup() {
+  private void configureButtons() {
+    initializeToggleGroup();
+    configureButtonStyles();
+    configureNavigationButtons();
+    configureCourseDropdown();
+  }
+
+  private void initializeToggleGroup() {
     ToggleGroup btnGroup = new ToggleGroup();
-    btnHome.setToggleGroup(btnGroup);
     btnCourses.setToggleGroup(btnGroup);
     btnExam.setToggleGroup(btnGroup);
     btnAssignment.setToggleGroup(btnGroup);
@@ -71,153 +75,176 @@ public class MenuPage {
     btnDashboard.setToggleGroup(btnGroup);
   }
 
-  private void configBtnStyles() {
-    setButtonSelectedStyles();
+  private void configureButtonStyles() {
+    btnExam.setStyle(Styles.MENU_BTN_INSIDE_STYLE);
+    btnAssignment.setStyle(Styles.MENU_BTN_INSIDE_STYLE);
+    btnCalendar.setStyle(Styles.MENU_BTN_STYLE);
+    btnDashboard.setStyle(Styles.MENU_BTN_STYLE);
+    btnCourses.setStyle(Styles.MENU_BTN_STYLE);
 
-    btnStyle =
-        "-fx-border-color: #F7B267; "
-            + "-fx-background-color: #F7B267; "
-            + "-fx-border-width: 1px; "
-            + "fx-text-fill: black; "
-            + "fx-font-size: 14px; "
-            + "fx-alignment: CENTER-LEFT; "
-            + " -fx-border-radius: 5px; "
-            + "-fx-padding: 10px; ";
-
-    btnInsideStyle =
-        "-fx-border-color: #F7B267; "
-            + "-fx-background-color: #F7B267; "
-            + "-fx-border-width: 1px; "
-            + "fx-text-fill: black; "
-            + "fx-font-size: 14px; "
-            + "fx-alignment: CENTER-LEFT; "
-            + " -fx-border-radius: 5px; "
-            + "-fx-padding: 10px 20px; ";
-
-    btnHome.setStyle(btnStyle);
-    btnExam.setStyle(btnInsideStyle);
-    btnAssignment.setStyle(btnInsideStyle);
-    btnCalendar.setStyle(btnStyle);
-    btnDashboard.setStyle(btnStyle);
-    btnCourses.setStyle(btnStyle);
+    configureButtonSelection();
   }
 
-  private void setButtonSelectedStyles() {
-    // Button Styles
+  private void configureButtonSelection() {
+    configureSelectionListener(btnCourses, Styles.MENU_BTN_SELECTED, Styles.MENU_BTN_STYLE);
+    configureSelectionListener(btnCalendar, Styles.MENU_BTN_SELECTED, Styles.MENU_BTN_STYLE);
+    configureSelectionListener(btnDashboard, Styles.MENU_BTN_SELECTED, Styles.MENU_BTN_STYLE);
+    configureSelectionListener(
+        btnExam, Styles.MENU_BTN_INSIDE_SELECTED, Styles.MENU_BTN_INSIDE_STYLE);
+    configureSelectionListener(
+        btnAssignment, Styles.MENU_BTN_INSIDE_SELECTED, Styles.MENU_BTN_INSIDE_STYLE);
+  }
 
-    btnSelected =
-        "-fx-border-color: #F9C288; "
-            + "-fx-background-color: #F9C288; "
-            + "-fx-border-width: 1px; "
-            + "fx-text-fill: black; "
-            + "fx-font-size: 14px; "
-            + "fx-alignment: CENTER-LEFT; "
-            + " -fx-border-radius: 5px; "
-            + "-fx-padding: 10px; ";
-
-    btnInsideSelected =
-        "-fx-border-color: #F9C288; "
-            + "-fx-background-color: #F9C288; "
-            + "-fx-border-width: 1px; "
-            + "fx-text-fill: black; "
-            + "fx-font-size: 14px; "
-            + "fx-alignment: CENTER-LEFT; "
-            + " -fx-border-radius: 5px; "
-            + "-fx-padding: 10px 20px; ";
-
-    // Change Button Colors When Selected
-    btnHome
+  private void configureSelectionListener(
+      ToggleButton button, String selectedStyle, String defaultStyle) {
+    button
         .selectedProperty()
         .addListener(
             (obs, wasSelected, isSelected) -> {
-              btnHome.setStyle(isSelected ? btnSelected : btnStyle);
-            });
-
-    btnCourses
-        .selectedProperty()
-        .addListener(
-            (obs, wasSelected, isSelected) -> {
-              btnCourses.setStyle(isSelected ? btnSelected : btnStyle);
-            });
-
-    btnCalendar
-        .selectedProperty()
-        .addListener(
-            (obs, wasSelected, isSelected) -> {
-              btnCalendar.setStyle(isSelected ? btnSelected : btnStyle);
-            });
-
-    btnDashboard
-        .selectedProperty()
-        .addListener(
-            (obs, wasSelected, isSelected) -> {
-              btnDashboard.setStyle(isSelected ? btnSelected : btnStyle);
-            });
-
-    btnExam
-        .selectedProperty()
-        .addListener(
-            (obs, wasSelected, isSelected) -> {
-              btnExam.setStyle(isSelected ? btnInsideSelected : btnInsideStyle);
-            });
-
-    btnAssignment
-        .selectedProperty()
-        .addListener(
-            (obs, wasSelected, isSelected) -> {
-              btnAssignment.setStyle(isSelected ? btnInsideSelected : btnInsideStyle);
+              button.setStyle(isSelected ? selectedStyle : defaultStyle);
             });
   }
 
-  private void configUserImgBtn() {
-    // User Image
+  private void configureUserSection() {
     try {
-      Image userImg = new Image(getClass().getResource("/user.png").toExternalForm());
-      ImageView userImgView = new ImageView(userImg);
-      userImgView.setFitWidth(20);
-      userImgView.setFitHeight(20);
-      // User Img btn
-      RegisterPage sg = new RegisterPage();
-      String name = sg.storedUsername;
-      Label userNameLbl = new Label(name); // dynamic name
-      userNameLbl.setStyle(btnStyle);
+      URL userImgUrl = getClass().getResource("/user.png");
+      if (userImgUrl != null) {
+        Image userImg = new Image(userImgUrl.toExternalForm());
+        ImageView userImgView = new ImageView(userImg);
+        userImgView.setFitWidth(20);
+        userImgView.setFitHeight(20);
 
-      HBox userImgBtn = new HBox(10);
-      userImgBtn.getChildren().addAll(userImgView, userNameLbl);
-      userImgBtn.setAlignment(Pos.CENTER_LEFT);
+        String userName = staticUser.getUsername();
+        if (userName == null) {
+          userName = "Guest";
+        }
+        Label userNameLbl = new Label(userName);
+        userNameLbl.setStyle(Styles.MENU_BTN_STYLE);
 
-      leftBoxMenu.getChildren().add(userImgBtn);
-    } catch (NullPointerException e) {
-      System.out.println("Image not Found!");
+        URL logoutImgUrl = getClass().getResource("/logout.png");
+        if (logoutImgUrl != null) {
+          Image logoutImg = new Image(logoutImgUrl.toExternalForm());
+          ImageView logoutImgView = new ImageView(logoutImg);
+          logoutImgView.setFitWidth(18);
+          logoutImgView.setFitHeight(18);
+          Button btnLogout = new Button();
+          btnLogout.setGraphic(logoutImgView);
+          btnLogout.setStyle("-fx-background-color: transparent;");
+          btnLogout.setOnAction(e -> configLogOutBtn());
+
+          Region spacer = new Region();
+          HBox.setHgrow(spacer, Priority.ALWAYS);
+
+          HBox userSection = new HBox(10, userImgView, userNameLbl, spacer, btnLogout);
+          userSection.setAlignment(Pos.CENTER_LEFT);
+          HBox.setHgrow(btnLogout, Priority.ALWAYS);
+
+          leftBoxMenu.getChildren().add(userSection);
+        } else {
+          System.out.println("Δεν βρέθηκε η εικόνα αποσύνδεσης!");
+        }
+      } else {
+        System.out.println("Δεν βρέθηκε η εικόνα χρήστη!");
+      }
+    } catch (Exception e) {
+      System.out.println("Δεν μπορεί να φορτωθεί η εικόνα: " + e.getMessage());
     }
   }
 
-  private void configNavigationBtns() {
-    setButtonGraphs();
+  private void configLogOutBtn() {
+    try {
+      Stage stage = StudyBuddyApp.getStage();
 
-    btnHome.setOnAction(e -> changeRight("Home"));
-    btnExam.setOnAction(e -> changeRight("Exam"));
-    btnAssignment.setOnAction(e -> changeRight("Assignments"));
-    btnCalendar.setOnAction(e -> changeRight("Calendar"));
-    btnDashboard.setOnAction(e -> changeRight("Dashboard"));
-
-    leftBoxMenu.getChildren().addAll(btnHome, btnCourses, btnCalendar, btnDashboard);
+      SceneManager sceneManager = new SceneManager(stage);
+      HomePage homePage = new HomePage();
+      Scene homeScene = homePage.home(sceneManager);
+      sceneManager.switchScene(homeScene);
+    } catch (Exception e) {
+      System.out.println("Σφάλμα κάτά την αποσύνδεση: " + e.getMessage());
+    }
   }
 
-  private void changeRight(String panelName) {
-    centerPanelManager.changeCenterPanel(panelName);
+  private void configureNavigationButtons() {
+    setButtonIcons();
 
-    rightPanel.updateRightPaneContent(panelName);
-    System.out.println("Changing panel to: " + panelName);
+    btnExam.setOnAction(e -> changePanel("Exam"));
+    btnAssignment.setOnAction(e -> changePanel("Assignments"));
+    btnCalendar.setOnAction(e -> changePanel("Calendar"));
+    btnDashboard.setOnAction(e -> changePanel("Dashboard"));
+
+    try {
+      if (!leftBoxMenu.getChildren().contains(btnCourses)) {
+        leftBoxMenu.getChildren().add(btnCourses);
+      }
+      if (!leftBoxMenu.getChildren().contains(btnCalendar)) {
+        leftBoxMenu.getChildren().add(btnCalendar);
+      }
+      if (!leftBoxMenu.getChildren().contains(btnDashboard)) {
+        leftBoxMenu.getChildren().add(btnDashboard);
+      }
+    } catch (IllegalArgumentException e) {
+      System.out.println("Δεν μπορούν να προστεθούν τα κουμπιά του μενού: " + e.getMessage());
+    }
   }
 
-  private void configCourses() {
+  private void changePanel(String panelName) {
+    try {
+      centerPanelManager.changeCenterPanel(panelName);
+      rightPanel.updateRightPaneContent(panelName);
+      System.out.println("Switching to: " + panelName);
+    } catch (Exception e) {
+      System.out.println(
+          "Δεν μπορεί να αλλάξει το panel σε: " + panelName + " -> " + e.getMessage());
+    }
+  }
 
+  private void setButtonGraphs() {
+    // Load arrow images
+    arrowRight = new Image(getClass().getResource("/arrowRight.png").toExternalForm());
+    arrowDown = new Image(getClass().getResource("/arrowDown.png").toExternalForm());
+
+    // Configure arrow icons for buttons
+    arrowIconCourses = new ImageView(arrowRight);
+    arrowIconCalendar = new ImageView(arrowRight);
+    arrowIconDashboard = new ImageView(arrowRight);
+
+    arrowIconCourses.setFitHeight(20);
+    arrowIconCourses.setFitWidth(20);
+    arrowIconCalendar.setFitHeight(20);
+    arrowIconCalendar.setFitWidth(20);
+    arrowIconDashboard.setFitHeight(20);
+    arrowIconDashboard.setFitWidth(20);
+
+    // Configure buttons with arrows and icons
+    btnCourses.setGraphic(
+        new HBox(
+            10,
+            arrowIconCourses,
+            new ImageView(new Image(getClass().getResource("/folder.png").toExternalForm()))));
+    btnCalendar.setGraphic(
+        new HBox(
+            10,
+            arrowIconCalendar,
+            new ImageView(new Image(getClass().getResource("/calendar.png").toExternalForm()))));
+    btnDashboard.setGraphic(
+        new HBox(
+            10,
+            arrowIconDashboard,
+            new ImageView(new Image(getClass().getResource("/dashboard.png").toExternalForm()))));
+  }
+
+  private void configureCourseDropdown() {
     optionVBox.setVisible(false);
+
     btnCourses.setOnAction(
         e -> {
           if (optionVBox.getChildren().isEmpty()) {
-            optionVBox.getChildren().addAll(btnExam, btnAssignment);
+            if (!optionVBox.getChildren().contains(btnExam)) {
+              optionVBox.getChildren().add(btnExam);
+            }
+            if (!optionVBox.getChildren().contains(btnAssignment)) {
+              optionVBox.getChildren().add(btnAssignment);
+            }
             optionVBox.setVisible(true);
             arrowIconCourses.setImage(arrowDown);
 
@@ -227,108 +254,43 @@ public class MenuPage {
               VBox.setMargin(btnAssignment, new Insets(0, 20, 0, 20));
             }
           } else {
-            optionVBox.getChildren().clear();
-            optionVBox.setVisible(false);
-            leftBoxMenu.getChildren().remove(optionVBox);
-            arrowIconCourses.setImage(arrowRight);
+            closeCoursesDropdown();
           }
         });
   }
 
-  private void closeCoursesOption(VBox optionVBox) {
-    if (optionVBox.isVisible()) {
+  private void closeCoursesDropdown() {
+    if (leftBoxMenu.getChildren().contains(optionVBox)) {
       optionVBox.getChildren().clear();
       optionVBox.setVisible(false);
       leftBoxMenu.getChildren().remove(optionVBox);
-      arrowIconCourses.setImage(arrowRight);
     }
+    arrowIconCourses.setImage(arrowRight);
   }
 
-  private void configLogo() {
-    // logo Image
+  private void configureLogo() {
     Image logoImg = new Image(getClass().getResource("/logo.png").toExternalForm());
-    ImageView logoImgView = new ImageView(logoImg);
-
-    logoImgView.setFitWidth(200);
-    logoImgView.setPreserveRatio(true);
+    ImageView logoView = new ImageView(logoImg);
+    logoView.setFitWidth(200);
+    logoView.setPreserveRatio(true);
 
     Region logoSpacer = new Region();
     VBox.setVgrow(logoSpacer, Priority.ALWAYS);
-
-    HBox logoBox = new HBox(logoImgView);
-    logoBox.setAlignment(Pos.CENTER);
-
-    leftBoxMenu.getChildren().addAll(logoSpacer, logoImgView);
+    leftBoxMenu.getChildren().addAll(logoSpacer, logoView);
   }
 
-  private void setButtonGraphs() {
-    // arrow Images
-    arrowRight = new Image(getClass().getResource("/arrowRight.png").toExternalForm());
-    arrowDown = new Image(getClass().getResource("/arrowDown.png").toExternalForm());
+  private void setButtonIcons() {
+    setIconForButton(btnCourses, "/folder.png");
+    setIconForButton(btnCalendar, "/calendar.png");
+    setIconForButton(btnDashboard, "/dashboard.png");
+  }
 
-    ImageView arrowIconHome = new ImageView(arrowRight);
-    arrowIconHome.setFitWidth(20);
-    arrowIconHome.setFitHeight(20);
-
-    arrowIconCourses = new ImageView(arrowRight);
-    arrowIconCourses.setFitHeight(20);
-    arrowIconCourses.setFitWidth(20);
-
-    ImageView arrowIconCalendar = new ImageView(arrowRight);
-    arrowIconCalendar.setFitHeight(20);
-    arrowIconCalendar.setFitWidth(20);
-
-    ImageView arrowIconDashboard = new ImageView(arrowRight);
-    arrowIconDashboard.setFitWidth(20);
-    arrowIconDashboard.setFitHeight(20);
-
-    // Home Image
-    Image homeImage = new Image(getClass().getResource("/icons8-homepage-32.png").toExternalForm());
-    ImageView homeImageView = new ImageView(homeImage);
-
-    homeImageView.setFitHeight(20);
-    homeImageView.setFitWidth(20);
-
-    // Courses Image
-    Image coursesImage = new Image(getClass().getResource("/folder.png").toExternalForm());
-    ImageView coursesImageView = new ImageView(coursesImage);
-
-    coursesImageView.setFitWidth(20);
-    coursesImageView.setFitHeight(20);
-
-    // Calendar Image
-    Image calendarImage = new Image(getClass().getResource("/calendar.png").toExternalForm());
-    ImageView calendarImageView = new ImageView(calendarImage);
-
-    calendarImageView.setFitHeight(20);
-    calendarImageView.setFitWidth(20);
-
-    // Dashboard Image
-    Image dashboardImage = new Image(getClass().getResource("/dashboard.png").toExternalForm());
-    ImageView dashboardImageView = new ImageView(dashboardImage);
-
-    dashboardImageView.setFitWidth(20);
-    dashboardImageView.setFitHeight(20);
-
-    // Home Image btn
-    HBox homeImg = new HBox(10);
-    homeImg.getChildren().addAll(arrowIconHome, homeImageView);
-    btnHome.setGraphic(homeImg);
-
-    // Courses
-    HBox coursesImg = new HBox(10);
-    coursesImg.getChildren().addAll(arrowIconCourses, coursesImageView);
-    btnCourses.setGraphic(coursesImg);
-
-    // Calendar
-    HBox calendarImg = new HBox(10);
-    calendarImg.getChildren().addAll(arrowIconCalendar, calendarImageView);
-    btnCalendar.setGraphic(calendarImg);
-
-    // Dashboard
-    HBox dashboardImg = new HBox(10);
-    dashboardImg.getChildren().addAll(arrowIconDashboard, dashboardImageView);
-    btnDashboard.setGraphic(dashboardImg);
+  private void setIconForButton(ToggleButton button, String imagePath) {
+    Image img = new Image(getClass().getResource(imagePath).toExternalForm());
+    ImageView imgView = new ImageView(img);
+    imgView.setFitWidth(20);
+    imgView.setFitHeight(20);
+    button.setGraphic(new HBox(10, imgView));
   }
 
   public VBox getLeftBoxMenu() {

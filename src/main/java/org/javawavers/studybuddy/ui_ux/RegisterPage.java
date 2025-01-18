@@ -3,10 +3,6 @@ package org.javawavers.studybuddy.ui_ux;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
-import org.javawavers.studybuddy.courses.StaticUser;
-import org.javawavers.studybuddy.courses.User;
-
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -26,6 +22,8 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Screen;
+import org.javawavers.studybuddy.courses.StaticUser;
+import org.javawavers.studybuddy.courses.User;
 import org.javawavers.studybuddy.database.ActiveUser;
 import org.javawavers.studybuddy.database.DataInserter;
 
@@ -107,7 +105,7 @@ public class RegisterPage {
     textField = new TextField();
     textField.setPromptText("Enter your password");
 
-    textField.setManaged(false); // να ξεκινησει και να μην φαινεται ο κωδικος
+    textField.setManaged(false); // to start without the code being visible
     textField.setVisible(false);
     Image seeImage1 = new Image(getClass().getResource("/seePassword.png").toExternalForm());
     Image notseeImage2 = new Image(getClass().getResource("/notseePassword.png").toExternalForm());
@@ -132,10 +130,10 @@ public class RegisterPage {
           PasswordVisibility();
         });
 
-    // τα τοποθετουμε και τα τρια σε εna hbox
+    // place all three of them in a HBox
     HBox passwordBox = new HBox(5, passwordField, textField, toggleButton);
 
-    // κανουμε το ιδιο για το confirmpassword
+    // do the same for the confirmpassword
     Label confirmpasswordLabel = new Label("Confirm Password:");
     confirmpasswordLabel.setFont(new Font("System Bold", 14));
 
@@ -172,7 +170,7 @@ public class RegisterPage {
     HBox confirmPasswordBox =
         new HBox(5, confirmPasswordField, confirmPasswordTextField, toggleConfirmPasswordButton);
 
-    // κουμπι για την εγγραφη
+    // button for the registration
     registerButton = new Button("Εγγραφή");
     registerButton.setFont(new Font("System Bold", 14));
 
@@ -290,7 +288,7 @@ public class RegisterPage {
     Text messageText2 = new Text("το χρόνο σου.");
     messageText2.setFont(new Font(14));
 
-    // κουμπι logon
+    // button for the login
     loginButton = new Button("Συνδέσου εδώ");
     loginButton.setFont(new Font("System Bold", 14));
     loginButton.setStyle(
@@ -371,7 +369,7 @@ public class RegisterPage {
             StaticUser.staticUser.setUsername(storedUsername);
             StaticUser.staticUser.setPassword(storedPassword);
             StaticUser.staticUser.setEmail(storedEmail);
-            StaticUser.staticUser.setUserID(ActiveUser.getUserID(storedEmail, storedPassword));
+            StaticUser.staticUser.setUserId(ActiveUser.getUserId(storedEmail, storedPassword));
           }
         });
   }
@@ -382,25 +380,26 @@ public class RegisterPage {
     storedPassword = passwordField.getText();
     String confirmPassword = confirmPasswordField.getText();
 
-    // Ορίζουμε τον τρέχοντα χρήστη κατά την είσοδο στην εφαρμογή
+    // define the current user upon logging into the application
     User user = new User(storedUsername, storedEmail, storedPassword);
 
     StaticUser.staticUser = user;
 
     List<String> errors = new ArrayList<>();
-    // error αν το ονομα ειναι λιγοτερο απο 4 χαρακτηρες
+    // error if the name is less than 4 characters
     if (storedUsername.isEmpty() || storedUsername.length() < 2) {
       System.out.println("storedUsername");
       errors.add("• Το όνομα πρέπει να έχει πάνω από έναν χαρακτήρα");
     } else if (!storedUsername.matches("[a-zA-Z0-9_α-ωΑ-ΩάέήίΰϊϋόύώΆΈΉΊΪΫΌΎΏ-]+")) {
       errors.add("• Το όνομα μπορεί να περιέχει μόνο γράμματα,αριθμούς,παύλες και κάτω παύλες");
     }
-    // error αν το email δεν περιεχει το @
-    if (storedEmail.isEmpty() || !storedEmail.matches("^[a-zA-Z0-9._%+-]{2,}@[a-zA-Z0-9.-]{2,}\\.[a-zA-Z]{2,}$")) {
+    // error if the email doesn't contain @
+    if (storedEmail.isEmpty()
+        || !storedEmail.matches("^[a-zA-Z0-9._%+-]{2,}@[a-zA-Z0-9.-]{2,}\\.[a-zA-Z]{2,}$")) {
       System.out.println("storedEmail");
       errors.add("• Εισήγαγε ένα έγκυρο email");
     }
-    // error αν ο κωδικος ειναι μικροτερος απο 6 χαρακτηρες
+    // error if the password is less than 6 characters
     if (storedPassword.isEmpty() || storedPassword.length() < 8) {
       System.out.println("storedPassword empty or length");
       errors.add("• Ο κωδικός πρόσβασης πρέπει να έχει πάνω από 8 χαρακτήρες");
@@ -413,12 +412,12 @@ public class RegisterPage {
     } else if (!storedPassword.matches(".*[!@#$%^&+=].*")) {
       errors.add("• Ο Κωδικός πρόσβασης πρέπει να έχει τουλάχιστον έναν ειδικό χαρακτήρα");
     }
-    // error αν ο κωδικος και ο κωδικος επιβεβαιωσης δεν ειναι ιδιος
+    // error if the confirmation code is not the same
     if (!storedPassword.equals(confirmPassword)) {
       System.out.println("storedpassword confirm");
       errors.add("• Οι κωδικοί που έβαλες δεν είναι ίδιοι");
     }
-    // αν υπαρχουν error εμφανιζει την λισατ στον χρηστη
+    // If there are errors, it displays the list to the user
     if (!errors.isEmpty()) {
       Alert alert = new Alert(Alert.AlertType.WARNING);
       alert.setTitle("Η φόρμα δεν έχει ολοκληρωθεί");
@@ -432,7 +431,7 @@ public class RegisterPage {
       alert.showAndWait();
       return false;
     }
-    // μηνυμα επιτυχιας αν δεν υπαρχουν errors
+    // success message if there are no errors
     Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
     successAlert.setTitle("Εγγραφή Επιτυχής");
     successAlert.setHeaderText(null);

@@ -42,9 +42,9 @@ public class HomePage {
       // Add components to root
       home.getChildren().addAll(navBar, mainPane);
       return new Scene(
-              home,
-              Screen.getPrimary().getVisualBounds().getWidth(),
-              Screen.getPrimary().getVisualBounds().getHeight());
+          home,
+          Screen.getPrimary().getVisualBounds().getWidth(),
+          Screen.getPrimary().getVisualBounds().getHeight());
     } catch (IllegalStateException e) {
       System.err.println("Δεν μπορεί να δημιουργηθεί η αρχική: " + e.getMessage());
       e.printStackTrace();
@@ -81,6 +81,7 @@ public class HomePage {
 
     return centralHBox;
   }
+
   private VBox leftVBox() {
 
     Label welcomeLabel = new Label("Γεια σου, \nΚαλώς όρισες στο \nStudy Buddy σου!");
@@ -102,10 +103,10 @@ public class HomePage {
     tryButton.setTextFill(javafx.scene.paint.Color.WHITE);
 
     tryButton.setOnAction(
-            event -> {
-              RegisterPage register = new RegisterPage();
-              sceneManager.switchScene(register.register(sceneManager));
-            });
+        event -> {
+          RegisterPage register = new RegisterPage();
+          sceneManager.switchScene(register.register(sceneManager));
+        });
 
     VBox welcomeBox = new VBox(10);
     welcomeBox.setPadding(new Insets(30));
@@ -153,7 +154,6 @@ public class HomePage {
     rightVBox.setPrefWidth(Screen.getPrimary().getVisualBounds().getWidth() / 2);
     rightVBox.getChildren().addAll(imgVBox);
     return rightVBox;
-
   }
 
   private HBox navBar() {
@@ -197,10 +197,10 @@ public class HomePage {
     logInBtn.setStyle(loginBtnStyle());
 
     logInBtn.setOnAction(
-            event -> {
-              LoginPage login = new LoginPage();
-              sceneManager.switchScene(login.login(sceneManager));
-            });
+        event -> {
+          LoginPage login = new LoginPage();
+          sceneManager.switchScene(login.login(sceneManager));
+        });
 
     Region loginBtnSpacer = new Region();
     HBox.setHgrow(loginBtnSpacer, Priority.ALWAYS);
@@ -217,32 +217,33 @@ public class HomePage {
 
   private String loginBtnStyle() {
     return "-fx-font-family: 'System'; "
-            + "-fx-font-size: 14 px; "
-            + "-fx-font-weight: bold; "
-            + "-fx-text-fill: white; "
-            + "-fx-background-color: rgba(101, 225, 101, 0.9); "
-            + "-fx-background-radius: 30px; "
-            + "-fx-border-radius: 30px; "
-            + "-fx-border-color: black;";
+        + "-fx-font-size: 14 px; "
+        + "-fx-font-weight: bold; "
+        + "-fx-text-fill: white; "
+        + "-fx-background-color: rgba(101, 225, 101, 0.9); "
+        + "-fx-background-radius: 30px; "
+        + "-fx-border-radius: 30px; "
+        + "-fx-border-color: black;";
   }
+
   private String btnStyle() {
     return "-fx-background-color: linear-gradient(#FAD7A0, #F7B267);"
-            + "-fx-background-radius: 8,7,6;"
-            + "-fx-background-insets: 0,1,2;"
-            + "-fx-text-fill: #5A3D2B;"
-            + "-fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.3), 5, 0, 2, 2);"
-            + "-fx-font-weight: bold;"
-            + "-fx-padding: 10 20;"
-            + "-fx-border-color: #D98A4B;"
-            + "-fx-border-radius: 6;";
+        + "-fx-background-radius: 8,7,6;"
+        + "-fx-background-insets: 0,1,2;"
+        + "-fx-text-fill: #5A3D2B;"
+        + "-fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.3), 5, 0, 2, 2);"
+        + "-fx-font-weight: bold;"
+        + "-fx-padding: 10 20;"
+        + "-fx-border-color: #D98A4B;"
+        + "-fx-border-radius: 6;";
   }
 
   private String tryBtnStyle() {
-    return "-fx-background-color: rgba(181, 99, 241, 0.81);" +
-            " -fx-background-radius: 30px; " +
-            "-fx-border-radius: 30px;" +
-            " -fx-border-color: black;" +
-            " -fx-font-size: 18;" +
-            "-fx-font-weight: bold; ";
+    return "-fx-background-color: rgba(181, 99, 241, 0.81);"
+        + " -fx-background-radius: 30px; "
+        + "-fx-border-radius: 30px;"
+        + " -fx-border-color: black;"
+        + " -fx-font-size: 18;"
+        + "-fx-font-weight: bold; ";
   }
 }

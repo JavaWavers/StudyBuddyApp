@@ -3,19 +3,36 @@ package org.javawavers.studybuddy.courses;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
+/**
+ * The {@code Assignment} class represents an assignment that is part of a course. It extends the
+ * {@code SubjectElement} class and includes additional fields such as estimated hours to complete,
+ * difficulty, and completed date. This class provides functionality to validate estimated hours,
+ * set and get assignment details, and check if the deadline is approaching soon. Features:
+ * Constructors to initialize assignments with or without parameters. Deadline validation based on
+ * estimated hours and maximum hours allowed. Deadline warning messages for approaching deadlines.
+ */
 public class Assignment extends SubjectElement {
   private int estimateHours;
-  private String description;
   private LocalDate completedDate;
   private int difficulty;
+  private int assignmentId;
 
   // different types of constructors
-  // constructor without any parameter
+  /** Default constructor. Creates an empty assignment with no title or deadline. */
   public Assignment() {
     super(null, null);
   }
 
-  // constructor with parameters
+  /**
+   * Parameterized constructor. Creates an assignment with specified details.
+   *
+   * @param title The title of the assignment.
+   * @param deadline The deadline for the assignment.
+   * @param estimateHours The estimated hours needed to complete the assignment.
+   * @param difficulty The difficulty level of the assignment.
+   * @throws IllegalArgumentException if the estimated hours exceed the maximum allowed hours based
+   *     on the deadline.
+   */
   public Assignment(String title, LocalDate deadline, int estimateHours, int difficulty) {
     super(deadline, title);
     if (validEstHours(estimateHours, deadLine)) {
@@ -30,6 +47,14 @@ public class Assignment extends SubjectElement {
 
   private static int maxHours;
 
+  /**
+   * Validates the estimated hours for the assignment.
+   *
+   * @param estimateHours The estimated hours to complete the assignment.
+   * @param deadLine The deadline for the assignment.
+   * @return {@code true} if the estimated hours are less than the maximum allowed, otherwise {@code
+   *     false}.
+   */
   private static boolean validEstHours(int estimateHours, LocalDate deadLine) {
     LocalDate today = LocalDate.now();
     maxHours = (int) ChronoUnit.DAYS.between(today, deadLine) * 14;
@@ -37,12 +62,26 @@ public class Assignment extends SubjectElement {
   }
 
   // getters
+  /**
+   * Returns the title of the assignment.
+   *
+   * @return The title of the assignment.
+   */
   public String getTitle() {
     return super.getName();
   }
 
+  /**
+   * Returns the date the assignment was completed.
+   *
+   * @return The completed date of the assignment, or {@code null} if not set.
+   */
   public LocalDate getCompletedDate() {
     return completedDate;
+  }
+
+  public int getAssignmentId() {
+    return assignmentId;
   }
 
   public LocalDate getDeadline() {
@@ -53,11 +92,12 @@ public class Assignment extends SubjectElement {
     return estimateHours;
   }
 
-  public String getDescription() {
-    return description;
-  }
-
   // setters
+  /**
+   * Sets the title of the assignment.
+   *
+   * @param title The new title of the assignment.
+   */
   public void setTitle(String title) {
     super.setName(title);
   }
@@ -66,6 +106,11 @@ public class Assignment extends SubjectElement {
     this.completedDate = completedDate;
   }
 
+  /**
+   * Sets the deadline for the assignment.
+   *
+   * @param deadLine The new deadline for the assignment.
+   */
   public void setDeadline(LocalDate deadLine) {
     super.setDate(deadLine);
   }
@@ -74,8 +119,8 @@ public class Assignment extends SubjectElement {
     this.estimateHours = estimateHours;
   }
 
-  public void setDescription(String description) {
-    this.description = description;
+  public void setAssignmentId(int assignmentId) {
+    this.assignmentId = assignmentId;
   }
 
   @Override

@@ -26,7 +26,6 @@ public class Day {
     return todayTasks.get(index);
   }
 
-
   public List<ScheduledTask> getAllTasks() {
     return todayTasks;
   }
