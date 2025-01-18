@@ -7,6 +7,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoField;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -98,67 +99,65 @@ public class Calendar {
     calendarGrid.setGridLinesVisible(true);
 
     subject = staticUser.getSubjects();
-    for (Subject sub : subject) {
-      System.out.println("call subject in createCalandar");
-      System.out.println(sub);
+    if (!staticUser.getTotalWeeks().isEmpty()) {
+      totalWeeks = new ArrayList<>(staticUser.getTotalWeeks());
+      createCalendarGrid(calendarGrid, 0, subject, totalWeeks);
+    } else {
+      totalWeeks = new ArrayList<>();
+      createCalendarGrid(calendarGrid, 0, subject, totalWeeks);
     }
-    /*createCalendarGrid(calendarGrid, count, subject, totalWeeks);///////////////////////////////////////////
-    System.out.println("test calendar" + staticUser.getTotalWeeks());
-    if (staticUser.getTotalWeeks() !=  null) {
-        PrintWeeks printWeek = new PrintWeeks();
-        printWeek.printWeeks(staticUser.getTotalWeeks());
-    }
-*/
 
-    // variable count, which increases when the user presses the button to move the weeks forward
-    //  and decreases otherwise. When count == 0, the 'Today' button will be displayed
+
     prevButton.setOnAction(
-        event -> {
-          if (count > 0) {
-            count = count - 1;
-            if (count < totalWeeks.size()) {
-              currentWeekStart = currentWeekStart.minusWeeks(1);
-              weekLabel.setText(formatWeekLabel(currentWeekStart, formatter));
-              createCalendarGrid(calendarGrid, count, SimulateAnnealing.getSubjects(), totalWeeks);
-            }
-          } else {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle(null);
-            alert.setHeaderText(null);
-            alert.setContentText(
-                "Προς το παρόν, δεν υπάρχουν προηγούμενες εβδομάδες. Αλλά μην ανησυχείς, όλα ξεκινούν από εδώ!");
-            alert
-                .getDialogPane()
-                .getStylesheets()
-                .add(getClass().getResource("/alert.css").toExternalForm());
-            alert.getDialogPane().setMinWidth(500);
-            alert.getDialogPane().setMinHeight(300);
-            alert.showAndWait();
-          }
-        });
-
-    nextButton.setOnAction(
-        event -> {
-          count++;
-          if (count > totalWeeks.size()) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle(null);
-            alert.setHeaderText(null);
-            alert.setContentText(
-                "Πάει κι αυτό! 🎉 Ώρα για λίγη ξεκούραση τώρα! Η εξεταστική σου σταματάει εδώ");
-            alert
-                .getDialogPane()
-                .getStylesheets()
-                .add(getClass().getResource("/alert.css").toExternalForm());
-            alert.getDialogPane().setMinWidth(500);
-            alert.getDialogPane().setMinHeight(300);
-            alert.showAndWait();
-          } else {
-            currentWeekStart = currentWeekStart.plusWeeks(1);
+      event -> {
+        if (count > 0) {
+          count = count - 1;
+          if (count < totalWeeks.size()) {
+            currentWeekStart = currentWeekStart.minusWeeks(1);
             weekLabel.setText(formatWeekLabel(currentWeekStart, formatter));
             createCalendarGrid(calendarGrid, count, SimulateAnnealing.getSubjects(), totalWeeks);
           }
-        });
+        } else {
+          Alert alert = new Alert(Alert.AlertType.WARNING);
+          alert.setTitle(null);
+          alert.setHeaderText(null);
+          alert.setContentText("Προς το παρόν, δεν υπάρχουν προηγούμενες εβδομάδες."
+            +
+            " Αλλά μην ανησυχείς, όλα ξεκινούν από εδώ!");
+          alert
+            .getDialogPane()
+            .getStylesheets()
+            .add(Objects.requireNonNull(getClass().getResource("/alert.css")).toExternalForm());
+          alert.getDialogPane().setMinWidth(500);
+          alert.getDialogPane().setMinHeight(300);
+          alert.showAndWait();
+        }
+      });
+    //Button to navigate in the next week with the variable count
+    nextButton.setOnAction(
+      event -> {
+        count++;
+        if (count > totalWeeks.size() - 1) {
+          Alert alert = new Alert(Alert.AlertType.WARNING);
+          alert.setTitle(null);
+          alert.setHeaderText(null);
+          alert.setContentText(
+            "Πάει κι αυτό! 🎉 Ώρα για λίγη ξεκούραση τώρα! Η εξεταστική σου σταματάει εδώ");
+          alert
+            .getDialogPane()
+            .getStylesheets()
+            .add(Objects.requireNonNull(
+              getClass().getResource("/alert.css")).toExternalForm());
+          alert.getDialogPane().setMinWidth(500);
+          alert.getDialogPane().setMinHeight(300);
+          alert.showAndWait();
+        } else {
+          currentWeekStart = currentWeekStart.plusWeeks(1);
+          weekLabel.setText(formatWeekLabel(currentWeekStart, formatter));
+          createCalendarGrid(calendarGrid, count, SimulateAnnealing.getSubjects(), totalWeeks);
+
+        }
+      });
 
     weekSwitcher.setTranslateY(40);
     weekSwitcher.setAlignment(Pos.CENTER);

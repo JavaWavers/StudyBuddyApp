@@ -1,5 +1,8 @@
 package org.javawavers.studybuddy.ui_ux;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,6 +14,10 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import org.javawavers.studybuddy.courses.Assignment;
+import org.javawavers.studybuddy.courses.Subject;
+
+import static org.javawavers.studybuddy.courses.StaticUser.staticUser;
 
 // import static Calendar.completed;
 // import static Calendar.completed;
@@ -80,6 +87,32 @@ public class RightPanel {
         break;
     }
   }
+  private String[] getSubjectsArray() {
+    List<Subject> subjects = staticUser.getSubjects();
+    subjects.forEach(subject -> System.out.println(subject.getCourseName()));
+    return subjects.stream()
+      .map(Subject::getCourseName)
+      .toArray(String[]::new);
+  }
+  int[] avPerDay = staticUser.getAvPerDay();
+  String[] avPerDayArray = Arrays.stream(avPerDay)
+    .mapToObj(String::valueOf)
+    .toArray(String[]::new);
+
+  List<LocalDate> nonAvailDays = staticUser.getNonAvailDays();
+  DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+  String[] nonAvPerDay = nonAvailDays.stream()
+    .map(date -> date.format(formatter))
+    .toArray(String[]::new);
+
+  private String[] getAssignimentsArray() {
+    List<Assignment> ass = staticUser.getAssignments();
+    ass.forEach(Assigniment -> System.out.println(ass.get(0).getTitle()));
+    return ass.stream()
+      .map(Assignment::getTitle)
+      .toArray(String[]::new);
+  }
+
 
   private VBox tasksPane() {
     VBox tasksPane = new VBox(10);
@@ -114,21 +147,21 @@ public class RightPanel {
         .addAll(
             TasksVBox(
                 "Μαθήματα",
-                new String[] {"Task 1", "Task 2", "Task 3", "4", "5", "6", "7", "8", "9,", "10"},
+                getSubjectsArray(),
                 Styles.TaskType
                     .TODAY), // εδώ που είναι το new String βάζουμε μια μέθοδο που επιστρέφει τα
             // μαθήματα)
             TasksVBox(
                 "Εργασίες",
-                new String[] {"Task A", "Task B", "Task C", "Task D"},
+                getAssignimentsArray(),
                 Styles.TaskType.WEEK),
             TasksVBox(
                 "Διαθεσιμότητα Ημερών",
-                new String[] {"Overdue Task 1", "Overdue Task 2"},
+                avPerDayArray,
                 Styles.TaskType.OVERDUE),
             TasksVBox(
                 "Μη διαθεσιμότητα",
-                new String[] {"Completed Task X", "Completed Task Y"},
+                 nonAvPerDay,
                 Styles.TaskType.COMPLETED));
     return coursePane;
   }
