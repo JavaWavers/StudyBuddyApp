@@ -254,7 +254,7 @@ public class AvailabilityPage {
   private TextField createHoursField() {
     TextField hoursField = new TextField();
     hoursField.setStyle("-fx-background-radius: 20px;");
-    // περιορισμος εισαγωγης μονο αριθμων
+    // restriction for input to accept only numbers
     hoursField.setTextFormatter(
         new TextFormatter<>(
             new IntegerStringConverter(),
@@ -268,8 +268,7 @@ public class AvailabilityPage {
     return hoursField;
   }
 
-  // ελνχος αν το κειμενο ειναι κενο η περιεχει μονο κενα τοτε επιστρεφουμε την τιμη 0 για καθε
-  // ημερα
+  // Check if the text is empty or contains only spaces, then return the value 0 for each day
   private Integer parseTextFieldValue(TextField textField) {
     if (textField != null) {
       String text = textField.getText();

@@ -15,7 +15,7 @@ public class User {
   private String username; // The username of the user
   private String email; //The email address of the user
   private String password; //The password of the user
-  private int userID; //The unique identifier for the user.
+  private int userId; //The unique identifier for the user.
   int[] avPerDay; // availability for each day of the week
   private Week currentWeek; //The current week being tracked by the user.
   List<LocalDate> nonAvailDays = new ArrayList<>();
@@ -81,14 +81,14 @@ public class User {
   /**
    * Constructor for a user with a unique ID.
    *
-   * @param userID   the unique ID of the user
+   * @param userId   the unique ID of the user
    * @param username the username of the user
    * @param email    the email address of the user
    * @param password the password of the user
    */
-  public User(int userID, String username, String email, String password) {
+  public User(int userId, String username, String email, String password) {
     this.username = username;
-    this.userID = userID;
+    this.userId = userId;
     this.email = email;
     this.password = password;
   }
@@ -96,7 +96,7 @@ public class User {
   /**
    * Constructor for a user logging in with a generated program.
    *
-   * @param userID       the unique ID of the user
+   * @param userId       the unique ID of the user
    * @param username     the username of the user
    * @param email        the email address of the user
    * @param password     the password of the user
@@ -109,7 +109,7 @@ public class User {
    * @param days         a list of days with associated tasks for the user
    */
   public User(
-      int userID,
+      int userId,
       String username,
       String email,
       String password,
@@ -129,7 +129,7 @@ public class User {
     this.exams = exams;
     this.tasks = tasks;
     this.days = days;
-    this.userID = userID;
+    this.userId = userId;
   }
 
   // getters and setters
@@ -173,12 +173,12 @@ public class User {
     this.nonAvailDays = nonAvailDays;
   }
 
-  public void setUserID(int userID) {
-    this.userID = userID;
+  public void setUserId(int userId) {
+    this.userId = userId;
   }
 
-  public int getUserID() {
-    return userID;
+  public int getUserId() {
+    return userId;
   }
 
   public List<Subject> getSubjects() {

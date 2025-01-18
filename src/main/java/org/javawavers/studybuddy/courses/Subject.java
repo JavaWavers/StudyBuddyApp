@@ -14,19 +14,28 @@ public class Subject {
    * Enum representing the type of the course (e.g., theoretical, practical).
    */
   public enum SubjectType {
-    Theoretical,
-    Practical,
-    Combination,
-    Unknown
+      Theoretical,
+      Practical,
+      Combination,
+      Unknown
   }
+
 
   private String courseName;
   private int difficultyLevel; // Difficulty level of the course
   private SubjectType subjectType; // Type of the course
   private List<Exam> exams = new ArrayList<>(); // List of exams
-
+  private int subjectId;
 
   // Getters and Setters
+  public int getSubjectId() {
+    return subjectId;
+  }
+
+  public void setSubjectId(int subjectId) {
+    this.subjectId = subjectId;
+  }
+
   public String getCourseName() {
     return courseName;
   }
@@ -51,6 +60,7 @@ public class Subject {
     this.subjectType = subjectType;
   }
 
+
   public void setExams(List<Exam> exams) {
     this.exams = exams;
   }
@@ -66,6 +76,7 @@ public class Subject {
     this.courseName = courseName;
     this.difficultyLevel = 1; // Default difficulty level
     this.subjectType = SubjectType.Unknown; // Default subject type
+
   }
 
   /**
@@ -88,7 +99,6 @@ public class Subject {
   public List<Exam> getExams() { // Retrieve the list of exams for the course
     return exams;
   }
-
 
   @Override
   public String toString() {

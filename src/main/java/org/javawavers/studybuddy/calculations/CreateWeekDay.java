@@ -189,7 +189,7 @@ public class CreateWeekDay {
     PrintWeeks printWeeks = new PrintWeeks();
     printWeeks.printWeeks(totalWeeks);
 
-    int id = staticUser.getUserID();
+    int id = staticUser.getUserId();
     int i = 0;
     int j = 0;
 

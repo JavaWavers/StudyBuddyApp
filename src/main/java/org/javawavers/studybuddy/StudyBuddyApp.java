@@ -33,7 +33,7 @@ public class StudyBuddyApp extends Application { // exam page
     stage.setMinHeight(768);
 
     stage.show();
-    DataBaseManager.CreateTables();
+    DataBaseManager.createTables();
   }
 
   public static void main(String[] args) {

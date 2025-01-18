@@ -150,16 +150,16 @@ public class RightPanel {
     VBox popupContent = new VBox(10);
     popupContent.setPadding(new Insets(10));
     popupContent.setAlignment(Pos.TOP_CENTER);
-    // οριζουμε τον τιτλο αναλογα με το κουμπι  που εχει πατηθει
+    // define the title according to the button that has been pressed
     Label titleLabel = new Label(title);
     titleLabel.setStyle("-fx-font-size: 18px; -fx-font-weight: bold;");
-    // δημιουργουμε taskbox για τα task
+    // create taskbox for the tasks
     VBox tasksBox = new VBox(5);
     tasksBox.setAlignment(Pos.TOP_LEFT);
     tasksBox.setStyle("-fx-max-height: 300px;");
 
-    // δημιουργουμε scrollpane για να μπορει ο χρηστης να κανει scroll και να δει ολα τα task τα
-    // οποια εχει να κανει εκεινη την εβδομαδα
+    // We create a scrollpane so the user can scroll down and see all the tasks
+    // that he has done that week
     ScrollPane scrollPane = new ScrollPane();
     scrollPane.setContent(tasksBox);
     scrollPane.setFitToWidth(true);
@@ -169,7 +169,7 @@ public class RightPanel {
   }
 }
 
-    // δημιουργουμε τα checkbox
+    // Create the checkbox
   /*  if (taskList != null && !taskList.isEmpty()) {
         for (String task : taskList) {
           CheckBox checkBox = new CheckBox(task);
@@ -207,7 +207,7 @@ public class RightPanel {
           }
         }
         popupStage.close();
-        //ενημερωνουμε τα taskboxes
+        //update the taskboxes
         updateUpcomingTasks(upcomingTasksBox);
         updateCompletedTasks(completedTasksBox);
       });

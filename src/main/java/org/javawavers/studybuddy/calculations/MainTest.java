@@ -7,14 +7,13 @@ import org.javawavers.studybuddy.courses.*;
 public class MainTest {
   public static void main(String[] args) {
     // Create subjects
-    Subject Maths = new Subject("Maths", 4, Subject.SubjectType.Αγνωστο);
+    Subject Maths = new Subject("Maths", 4, Subject.SubjectType.Unknown);
     Exam e1 = new Exam(400, 20, LocalDate.of(2025, 2, 24), 50);
     Maths.addExam(e1);
     Assignment a1 = new Assignment("Mathsασσ", LocalDate.of(2025, 2, 18), 13, 4);
 
-    Maths.addAssignment(a1);
     // Maths.addAssignment(a2);
-    Subject History = new Subject("History", 4, null, null);
+    Subject History = new Subject("History", 4, Subject.SubjectType.Practical);
     Exam e2 = new Exam(100, 30, LocalDate.of(2025, 2, 1), 90);
 
     // assignment without any exam
