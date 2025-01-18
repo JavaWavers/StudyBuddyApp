@@ -9,24 +9,24 @@ import org.javawavers.studybuddy.courses.Exam;
 import org.javawavers.studybuddy.courses.ScheduledTask;
 import org.javawavers.studybuddy.courses.Subject;
 
-
+/** contains the methods for deleting data.*/
 public class DeleteData {
-    public static void deleteExam(Exam exam) {
-        String sql = "DELETE FROM Exam WHERE examID = ?";
-        try (Connection c = DataBaseManager.connect();
-             PreparedStatement ps = c.prepareStatement(sql)) {
-            ps.setInt(1, exam.getExamId());
+  public static void deleteExam(Exam exam) {
+    String sql = "DELETE FROM Exam WHERE examID = ?";
+    try (Connection c = DataBaseManager.connect();
+         PreparedStatement ps = c.prepareStatement(sql)) {
+        ps.setInt(1, exam.getExamId());
 
-            int rowsAffected = ps.executeUpdate();
-            if (rowsAffected > 0) {
-                System.out.println("Η εξέταση διαγράφτηκε με επιτυχία.");
-            } else {
-                System.out.println("Δεν βρέθηκε εξέταση με αυτό το ID.");
-            }
-        } catch (SQLException e) {
-            System.err.println("Σφάλμα κατά την διαγραφή εξέτασης: " + e.getMessage());
+        int rowsAffected = ps.executeUpdate();
+        if (rowsAffected > 0) {
+            System.out.println("Η εξέταση διαγράφτηκε με επιτυχία.");
+        } else {
+            System.out.println("Δεν βρέθηκε εξέταση με αυτό το ID.");
         }
+    } catch (SQLException e) {
+        System.err.println("Σφάλμα κατά την διαγραφή εξέτασης: " + e.getMessage());
     }
+  }
 
     public static void deleteSubject(Subject subject) {
         String sql = "DELETE FROM Subject WHERE subjectID = ?";
