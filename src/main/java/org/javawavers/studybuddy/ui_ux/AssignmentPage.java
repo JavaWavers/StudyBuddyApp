@@ -17,7 +17,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.control.TitledPane;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
@@ -30,137 +30,29 @@ public class AssignmentPage {
   private TextField namField, assignmentField, estimateHours, difficultyField;
   ComboBox<String> coursesList;
   private DatePicker datePicker;
-  public static String courseName = "";
-  public static String title = "";
-  public static String estimate = "";
-  public static int difficulty = 0;
-  public static String deadline = "";
-  public static String courseType = "";
-  static LocalDate localDeadline;
-  static int estimateHour;
+  private static String title = "";
+  private static String estimate = "";
+  private static int difficulty = 0;
+  private static String deadline = "";
+  private static String courseType = "";
+  private static LocalDate localDeadline;
+  private static int estimateHour;
+  private Button okBtn;
 
   // Assignment Page as Node
   public Node assignmentPanel() {
     VBox assignmentPanel = new VBox(20);
     assignmentPanel.setPadding(new Insets(20));
 
-    // Create sections as titledPanes in order to be foldable
-    TitledPane coursePane = new TitledPane("Μάθημα", createCourseSection());
-    TitledPane infoPane = new TitledPane("Πληροφορίες", createInfoSection());
-    TitledPane evalPane = new TitledPane("Αξιολόγηση", createEvalSection());
-
-    titlePaneStyle(coursePane, 200, 400, 0, 300);
-    titlePaneStyle(infoPane, 200, 400, 0, 300);
-    titlePaneStyle(evalPane, 200, 400, 0, 300);
+    assignmentPanel.getChildren().addAll(infoSection(), evalSection());
 
     // "ok" Button
     Button okBtn = new Button("OK");
-    okBtn.setStyle(btnStyle());
-    okBtn.setOnMouseEntered(e -> okBtn.setStyle(btnMouseEntered()));
+    okBtn.setStyle(Styles.COURSES_BTN_STYLE);
+    okBtn.setOnMouseEntered(e -> okBtn.setStyle(Styles.COURSES_BTN_MOUSE_ENTERED));
     okBtn.setOnMouseClicked(
         e -> {
-          // courseName = namField.getText();
-          title = assignmentField.getText();
-          estimate = estimateHours.getText();
-          String value = difficultyField.getText();
-          deadline = datePicker.getValue() != null ? datePicker.getValue().toString() : null;
-          courseType = coursesList.getValue();
-
-          List<String> errors = new ArrayList<>();
-          if (!String.valueOf(value).matches("\\d+")) {
-            errors.add("• Η δυσκολία μπόρει να περιέχει μόνο αριθμούς");
-          } else {
-            difficulty = Integer.parseInt(value);
-          }
-
-          if (title.isEmpty()) {
-            errors.add("• Όρισε τον Τίτλο της εργασίας");
-          } else if (!title.matches("[a-zA-Zα-ωΑ-ΩάέήίΰϊϋόύώΆΈΉΊΪΫΌΎΏ]+")) {
-            errors.add("• Η Ονομασία της εργασίας μπορεί να περιέχει μόνο γράμματα");
-          }
-
-          if (estimate.isEmpty()) {
-            errors.add("• Όρισε εκτιμώμενη ώρα για το μάθημα");
-          } else if (!estimate.matches("\\d+")) {
-            errors.add("• H εκτιμώμενη ώρα πρέπει να είναι αριθμός");
-          }
-
-          if (difficulty < 1 || difficulty > 10) {
-            errors.add("• H δυσκολία πρέπει να είναι αριθμός μεταξύ 1 και 10.");
-          }
-
-          if (deadline == null || LocalDate.parse(deadline).isBefore(LocalDate.now())) {
-            errors.add("• Πρέπει να επιλέξεις ημερομηνία εξέτασης μετά τη σημερινή ημερομηνία.");
-          }
-
-          if (courseType == "") {
-            errors.add("• Πρέπει να προσθέσεις ένα μάθημα");
-          }
-
-          if (!errors.isEmpty()) {
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setTitle("Η φόρμα δεν έχει ολοκληρωθεί");
-            alert.setHeaderText(null);
-            String errorMessage = String.join("\n", errors);
-            alert.setContentText(errorMessage);
-            alert
-                .getDialogPane()
-                .getStylesheets()
-                .add(getClass().getResource("/alert.css").toExternalForm());
-            alert.showAndWait();
-            return;
-          } else {
-            Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
-            successAlert.setTitle("Εισαγωγή Εργασίας Επιτυχής");
-            successAlert.setHeaderText(null);
-            successAlert.setContentText("Η εργασία προστέθηκε!!");
-            DialogPane dialogPane = successAlert.getDialogPane();
-            dialogPane.getStyleClass().add("success-alert");
-            dialogPane
-                .getStylesheets()
-                .add(
-                    Objects.requireNonNull(getClass().getResource("/success.css"))
-                        .toExternalForm());
-            successAlert.showAndWait();
-          }
-          localDeadline = LocalDate.parse(deadline);
-          estimateHour = Integer.parseInt(estimate);
-          // SimulateAnnealing simulateAnnealing = new SimulateAnnealing();
-          // Subject sub = new Subject();
-
-          // simulateAnnealing.subAss2(title, localDeadline, estimateHour);
-          Assignment assignment1 = new Assignment(title, localDeadline, estimateHour, difficulty);
-          // add the assignment to the static user
-          staticUser.addAssignment(assignment1);
-
-          DataInserter.insertAssignment(
-              title,
-              localDeadline,
-              estimateHour,
-              difficulty,
-              null,
-              StaticUser.staticUser.getUserId());
-          StaticUser.staticUser.addAssignment(assignment1);
-
-          // ExamPage exampage = new ExamPage();
-          // Subject course = exampage.coursename;
-          // course.addAssignment(assignment1);
-
-          namField.clear();
-          assignmentField.clear();
-          estimateHours.clear();
-          difficultyField.clear();
-          datePicker.setValue(null);
-          coursesList.setValue("");
-
-          // System.out.println(courseName);
-          System.out.println(title);
-          System.out.println(estimate);
-          System.out.println(difficulty);
-          System.out.println(deadline);
-          System.out.println(courseType);
-
-          okBtn.setStyle(btnMousePressed());
+          handleOkBtn();
         });
     okBtn.setAlignment(Pos.CENTER_LEFT);
 
@@ -169,121 +61,153 @@ public class AssignmentPage {
     okBtnHBox.getChildren().add(okBtn);
 
     // adds all the exam page parts to the panel
-    assignmentPanel.getChildren().addAll(coursePane, infoPane, evalPane, okBtnHBox);
+    assignmentPanel.getChildren().add(okBtnHBox);
 
     return assignmentPanel; // returns the page
   }
 
-  // Section for Course name
-  private VBox createCourseSection() {
-    VBox box = new VBox(10);
-    Label nameLabel = new Label("Μάθημα Εργασίας:");
-    nameLabel.setStyle(labelStyle());
-    namField = new TextField();
+  private void handleOkBtn() {
+    estimate = estimateHours.getText();
+    String value = difficultyField.getText();
+    deadline = datePicker.getValue() != null ? datePicker.getValue().toString() : null;
 
-    coursesList = new ComboBox<>();
-    coursesList.setPromptText(" ");
-    coursesList.getItems().addAll("", "Μαθηματικά", "Ιστορία", "Φυσική");
+    List<String> errors = new ArrayList<>();
+    if (!String.valueOf(value).matches("\\d+")) {
+      errors.add("• Η δυσκολία μπόρει να περιέχει μόνο αριθμούς");
+    } else {
+      difficulty = Integer.parseInt(value);
+    }
+
+    if (estimate.isEmpty()) {
+      errors.add("• Όρισε εκτιμώμενη ώρα για το μάθημα");
+    } else if (!estimate.matches("\\d+")) {
+      errors.add("• H εκτιμώμενη ώρα πρέπει να είναι αριθμός");
+    }
+
+    if (difficulty < 1 || difficulty > 10) {
+      errors.add("• H δυσκολία πρέπει να είναι αριθμός μεταξύ 1 και 10.");
+    }
+
+    if (deadline == null || LocalDate.parse(deadline).isBefore(LocalDate.now())) {
+      errors.add("• Πρέπει να επιλέξεις ημερομηνία εξέτασης μετά τη σημερινή ημερομηνία.");
+    }
+
+    if (!errors.isEmpty()) {
+      Alert alert = new Alert(Alert.AlertType.WARNING);
+      alert.setTitle("Η φόρμα δεν έχει ολοκληρωθεί");
+      alert.setHeaderText(null);
+      String errorMessage = String.join("\n", errors);
+      alert.setContentText(errorMessage);
+      alert
+          .getDialogPane()
+          .getStylesheets()
+          .add(getClass().getResource("/alert.css").toExternalForm());
+      alert.showAndWait();
+      return;
+    } else {
+      Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
+      successAlert.setTitle("Εισαγωγή Εργασίας Επιτυχής");
+      successAlert.setHeaderText(null);
+      successAlert.setContentText("Η εργασία προστέθηκε!!");
+      DialogPane dialogPane = successAlert.getDialogPane();
+      dialogPane.getStyleClass().add("success-alert");
+      dialogPane
+          .getStylesheets()
+          .add(Objects.requireNonNull(getClass().getResource("/success.css")).toExternalForm());
+      successAlert.showAndWait();
+    }
+    localDeadline = LocalDate.parse(deadline);
+    estimateHour = Integer.parseInt(estimate);
+    // SimulateAnnealing simulateAnnealing = new SimulateAnnealing();
+    // Subject sub = new Subject();
+
+    // simulateAnnealing.subAss2(title, localDeadline, estimateHour);
+    Assignment assignment1 = new Assignment(title, localDeadline, estimateHour, difficulty);
+    // add the assignment to the static user
+    staticUser.addAssignment(assignment1);
+
+    DataInserter.insertAssignment(
+        title, localDeadline, estimateHour, difficulty, null, StaticUser.staticUser.getUserId());
+    StaticUser.staticUser.addAssignment(assignment1);
+
+    // ExamPage exampage = new ExamPage();
+    // Subject course = exampage.coursename;
+    // course.addAssignment(assignment1);
+
+    namField.clear();
+    assignmentField.clear();
+    estimateHours.clear();
+    difficultyField.clear();
+    datePicker.setValue(null);
     coursesList.setValue("");
 
-    box.getChildren().addAll(nameLabel, coursesList);
-    return box;
+    // System.out.println(courseName);
+    System.out.println(title);
+    System.out.println(estimate);
+    System.out.println(difficulty);
+    System.out.println(deadline);
+    System.out.println(courseType);
+
+    okBtn.setStyle(Styles.COURSES_BTN_MOUSE_ENTERED);
   }
 
   // Section for course information
-  private VBox createInfoSection() {
-    datePicker = new DatePicker();
-    HBox deadlineBox = createLabeledField("Ημερομηνία Παράδοσης:", datePicker);
+  private VBox infoSection() {
+    VBox infoVBox = new VBox(10);
+    Label infoTitle = new Label("Πληροφορίες:");
+    infoTitle.setStyle(Styles.StyleType.TITLE.getStyle());
+    GridPane info = new GridPane();
+    info.setVgap(10);
+    info.setHgap(10);
 
-    assignmentField = new TextField();
+    Label nameLabel = new Label("Tίτλος Εργασιας:");
+    nameLabel.setStyle(Styles.StyleType.LABEL.getStyle());
+    TextField nameField = new TextField();
+    info.add(nameLabel, 0, 1);
+    info.add(nameField, 1, 1);
+
+    Label estimateHoursLabel = new Label("Εκτιμώμενες Απαιτούμενες Ώρες:");
+    estimateHoursLabel.setStyle(Styles.StyleType.LABEL.getStyle());
     estimateHours = new TextField();
+    info.add(estimateHoursLabel, 0, 2);
+    info.add(estimateHours, 1, 2);
 
-    VBox box = new VBox(10);
-    box.getChildren()
-        .addAll(
-            createLabeledField("Tίτλος Εργασίας:", assignmentField),
-            createLabeledField("Εκτιμώμενες Απαιτούμενες Ώρες:", estimateHours));
-    box.getChildren().addAll(deadlineBox);
-    return box;
+    Label deadlineLabel = new Label("Ημερομηνία Παράδοσης:");
+    deadlineLabel.setStyle(Styles.StyleType.LABEL.getStyle());
+    datePicker = new DatePicker();
+    info.add(deadlineLabel, 0, 3);
+    info.add(datePicker, 1, 3);
+
+    info.setStyle(Styles.BLACK_BORDER);
+    infoVBox.getChildren().addAll(infoTitle, info);
+
+    infoVBox.setMaxWidth(400);
+    infoVBox.setPrefWidth(400);
+    return infoVBox;
   }
 
   // Section for course evaluation
-  private VBox createEvalSection() {
+  private VBox evalSection() {
+    VBox evalVBox = new VBox(10);
+    Label evalTitle = new Label("Αξιολόγηση:");
+    evalTitle.setStyle(Styles.StyleType.TITLE.getStyle());
+    GridPane eval = new GridPane();
+    eval.setVgap(10);
+    eval.setHgap(10);
+
+    Label difficultyLabel = new Label("Δυσκολία:");
+    difficultyLabel.setStyle(Styles.StyleType.LABEL.getStyle());
     difficultyField = new TextField();
-    VBox box = new VBox(10);
-    box.getChildren().addAll(createLabeledField("Δυσκολία:", difficultyField));
-    return box;
-  }
+    eval.add(difficultyLabel, 0, 1);
+    eval.add(difficultyField, 1, 1);
 
-  // Label field
-  private HBox createLabeledField(String labelText, Node node) {
-    Label label = new Label(labelText);
-    label.setStyle(labelStyle());
-    // TextField textField = new TextField();
-    return new HBox(10, label, node);
-  }
+    eval.setStyle(Styles.BLACK_BORDER);
+    evalVBox.getChildren().addAll(evalTitle, eval);
 
-  // label style
-  private String labelStyle() {
-    return "-fx-background-color: rgba(181, 99, 241, 0.81);"
-        + " -fx-padding: 5;"
-        + " -fx-border-width: 1px;"
-        + " -fx-border-radius: 4px;"
-        + " -fx-background-radius: 4px;";
-  }
+    evalVBox.setMaxWidth(400);
+    evalVBox.setPrefWidth(400);
 
-  // titlePane style
-  private void titlePaneStyle(
-      TitledPane titledPane, double minWidth, double maxWidth, double minHeight, double maxHeight) {
-
-    titledPane.setMinWidth(minWidth);
-    titledPane.setMaxWidth(maxWidth);
-    titledPane.setMinHeight(minHeight);
-    titledPane.setMaxHeight(maxHeight);
-
-    titledPane.setStyle(
-        "-fx-background-color: rgba(101, 225, 101, 0.81);"
-            + " -fx-border-color: #000000;"
-            + " -fx-border-width: 1px;"
-            + " -fx-border-radius: 4px;"
-            + " -fx-background-radius: 4px;");
-  }
-
-  // Button Styles
-  private String btnStyle() {
-    return "-fx-background-color: linear-gradient(#FAD7A0, #F7B267);"
-        + "-fx-background-radius: 8,7,6;"
-        + "-fx-background-insets: 0,1,2;"
-        + "-fx-text-fill: #5A3D2B;"
-        + "-fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.3), 5, 0, 2, 2);"
-        + "-fx-font-weight: bold;"
-        + "-fx-padding: 10 20;"
-        + "-fx-border-color: #D98A4B;"
-        + "-fx-border-radius: 6;";
-  }
-
-  private String btnMouseEntered() {
-    return "-fx-background-color: linear-gradient(#FFE0B2, #F7B267);"
-        + "-fx-background-radius: 8,7,6;"
-        + "-fx-background-insets: 0,1,2;"
-        + "-fx-text-fill: #5A3D2B;"
-        + "-fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.3), 5, 0, 2, 2);"
-        + "-fx-font-weight: bold;"
-        + "-fx-padding: 10 20;"
-        + "-fx-border-color: #D98A4B;"
-        + "-fx-border-radius: 6;";
-  }
-
-  private String btnMousePressed() {
-    return "-fx-background-color: linear-gradient(#F7B267, #D98A4B);"
-        + "-fx-background-radius: 8,7,6;"
-        + "-fx-background-insets: 0,1,2;"
-        + "-fx-text-fill: #5A3D2B;"
-        + "-fx-font-weight: bold;"
-        + "-fx-padding: 10 20;"
-        + "-fx-border-color: #D98A4B;"
-        + "-fx-border-radius: 6;"
-        + "-fx-effect: none;";
+    return evalVBox;
   }
 
   public Scene assignmentStartingPage(SceneManager sceneManager) {
@@ -291,7 +215,7 @@ public class AssignmentPage {
 
     HBox nameLbl = new HBox(20);
     Label name = new Label("Εισαγωγή Εργασιών");
-    name.setStyle(labelStyle());
+    name.setStyle(Styles.StyleType.TITLE.getStyle());
     nameLbl.getChildren().add(name);
     nameLbl.setPadding(new Insets(20));
     assignViewWithBtn.getChildren().add(nameLbl);
@@ -302,7 +226,7 @@ public class AssignmentPage {
     HBox btns = new HBox(15);
     btns.setPadding(new Insets(20));
     Button prevBtn = new Button("Προηγούμενο");
-    prevBtn.setStyle(btnStyle());
+    prevBtn.setStyle(Styles.COURSES_BTN_STYLE);
     prevBtn.setOnAction(
         e -> {
           ExamPage examPage = new ExamPage();
@@ -310,7 +234,7 @@ public class AssignmentPage {
         });
 
     Button nextBtn = new Button("Επόμενο");
-    nextBtn.setStyle(btnStyle());
+    nextBtn.setStyle(Styles.COURSES_BTN_STYLE);
     nextBtn.setOnAction(
         e -> {
           // System.out.println("Το κουμπί πατήθηκε!");
