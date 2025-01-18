@@ -20,7 +20,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.util.converter.IntegerStringConverter;
@@ -90,13 +89,12 @@ public class AvailabilityPage {
 
   private VBox rightFrame() {
 
-    Label dayLabel = new Label("Συγκεκριμένη Ημέρα");
+    Label dayLabel = new Label("Ημερομηνία Μη διαθεσιμότητας");
     dayLabel.setAlignment(Pos.CENTER);
-    dayLabel.setStyle("-fx-background-color: #50D1C6;");
-    dayLabel.setFont(new Font("System Bold", 14));
+    dayLabel.setStyle(Styles.StyleType.TITLE.getStyle());
 
     datePicker = new DatePicker();
-    datePicker.setPromptText("Eπιλεξτε μη-διαθεσιμη ημερομηνια");
+    datePicker.setPromptText("Eπέλεξε μη-διαθεσιμη ημερομηνια");
 
     rightPane.getChildren().addAll(dayLabel, datePicker);
     return rightPane;
@@ -106,8 +104,7 @@ public class AvailabilityPage {
 
     Label avalLabel = new Label("Διαθεσιμότητα");
     avalLabel.setAlignment(Pos.CENTER);
-    avalLabel.setStyle("-fx-background-color: #50D1C6;");
-    avalLabel.setFont(new Font("System Bold", 14));
+    avalLabel.setStyle(Styles.StyleType.TITLE.getStyle());
 
     GridPane daysPane = new GridPane();
     daysPane.setHgap(10);
@@ -128,8 +125,7 @@ public class AvailabilityPage {
 
   private HBox btnsFrame() {
     Button okBtn = new Button("OK");
-    okBtn.setStyle(
-        "-fx-background-color: #50D1C6; -fx-background-radius: 30px; -fx-text-fill: white; -fx-font-size: 14px;");
+    okBtn.setStyle(Styles.COURSES_BTN_STYLE);
 
     okBtn.setOnAction(
         event -> {
@@ -260,9 +256,7 @@ public class AvailabilityPage {
 
   private Label createDayLabel(String day) {
     Label label = new Label(day);
-    label.setStyle("-fx-background-color: #CF308C; -fx-background-radius: 20px;");
-    label.setTextFill(javafx.scene.paint.Color.web("#f8f4f4"));
-    label.setFont(new Font("System Bold", 14));
+    label.setStyle(Styles.StyleType.LABEL.getStyle());
     label.setAlignment(Pos.CENTER_RIGHT);
     return label;
   }
@@ -302,7 +296,7 @@ public class AvailabilityPage {
 
     HBox nameLbl = new HBox(20);
     Label name = new Label("Διαθεσιμότητα");
-    name.setStyle(labelStyle());
+    name.setStyle(Styles.StyleType.TITLE.getStyle());
     nameLbl.getChildren().add(name);
     nameLbl.setPadding(new Insets(20));
     availViewWithBtn.getChildren().add(nameLbl);
@@ -313,7 +307,7 @@ public class AvailabilityPage {
     HBox btns = new HBox(15);
     btns.setPadding(new Insets(20));
     Button prevBtn = new Button("Προηγούμενο");
-    prevBtn.setStyle(btnStyle());
+    prevBtn.setStyle(Styles.COURSES_BTN_STYLE);
     prevBtn.setOnAction(
         e -> {
           AssignmentPage assignPage = new AssignmentPage();
@@ -321,10 +315,9 @@ public class AvailabilityPage {
         });
 
     Button nextBtn = new Button("Επόμενο");
-    nextBtn.setStyle(btnStyle());
+    nextBtn.setStyle(Styles.COURSES_BTN_STYLE);
     nextBtn.setOnAction(
         e -> {
-          // System.out.println("Το κουμπί πατήθηκε!");
           RegisterPage register = new RegisterPage();
           String storedUsername = register.storedUsername;
           Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
@@ -365,85 +358,4 @@ public class AvailabilityPage {
             Screen.getPrimary().getVisualBounds().getHeight());
     return scene;
   }
-
-  private String btnStyle() {
-    return "-fx-background-color: linear-gradient(#FAD7A0, #F7B267);"
-        + "-fx-background-radius: 8,7,6;"
-        + "-fx-background-insets: 0,1,2;"
-        + "-fx-text-fill: #5A3D2B;"
-        + "-fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.3), 5, 0, 2, 2);"
-        + "-fx-font-weight: bold;"
-        + "-fx-padding: 10 20;"
-        + "-fx-border-color: #D98A4B;"
-        + "-fx-border-radius: 6;";
-  }
-
-  private String labelStyle() {
-    return "-fx-background-color: rgba(181, 99, 241, 0.81);"
-        + " -fx-padding: 5;"
-        + " -fx-border-width: 1px;"
-        + " -fx-border-radius: 4px;"
-        + " -fx-background-radius: 4px;"
-        + "-fx-font-family: Arial;";
-  }
 }
-// δημιουργια labels για τις ημέρες
-    /*    Label monday = createDayLabel("Δευτέρα");
-            Label tuesday = createDayLabel("Τρίτη");
-            Label wednesday = createDayLabel("Τετάρτη");
-            Label thursday = createDayLabel("Πέπμτη");
-            Label friday = createDayLabel("Παρασκευή");
-            Label saturday = createDayLabel("Σάββατο");
-            Label sunday = createDayLabel("Κυριακή");
-    //δημιοργια text fields για τις ημερες
-            TextField mondayField = createHoursField(92);
-            TextField tuesdayField = createHoursField(134);
-            TextField wednesdayField = createHoursField(176);
-            TextField thursdayField = createHoursField(221);
-            TextField fridayField = createHoursField(263);
-            TextField saturdayField = createHoursField(305);
-            TextField sundayField = createHoursField(352);
-
-
-            // root.getChildren().addAll(label1, label2, monday, tuesday, wednesday, thursday, friday, saturday, sunday,
-            //      mondayField, tuesdayField, wednesdayField, thursdayField, fridayField, saturdayField, sundayField,
-            //    datePicker);*/
-
-// αποθηκευση τιμων που εισαγει ο χρηστης
-// κληση της μεθοδου parseTextFieldValue για να ελενξουμε την τιμη που εισαγει ο χρηστης
-  /*      avperday[1] = parseTextFieldValue(mondayField);
-          avperday[2] = parseTextFieldValue(tuesdayField);
-          avperday[3] = parseTextFieldValue(wednesdayField);
-          avperday[4] = parseTextFieldValue(thursdayField);
-          avperday[5] = parseTextFieldValue(fridayField);
-          avperday[6] = parseTextFieldValue(saturdayField);
-          avperday[7] = parseTextFieldValue(sundayField);
-
-          List<String> errors = new ArrayList<>();
-
-          for (int i = 1; i <= 7; i++) {
-              Availability.setAvailability(i, avperday[i]);
-              if (avperday[i] > 7) {
-                  errors.add("• Oι διαθέσιμες ώρες μέσα σε μια μέρα πρέπει να είναι λιγότερες απο 7");
-              }
-          }
-          LocalDate setNoAvailicility = datePicker.getValue();
-          if (setNoAvailicility != null) {
-              Availability.setNonAvailability(setNoAvailicility);
-          }
-
-          availabilityMap.put("Δευτέρα", avperday[1]);
-          availabilityMap.put("Τρίτη", avperday[2]);
-          availabilityMap.put("Τετάρτη", avperday[3]);
-          availabilityMap.put("Πέμπτη", avperday[4]);
-          availabilityMap.put("Παρασκευή", avperday[5]);
-          availabilityMap.put("Σάββατο", avperday[6]);
-          availabilityMap.put("Κυριακή", avperday[7]);
-          //availabilityMap.put("Συγκεκριμένη Ημέρα", setNoAvailicility);
-
-  //εκτυπωση των αποτελεσματων των ημερων(για το test)
-          System.out.println(Arrays.toString(avperday));
-
-          if (setNoAvailicility == null || setNoAvailicility.isBefore(LocalDate.now())) {
-              errors.add("• Πρέπει να επιλέξεις ημερομηνία μη-διαθεσιμότητας μετά τη σημερινή ημερομηνία.");
-          }*/
