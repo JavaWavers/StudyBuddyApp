@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="el"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CalculativeAlgorithm.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">studybuddy</a> &gt; <a href="index.source.html" class="el_package">org.javawavers.studybuddy.calculations</a> &gt; <span class="el_source">CalculativeAlgorithm.java</span></div><h1>CalculativeAlgorithm.java</h1><pre class="source lang-java linenums">package org.javawavers.studybuddy.calculations;
+
+import org.javawavers.studybuddy.courses.Subject;
+
+/**
+ * The {@code CalculativeAlgorithm} class is responsible for calculating and dividing
+ * the total study time into tasks or groups that can be distributed equally over a
+ * period of weeks until the due date of an exam, revision, or assignment.
+ */
+<span class="nc" id="L10">public class CalculativeAlgorithm {</span>
+
+<span class="fc" id="L12">  private static double pagesPerMin = 0.2;</span>
+
+  // setters &amp; getters
+
+  /**
+   * Sets the user's study speed in pages per minute.
+   *
+   * @param timePer20Slides the time (in minutes) it takes for the user to study 20 slides.
+   */
+  public static void setPagesPerMin(double timePer20Slides) {
+<span class="fc bfc" id="L22" title="All 2 branches covered.">    if (timePer20Slides &lt;= 0) {</span>
+<span class="fc" id="L23">      throw new IllegalArgumentException(&quot;Time per 20 slides must be greater than zero.&quot;);</span>
+    }
+<span class="fc" id="L25">    pagesPerMin = 20 / timePer20Slides;</span>
+<span class="fc" id="L26">  }</span>
+
+  /**
+   * Calculates the total studying time in hours for a subject.
+   *
+   * @param s the {@code Subject} for which the total study time is calculated.
+   * @return the total study time in hours.
+   */
+  public static double totalStudyingTime(Subject s) {
+<span class="pc bpc" id="L35" title="2 of 4 branches missed.">    if (s == null || s.getExams().isEmpty()) {</span>
+<span class="nc" id="L36">      throw new IllegalArgumentException(&quot;Subject or its exams list cannot be null or empty.&quot;);</span>
+    }
+
+<span class="fc" id="L39">    double pages = s.getExams().get(0).getPages();</span>
+<span class="fc" id="L40">    double difficulty = s.getDifficultyLevel();</span>
+
+<span class="pc bpc" id="L42" title="2 of 4 branches missed.">    if (pages &lt;= 0 || difficulty &lt;= 0) {</span>
+<span class="nc" id="L43">      throw new IllegalArgumentException(&quot;Pages and difficulty level must be greater than zero.&quot;);</span>
+    }
+
+<span class="fc" id="L46">    return (pages * difficulty) / (pagesPerMin * 60);</span>
+  }
+
+  /**
+   * Calculates the total studying time required for a specific subject.
+   *
+   * @param s the {@code Subject} for which the total study time is calculated.
+   * @return the total study time in hours.
+   */
+  public static int studyingTasks(Subject s) {
+<span class="pc bpc" id="L56" title="1 of 2 branches missed.">    if (s == null) {</span>
+<span class="nc" id="L57">      throw new IllegalArgumentException(&quot;Subject cannot be null.&quot;);</span>
+    }
+
+<span class="fc" id="L60">    double totalTimeWeek = totalStudyingTime(s);</span>
+<span class="fc" id="L61">    return numberOfScheduledTask(totalTimeWeek);</span>
+  }
+
+  /**
+   * Calculates the number of the tasks that have to be scheduled during the week.
+   *
+   * @param total the total study time in hours.
+   * @return the number of study tasks.
+   */
+  public static int numberOfScheduledTask(double total) {
+<span class="pc bpc" id="L71" title="1 of 2 branches missed.">    if (total &lt;= 0) {</span>
+<span class="nc" id="L72">      throw new IllegalArgumentException(&quot;Total study time must be greater than zero.&quot;);</span>
+    }
+
+<span class="fc" id="L75">    return (int) Math.round(total / 2);</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

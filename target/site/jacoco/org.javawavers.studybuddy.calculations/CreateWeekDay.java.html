@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="el"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CreateWeekDay.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">studybuddy</a> &gt; <a href="index.source.html" class="el_package">org.javawavers.studybuddy.calculations</a> &gt; <span class="el_source">CreateWeekDay.java</span></div><h1>CreateWeekDay.java</h1><pre class="source lang-java linenums">package org.javawavers.studybuddy.calculations;
+
+import static org.javawavers.studybuddy.courses.StaticUser.staticUser;
+
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import org.javawavers.studybuddy.courses.ScheduledTask;
+import org.javawavers.studybuddy.courses.Subject;
+import org.javawavers.studybuddy.database.DataInserter;
+
+/**
+ * The CreateWeekDay class is responsible for managing the schedule of tasks for days and weeks.
+ * It calculates weekly schedules based on a scheduling matrix and a list of tasks and persists them
+ * in the database.
+ */
+public class CreateWeekDay {
+  /**
+  * Default constructor.
+   */
+<span class="nc" id="L22">  public CreateWeekDay() {</span>
+<span class="nc" id="L23">  }</span>
+
+  /**
+   * Generates weekly schedules based on the given schedule matrix and task list, and saves the
+   * schedule to the static user and database.
+   *
+   * @param schedule The scheduling matrix (rows: tasks, columns: days).
+   * @param bestTask The list of Task objects.
+   * @param colSize The number of days (columns) in the schedule.
+   * @throws IllegalArgumentException If the inputs are invalid.
+   */
+  public void managerWeekDay(int[][] schedule, List&lt;Task&gt; bestTask, int colSize) {
+    try {
+<span class="nc" id="L36">      ArrayList&lt;Week&gt; totalWeeks = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L37">      valInputs(schedule, bestTask, colSize);</span>
+<span class="nc" id="L38">      LocalDate today = LocalDate.now(); // Today's date</span>
+<span class="nc" id="L39">      int daysUntilMonday = daysUntilMonday(today);</span>
+<span class="nc" id="L40">      Week currentWeek = new Week();</span>
+      // Fill days before today with empty tasks
+<span class="nc" id="L42">      fillDaysBeforeToday(daysUntilMonday, currentWeek);</span>
+<span class="nc" id="L43">      fillTotalWeeks(schedule, bestTask, colSize, daysUntilMonday, today, totalWeeks, currentWeek);</span>
+<span class="nc" id="L44">      saveToDataB(totalWeeks);</span>
+<span class="nc" id="L45">    } catch (IllegalArgumentException e) {</span>
+<span class="nc" id="L46">      System.out.println(&quot;Error: &quot; + e.getMessage());</span>
+<span class="nc" id="L47">    }</span>
+<span class="nc" id="L48">  }</span>
+
+  /**
+   * Validates the inputs to ensure the schedule, task list, and column size are valid.
+   *
+   * @param schedule The scheduling matrix.
+   * @param bestTask The list of Task objects.
+   * @param colSize The number of days (columns) in the schedule.
+   * @throws IllegalArgumentException If the inputs are null or invalid.
+   */
+  private void valInputs(int[][] schedule, List&lt;Task&gt; bestTask, int colSize) {
+<span class="nc bnc" id="L59" title="All 2 branches missed.">    if (schedule == null) {</span>
+<span class="nc" id="L60">      throw new IllegalArgumentException(&quot;Schedule can't be null&quot;);</span>
+    }
+<span class="nc bnc" id="L62" title="All 2 branches missed.">    if (bestTask == null) {</span>
+<span class="nc" id="L63">      throw new IllegalArgumentException(&quot;Best task list can't be  null&quot;);</span>
+    }
+<span class="nc bnc" id="L65" title="All 2 branches missed.">    if (colSize &lt;= 0) {</span>
+<span class="nc" id="L66">      throw new IllegalArgumentException(&quot;Column size must be greater than 0&quot;);</span>
+    }
+<span class="nc" id="L68">  }</span>
+
+  /**
+   * Calculates the number of days from today until the most recent Monday.
+   *
+   * @param today The current date.
+   * @return The number of days since Monday.
+   */
+  private int daysUntilMonday(LocalDate today) {
+<span class="nc" id="L77">    DayOfWeek currentDayOfWeek = today.getDayOfWeek();</span>
+<span class="nc" id="L78">    return currentDayOfWeek.getValue() - DayOfWeek.MONDAY.getValue();</span>
+  }
+
+  /**
+   * Fills the days before today with empty tasks in the current week.
+   *
+   * @param daysUntilM The number of days before today until the most recent Monday.
+   * @param currentWeek The current Week object to be updated.
+   */
+  private void fillDaysBeforeToday(int daysUntilM, Week currentWeek) {
+<span class="nc bnc" id="L88" title="All 2 branches missed.">    for (int d = 0; d &lt; daysUntilM; d++) {</span>
+<span class="nc" id="L89">      Day day = new Day(); //Day with no tasks</span>
+<span class="nc" id="L90">      currentWeek.getDaysOfWeek().add(day);</span>
+    }
+<span class="nc" id="L92">  }</span>
+
+  /**
+   * Processes the schedule matrix to generate weeks and days.
+   *
+   * @param schedule The scheduling matrix.
+   * @param bestTask The list of Task objects.
+   * @param colSize The number of days (columns) in the schedule.
+   * @param today The current date.
+   * @param daysUntilMonday The number of days since the most recent Monday.
+   * @param totalWeeks The list to store all generated weeks.
+   * @param currentWeek The current Week object being populated.
+   */
+  private void fillTotalWeeks(int[][] schedule,
+                              List&lt;Task&gt; bestTask,
+                              int colSize,
+                              int daysUntilMonday,
+                              LocalDate today,
+                              List&lt;Week&gt; totalWeeks,
+                              Week currentWeek) {
+<span class="nc" id="L112">    List&lt;ScheduledTask&gt; scheduledTasksForDay = new ArrayList&lt;&gt;();</span>
+<span class="nc bnc" id="L113" title="All 2 branches missed.">    for (int dayIndex = 0; dayIndex &lt; colSize; dayIndex++) {</span>
+<span class="nc" id="L114">      LocalDate currentDate = today.plusDays(dayIndex - daysUntilMonday); // Calculate current date</span>
+      // Generate tasks for the current day
+<span class="nc" id="L116">      generateTasksForDay(schedule, bestTask, dayIndex, scheduledTasksForDay, currentDate);</span>
+
+      // Create a Day object and add tasks
+<span class="nc" id="L119">      Day currentDay = new Day();</span>
+<span class="nc" id="L120">      currentDay.todayTasks.addAll(scheduledTasksForDay);</span>
+
+      // Add the day to the week
+<span class="nc" id="L123">      currentWeek.getDaysOfWeek().add(currentDay);</span>
+
+      // Save the week if complete or if it's the last day
+<span class="nc bnc" id="L126" title="All 4 branches missed.">      if (currentWeek.getDaysOfWeek().size() == 7 || dayIndex == colSize - 1) {</span>
+<span class="nc" id="L127">        totalWeeks.add(currentWeek);</span>
+<span class="nc" id="L128">        currentWeek = new Week();</span>
+      }
+    }
+<span class="nc" id="L131">  }</span>
+
+  /**
+   * Generates tasks for a specific day based on the schedule matrix and task list.
+   *
+   * @param schedule The scheduling matrix.
+   * @param bestTask The list of Task objects.
+   * @param dayIndex The index of the current day in the schedule.
+   * @param scheduledTasksForDay The list to store scheduled tasks for the current day.
+   * @param currentDate The current date.
+   */
+  private void generateTasksForDay(
+          int[][] schedule,
+          List&lt;Task&gt; bestTask,
+          int dayIndex,
+          List&lt;ScheduledTask&gt; scheduledTasksForDay,
+          LocalDate currentDate) {
+
+<span class="nc" id="L149">    scheduledTasksForDay.clear();</span>
+<span class="nc bnc" id="L150" title="All 2 branches missed.">    for (int[] s : schedule) {</span>
+<span class="nc" id="L151">      int taskId = s[dayIndex];</span>
+<span class="nc bnc" id="L152" title="All 2 branches missed.">      if (taskId &gt; 0) { // If a task exists in this slot</span>
+<span class="nc" id="L153">        Task task = bestTask.get(taskId);</span>
+<span class="nc" id="L154">        String taskType = determineTaskType(task.getTaskType());</span>
+<span class="nc" id="L155">        Subject subject = new Subject(task.getSubject());</span>
+<span class="nc" id="L156">        ScheduledTask scheduledTask =</span>
+            new ScheduledTask(
+<span class="nc" id="L158">              task.getSubject(), taskType,</span>
+<span class="nc" id="L159">              (int) Math.ceil(task.getTaskHours()),</span>
+              currentDate, subject);
+<span class="nc" id="L161">        scheduledTasksForDay.add(scheduledTask);</span>
+      }
+    }
+<span class="nc" id="L164">  }</span>
+
+  /**
+   * Determines the task type as a descriptive string based on its integer representation.
+   *
+   * @param taskType The integer representing the task type.
+   * @return A string describing the task type.
+   */
+  private String determineTaskType(int taskType) {
+<span class="nc bnc" id="L173" title="All 2 branches missed.">    if (taskType == 1) {</span>
+<span class="nc" id="L174">      return &quot;Διάβασμα&quot;;</span>
+<span class="nc bnc" id="L175" title="All 2 branches missed.">    } else if (taskType == 2) {</span>
+<span class="nc" id="L176">      return &quot;Επανάληψη&quot;;</span>
+    } else {
+<span class="nc" id="L178">      return &quot;Εργασία&quot;;</span>
+    }
+  }
+
+  /**
+   * Saves the generated weeks to the static user and the database.
+   *
+   * @param totalWeeks The list of generated weeks.
+   */
+  private void saveToDataB(List&lt;Week&gt; totalWeeks) {
+<span class="nc" id="L188">    staticUser.setTotalWeeks(totalWeeks);</span>
+<span class="nc" id="L189">    PrintWeeks printWeeks = new PrintWeeks();</span>
+<span class="nc" id="L190">    printWeeks.printWeeks(totalWeeks);</span>
+
+<span class="nc" id="L192">    int id = staticUser.getUserId();</span>
+<span class="nc" id="L193">    int i = 0;</span>
+<span class="nc" id="L194">    int j = 0;</span>
+
+<span class="nc bnc" id="L196" title="All 2 branches missed.">    for (Week w : totalWeeks) {</span>
+<span class="nc" id="L197">      DataInserter.insertWeek(i, id);</span>
+<span class="nc bnc" id="L198" title="All 2 branches missed.">      for (Day d : w.getDaysOfWeek()) {</span>
+<span class="nc" id="L199">        DataInserter.insertDay(j, id, i);</span>
+<span class="nc bnc" id="L200" title="All 2 branches missed.">        for (ScheduledTask t : d.getAllTasks()) {</span>
+<span class="nc" id="L201">          DataInserter.insertTask(</span>
+<span class="nc" id="L202">                  t.getTaskName(),</span>
+<span class="nc" id="L203">                  t.getHoursAllocated(),</span>
+<span class="nc" id="L204">                  t.getTimeStarted(),</span>
+<span class="nc" id="L205">                  t.getTimeCompleted(),</span>
+<span class="nc" id="L206">                  t.getTaskStatus(),</span>
+<span class="nc" id="L207">                  t.getTaskDate(),</span>
+<span class="nc" id="L208">                  t.getSubjectName(),</span>
+<span class="nc" id="L209">                  t.getTaskType(),</span>
+                  id,
+                  j);
+<span class="nc" id="L212">        }</span>
+<span class="nc" id="L213">        j++;</span>
+<span class="nc" id="L214">      }</span>
+<span class="nc" id="L215">      i++;</span>
+<span class="nc" id="L216">    }</span>
+<span class="nc" id="L217">  }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

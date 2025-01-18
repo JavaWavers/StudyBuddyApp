@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="el"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CenterPanelManager.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">studybuddy</a> &gt; <a href="index.source.html" class="el_package">org.javawavers.studybuddy.ui_ux</a> &gt; <span class="el_source">CenterPanelManager.java</span></div><h1>CenterPanelManager.java</h1><pre class="source lang-java linenums">package org.javawavers.studybuddy.ui_ux;
+
+import javafx.scene.layout.StackPane;
+
+/**
+ * CenterPanelManager class changes the center panel of the main Page depending on the Menu Button
+ * that is pressed.
+ */
+public class CenterPanelManager {
+  private final StackPane centerPane;
+
+  // class constructor
+<span class="nc" id="L13">  public CenterPanelManager() {</span>
+<span class="nc" id="L14">    centerPane = new StackPane();</span>
+<span class="nc" id="L15">    centerPane.setMaxWidth(Double.MAX_VALUE);</span>
+<span class="nc" id="L16">    centerPane.setMaxHeight(Double.MAX_VALUE);</span>
+<span class="nc" id="L17">  }</span>
+
+  /**
+   * This is the main method of the class It creates objects from all button Pages which are on the
+   * Menu Using a switch it changes the page that should be presented on the center panel
+   */
+  // Method that changes center Panel
+  public void changeCenterPanel(String panelName) {
+    try {
+<span class="nc" id="L26">      centerPane.getChildren().clear();</span>
+
+<span class="nc" id="L28">      ExamPage examPage = new ExamPage();</span>
+<span class="nc" id="L29">      DashboardPage dashboard = new DashboardPage();</span>
+<span class="nc" id="L30">      Calendar calendar = new Calendar();</span>
+<span class="nc" id="L31">      AssignmentPage assignmentPage = new AssignmentPage();</span>
+
+      // Depending on which Menu Button is pressed it changes the center Panel
+<span class="nc bnc" id="L34" title="All 6 branches missed.">      switch (panelName) {</span>
+        case &quot;Courses&quot;:
+<span class="nc" id="L36">          break;</span>
+        case &quot;Exam&quot;:
+<span class="nc bnc" id="L38" title="All 2 branches missed.">          if (examPage.createExamPanel() != null) {</span>
+<span class="nc" id="L39">            centerPane.getChildren().setAll(examPage.createExamPanel());</span>
+          } else {
+<span class="nc" id="L41">            throw new NullPointerException(&quot;Η σελίδα Exam είναι null.&quot;);</span>
+          }
+          break;
+        case &quot;Assignments&quot;:
+<span class="nc bnc" id="L45" title="All 2 branches missed.">          if (assignmentPage.assignmentPanel() != null) {</span>
+<span class="nc" id="L46">            centerPane.getChildren().setAll(assignmentPage.assignmentPanel());</span>
+          } else {
+<span class="nc" id="L48">            throw new NullPointerException(&quot;Η σελίδα Assignment είναι null.&quot;);</span>
+          }
+          break;
+        case &quot;Calendar&quot;:
+<span class="nc bnc" id="L52" title="All 2 branches missed.">          if (calendar.calendar() != null) {</span>
+<span class="nc" id="L53">            centerPane.getChildren().setAll(calendar.calendar());</span>
+          } else {
+<span class="nc" id="L55">            throw new NullPointerException(&quot;Η σελίδα Calendar είναι null.&quot;);</span>
+          }
+          break;
+        case &quot;Dashboard&quot;:
+<span class="nc bnc" id="L59" title="All 2 branches missed.">          if (dashboard.createDashboard() != null) {</span>
+<span class="nc" id="L60">            centerPane.getChildren().setAll(dashboard.createDashboard());</span>
+          } else {
+<span class="nc" id="L62">            throw new NullPointerException(&quot;Η σελίδα Dashboard είναι null.&quot;);</span>
+          }
+          break;
+        default:
+<span class="nc" id="L66">          throw new IllegalArgumentException(&quot;Δεν είναι σωστό το όνομα του panel &quot; + panelName);</span>
+      }
+<span class="nc" id="L68">    } catch (NullPointerException e) {</span>
+<span class="nc" id="L69">      System.err.println(&quot;Σφάλμα: &quot; + e.getMessage());</span>
+<span class="nc" id="L70">      e.printStackTrace();</span>
+<span class="nc" id="L71">    } catch (IllegalArgumentException e) {</span>
+<span class="nc" id="L72">      System.err.println(&quot;Λάνθασμένη κλήση panel: &quot; + e.getMessage());</span>
+<span class="nc" id="L73">    } catch (Exception e) {</span>
+<span class="nc" id="L74">      System.err.println(&quot;Απροσδόκητο σφάλμα κατά την αλλαγή του panel: &quot; + e.getMessage());</span>
+<span class="nc" id="L75">      e.printStackTrace();</span>
+<span class="nc" id="L76">    }</span>
+<span class="nc" id="L77">  }</span>
+
+  /**
+   * @return The center pane that is selected it appears on the center panel
+   */
+  public StackPane getCenterPane() {
+<span class="nc" id="L83">    return centerPane;</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

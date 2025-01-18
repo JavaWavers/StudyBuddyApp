@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="el"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Dates.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">studybuddy</a> &gt; <a href="index.source.html" class="el_package">org.javawavers.studybuddy.calculations</a> &gt; <span class="el_source">Dates.java</span></div><h1>Dates.java</h1><pre class="source lang-java linenums">package org.javawavers.studybuddy.calculations;
+
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+import java.util.Comparator;
+import java.util.List;
+import org.javawavers.studybuddy.courses.Subject;
+
+/**
+ * This {@code Dates} class is used to store the exam date for each subject.
+ * It holds information about the subject and the specific date of the exam.
+ * Additionally, this class is responsible for controlling the distribution of tasks
+ * for a subject up until the exam date. In other words, the exam date is the last day
+ * by which all tasks must be completed and distributed.
+ * The class provides functionality to sort a list of exam dates in ascending order,
+ * with the earliest exam date coming first and the latest coming last.
+ */
+
+public class Dates {
+  private String subjName;
+  private LocalDate deadLine;
+
+  /**
+   * Constructs a {@code Dates} object for a given subject and its deadline.
+   *
+   * @param subj the {@code Subject} object representing the subject.
+   * @param deadLine the {@code LocalDate} representing the deadline or exam date.
+   */
+<span class="nc" id="L29">  public Dates(Subject subj, LocalDate deadLine) {</span>
+<span class="nc" id="L30">    this.subjName = subj.getCourseName();</span>
+<span class="nc" id="L31">    this.deadLine = deadLine;</span>
+<span class="nc" id="L32">  }</span>
+
+  /**
+   * Constructs a {@code Dates} object for a given subject name and its deadline.
+   *
+   * @param name the name of the subject.
+   * @param deadLine the {@code LocalDate} representing the deadline or exam date.
+   */
+<span class="fc" id="L40">  public Dates(String name, LocalDate deadLine) {</span>
+<span class="fc" id="L41">    this.subjName = name;</span>
+<span class="fc" id="L42">    this.deadLine = deadLine;</span>
+<span class="fc" id="L43">  }</span>
+
+  // getters
+  public String getSubName() {
+<span class="fc" id="L47">    return subjName;</span>
+  }
+
+  public LocalDate getDate() {
+<span class="fc" id="L51">    return deadLine;</span>
+  }
+
+  /**
+   * Sorts the list of ExamDates by the exam date.
+   * The list will be sorted in ascending order,
+   * with the earliest exam date at the beginning and the latest at the end.
+   */
+  public static void sortList(List&lt;Dates&gt; list) {
+
+    // Sort the list of exams by exam date in ascending order
+<span class="fc" id="L62">    list.sort(Comparator.comparing(Dates::getDate));</span>
+<span class="fc" id="L63">  }</span>
+
+  /**
+   * Calculates the number of days remaining until the last exam or assignment deadline.
+   *
+   * @param exams the list of exam {@code Dates}.
+   * @param assignments the list of assignment {@code Dates}.
+   * @return the number of days until the furthest deadline (exam or assignment).
+   */
+  public static int lastIsDue(List&lt;Dates&gt; exams, List&lt;Dates&gt; assignments) {
+<span class="nc bnc" id="L73" title="All 4 branches missed.">    if (exams.isEmpty() &amp;&amp; !assignments.isEmpty()) {</span>
+      // Get the current date
+<span class="nc" id="L75">      LocalDate today = LocalDate.now();</span>
+      // Get the date of the last assignment deadline (last element of the sorted
+      // list)
+<span class="nc" id="L78">      LocalDate lastAssDate = assignments.get(assignments.size() - 1).getDate();</span>
+      // Return the calculated days
+<span class="nc" id="L80">      return (int) ChronoUnit.DAYS.between(today, lastAssDate);</span>
+<span class="nc bnc" id="L81" title="All 4 branches missed.">    } else if (!exams.isEmpty() &amp;&amp; assignments.isEmpty()) {</span>
+      // Get the current date
+<span class="nc" id="L83">      LocalDate today = LocalDate.now();</span>
+      // Get the date of the last exam (last element of the sorted list)
+<span class="nc" id="L85">      LocalDate lastExamDate = exams.get(exams.size() - 1).getDate();</span>
+      // Return the calculated days
+<span class="nc" id="L87">      return (int) ChronoUnit.DAYS.between(today, lastExamDate);</span>
+<span class="nc bnc" id="L88" title="All 4 branches missed.">    } else if (!exams.isEmpty() &amp;&amp; !assignments.isEmpty()) {</span>
+      // Get the current date
+<span class="nc" id="L90">      LocalDate today = LocalDate.now();</span>
+      // Get the date of the last assignment deadline (last element of the sorted
+      // list)
+<span class="nc" id="L93">      LocalDate lastAssDate = assignments.get(assignments.size() - 1).getDate();</span>
+      // Get the date of the last exam (last element of the sorted list)
+<span class="nc" id="L95">      LocalDate lastExamDate = exams.get(exams.size() - 1).getDate();</span>
+      // return the deadline which is most faraway
+<span class="nc bnc" id="L97" title="All 2 branches missed.">      if (lastAssDate.isBefore(lastExamDate)) {</span>
+<span class="nc" id="L98">        return (int) ChronoUnit.DAYS.between(today, lastExamDate);</span>
+      } else {
+<span class="nc" id="L100">        return (int) ChronoUnit.DAYS.between(today, lastAssDate);</span>
+      }
+
+    } else {
+<span class="nc" id="L104">      return 0;</span>
+    }
+  }
+
+  /**
+  *The method accepts the task that needs to be registered in the results table.
+  * From this task, we retrieve its name and check, for each ExamDates object,
+  * if the day when we want to assign the task is before the exam date.
+  * If this condition is met, the method returns true; otherwise, it returns
+  * false.
+  * It accepts the task, the number of days until the exam, AND the list of exam
+  * dates.
+  */
+  public static boolean checkDate(Task task, int day, List&lt;Dates&gt; elements) {
+<span class="fc" id="L118">    String subj = task.getSubject(); // keeps the name of the subject in order to find the exam date</span>
+<span class="fc" id="L119">    LocalDate date = null; // keeps the exam date or the deadline</span>
+
+    // Iterate through the list of Dates to find the matching subject
+<span class="pc bpc" id="L122" title="1 of 2 branches missed.">    for (Dates e : elements) {</span>
+<span class="pc bpc" id="L123" title="1 of 2 branches missed.">      if (subj.equals(e.getSubName())) {</span>
+<span class="fc" id="L124">        date = e.getDate();</span>
+<span class="fc" id="L125">        break; // Stop searching once we find the matching subject</span>
+      }
+<span class="nc" id="L127">    }</span>
+
+    // Αν δεν βρεθεί η ημερομηνία, επιστρέφεται false
+<span class="pc bpc" id="L130" title="1 of 2 branches missed.">    if (date == null) {</span>
+<span class="nc" id="L131">      return false; // No valid date to compare</span>
+    }
+
+    // Ημερομηνία που θέλουμε να βάλουμε το task
+<span class="fc" id="L135">    LocalDate dateAssigned = LocalDate.now().plusDays(day);</span>
+<span class="fc" id="L136">    return dateAssigned.isBefore(</span>
+        date); // Returns true if the assigned date is before the exam/deadline
+  }
+
+  /**
+   * Retrieves the exam date associated with a specific task's subject.
+   *
+   * @param task the {@code Task} whose subject's exam date is needed.
+   * @param exams the list of exam {@code Dates}.
+   * @return the {@code LocalDate} representing the exam date, or {@code null} if not found.
+   */
+  public static LocalDate getExDate(Task task, List&lt;Dates&gt; exams) {
+<span class="nc" id="L148">    String subj = task.getSubject(); // keeps the name of the subject in order to find the exam date</span>
+<span class="nc" id="L149">    LocalDate exD = null; // keeps the exam date</span>
+    // Iterate through the list of exams to find the exam for the task's subject
+<span class="nc bnc" id="L151" title="All 2 branches missed.">    for (Dates examDate : exams) {</span>
+<span class="nc bnc" id="L152" title="All 2 branches missed.">      if (subj.equals(examDate.getSubName())) {</span>
+<span class="nc" id="L153">        exD = examDate.getDate();</span>
+      }
+<span class="nc" id="L155">    }</span>
+<span class="nc" id="L156">    return exD;</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
