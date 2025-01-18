@@ -1,9 +1,7 @@
 package org.javawavers.studybuddy.ui_ux;
 
-import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
 import javafx.stage.Screen;
 
 public class MainFrame {
@@ -22,15 +20,9 @@ public class MainFrame {
     RightPanel rightPanel = new RightPanel();
     rightPanel.updateRightPaneContent("Calendar");
 
-    MenuPage menuPage = new MenuPage(centerPanelManager,rightPanel);
+    MenuPage menuPage = new MenuPage(centerPanelManager, rightPanel);
     borderPane.setLeft(menuPage.getLeftBoxMenu());
 
-    HBox topPane = new HBox();
-    topPane.setPadding(new Insets(0, 0, 50, 212));
-    topPane.setStyle("-fx-background-color: #60f7b3; ");
-    borderPane.setTop(topPane);
-
-    //rightPanel.rightPanel();
     borderPane.setRight(rightPanel.rightPanel());
 
     Scene scene =

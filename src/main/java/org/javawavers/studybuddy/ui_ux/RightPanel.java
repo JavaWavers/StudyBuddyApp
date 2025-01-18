@@ -3,7 +3,6 @@ package org.javawavers.studybuddy.ui_ux;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
@@ -34,7 +33,7 @@ public class RightPanel {
   public ScrollPane rightPanel() {
     CenterPanelManager centerPanelManager = new CenterPanelManager();
 
-    if(rightPane == null) {
+    if (rightPane == null) {
       rightPane = rightPaneStyle();
     }
     rightPanel = new StackPane();
@@ -43,8 +42,6 @@ public class RightPanel {
     rightPanel.setMaxWidth(280);
     rightPanel.setMaxWidth(Double.MAX_VALUE);
     rightPanel.setMaxHeight(Double.MAX_VALUE);
-
-
 
     // Right Pane's ScrollPane
     ScrollPane scrollPane = new ScrollPane(rightPane);
@@ -62,57 +59,84 @@ public class RightPanel {
     return rightPane;
   }
 
-    public void updateRightPaneContent(String activePanel) {
-      if(rightPane == null) {
-        rightPane = rightPaneStyle();
-      }
-      rightPane.getChildren().clear();
-
-      switch (activePanel) {
-        case "Exam":
-          rightPane.getChildren().add(coursesPane());
-          break;
-        case "Assignments":
-          rightPane.getChildren().add(coursesPane());
-          break;
-        case "Calendar":
-          rightPane.getChildren().add(tasksPane());
-          break;
-        case "Dashboard":
-          rightPane.getChildren().add(tasksPane());
-          break;
-      }
+  public void updateRightPaneContent(String activePanel) {
+    if (rightPane == null) {
+      rightPane = rightPaneStyle();
     }
+    rightPane.getChildren().clear();
 
+    switch (activePanel) {
+      case "Exam":
+        rightPane.getChildren().add(coursesPane());
+        break;
+      case "Assignments":
+        rightPane.getChildren().add(coursesPane());
+        break;
+      case "Calendar":
+        rightPane.getChildren().add(tasksPane());
+        break;
+      case "Dashboard":
+        rightPane.getChildren().add(tasksPane());
+        break;
+    }
+  }
 
   private VBox tasksPane() {
     VBox tasksPane = new VBox(10);
 
-    tasksPane.getChildren().addAll(
-            TasksVBox("Σημερινά Tasks", new String[] {"Task 1", "Task 2", "Task 3", "4", "5", "6", "7", "8", "9,","10"}, Styles.TaskType.TODAY),
-            TasksVBox("Εβδομαδιαία Tasks", new String[] {"Task A", "Task B", "Task C", "Task D"}, Styles.TaskType.WEEK),
-            TasksVBox("Εκκρεμότητες", new String[] {"Overdue Task 1", "Overdue Task 2"}, Styles.TaskType.OVERDUE),
-            TasksVBox("Ολοκληρωμένα Tasks", new String[] {"Completed Task X", "Completed Task Y"}, Styles.TaskType.COMPLETED)
-    );
+    tasksPane
+        .getChildren()
+        .addAll(
+            TasksVBox(
+                "Σημερινά Tasks",
+                new String[] {"Task 1", "Task 2", "Task 3", "4", "5", "6", "7", "8", "9,", "10"},
+                Styles.TaskType.TODAY),
+            TasksVBox(
+                "Εβδομαδιαία Tasks",
+                new String[] {"Task A", "Task B", "Task C", "Task D"},
+                Styles.TaskType.WEEK),
+            TasksVBox(
+                "Εκκρεμότητες",
+                new String[] {"Overdue Task 1", "Overdue Task 2"},
+                Styles.TaskType.OVERDUE),
+            TasksVBox(
+                "Ολοκληρωμένα Tasks",
+                new String[] {"Completed Task X", "Completed Task Y"},
+                Styles.TaskType.COMPLETED));
     return tasksPane;
   }
 
   private VBox coursesPane() {
     VBox coursePane = new VBox(10);
 
-    coursePane.getChildren().addAll(
-            TasksVBox("Μαθήματα", new String[] {"Task 1", "Task 2", "Task 3", "4", "5", "6", "7", "8", "9,","10"}, Styles.TaskType.TODAY), //εδώ που είναι το new String βάζουμε μια μέθοδο που επιστρέφει τα μαθήματα)
-            TasksVBox("Εργασίες", new String[] {"Task A", "Task B", "Task C", "Task D"}, Styles.TaskType.WEEK),
-            TasksVBox("Διαθεσιμότητα Ημερών", new String[] {"Overdue Task 1", "Overdue Task 2"}, Styles.TaskType.OVERDUE),
-            TasksVBox("Μη διαθεσιμότητα", new String[] {"Completed Task X", "Completed Task Y"}, Styles.TaskType.COMPLETED)
-    );
+    coursePane
+        .getChildren()
+        .addAll(
+            TasksVBox(
+                "Μαθήματα",
+                new String[] {"Task 1", "Task 2", "Task 3", "4", "5", "6", "7", "8", "9,", "10"},
+                Styles.TaskType
+                    .TODAY), // εδώ που είναι το new String βάζουμε μια μέθοδο που επιστρέφει τα
+            // μαθήματα)
+            TasksVBox(
+                "Εργασίες",
+                new String[] {"Task A", "Task B", "Task C", "Task D"},
+                Styles.TaskType.WEEK),
+            TasksVBox(
+                "Διαθεσιμότητα Ημερών",
+                new String[] {"Overdue Task 1", "Overdue Task 2"},
+                Styles.TaskType.OVERDUE),
+            TasksVBox(
+                "Μη διαθεσιμότητα",
+                new String[] {"Completed Task X", "Completed Task Y"},
+                Styles.TaskType.COMPLETED));
     return coursePane;
-    }
+  }
 
   // Method that creates the taskPane with a label and a listView
   private VBox TasksVBox(String title, String[] tasks, Styles.TaskType taskType) {
     Label titleLabel = new Label(title);
-    titleLabel.setStyle(Styles.getLabelStyle(taskType.getColor()));
+    titleLabel.setStyle(Styles.LABEL_STYLE(taskType.getColor()));
 
     ListView<String> listView = new ListView<>();
     listView.getItems().addAll(tasks);
@@ -125,9 +149,7 @@ public class RightPanel {
     return taskPane;
   }
 
-
-
-  //Pelagia
+  // Pelagia
   public void CoursesList() {
     VBox examList = new VBox(5);
     VBox assignmentLst = new VBox(5);

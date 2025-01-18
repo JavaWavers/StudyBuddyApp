@@ -16,24 +16,42 @@ import org.javawavers.studybuddy.ui_ux.SceneManager;
  */
 public class StudyBuddyApp extends Application { // exam page
 
+  private static Stage primaryStage;
+
   @Override
   public void start(Stage stage) {
-    SceneManager sceneManager = new SceneManager(stage);
+    try {
+      primaryStage = stage;
+      SceneManager sceneManager = new SceneManager(stage);
 
-    HomePage homePage = new HomePage();
-    Scene homeScene = homePage.home(sceneManager);
-    stage.setScene(homeScene);
-    stage.setTitle("StudyBuddy");
-    stage.setX((Screen.getPrimary().getVisualBounds().getWidth()) / 2);
-    stage.setX((Screen.getPrimary().getVisualBounds().getHeight()) / 2);
-    stage.setWidth(1024);
-    stage.setHeight(768);
-    stage.setMaximized(true);
-    stage.setMinWidth(1024);
-    stage.setMinHeight(768);
+      HomePage homePage = new HomePage();
+      Scene homeScene = homePage.home(sceneManager);
+      stage.setScene(homeScene);
+      stage.setTitle("StudyBuddy");
+      stage.setX((Screen.getPrimary().getVisualBounds().getWidth()) / 2);
+      stage.setX((Screen.getPrimary().getVisualBounds().getHeight()) / 2);
+      stage.setWidth(1024);
+      stage.setHeight(768);
+      stage.setMaximized(true);
+      stage.setMinWidth(1024);
+      stage.setMinHeight(768);
+      try {
+        DataBaseManager.createTables();
+      } catch (Exception dbException) {
+        System.err.println(
+            "Δεν μπορεί να αρχικοποιηθεί η βάση δεδομένων: " + dbException.getMessage());
+        dbException.printStackTrace();
+      }
+      stage.show();
+    } catch (Exception e) {
+      System.err.println("Πρόβλημα κατά την εκκίνηση της εφαρμογής: " + e.getMessage());
+      e.printStackTrace();
+      ;
+    }
+  }
 
-    stage.show();
-    DataBaseManager.createTables();
+  public static Stage getStage() {
+    return primaryStage;
   }
 
   public static void main(String[] args) {

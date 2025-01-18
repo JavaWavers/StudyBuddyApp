@@ -1,18 +1,13 @@
 package org.javawavers.studybuddy.ui_ux;
 
+import static org.javawavers.studybuddy.courses.StaticUser.staticUser;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoField;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
-import org.javawavers.studybuddy.calculations.*;
-import org.javawavers.studybuddy.courses.Exam;
-import org.javawavers.studybuddy.courses.ScheduledTask;
-import static org.javawavers.studybuddy.courses.StaticUser.staticUser;
-import org.javawavers.studybuddy.courses.Subject;
-
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -35,7 +30,10 @@ import javafx.scene.text.FontWeight;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import org.javawavers.studybuddy.database.ActiveUser;
+import org.javawavers.studybuddy.calculations.*;
+import org.javawavers.studybuddy.courses.Exam;
+import org.javawavers.studybuddy.courses.ScheduledTask;
+import org.javawavers.studybuddy.courses.Subject;
 
 public class Calendar {
   private LocalDate currentWeekStart;
@@ -95,14 +93,14 @@ public class Calendar {
         "-fx-background-color: #CF308C; -fx-text-fill: white; -fx-font-size: 14px; -fx-background-radius: 30px;");
     nextButton.setPrefSize(30, 30);
 
-   // GridPane calendarGrid = new GridPane();
+    // GridPane calendarGrid = new GridPane();
     calendarGrid.setStyle("-fx-border-color: black;");
     calendarGrid.setGridLinesVisible(true);
 
     subject = staticUser.getSubjects();
     for (Subject sub : subject) {
-        System.out.println("call subject in createCalandar");
-        System.out.println(sub);
+      System.out.println("call subject in createCalandar");
+      System.out.println(sub);
     }
     /*createCalendarGrid(calendarGrid, count, subject, totalWeeks);///////////////////////////////////////////
     System.out.println("test calendar" + staticUser.getTotalWeeks());
@@ -127,7 +125,8 @@ public class Calendar {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle(null);
             alert.setHeaderText(null);
-            alert.setContentText("Προς το παρόν, δεν υπάρχουν προηγούμενες εβδομάδες. Αλλά μην ανησυχείς, όλα ξεκινούν από εδώ!");
+            alert.setContentText(
+                "Προς το παρόν, δεν υπάρχουν προηγούμενες εβδομάδες. Αλλά μην ανησυχείς, όλα ξεκινούν από εδώ!");
             alert
                 .getDialogPane()
                 .getStylesheets()
@@ -143,23 +142,22 @@ public class Calendar {
           count++;
           if (count > totalWeeks.size()) {
             Alert alert = new Alert(Alert.AlertType.WARNING);
-              alert.setTitle(null);
-              alert.setHeaderText(null);
-              alert.setContentText("Πάει κι αυτό! 🎉 Ώρα για λίγη ξεκούραση τώρα! Η εξεταστική σου σταματάει εδώ");
-              alert
-                  .getDialogPane()
-                  .getStylesheets()
-                  .add(getClass().getResource("/alert.css").toExternalForm());
-              alert.getDialogPane().setMinWidth(500);
-              alert.getDialogPane().setMinHeight(300);
-              alert.showAndWait();
+            alert.setTitle(null);
+            alert.setHeaderText(null);
+            alert.setContentText(
+                "Πάει κι αυτό! 🎉 Ώρα για λίγη ξεκούραση τώρα! Η εξεταστική σου σταματάει εδώ");
+            alert
+                .getDialogPane()
+                .getStylesheets()
+                .add(getClass().getResource("/alert.css").toExternalForm());
+            alert.getDialogPane().setMinWidth(500);
+            alert.getDialogPane().setMinHeight(300);
+            alert.showAndWait();
           } else {
             currentWeekStart = currentWeekStart.plusWeeks(1);
             weekLabel.setText(formatWeekLabel(currentWeekStart, formatter));
             createCalendarGrid(calendarGrid, count, SimulateAnnealing.getSubjects(), totalWeeks);
-              
           }
-        
         });
 
     weekSwitcher.setTranslateY(40);
@@ -247,8 +245,8 @@ public class Calendar {
 
             SimulateAnnealing.scheduleResult();
             totalWeeks = new ArrayList<>(staticUser.getTotalWeeks());
-              PrintWeeks printWeek = new PrintWeeks();
-              printWeek.printWeeks(totalWeeks);
+            PrintWeeks printWeek = new PrintWeeks();
+            printWeek.printWeeks(totalWeeks);
             /*
             int [][] schedule = SimulateAnnealing.getSchedule();
             int colSize = schedule[0].length;
@@ -408,10 +406,10 @@ public class Calendar {
     int dayCount = 0;
     for (Day d : thisWeek.getDaysOfWeek()) {
       int rowCount = 1;
-        System.out.println("Ημέρα: ελεγχος των ημερολογιου" + d);
+      System.out.println("Ημέρα: ελεγχος των ημερολογιου" + d);
       if (!d.getTodayTasks().isEmpty()) {
         for (ScheduledTask s : d.getTodayTasks()) {
-            System.out.println(s);
+          System.out.println(s);
           Label cell = new Label();
           cell.setStyle("-fx-border-color: gray; -fx-border-width: 0; -fx-alignment: center;");
           cell.setFont(Font.font("System", FontWeight.NORMAL, 14));

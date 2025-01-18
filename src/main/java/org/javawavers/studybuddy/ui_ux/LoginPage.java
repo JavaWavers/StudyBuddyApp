@@ -188,14 +188,14 @@ public class LoginPage {
     toggleButton.setGraphic(userImgView);
     toggleButton.setStyle("-fx-font-size: 12px;");
     toggleButton.setOnAction(
-      e -> {
-      if (userImgView.getImage().equals(seeImage1)) {
-        userImgView.setImage(notseeImage2);
-      } else {
-        userImgView.setImage(seeImage1);
-      }
-      PasswordVisibility();
-    });
+        e -> {
+          if (userImgView.getImage().equals(seeImage1)) {
+            userImgView.setImage(notseeImage2);
+          } else {
+            userImgView.setImage(seeImage1);
+          }
+          PasswordVisibility();
+        });
 
     HBox passwordBox = new HBox(10, passwordField, textField, toggleButton);
 
