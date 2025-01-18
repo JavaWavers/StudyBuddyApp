@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="el"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ScheduledTask.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">studybuddy</a> &gt; <a href="index.source.html" class="el_package">org.javawavers.studybuddy.courses</a> &gt; <span class="el_source">ScheduledTask.java</span></div><h1>ScheduledTask.java</h1><pre class="source lang-java linenums">package org.javawavers.studybuddy.courses;
+
+import java.time.Duration;
+import java.time.LocalDate;
+import java.time.LocalTime;
+
+/**
+ * The {@code ScheduledTask} class represents a scheduled task for a specific subject or course.
+ * It includes details such as task name, type, allocated study hours, task status,
+ * start and completion times, and associated dates.
+ *The class also provides methods to manage the task's status, calculate time variance,
+ * and track progress. It supports various constructors for flexibility in creating tasks.
+ * Features:
+ * Support for different task types and statuses (e.g., COMPLETED, IN_PROGRESS).
+ * Automatic time tracking for start and completion times based on task status.
+ * Time variance calculation between start and completion times.
+ * Flexible constructors to accommodate tasks with or without specific subjects.
+ */
+public class ScheduledTask {
+
+  // Fields
+  private String taskName;
+  private int hoursAllocated;
+  private LocalTime timeStarted;
+  private LocalTime timeCompleted;
+  private TaskStatus taskStatus;
+  private LocalDate taskDate;
+  private final String subjectName;
+  private final String taskType;
+  private int taskId;
+
+  /**
+   * Enum representing the status of a task.
+   * &lt;ul&gt;
+   *   &lt;li&gt;{@code COMPLETED}: The task has been completed.&lt;/li&gt;
+   *   &lt;li&gt;{@code IN_PROGRESS}: The task is currently being worked on.&lt;/li&gt;
+   *   &lt;li&gt;{@code LATE}: The task is overdue and not yet completed.&lt;/li&gt;
+   *   &lt;li&gt;{@code UPCOMING}: The task is scheduled for a future date.&lt;/li&gt;
+   * &lt;/ul&gt;
+   */
+
+<span class="nc" id="L42">  public enum TaskStatus {</span>
+<span class="nc" id="L43">    COMPLETED,</span>
+<span class="nc" id="L44">    IN_PROGRESS,</span>
+<span class="nc" id="L45">    LATE,</span>
+<span class="nc" id="L46">    UPCOMING</span>
+  }
+
+  // Constructor
+
+
+  /**
+   * Constructs a {@code ScheduledTask} object with full details, including subject
+   * and time tracking.
+   *
+   * @param taskName The name of the task.
+   * @param taskType The type of the task (e.g., &quot;Homework&quot;, &quot;Exam Preparation&quot;).
+   * @param hoursAllocated The recommended number of hours for completing the task.
+   * @param taskStatus The current status of the task.
+   * @param timeStarted The time the task started.
+   * @param timeCompleted The time the task was completed.
+   * @param taskDate The date associated with the task.
+   * @param subject The subject associated with the task.
+   */
+  public ScheduledTask(
+      String taskName,
+      String taskType,
+      int hoursAllocated,
+      TaskStatus taskStatus,
+      LocalTime timeStarted,
+      LocalTime timeCompleted,
+      LocalDate taskDate,
+<span class="nc" id="L73">      Subject subject) {</span>
+<span class="nc" id="L74">    this.taskName = taskName;</span>
+<span class="nc" id="L75">    this.taskType = taskType;</span>
+<span class="nc" id="L76">    this.hoursAllocated = hoursAllocated;</span>
+<span class="nc" id="L77">    this.taskStatus = taskStatus;</span>
+<span class="nc" id="L78">    this.timeStarted = timeStarted;</span>
+<span class="nc" id="L79">    this.timeCompleted = timeCompleted;</span>
+<span class="nc" id="L80">    this.taskDate = taskDate;</span>
+<span class="nc" id="L81">    this.subjectName = subject.getCourseName();</span>
+<span class="nc" id="L82">  }</span>
+
+  /**
+   * Constructs a {@code ScheduledTask} object with subject details provided as a string.
+   *
+   * @param taskName The name of the task.
+   * @param taskType The type of the task.
+   * @param hoursAllocated The recommended number of hours for completing the task.
+   * @param taskStatus The current status of the task.
+   * @param timeStarted The time the task started.
+   * @param timeCompleted The time the task was completed.
+   * @param taskDate The date associated with the task.
+   * @param subjectName The name of the subject associated with the task.
+   */
+  public ScheduledTask(
+          String taskName,
+          String taskType,
+          int hoursAllocated,
+          TaskStatus taskStatus,
+          LocalTime timeStarted,
+          LocalTime timeCompleted,
+          LocalDate taskDate,
+<span class="nc" id="L104">          String subjectName) {</span>
+<span class="nc" id="L105">    this.taskName = taskName;</span>
+<span class="nc" id="L106">    this.taskType = taskType;</span>
+<span class="nc" id="L107">    this.hoursAllocated = hoursAllocated;</span>
+<span class="nc" id="L108">    this.taskStatus = taskStatus;</span>
+<span class="nc" id="L109">    this.timeStarted = timeStarted;</span>
+<span class="nc" id="L110">    this.timeCompleted = timeCompleted;</span>
+<span class="nc" id="L111">    this.taskDate = taskDate;</span>
+<span class="nc" id="L112">    this.subjectName = subjectName;</span>
+<span class="nc" id="L113">  }</span>
+
+  /**
+   * Constructs a {@code ScheduledTask} object with default status (UPCOMING) and no time tracking.
+   *
+   * @param taskName The name of the task.
+   * @param taskType The type of the task.
+   * @param hoursAllocated The recommended number of hours for completing the task.
+   * @param taskDate The date associated with the task.
+   * @param subject The subject associated with the task.
+   */
+  public ScheduledTask(
+      String taskName, String taskType, int hoursAllocated, LocalDate taskDate, Subject subject) {
+<span class="nc" id="L126">    this(taskName, taskType, hoursAllocated, TaskStatus.UPCOMING, null, null, taskDate, subject);</span>
+<span class="nc" id="L127">  }</span>
+
+  // Getter and Setter for taskName
+  public String getTaskName() {
+<span class="nc" id="L131">    return taskName;</span>
+  }
+
+  public void setTaskName(String taskName) {
+<span class="nc" id="L135">    this.taskName = taskName;</span>
+<span class="nc" id="L136">  }</span>
+
+  // Getter and Setter for hoursAllocated
+  public int getHoursAllocated() {
+<span class="nc" id="L140">    return hoursAllocated;</span>
+  }
+
+  public void setHoursAllocated(int hoursAllocated) {
+<span class="nc" id="L144">    this.hoursAllocated = hoursAllocated;</span>
+<span class="nc" id="L145">  }</span>
+
+  // Getter and Setter for taskStatus
+  public TaskStatus getTaskStatus() {
+<span class="nc" id="L149">    return taskStatus;</span>
+  }
+
+  /**
+   * Sets the current status of the task. Automatically updates the start or
+   * completion time if applicable.
+   *
+   * @param taskStatus The new status of the task.
+   */
+  public void setTaskStatus(TaskStatus taskStatus) {
+<span class="nc" id="L159">    this.taskStatus = taskStatus;</span>
+
+<span class="nc bnc" id="L161" title="All 2 branches missed.">    if (taskStatus == TaskStatus.IN_PROGRESS) {</span>
+<span class="nc" id="L162">      this.timeStarted = LocalTime.now();</span>
+<span class="nc bnc" id="L163" title="All 2 branches missed.">    } else if (taskStatus == TaskStatus.COMPLETED) {</span>
+<span class="nc" id="L164">      this.timeCompleted = LocalTime.now();</span>
+    }
+<span class="nc" id="L166">  }</span>
+
+  // getters for TimeStarted and TimeCompleted
+  public LocalTime getTimeStarted() {
+<span class="nc" id="L170">    return timeStarted;</span>
+  }
+
+  public LocalTime getTimeCompleted() {
+<span class="nc" id="L174">    return timeCompleted;</span>
+  }
+
+  // Getter and Setter for TaskDate
+  public LocalDate getTaskDate() {
+<span class="nc" id="L179">    return taskDate;</span>
+  }
+
+  public void setTaskDate(LocalDate taskDate) {
+<span class="nc" id="L183">    this.taskDate = taskDate;</span>
+<span class="nc" id="L184">  }</span>
+
+  public String getSubjectName() {
+<span class="nc" id="L187">    return subjectName;</span>
+  }
+
+  public String getTaskType() {
+<span class="nc" id="L191">    return taskType;</span>
+  }
+
+  //Getter and Setter for Task id
+  public void setTaskId(int taskId) {
+<span class="nc" id="L196">    this.taskId = taskId;</span>
+<span class="nc" id="L197">  }</span>
+
+  public int getTaskId() {
+<span class="nc" id="L200">    return taskId;</span>
+  }
+
+  // Method to check if the task is complete, return true when task is completed
+  public boolean isComplete() {
+<span class="nc bnc" id="L205" title="All 2 branches missed.">    return taskStatus == TaskStatus.COMPLETED;</span>
+  }
+
+  // Method to check if the task is in progress
+  public boolean isInProgress() {
+<span class="nc bnc" id="L210" title="All 2 branches missed.">    return taskStatus == TaskStatus.IN_PROGRESS;</span>
+  }
+
+  // Method to calculate time variance
+
+  /**
+   * Calculates the time variance between the start and completion times.
+   *
+   * @return A string representation of the duration in hours and minutes, or a message
+   *      if the start or completion time is not set.
+   */
+  public String timeVariance() {
+<span class="nc bnc" id="L222" title="All 4 branches missed.">    if (timeStarted != null &amp;&amp; timeCompleted != null) {</span>
+<span class="nc" id="L223">      Duration duration = Duration.between(timeStarted, timeCompleted);</span>
+<span class="nc" id="L224">      long hours = duration.toHours();</span>
+<span class="nc" id="L225">      long minutes = duration.toMinutes() % 60;</span>
+<span class="nc" id="L226">      return hours + &quot; ώρες και &quot; + minutes + &quot; λεπτά&quot;;</span>
+    } else {
+<span class="nc" id="L228">      return &quot;Η ώρα έναρξης ή ολοκλήρωσης δεν έχει οριστεί&quot;;</span>
+    }
+  }
+
+  // toString method
+  @Override
+  public String toString() {
+<span class="nc" id="L235">    return &quot;Όνομα Task: &quot;</span>
+        + taskName
+        + &quot;,\nΤύπος Task: &quot;
+        + taskType
+        + &quot;,\nΣυνιστώμενες ώρες μελέτης: &quot;
+        + hoursAllocated
+        + &quot;, Κατάσταση Εργασίας: &quot; + taskStatus
+        ;
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

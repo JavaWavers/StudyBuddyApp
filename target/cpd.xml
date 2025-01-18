@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <pmd-cpd>
    <duplication lines="29" tokens="238">
-      <file begintoken="11461" column="5" endcolumn="25" endline="408" endtoken="11698"
-            line="380"
+      <file begintoken="11561" column="5" endcolumn="25" endline="410" endtoken="11798"
+            line="382"
             path="C:\Users\Zpela\Documents\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\database\ActiveUser.java"/>
-      <file begintoken="12376" column="5" endcolumn="25" endline="546" endtoken="12613"
-            line="518"
+      <file begintoken="12476" column="5" endcolumn="25" endline="548" endtoken="12713"
+            line="520"
             path="C:\Users\Zpela\Documents\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\database\ActiveUser.java"/>
       <codefragment><![CDATA[    List<ScheduledTask> scheduledTasks = new ArrayList<>();
 
@@ -38,10 +38,10 @@
       System.err.println("Σφάλμα κατά την ανάκτηση Task : " + e.getMessage());]]></codefragment>
    </duplication>
    <duplication lines="28" tokens="206">
-      <file begintoken="13853" column="9" endcolumn="3" endline="128" endtoken="14058"
+      <file begintoken="13953" column="9" endcolumn="3" endline="128" endtoken="14158"
             line="101"
             path="C:\Users\Zpela\Documents\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\database\DataInserter.java"/>
-      <file begintoken="14707" column="9" endcolumn="3" endline="265" endtoken="14912"
+      <file begintoken="14807" column="9" endcolumn="3" endline="265" endtoken="15012"
             line="238"
             path="C:\Users\Zpela\Documents\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\database\DataInserter.java"/>
       <codefragment><![CDATA[        + "timeCompleted, taskStatus, taskDate, subjectName, taskType,"
@@ -74,10 +74,10 @@
   }]]></codefragment>
    </duplication>
    <duplication lines="15" tokens="171">
-      <file begintoken="32625" column="23" endcolumn="71" endline="194" endtoken="32795"
+      <file begintoken="32838" column="23" endcolumn="71" endline="194" endtoken="33008"
             line="180"
             path="C:\Users\Zpela\Documents\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\RegisterPage.java"/>
-      <file begintoken="32857" column="24" endcolumn="71" endline="228" endtoken="33027"
+      <file begintoken="33070" column="24" endcolumn="71" endline="228" endtoken="33240"
             line="214"
             path="C:\Users\Zpela\Documents\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\RegisterPage.java"/>
       <codefragment><![CDATA[        .widthProperty()
@@ -97,10 +97,10 @@
               confirmPasswordField.setFont(Font.font("Arial", newSize));]]></codefragment>
    </duplication>
    <duplication lines="57" tokens="137">
-      <file begintoken="19387" column="3" endcolumn="14" endline="286" endtoken="19523"
+      <file begintoken="19600" column="3" endcolumn="14" endline="286" endtoken="19736"
             line="230"
             path="C:\Users\Zpela\Documents\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\AssignmentPage.java"/>
-      <file begintoken="25914" column="3" endcolumn="14" endline="344" endtoken="26050"
+      <file begintoken="26127" column="3" endcolumn="14" endline="344" endtoken="26263"
             line="288"
             path="C:\Users\Zpela\Documents\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\ExamPage.java"/>
       <codefragment><![CDATA[  }
@@ -162,10 +162,10 @@
   public Scene assignmentStartingPage(SceneManager sceneManager) {]]></codefragment>
    </duplication>
    <duplication lines="19" tokens="137">
-      <file begintoken="28469" column="23" endcolumn="23" endline="232" endtoken="28605"
+      <file begintoken="28682" column="23" endcolumn="23" endline="232" endtoken="28818"
             line="214"
             path="C:\Users\Zpela\Documents\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\LoginPage.java"/>
-      <file begintoken="28621" column="24" endcolumn="23" endline="258" endtoken="28757"
+      <file begintoken="28834" column="24" endcolumn="23" endline="258" endtoken="28970"
             line="240"
             path="C:\Users\Zpela\Documents\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\LoginPage.java"/>
       <codefragment><![CDATA[        .widthProperty()
@@ -189,10 +189,10 @@
                       + "-fx-background-color:  rgba(14, 164, 43, 0.81); "]]></codefragment>
    </duplication>
    <duplication lines="17" tokens="119">
-      <file begintoken="18419" column="20" endcolumn="14" endline="66" endtoken="18537"
+      <file begintoken="18632" column="20" endcolumn="14" endline="66" endtoken="18750"
             line="50"
             path="C:\Users\Zpela\Documents\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\AssignmentPage.java"/>
-      <file begintoken="24671" column="14" endcolumn="14" endline="92" endtoken="24789"
+      <file begintoken="24884" column="14" endcolumn="14" endline="92" endtoken="25002"
             line="76"
             path="C:\Users\Zpela\Documents\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\ExamPage.java"/>
       <codefragment><![CDATA[    assignmentPanel.setPadding(new Insets(20));
@@ -214,13 +214,13 @@
         e -> {]]></codefragment>
    </duplication>
    <duplication lines="18" tokens="103">
-      <file begintoken="18764" column="59" endcolumn="34" endline="119" endtoken="18866"
+      <file begintoken="18977" column="59" endcolumn="34" endline="119" endtoken="19079"
             line="102"
             path="C:\Users\Zpela\Documents\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\AssignmentPage.java"/>
-      <file begintoken="20554" column="98" endcolumn="34" endline="193" endtoken="20656"
+      <file begintoken="20767" column="98" endcolumn="34" endline="193" endtoken="20869"
             line="177"
             path="C:\Users\Zpela\Documents\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\AvailabilityPage.java"/>
-      <file begintoken="25262" column="87" endcolumn="34" endline="188" endtoken="25364"
+      <file begintoken="25475" column="87" endcolumn="34" endline="188" endtoken="25577"
             line="171"
             path="C:\Users\Zpela\Documents\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\ExamPage.java"/>
       <codefragment><![CDATA[            errors.add("• Πρέπει να προσθέσεις ένα μάθημα");

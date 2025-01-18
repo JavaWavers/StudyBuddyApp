@@ -1,0 +1,551 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="el"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ActiveUser.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">studybuddy</a> &gt; <a href="index.source.html" class="el_package">org.javawavers.studybuddy.database</a> &gt; <span class="el_source">ActiveUser.java</span></div><h1>ActiveUser.java</h1><pre class="source lang-java linenums">package org.javawavers.studybuddy.database;
+
+/* This class contains all the methods to get the elements from the database*/
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+import org.javawavers.studybuddy.calculations.Day;
+import org.javawavers.studybuddy.calculations.Week;
+import org.javawavers.studybuddy.courses.Assignment;
+import org.javawavers.studybuddy.courses.Exam;
+import org.javawavers.studybuddy.courses.ScheduledTask;
+import org.javawavers.studybuddy.courses.StaticUser;
+import org.javawavers.studybuddy.courses.Subject;
+import org.javawavers.studybuddy.courses.User;
+
+/**
+ * the class containing all the methods for loading data from the database.
+ */
+<span class="nc" id="L26">public class ActiveUser {</span>
+<span class="nc" id="L27">  private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern(&quot;yyyy-MM-dd&quot;);</span>
+<span class="nc" id="L28">  public static int connectedId = -1;</span>
+
+  /** loading all data after authenticating user. */
+  public static void loadData(String email, String password) {
+<span class="nc" id="L32">    User connectedUser = authenticateUser(email, password);</span>
+<span class="nc bnc" id="L33" title="All 2 branches missed.">    if (connectedUser != null) {</span>
+<span class="nc" id="L34">      StaticUser.staticUser = connectedUser;</span>
+<span class="nc" id="L35">      List&lt;Subject&gt; subjects = getSubjects(getUserId(email, password));</span>
+<span class="nc" id="L36">      List&lt;LocalDate&gt; nonAvDates = getNonAvDates(getUserId(email, password));</span>
+<span class="nc" id="L37">      int[] availability = getAvailability(getUserId(email, password));</span>
+<span class="nc" id="L38">      List&lt;Day&gt; days = getDays(getUserId(email, password));</span>
+<span class="nc" id="L39">      List&lt;Assignment&gt; assignments = getAssignments(getUserId(email, password));</span>
+<span class="nc" id="L40">      List&lt;Exam&gt; exams = getExam(getUserId(email, password));</span>
+<span class="nc" id="L41">      List&lt;ScheduledTask&gt; scheduledTasks = getTasks(getUserId(email, password));</span>
+<span class="nc" id="L42">      List&lt;Week&gt; weeks = getWeeks(getUserId(email, password));</span>
+
+<span class="nc" id="L44">      StaticUser.staticUser.setUserId(getUserId(email, password));</span>
+<span class="nc" id="L45">      StaticUser.staticUser.setEmail(email);</span>
+<span class="nc" id="L46">      StaticUser.staticUser.setPassword(password);</span>
+<span class="nc" id="L47">      StaticUser.staticUser.setAvPerDay(availability);</span>
+<span class="nc" id="L48">      StaticUser.staticUser.setTotalWeeks(weeks);</span>
+<span class="nc" id="L49">      StaticUser.staticUser.setAssignments(assignments);</span>
+<span class="nc" id="L50">      StaticUser.staticUser.setExams(exams);</span>
+<span class="nc" id="L51">      StaticUser.staticUser.setNonAvailDays(nonAvDates);</span>
+<span class="nc" id="L52">      StaticUser.staticUser.setSubjects(subjects);</span>
+<span class="nc" id="L53">      StaticUser.staticUser.setDays(days);</span>
+<span class="nc" id="L54">      StaticUser.staticUser.setTasks(scheduledTasks);</span>
+<span class="nc bnc" id="L55" title="All 2 branches missed.">      for (Subject subject : subjects) {</span>
+<span class="nc" id="L56">        System.out.println(&quot;subject:&quot;);</span>
+<span class="nc" id="L57">        System.out.println(subject.toString());</span>
+<span class="nc" id="L58">      }</span>
+<span class="nc bnc" id="L59" title="All 2 branches missed.">      for (Assignment assignment : assignments) {</span>
+<span class="nc" id="L60">        System.out.println(&quot;assignment:&quot;);</span>
+<span class="nc" id="L61">        System.out.println(assignment);</span>
+<span class="nc" id="L62">      }</span>
+<span class="nc bnc" id="L63" title="All 2 branches missed.">      for (Exam exam : exams) {</span>
+<span class="nc" id="L64">        System.out.println(&quot;exam:&quot;);</span>
+<span class="nc" id="L65">        System.out.println(exam);</span>
+<span class="nc" id="L66">      }</span>
+<span class="nc bnc" id="L67" title="All 2 branches missed.">      for (LocalDate nonAvDate : nonAvDates) {</span>
+<span class="nc" id="L68">        System.out.println(&quot;nonAvDate:&quot;);</span>
+<span class="nc" id="L69">        System.out.println(nonAvDate);</span>
+<span class="nc" id="L70">      }</span>
+<span class="nc bnc" id="L71" title="All 2 branches missed.">      for (Week week : weeks) {</span>
+<span class="nc" id="L72">        System.out.println(&quot;week:&quot;);</span>
+<span class="nc" id="L73">        System.out.println(week);</span>
+<span class="nc" id="L74">      }</span>
+<span class="nc bnc" id="L75" title="All 2 branches missed.">      for (int i = 1; i &lt; 8; i++) {</span>
+<span class="nc" id="L76">        System.out.println(&quot;availability:&quot;);</span>
+<span class="nc" id="L77">        System.out.println(availability[i]);</span>
+      }
+<span class="nc bnc" id="L79" title="All 2 branches missed.">      for (ScheduledTask scheduledTask : scheduledTasks) {</span>
+<span class="nc" id="L80">        System.out.println(&quot;scheduledTask:&quot;);</span>
+<span class="nc" id="L81">        System.out.println(scheduledTask);</span>
+<span class="nc" id="L82">      }</span>
+<span class="nc" id="L83">    } else {</span>
+<span class="nc" id="L84">      System.out.println(&quot;Username or password is incorrect&quot;);</span>
+    }
+
+<span class="nc" id="L87">  }</span>
+
+  /** returns userId from their email land password. */
+  public static int getUserId(String email, String password) {
+<span class="nc" id="L91">    String query = &quot;SELECT userId FROM User WHERE email = ? AND password = ?&quot;;</span>
+<span class="nc" id="L92">    try (Connection c = DataBaseManager.connect();</span>
+<span class="nc" id="L93">         PreparedStatement ps = c.prepareStatement(query)) {</span>
+<span class="nc" id="L94">      ps.setString(1, email);</span>
+<span class="nc" id="L95">      ps.setString(2, password);</span>
+<span class="nc" id="L96">      try (ResultSet resultSet = ps.executeQuery()) {</span>
+<span class="nc bnc" id="L97" title="All 2 branches missed.">        if (resultSet.next()) {</span>
+<span class="nc" id="L98">          int userId = resultSet.getInt(&quot;userID&quot;);</span>
+<span class="nc" id="L99">          return userId;</span>
+        }
+<span class="nc bnc" id="L101" title="All 2 branches missed.">      }</span>
+<span class="nc bnc" id="L102" title="All 4 branches missed.">    } catch (SQLException e) {</span>
+<span class="nc" id="L103">      System.err.println(&quot;Σφάλμα κατά την αναζήτηση κωδικου χρήστη: &quot; + e.getMessage());</span>
+<span class="nc" id="L104">    }</span>
+<span class="nc" id="L105">    return -1;</span>
+  }
+
+  /** authenticates user and creating a User object. */
+  public static User authenticateUser(String email, String password) {
+<span class="nc" id="L110">    String query = &quot;SELECT userId, email, name FROM User WHERE email = ? AND password = ?&quot;;</span>
+
+<span class="nc" id="L112">    try (Connection c = DataBaseManager.connect();</span>
+<span class="nc" id="L113">         PreparedStatement ps = c.prepareStatement(query)) {</span>
+<span class="nc" id="L114">      ps.setString(1, email);</span>
+<span class="nc" id="L115">      ps.setString(2, password);</span>
+
+<span class="nc" id="L117">      try (ResultSet resultSet = ps.executeQuery()) {</span>
+<span class="nc bnc" id="L118" title="All 2 branches missed.">        if (resultSet.next()) {</span>
+<span class="nc" id="L119">          int userId = resultSet.getInt(&quot;userId&quot;);</span>
+<span class="nc" id="L120">          String userEmail = resultSet.getString(&quot;email&quot;);</span>
+<span class="nc" id="L121">          String name = resultSet.getString(&quot;name&quot;);</span>
+
+<span class="nc" id="L123">          return new User(userId, name, userEmail, password); // creation of object User</span>
+        }
+<span class="nc bnc" id="L125" title="All 2 branches missed.">      }</span>
+<span class="nc bnc" id="L126" title="All 4 branches missed.">    } catch (SQLException e) {</span>
+<span class="nc" id="L127">      System.err.println(&quot;Σφάλμα κατά την αναζήτηση χρήστη: &quot; + e.getMessage());</span>
+<span class="nc" id="L128">    }</span>
+<span class="nc" id="L129">    return null; // If the authentication fails</span>
+  }
+
+  /** returns a specific SubjectId. */
+  public static int getSubjectId(int userId, String courseName) {
+<span class="nc" id="L134">    System.out.println(&quot;userId: &quot; + userId + &quot;, courseName: &quot; + courseName);</span>
+<span class="nc" id="L135">    String sql = &quot;SELECT subjectId FROM Subject WHERE userId = ? AND subjectName = ?&quot;;</span>
+<span class="nc" id="L136">    int subjectId = -1;</span>
+
+<span class="nc" id="L138">    try (Connection c = DataBaseManager.connect();</span>
+<span class="nc" id="L139">         PreparedStatement ps = c.prepareStatement(sql)) {</span>
+<span class="nc" id="L140">      ps.setInt(1, userId);</span>
+<span class="nc" id="L141">      ps.setString(2, courseName);</span>
+<span class="nc" id="L142">      try (ResultSet rs = ps.executeQuery()) {</span>
+<span class="nc bnc" id="L143" title="All 2 branches missed.">        if (rs.next()) {</span>
+<span class="nc" id="L144">          subjectId = rs.getInt(&quot;subjectId&quot;);</span>
+<span class="nc" id="L145">          System.out.println(&quot;Βρέθηκε subjectId: &quot; + subjectId);</span>
+        } else {
+<span class="nc" id="L147">          System.err.println(&quot;Δεν βρέθηκε subjectId για τον χρήστη: &quot;</span>
+              + userId + &quot;, μάθημα: &quot; + courseName);
+        }
+      }
+<span class="nc" id="L151">    } catch (SQLException e) {</span>
+<span class="nc" id="L152">      System.err.println(&quot;Σφάλμα κατά την ανάκτηση του κωδικου μαθήματος: &quot; + e.getMessage());</span>
+<span class="nc" id="L153">    }</span>
+<span class="nc" id="L154">    return subjectId;</span>
+  }
+
+  /** returns a list of SubjectId's for a specific user. */
+  public static List&lt;Integer&gt; getSubjectId(int userId) {
+<span class="nc" id="L159">    String sql = &quot;SELECT subjectId FROM Subject WHERE userId = ?&quot;;</span>
+<span class="nc" id="L160">    List&lt;Integer&gt; subjectId = new ArrayList&lt;&gt;();</span>
+
+<span class="nc" id="L162">    try (Connection c = DataBaseManager.connect();</span>
+<span class="nc" id="L163">         PreparedStatement ps = c.prepareStatement(sql)) {</span>
+<span class="nc" id="L164">      ps.setInt(1, userId);</span>
+<span class="nc" id="L165">      try (ResultSet rs = ps.executeQuery()) {</span>
+<span class="nc bnc" id="L166" title="All 2 branches missed.">        while (rs.next()) {</span>
+<span class="nc" id="L167">          subjectId.add(rs.getInt(&quot;subjectId&quot;));</span>
+        }
+      }
+<span class="nc" id="L170">    } catch (SQLException e) {</span>
+<span class="nc" id="L171">      System.err.println(&quot;Σφάλμα κατά την ανάκτηση των μαθημάτων: &quot; + e.getMessage());</span>
+<span class="nc" id="L172">    }</span>
+<span class="nc" id="L173">    return subjectId;</span>
+  }
+
+  /** returns the lit of Subjects for a specific user. */
+  public static List&lt;Subject&gt; getSubjects(int userId) {
+<span class="nc" id="L178">    String sql = &quot;SELECT subjectName, difficultyLevel, &quot;</span>
+        + &quot;subjectType, subjectID FROM Subject WHERE userID = ?;&quot;;
+<span class="nc" id="L180">    List&lt;Subject&gt; subjects = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L181">    List&lt;Exam&gt; ex = new ArrayList&lt;&gt;();</span>
+
+<span class="nc" id="L183">    try (Connection c = DataBaseManager.connect();</span>
+<span class="nc" id="L184">         PreparedStatement ps = c.prepareStatement(sql)) {</span>
+<span class="nc" id="L185">      ps.setInt(1, userId);</span>
+<span class="nc" id="L186">      try (ResultSet rs = ps.executeQuery()) {</span>
+<span class="nc bnc" id="L187" title="All 2 branches missed.">        while (rs.next()) {</span>
+<span class="nc" id="L188">          int subjectId = rs.getInt(&quot;subjectId&quot;);</span>
+<span class="nc" id="L189">          String subjectName = rs.getString(&quot;subjectName&quot;);</span>
+<span class="nc" id="L190">          int difficultyLevel = rs.getInt(&quot;difficultyLevel&quot;);</span>
+<span class="nc" id="L191">          Subject.SubjectType subjectType =</span>
+<span class="nc" id="L192">              Subject.SubjectType.valueOf(rs.getString(&quot;subjectType&quot;));</span>
+<span class="nc" id="L193">          Subject subject = new Subject(subjectName, difficultyLevel, subjectType);</span>
+<span class="nc" id="L194">          subject.setSubjectId(subjectId);</span>
+<span class="nc" id="L195">          subjects.add(subject);</span>
+<span class="nc" id="L196">          int subId = getSubjectId(userId, subjectName);</span>
+<span class="nc" id="L197">          ex = getExamForSubject(subId);</span>
+<span class="nc" id="L198">          subject.setExams(ex);</span>
+<span class="nc" id="L199">          subjects.add(subject);</span>
+<span class="nc" id="L200">        }</span>
+      }
+<span class="nc" id="L202">    } catch (SQLException e) {</span>
+<span class="nc" id="L203">      System.err.println(&quot;Σφάλμα κατά την ανάκτηση των μαθημάτων: &quot; + e.getMessage());</span>
+<span class="nc" id="L204">    }</span>
+<span class="nc" id="L205">    return subjects;</span>
+  }
+
+  /** returns the list of exams for a specific user. */
+  public static List&lt;Exam&gt; getExamForSubject(int subjectId) {
+<span class="nc" id="L210">    List&lt;Exam&gt; exams = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L211">    String sql = &quot;SELECT e.deadline, e.pages, e.revisionPerxPages, e.minutesPer20Slides,&quot;</span>
+        + &quot; s.subjectName FROM Exam e, Subject s &quot;
+        + &quot;WHERE e.subjectId = s.subjectId AND e.subjectId = ?;&quot;;
+<span class="nc" id="L214">    try (Connection c = DataBaseManager.connect();</span>
+<span class="nc" id="L215">         PreparedStatement ps = c.prepareStatement(sql)) {</span>
+<span class="nc" id="L216">      ps.setInt(1, subjectId);</span>
+<span class="nc" id="L217">      try (ResultSet rs = ps.executeQuery()) {</span>
+<span class="nc bnc" id="L218" title="All 2 branches missed.">        while (rs.next()) {</span>
+<span class="nc" id="L219">          String deadlineSt = rs.getString(&quot;deadline&quot;);</span>
+<span class="nc" id="L220">          LocalDate deadline = LocalDate.parse(deadlineSt);</span>
+<span class="nc" id="L221">          int pages = rs.getInt(&quot;pages&quot;);</span>
+<span class="nc" id="L222">          int revisionPerxPages = rs.getInt(&quot;revisionPerxPages&quot;);</span>
+<span class="nc" id="L223">          double minutesPer20Slides = rs.getDouble(&quot;minutesPer20Slides&quot;);</span>
+<span class="nc" id="L224">          String subjectName = rs.getString(&quot;subjectName&quot;);</span>
+<span class="nc" id="L225">          Exam exam = new Exam(pages, revisionPerxPages, deadline, minutesPer20Slides);</span>
+<span class="nc" id="L226">          exams.add(exam);</span>
+<span class="nc" id="L227">        }</span>
+      }
+<span class="nc" id="L229">    } catch (SQLException e) {</span>
+<span class="nc" id="L230">      System.err.println(&quot;Σφάλμα κατά την ανάκτηση exams: &quot; + e.getMessage());</span>
+<span class="nc" id="L231">    }</span>
+<span class="nc" id="L232">    return exams;</span>
+  }
+
+  /** returns the list of not available days for a user. */
+  public static List&lt;LocalDate&gt; getNonAvDates(int userId) {
+<span class="nc" id="L237">    String sql = &quot;SELECT date FROM NonAvDates WHERE userId = ?;&quot;;</span>
+<span class="nc" id="L238">    List&lt;LocalDate&gt; nonAvDates = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L239">    try (Connection c = DataBaseManager.connect();</span>
+<span class="nc" id="L240">         PreparedStatement ps = c.prepareStatement(sql)) {</span>
+<span class="nc" id="L241">      ps.setInt(1, userId);</span>
+<span class="nc" id="L242">      try (ResultSet rs = ps.executeQuery()) {</span>
+<span class="nc bnc" id="L243" title="All 2 branches missed.">        while (rs.next()) {</span>
+<span class="nc" id="L244">          String dateString = rs.getString(&quot;date&quot;);</span>
+<span class="nc" id="L245">          LocalDate date = LocalDate.parse(dateString, FORMATTER);</span>
+<span class="nc" id="L246">          nonAvDates.add(date);</span>
+<span class="nc" id="L247">        }</span>
+      }
+<span class="nc" id="L249">    } catch (SQLException e) {</span>
+<span class="nc" id="L250">      System.err.println(&quot;Σφάλμα κατά την ανάκτηση μη διαθέσιμων ημερομηνιών: &quot; + e.getMessage());</span>
+<span class="nc" id="L251">    }</span>
+<span class="nc" id="L252">    return nonAvDates;</span>
+  }
+
+  /** returns the array containing the availability for each day of the week. */
+  public static int[] getAvailability(int userId) {
+<span class="nc" id="L257">    String sql = &quot;&quot;&quot;</span>
+           SELECT mondayAv, tuesdayAv, wednesdayAv, thursdayAv, fridayAv, saturdayAv, sundayAv
+           FROM Availability
+           WHERE userId = ?;
+           &quot;&quot;&quot;;
+<span class="nc" id="L262">    int[] availability = new int[8];</span>
+<span class="nc" id="L263">    try (Connection c = DataBaseManager.connect();</span>
+<span class="nc" id="L264">         PreparedStatement ps = c.prepareStatement(sql)) {</span>
+<span class="nc" id="L265">      ps.setInt(1, userId);</span>
+<span class="nc" id="L266">      try (ResultSet rs = ps.executeQuery()) {</span>
+<span class="nc bnc" id="L267" title="All 2 branches missed.">        if (rs.next()) {</span>
+<span class="nc bnc" id="L268" title="All 2 branches missed.">          for (int i = 1; i &lt;= 7; i++) {</span>
+<span class="nc" id="L269">            availability[i] = rs.getInt(i);</span>
+          }
+        }
+      }
+<span class="nc" id="L273">    } catch (SQLException e) {</span>
+<span class="nc" id="L274">      System.err.println(&quot;Σφάλμα κατά την ανάκτηση της διαθεσιμότητας: &quot; + e.getMessage());</span>
+<span class="nc" id="L275">    }</span>
+<span class="nc" id="L276">    return availability;</span>
+  }
+
+  /** returns the list of days. */
+  public static List&lt;Day&gt; getDays(int userId) {
+<span class="nc" id="L281">    String sql = &quot;SELECT dayId FROM Day WHERE userId = ?;&quot;;</span>
+<span class="nc" id="L282">    List&lt;Day&gt; days = new ArrayList&lt;&gt;();</span>
+
+<span class="nc" id="L284">    try (Connection c = DataBaseManager.connect();</span>
+<span class="nc" id="L285">         PreparedStatement ps = c.prepareStatement(sql)) {</span>
+<span class="nc" id="L286">      ps.setInt(1, userId);</span>
+<span class="nc" id="L287">      try (ResultSet rs = ps.executeQuery()) {</span>
+<span class="nc bnc" id="L288" title="All 2 branches missed.">        while (rs.next()) {</span>
+<span class="nc" id="L289">          int dayId = rs.getInt(&quot;dayId&quot;);</span>
+<span class="nc" id="L290">          List&lt;ScheduledTask&gt; tasksForDay = getTasksForDay(dayId);</span>
+<span class="nc" id="L291">          days.add(new Day(tasksForDay));</span>
+<span class="nc" id="L292">        }</span>
+      }
+<span class="nc" id="L294">    } catch (SQLException e) {</span>
+<span class="nc" id="L295">      System.err.println(&quot;Σφάλμα κατά την ανάκτηση ημερών &quot; + e.getMessage());</span>
+<span class="nc" id="L296">    }</span>
+<span class="nc" id="L297">    return days;</span>
+  }
+
+  /** returns the list of exams. */
+  public static List&lt;Exam&gt; getExam(int userId) {
+<span class="nc" id="L302">    List&lt;Exam&gt; exams = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L303">    List&lt;Integer&gt; subjectId = getSubjectId(userId);</span>
+<span class="nc bnc" id="L304" title="All 2 branches missed.">    for (int id : subjectId) {</span>
+<span class="nc" id="L305">      System.out.println(&quot;subjectIds in getExam: &quot;);</span>
+<span class="nc" id="L306">      System.out.println(&quot;subjectId: &quot; + subjectId);</span>
+<span class="nc" id="L307">    }</span>
+<span class="nc bnc" id="L308" title="All 2 branches missed.">    if (subjectId.isEmpty()) {</span>
+<span class="nc" id="L309">      return exams; // returns an empty list if there are no subjectId's</span>
+    }
+<span class="nc" id="L311">    String sql = &quot;SELECT e.deadline, e.pages, e.revisionPerxPages,&quot;</span>
+        + &quot; e.minutesPer20Slides, e.examId, s.subjectName &quot;
+        + &quot;FROM Exam e JOIN Subject s ON e.subjectId = s.subjectId WHERE e.subjectId IN (&quot;
+<span class="nc" id="L314">        + subjectId.stream().map(id -&gt; &quot;?&quot;).collect(Collectors.joining(&quot;,&quot;)) + &quot;)&quot;;</span>
+
+<span class="nc" id="L316">    try (Connection c = DataBaseManager.connect();</span>
+<span class="nc" id="L317">         PreparedStatement ps = c.prepareStatement(sql)) {</span>
+<span class="nc" id="L318">      int index = 1;</span>
+<span class="nc bnc" id="L319" title="All 2 branches missed.">      for (int id : subjectId) {</span>
+<span class="nc" id="L320">        ps.setInt(index++, id);</span>
+<span class="nc" id="L321">      }</span>
+
+<span class="nc" id="L323">      try (ResultSet rs = ps.executeQuery()) {</span>
+<span class="nc bnc" id="L324" title="All 2 branches missed.">        while (rs.next()) {</span>
+<span class="nc" id="L325">          String deadlineSt = rs.getString(&quot;deadline&quot;);</span>
+<span class="nc" id="L326">          LocalDate deadline = LocalDate.parse(deadlineSt, FORMATTER);</span>
+<span class="nc" id="L327">          int pages = rs.getInt(&quot;pages&quot;);</span>
+<span class="nc" id="L328">          int revisionPerxPages = rs.getInt(&quot;revisionPerxPages&quot;);</span>
+<span class="nc" id="L329">          double minutesPer20Slides = rs.getDouble(&quot;minutesPer20Slides&quot;);</span>
+<span class="nc" id="L330">          String subjectName = rs.getString(&quot;subjectName&quot;);</span>
+<span class="nc" id="L331">          int examId = rs.getInt(&quot;examId&quot;);</span>
+<span class="nc" id="L332">          Exam exam = new Exam(pages, revisionPerxPages, deadline, minutesPer20Slides);</span>
+<span class="nc" id="L333">          exam.setExamId(examId);</span>
+<span class="nc" id="L334">          exams.add(exam);</span>
+<span class="nc" id="L335">        }</span>
+      }
+<span class="nc" id="L337">    } catch (SQLException e) {</span>
+<span class="nc" id="L338">      System.err.println(&quot;Σφάλμα κατά την ανάκτηση exams: &quot; + e.getMessage());</span>
+<span class="nc" id="L339">    }</span>
+<span class="nc" id="L340">    return exams;</span>
+  }
+
+
+  /*   public static List&lt;Exam&gt; getExam(int userID) {
+        List&lt;Exam&gt; exams = new ArrayList&lt;&gt;();
+        List&lt;Integer&gt; subjectID = getSubjectID(userID);
+        String sql = &quot;SELECT e.deadline, e.pages, e.revisionPerXPages, e.minutesPer20Slides,
+         + s.subjectName FROM Exam e JOIN Subject s ON e.subjectID = s.subjectID
+         + WHERE e.subjectID = ?;&quot;;
+
+        try (Connection c = DataBaseManager.connect();
+             PreparedStatement ps = c.prepareStatement(sql)) {
+
+            for (int id : subjectID) {
+                ps.setInt(1, id);
+                try (ResultSet rs = ps.executeQuery()) {
+                    while (rs.next()) {
+                        String dateString = rs.getString(&quot;deadline&quot;);
+                        LocalDate deadline = LocalDate.parse(dateString, FORMATTER);
+                        int pages = rs.getInt(&quot;pages&quot;);
+                        int revisionPerXPages = rs.getInt(&quot;revisionPerXPages&quot;);
+                        double minutesPer20Slides = rs.getDouble(&quot;minutesPer20Slides&quot;);
+                        String subjectName = rs.getString(&quot;subjectName&quot;);
+                        Exam exam = new Exam(pages, revisionPerXPages,
+                         + deadline, minutesPer20Slides);
+                        exams.add(exam);
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            System.err.println(&quot;Σφάλμα κατά την ανάκτηση exams: &quot; + e.getMessage());
+        }
+        return exams;
+    }*/
+
+  /** returns the list of scheduled tasks. */
+  public static List&lt;ScheduledTask&gt; getTasks(int userId) {
+<span class="nc" id="L378">    String sql = &quot;SELECT taskName, hoursAllocated, taskStatus, taskDate, subjectName,&quot;</span>
+        + &quot;taskType, timeStarted, timeCompleted, taskId FROM Task WHERE userId = ?;&quot;;
+<span class="nc" id="L380">    List&lt;ScheduledTask&gt; scheduledTasks = new ArrayList&lt;&gt;();</span>
+
+<span class="nc" id="L382">    try (Connection c = DataBaseManager.connect();</span>
+<span class="nc" id="L383">         PreparedStatement ps = c.prepareStatement(sql)) {</span>
+<span class="nc" id="L384">      ps.setInt(1, userId);</span>
+<span class="nc" id="L385">      try (ResultSet rs = ps.executeQuery()) {</span>
+<span class="nc bnc" id="L386" title="All 2 branches missed.">        while (rs.next()) {</span>
+<span class="nc" id="L387">          String taskName = rs.getString(&quot;taskName&quot;);</span>
+<span class="nc" id="L388">          int hoursAllocated = rs.getInt(&quot;hoursAllocated&quot;);</span>
+<span class="nc" id="L389">          String taskTypeString = rs.getString(&quot;taskStatus&quot;);</span>
+<span class="nc" id="L390">          ScheduledTask.TaskStatus taskStatus =</span>
+<span class="nc" id="L391">              ScheduledTask.TaskStatus.valueOf(taskTypeString.toUpperCase());</span>
+<span class="nc" id="L392">          String dstring = rs.getString(&quot;taskDate&quot;);</span>
+<span class="nc" id="L393">          LocalDate taskDate = LocalDate.parse(dstring, FORMATTER);</span>
+<span class="nc" id="L394">          String subjectName = rs.getString(&quot;subjectName&quot;);</span>
+<span class="nc" id="L395">          String taskType = rs.getString(&quot;taskType&quot;);</span>
+<span class="nc" id="L396">          String  timeStString = rs.getString(&quot;timeStarted&quot;);</span>
+<span class="nc" id="L397">          LocalTime timeStarted = LocalTime.parse(timeStString);</span>
+<span class="nc" id="L398">          String timeComString = rs.getString(&quot;timeCompleted&quot;);</span>
+<span class="nc" id="L399">          LocalTime timeCompleted = LocalTime.parse(timeComString);</span>
+<span class="nc" id="L400">          int taskId = rs.getInt(&quot;taskId&quot;);</span>
+<span class="nc" id="L401">          ScheduledTask t = new ScheduledTask(taskName, taskType, hoursAllocated,</span>
+              taskStatus, timeStarted, timeCompleted, taskDate, subjectName);
+<span class="nc" id="L403">          t.setTaskId(taskId);</span>
+<span class="nc" id="L404">          scheduledTasks.add(t);</span>
+<span class="nc" id="L405">        }</span>
+      }
+<span class="nc" id="L407">    } catch (SQLException e) {</span>
+<span class="nc" id="L408">      System.err.println(&quot;Σφάλμα κατά την ανάκτηση Task : &quot; + e.getMessage());</span>
+<span class="nc" id="L409">    }</span>
+<span class="nc" id="L410">    return scheduledTasks;</span>
+  }
+
+  /** returns the list of assignments. */
+  public static List&lt;Assignment&gt; getAssignments(int userId) {
+<span class="nc" id="L415">    List&lt;Assignment&gt; assignments = new ArrayList&lt;&gt;();</span>
+
+<span class="nc" id="L417">    String sql = &quot;SELECT a.title, a.deadline, a.estimateHours, a.completedDate, a.difficulty &quot;</span>
+        + &quot;FROM Assignment a WHERE userId = ?&quot;;
+
+<span class="nc" id="L420">    try (Connection connection = DataBaseManager.connect();</span>
+<span class="nc" id="L421">         PreparedStatement ps = connection.prepareStatement(sql)) {</span>
+
+<span class="nc" id="L423">      ps.setInt(1, userId);</span>
+<span class="nc" id="L424">      try (ResultSet rs = ps.executeQuery()) {</span>
+<span class="nc bnc" id="L425" title="All 2 branches missed.">        while (rs.next()) {</span>
+<span class="nc" id="L426">          String title = rs.getString(&quot;title&quot;);</span>
+<span class="nc" id="L427">          LocalDate deadline = LocalDate.parse(rs.getString(&quot;deadline&quot;));</span>
+<span class="nc" id="L428">          int estimateHours = rs.getInt(&quot;estimateHours&quot;);</span>
+<span class="nc" id="L429">          String completedDateString = rs.getString(&quot;completedDate&quot;);</span>
+<span class="nc" id="L430">          int difficulty = rs.getInt(&quot;difficulty&quot;);</span>
+<span class="nc" id="L431">          int assignmentId = rs.getInt(&quot;assignmentId&quot;);</span>
+<span class="nc bnc" id="L432" title="All 4 branches missed.">          LocalDate completedDate = (completedDateString != null &amp;&amp; !completedDateString.isEmpty())</span>
+<span class="nc" id="L433">              ? LocalDate.parse(completedDateString)</span>
+<span class="nc" id="L434">              : null;</span>
+<span class="nc" id="L435">          Assignment assignment = new Assignment(title, deadline, estimateHours, difficulty);</span>
+<span class="nc" id="L436">          assignment.setAssignmentId(assignmentId);</span>
+<span class="nc" id="L437">          assignments.add(assignment);</span>
+<span class="nc" id="L438">        }</span>
+<span class="nc" id="L439">      } catch (SQLException e) {</span>
+<span class="nc" id="L440">        System.err.println(&quot;Σφάλμα κατά την ανάκτηση εργασιών :&quot; + e.getMessage());</span>
+<span class="nc" id="L441">      }</span>
+<span class="nc" id="L442">    } catch (Exception e) {</span>
+<span class="nc" id="L443">      System.err.println(&quot;Σφάλμα κατά την ανάκτηση εργασιών :&quot; + e.getMessage());</span>
+<span class="nc" id="L444">    }</span>
+<span class="nc" id="L445">    return assignments;</span>
+  }
+
+  /** returns a list of weeks. */
+  public static List&lt;Week&gt; getWeeks(int userId) {
+<span class="nc" id="L450">    String sql = &quot;SELECT weekId FROM Week WHERE userId = ?;&quot;;</span>
+<span class="nc" id="L451">    List&lt;Week&gt; weeks = new ArrayList&lt;&gt;();</span>
+
+<span class="nc" id="L453">    try (Connection c = DataBaseManager.connect();</span>
+<span class="nc" id="L454">         PreparedStatement ps = c.prepareStatement(sql)) {</span>
+<span class="nc" id="L455">      ps.setInt(1, userId);</span>
+
+<span class="nc" id="L457">      try (ResultSet rs = ps.executeQuery()) {</span>
+<span class="nc bnc" id="L458" title="All 2 branches missed.">        while (rs.next()) {</span>
+<span class="nc" id="L459">          int weekId = rs.getInt(&quot;weekId&quot;);</span>
+<span class="nc" id="L460">          Week week = new Week();</span>
+<span class="nc" id="L461">          List&lt;Day&gt; daysOfWeek = getDays(weekId);</span>
+<span class="nc" id="L462">          week.setDaysOfWeek(daysOfWeek);</span>
+<span class="nc" id="L463">          weeks.add(week);</span>
+<span class="nc" id="L464">        }</span>
+      }
+<span class="nc" id="L466">    } catch (SQLException e) {</span>
+<span class="nc" id="L467">      System.err.println(&quot;Σφάλμα κατά την ανάκτηση εβδομάδων: &quot; + e.getMessage());</span>
+<span class="nc" id="L468">    }</span>
+<span class="nc" id="L469">    return weeks;</span>
+  }
+
+  /** returns the scheduled tasks for a specific day. */
+  public static List&lt;ScheduledTask&gt; getTasksForDay(int dayId) {
+<span class="nc" id="L474">    String sql = &quot;SELECT taskName, hoursAllocated, timeStarted, timeCompleted,&quot;</span>
+        + &quot; taskStatus, taskDate, subjectName, taskType FROM Task WHERE dayId = ?&quot;;
+<span class="nc" id="L476">    List&lt;ScheduledTask&gt; scheduledTasks = new ArrayList&lt;&gt;();</span>
+
+<span class="nc" id="L478">    try (Connection c = DataBaseManager.connect();</span>
+<span class="nc" id="L479">         PreparedStatement ps = c.prepareStatement(sql)) {</span>
+<span class="nc" id="L480">      ps.setInt(1, dayId);</span>
+
+<span class="nc" id="L482">      try (ResultSet rs = ps.executeQuery()) {</span>
+<span class="nc bnc" id="L483" title="All 2 branches missed.">        while (rs.next()) {</span>
+<span class="nc" id="L484">          String taskName = rs.getString(&quot;taskName&quot;);</span>
+<span class="nc" id="L485">          int hoursAllocated = rs.getInt(&quot;hoursAllocated&quot;);</span>
+<span class="nc" id="L486">          String timeStartedString =</span>
+<span class="nc" id="L487">              rs.getString(&quot;timeStarted&quot;);</span>
+<span class="nc" id="L488">          LocalTime timeStarted =</span>
+<span class="nc" id="L489">              LocalTime.parse(timeStartedString, DateTimeFormatter.ofPattern(&quot;HH:mm&quot;));</span>
+<span class="nc" id="L490">          String timeCompletedString =</span>
+<span class="nc" id="L491">              rs.getString(&quot;timeCompleted&quot;);</span>
+<span class="nc" id="L492">          LocalTime timeCompleted =</span>
+<span class="nc" id="L493">              LocalTime.parse(timeCompletedString, DateTimeFormatter.ofPattern(&quot;HH:mm&quot;));</span>
+<span class="nc" id="L494">          String taskTypeString =</span>
+<span class="nc" id="L495">              rs.getString(&quot;taskStatus&quot;);</span>
+<span class="nc" id="L496">          ScheduledTask.TaskStatus taskStatus =</span>
+<span class="nc" id="L497">              ScheduledTask.TaskStatus.valueOf(taskTypeString.toUpperCase());</span>
+<span class="nc" id="L498">          String dstring =</span>
+<span class="nc" id="L499">              rs.getString(&quot;taskDate&quot;);</span>
+<span class="nc" id="L500">          LocalDate taskDate = LocalDate.parse(dstring, FORMATTER);</span>
+<span class="nc" id="L501">          String subjectName = rs.getString(&quot;subjectName&quot;);</span>
+<span class="nc" id="L502">          String taskType = rs.getString(&quot;taskType&quot;);</span>
+<span class="nc" id="L503">          ScheduledTask t = new ScheduledTask(taskName, taskType, hoursAllocated,</span>
+              taskStatus, timeStarted, timeCompleted, taskDate, subjectName);
+<span class="nc" id="L505">          scheduledTasks.add(t);</span>
+<span class="nc" id="L506">        }</span>
+      }
+<span class="nc" id="L508">    } catch (SQLException e) {</span>
+<span class="nc" id="L509">      System.err.println(&quot;Σφάλμα κατά την ανάκτηση των tasks για την ημέρα: &quot; + e.getMessage());</span>
+<span class="nc" id="L510">    }</span>
+<span class="nc" id="L511">    return scheduledTasks;</span>
+  }
+
+  /** a list for all the completed tasks. */
+  public static List&lt;ScheduledTask&gt; getCompletedTasks(int userId) {
+<span class="nc" id="L516">    String sql = &quot;SELECT taskName, hoursAllocated, taskStatus, taskDate, subjectName,&quot;</span>
+        + &quot;taskType, timeStarted, timeCompleted, taskId FROM CompletedTask WHERE userId = ?;&quot;;
+<span class="nc" id="L518">    List&lt;ScheduledTask&gt; scheduledTasks = new ArrayList&lt;&gt;();</span>
+
+<span class="nc" id="L520">    try (Connection c = DataBaseManager.connect();</span>
+<span class="nc" id="L521">         PreparedStatement ps = c.prepareStatement(sql)) {</span>
+<span class="nc" id="L522">      ps.setInt(1, userId);</span>
+<span class="nc" id="L523">      try (ResultSet rs = ps.executeQuery()) {</span>
+<span class="nc bnc" id="L524" title="All 2 branches missed.">        while (rs.next()) {</span>
+<span class="nc" id="L525">          String taskName = rs.getString(&quot;taskName&quot;);</span>
+<span class="nc" id="L526">          int hoursAllocated = rs.getInt(&quot;hoursAllocated&quot;);</span>
+<span class="nc" id="L527">          String taskTypeString = rs.getString(&quot;taskStatus&quot;);</span>
+<span class="nc" id="L528">          ScheduledTask.TaskStatus taskStatus =</span>
+<span class="nc" id="L529">              ScheduledTask.TaskStatus.valueOf(taskTypeString.toUpperCase());</span>
+<span class="nc" id="L530">          String dstring = rs.getString(&quot;taskDate&quot;);</span>
+<span class="nc" id="L531">          LocalDate taskDate = LocalDate.parse(dstring, FORMATTER);</span>
+<span class="nc" id="L532">          String subjectName = rs.getString(&quot;subjectName&quot;);</span>
+<span class="nc" id="L533">          String taskType = rs.getString(&quot;taskType&quot;);</span>
+<span class="nc" id="L534">          String  timeStString = rs.getString(&quot;timeStarted&quot;);</span>
+<span class="nc" id="L535">          LocalTime timeStarted = LocalTime.parse(timeStString);</span>
+<span class="nc" id="L536">          String timeComString = rs.getString(&quot;timeCompleted&quot;);</span>
+<span class="nc" id="L537">          LocalTime timeCompleted = LocalTime.parse(timeComString);</span>
+<span class="nc" id="L538">          int taskId = rs.getInt(&quot;taskId&quot;);</span>
+<span class="nc" id="L539">          ScheduledTask t = new ScheduledTask(taskName, taskType, hoursAllocated,</span>
+              taskStatus, timeStarted, timeCompleted, taskDate, subjectName);
+<span class="nc" id="L541">          t.setTaskId(taskId);</span>
+<span class="nc" id="L542">          scheduledTasks.add(t);</span>
+<span class="nc" id="L543">        }</span>
+      }
+<span class="nc" id="L545">    } catch (SQLException e) {</span>
+<span class="nc" id="L546">      System.err.println(&quot;Σφάλμα κατά την ανάκτηση CompletedTask : &quot; + e.getMessage());</span>
+<span class="nc" id="L547">    }</span>
+<span class="nc" id="L548">    return scheduledTasks;</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

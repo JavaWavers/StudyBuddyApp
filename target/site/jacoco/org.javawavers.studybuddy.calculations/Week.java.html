@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="el"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Week.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">studybuddy</a> &gt; <a href="index.source.html" class="el_package">org.javawavers.studybuddy.calculations</a> &gt; <span class="el_source">Week.java</span></div><h1>Week.java</h1><pre class="source lang-java linenums">package org.javawavers.studybuddy.calculations;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * The {@code Week} class represents a week containing a list of {@code Day} objects.
+ * This class allows for managing the days of the week, retrieving specific days,
+ * and setting a custom list of days.
+
+ */
+public class Week {
+  private List&lt;Day&gt; daysOfWeek;
+
+  /**
+   *constructor.
+   */
+<span class="fc" id="L18">  public Week() {</span>
+<span class="fc" id="L19">    daysOfWeek = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L20">  }</span>
+
+  /**
+   returns the whole list with the days for the week.
+   */
+  public List&lt;Day&gt; getDaysOfWeek() {
+<span class="nc" id="L26">    return daysOfWeek;</span>
+  }
+
+  public void setDaysOfWeek(List&lt;Day&gt; daysOfWeek) {
+<span class="nc" id="L30">    this.daysOfWeek = daysOfWeek;</span>
+<span class="nc" id="L31">  }</span>
+
+  /**
+   *returns the specified day from the list.
+   * ex:* Day tuesday = week.getTheDay(2); // Retrieves &quot;Tuesday&quot;
+   */
+  public Day getTheDay(int index) {
+    try {
+<span class="nc bnc" id="L39" title="All 4 branches missed.">      if (index &lt; 1 || index &gt; 7) {</span>
+<span class="nc" id="L40">        throw new  IndexOutOfBoundsException(&quot;Index must be greater than 0, add less than 11&quot;);</span>
+      }
+<span class="nc" id="L42">    } catch (IndexOutOfBoundsException e) {</span>
+<span class="nc" id="L43">      System.out.println(e.getMessage());</span>
+<span class="nc" id="L44">    }</span>
+<span class="nc" id="L45">    return daysOfWeek.get(index);</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

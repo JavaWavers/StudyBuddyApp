@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="el"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>DataBaseManager.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">studybuddy</a> &gt; <a href="index.source.html" class="el_package">org.javawavers.studybuddy.database</a> &gt; <span class="el_source">DataBaseManager.java</span></div><h1>DataBaseManager.java</h1><pre class="source lang-java linenums">package org.javawavers.studybuddy.database;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+/**
+ * this class contains all the methods for creating tables.
+ */
+<span class="nc" id="L11">public class DataBaseManager {</span>
+  private static final String DATABASE_URL =
+      &quot;jdbc:sqlite:src/main/java/org/javawavers/studybuddy/DataBase.db&quot;;
+
+  /** creates the connection with the database. */
+  public static Connection connect() {
+    try {
+<span class="fc" id="L18">      Class.forName(&quot;org.sqlite.JDBC&quot;);</span>
+<span class="fc" id="L19">      Connection connection = DriverManager.getConnection(DATABASE_URL);</span>
+<span class="fc" id="L20">      return connection;</span>
+<span class="nc" id="L21">    } catch (SQLException | ClassNotFoundException e) {</span>
+<span class="nc" id="L22">      System.out.println(&quot;Trouble connecting:&quot; + e);</span>
+<span class="nc" id="L23">      return null;</span>
+    }
+  }
+
+  /** creation of tables. */
+  public static void createTables() {
+<span class="nc" id="L29">    createUser();</span>
+<span class="nc" id="L30">    createAvailability();</span>
+<span class="nc" id="L31">    createNonAvDates();</span>
+<span class="nc" id="L32">    createSubject();</span>
+<span class="nc" id="L33">    createAssignment();</span>
+<span class="nc" id="L34">    createExam();</span>
+<span class="nc" id="L35">    createWeek();</span>
+<span class="nc" id="L36">    createDay();</span>
+<span class="nc" id="L37">    createScheduledTask();</span>
+<span class="nc" id="L38">    createCompletedScheduledTask();</span>
+<span class="nc" id="L39">  }</span>
+
+  /** create table User.*/
+  public static void createUser() {
+<span class="nc" id="L43">    try (Connection c = DataBaseManager.connect();</span>
+<span class="nc" id="L44">         Statement s = c.createStatement()) {</span>
+<span class="nc" id="L45">      String sql = &quot;&quot;&quot;</span>
+                  CREATE TABLE IF NOT EXISTS User (
+                  userId INTEGER PRIMARY KEY AUTOINCREMENT,
+                  name TEXT NOT NULL UNIQUE,
+                  password TEXT NOT NULL,
+                  email TEXT NOT NULL
+                  );
+                                     &quot;&quot;&quot;;
+<span class="nc" id="L53">      s.execute(sql);</span>
+<span class="nc" id="L54">    } catch (SQLException e) {</span>
+<span class="nc" id="L55">      System.out.println(e.getMessage());</span>
+<span class="nc" id="L56">    }</span>
+<span class="nc" id="L57">  }</span>
+
+  /** create table Subject.*/
+  public static void createSubject() {
+<span class="nc" id="L61">    try (Connection c = DataBaseManager.connect();</span>
+<span class="nc" id="L62">         Statement s = c.createStatement()) {</span>
+<span class="nc" id="L63">      String sql = &quot;&quot;&quot;</span>
+                  CREATE TABLE IF NOT EXISTS Subject (
+                  subjectId INTEGER PRIMARY KEY AUTOINCREMENT,
+                  subjectName TEXT NOT NULL,
+                  difficultyLevel INTEGER NOT NULL,
+                  subjectType TEXT NOT NULL,
+                  userId INTEGER NOT NULL,
+                  FOREIGN KEY (userId) REFERENCES User (userId)
+                  );
+                  &quot;&quot;&quot;;
+<span class="nc" id="L73">      s.execute(sql);</span>
+<span class="nc" id="L74">    } catch (SQLException e) {</span>
+<span class="nc" id="L75">      System.out.println(e.getMessage());</span>
+<span class="nc" id="L76">    }</span>
+<span class="nc" id="L77">  }</span>
+
+  /** create table assignment. */
+  public static void createAssignment() {
+<span class="nc" id="L81">    try (Connection c = DataBaseManager.connect();</span>
+<span class="nc" id="L82">         Statement s = c.createStatement()) {</span>
+<span class="nc" id="L83">      String sql = &quot;&quot;&quot;</span>
+                  CREATE TABLE IF NOT EXISTS Assignment (
+                  assignmentId INTEGER PRIMARY KEY AUTOINCREMENT,
+                  title TEXT NOT NULL,
+                  deadline TEXT NOT NULL,
+                  estimateHours INTEGER NOT NULL,
+                  completedDate TEXT,
+                  userId INTEGER NOT NULL,
+                  difficulty INTEGER NOT NULL,
+                  FOREIGN KEY (userId) REFERENCES User (userId)
+                  );                    &quot;&quot;&quot;;
+<span class="nc" id="L94">      s.execute(sql);</span>
+<span class="nc" id="L95">    } catch (SQLException e) {</span>
+<span class="nc" id="L96">      System.out.println(e.getMessage());</span>
+<span class="nc" id="L97">    }</span>
+<span class="nc" id="L98">  }</span>
+
+  /** creates table exam. */
+  public static void createExam() {
+<span class="nc" id="L102">    try (Connection c = DataBaseManager.connect();</span>
+<span class="nc" id="L103">         Statement s = c.createStatement()) {</span>
+<span class="nc" id="L104">      String sql = &quot;&quot;&quot;</span>
+                   CREATE TABLE IF NOT EXISTS Exam (
+                   examId INTEGER PRIMARY KEY AUTOINCREMENT,
+                   name TEXT,
+                   deadline TEXT NOT NULL,
+                   pages INT NOT NULL,
+                   revisionPerxPages INT NOT NULL,
+                   minutesPer20Slides REAL NOT NULL,
+                   subjectId INTEGER NOT NULL,
+                    FOREIGN KEY (subjectId) REFERENCES Subject (subjectId)
+                   );
+                   &quot;&quot;&quot;;
+<span class="nc" id="L116">      s.execute(sql);</span>
+<span class="nc" id="L117">    } catch (SQLException e) {</span>
+<span class="nc" id="L118">      System.out.println(e.getMessage());</span>
+<span class="nc" id="L119">    }</span>
+<span class="nc" id="L120">  }</span>
+
+  /** create table scheduledtask. */
+  public static void createScheduledTask() {
+<span class="nc" id="L124">    try (Connection c = DataBaseManager.connect();</span>
+<span class="nc" id="L125">         Statement s = c.createStatement()) {</span>
+<span class="nc" id="L126">      String sql = &quot;&quot;&quot;</span>
+               CREATE TABLE IF NOT EXISTS Task (
+               taskId INTEGER PRIMARY KEY AUTOINCREMENT,
+               taskName TEXT,
+               hoursAllocated INTEGER,
+               timeStarted TEXT,
+               timeCompleted TEXT,
+               taskStatus TEXT,
+               taskDate TEXT,
+               subjectName TEXT,
+               taskType TEXT,
+               userId INTEGER NOT NULL,
+               dayId INTEGER NOT NULL,
+               FOREIGN KEY (dayId) REFERENCES Day (dayId),
+               FOREIGN KEY (userId) REFERENCES User (userId)
+               );
+               &quot;&quot;&quot;;
+<span class="nc" id="L143">      s.execute(sql);</span>
+<span class="nc" id="L144">    } catch (SQLException e) {</span>
+<span class="nc" id="L145">      System.out.println(e.getMessage());</span>
+<span class="nc" id="L146">    }</span>
+<span class="nc" id="L147">  }</span>
+
+  /** create table day. */
+  public static void createDay() {
+<span class="nc" id="L151">    try (Connection c = DataBaseManager.connect();</span>
+<span class="nc" id="L152">         Statement s = c.createStatement()) {</span>
+<span class="nc" id="L153">      String sql = &quot;&quot;&quot;</span>
+                   CREATE TABLE IF NOT EXISTS Day (
+                   dayId INTEGER PRIMARY KEY,
+                    userId INTEGER NOT NULL,
+                   weekId INTEGER NOT NULL,
+                   FOREIGN KEY (userId) REFERENCES User (userId),
+                   FOREIGN KEY (weekId) REFERENCES Week (weekId)
+                   );
+                   &quot;&quot;&quot;;
+<span class="nc" id="L162">      s.execute(sql);</span>
+<span class="nc" id="L163">    } catch (SQLException e) {</span>
+<span class="nc" id="L164">      System.out.println(e.getMessage());</span>
+<span class="nc" id="L165">    }</span>
+<span class="nc" id="L166">  }</span>
+
+  /**create table week. */
+  public static void createWeek() {
+<span class="nc" id="L170">    try (Connection c = DataBaseManager.connect();</span>
+<span class="nc" id="L171">         Statement s = c.createStatement()) {</span>
+<span class="nc" id="L172">      String sql = &quot;&quot;&quot;</span>
+                   CREATE TABLE IF NOT EXISTS Week (
+                   weekId INTEGER PRIMARY KEY,
+                   userId INTEGER NOT NULL,
+                   FOREIGN KEY (userId) REFERENCES User (userId)
+                   );
+                   &quot;&quot;&quot;;
+<span class="nc" id="L179">      s.execute(sql);</span>
+<span class="nc" id="L180">    } catch (SQLException e) {</span>
+<span class="nc" id="L181">      System.out.println(e.getMessage());</span>
+<span class="nc" id="L182">    }</span>
+<span class="nc" id="L183">  }</span>
+
+  /** create table Availability. */
+  public static void createAvailability() {
+<span class="nc" id="L187">    try (Connection c = DataBaseManager.connect();</span>
+<span class="nc" id="L188">         Statement s = c.createStatement()) {</span>
+<span class="nc" id="L189">      String sql = &quot;&quot;&quot;</span>
+                   CREATE TABLE IF NOT EXISTS Availability (
+                   mondayAv INTEGER NOT NULL,
+                   tuesdayAv INTEGER NOT NULL,
+                   wednesdayAv INTEGER NOT NULL,
+                   thursdayAv INTEGER NOT NULL,
+                   fridayAv INTEGER NOT NULL,
+                   saturdayAv INTEGER NOT NULL,
+                   sundayAv INTEGER NOT NULL,
+                   userId TEXT PRIMARY KEY,
+                   FOREIGN KEY (userId) REFERENCES User (userId)
+                   );
+                   &quot;&quot;&quot;;
+<span class="nc" id="L202">      s.execute(sql);</span>
+<span class="nc" id="L203">    } catch (SQLException e) {</span>
+<span class="nc" id="L204">      System.out.println(e.getMessage());</span>
+<span class="nc" id="L205">    }</span>
+<span class="nc" id="L206">  }</span>
+
+  /** create table NonAvDates. */
+  public static void createNonAvDates() {
+<span class="nc" id="L210">    try (Connection c = DataBaseManager.connect();</span>
+<span class="nc" id="L211">         Statement s = c.createStatement()) {</span>
+<span class="nc" id="L212">      String sql = &quot;&quot;&quot;</span>
+                   CREATE TABLE IF NOT EXISTS NonAvDates (
+                   nonAvDateID INTEGER PRIMARY KEY AUTOINCREMENT,
+                   date TEXT NOT NULL,
+                   userId TEXT NOT NULL,
+                   FOREIGN KEY (userId) REFERENCES User (userId)
+                   );
+                   &quot;&quot;&quot;;
+<span class="nc" id="L220">      s.execute(sql);</span>
+<span class="nc" id="L221">    } catch (SQLException e) {</span>
+<span class="nc" id="L222">      System.out.println(e.getMessage());</span>
+<span class="nc" id="L223">    }</span>
+<span class="nc" id="L224">  }</span>
+
+  /** Create table CompletedScheduledTask. */
+  public static void createCompletedScheduledTask() {
+<span class="nc" id="L228">    try (Connection c = DataBaseManager.connect();</span>
+<span class="nc" id="L229">         Statement s = c.createStatement()) {</span>
+<span class="nc" id="L230">      String sql = &quot;&quot;&quot;</span>
+               CREATE TABLE IF NOT EXISTS CompletedTask (
+               taskId INTEGER PRIMARY KEY AUTOINCREMENT,
+               taskName TEXT,
+               hoursAllocated INTEGER,
+               timeStarted TEXT,
+               timeCompleted TEXT,
+               taskStatus TEXT,
+               taskDate TEXT,
+               subjectName TEXT,
+               taskType TEXT,
+               userId INTEGER NOT NULL,
+               dayId INTEGER NOT NULL,
+               FOREIGN KEY (dayId) REFERENCES Day (dayId),
+               FOREIGN KEY (userId) REFERENCES User (userId)
+               );
+               &quot;&quot;&quot;;
+<span class="nc" id="L247">      s.execute(sql);</span>
+<span class="nc" id="L248">    } catch (SQLException e) {</span>
+<span class="nc" id="L249">      System.out.println(e.getMessage());</span>
+<span class="nc" id="L250">    }</span>
+<span class="nc" id="L251">  }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

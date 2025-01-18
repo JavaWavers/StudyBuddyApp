@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="el"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SQLiteConnection.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">studybuddy</a> &gt; <a href="index.source.html" class="el_package">org.javawavers.studybuddy.database</a> &gt; <span class="el_source">SQLiteConnection.java</span></div><h1>SQLiteConnection.java</h1><pre class="source lang-java linenums">package org.javawavers.studybuddy.database;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
+<span class="nc" id="L7">public class SQLiteConnection {</span>
+
+  // Path to the SQLite database file
+  private static final String DATABASE_URL =
+      &quot;jdbc:sqlite:src/main/resources/org/javawavers/studybuddy/DataBase.db&quot;;
+
+  public static Connection connect() throws SQLException {
+<span class="nc" id="L14">    Connection connection = null;</span>
+    try {
+      // Load the SQLite JDBC driver
+<span class="nc" id="L17">      Class.forName(&quot;org.sqlite.JDBC&quot;);</span>
+
+      // Establish a connection to the database
+<span class="nc" id="L20">      connection = DriverManager.getConnection(DATABASE_URL);</span>
+<span class="nc" id="L21">      System.out.println(&quot;Connection to SQLite has been established.&quot;);</span>
+<span class="nc" id="L22">    } catch (ClassNotFoundException e) {</span>
+<span class="nc" id="L23">      System.err.println(&quot;SQLite JDBC driver not found.&quot;);</span>
+<span class="nc" id="L24">      e.printStackTrace();</span>
+<span class="nc" id="L25">      throw new SQLException(&quot;Failed to load SQLite JDBC driver.&quot;, e);</span>
+<span class="nc" id="L26">    } catch (SQLException e) {</span>
+<span class="nc" id="L27">      System.err.println(&quot;Failed to connect to the database.&quot;);</span>
+<span class="nc" id="L28">      e.printStackTrace();</span>
+<span class="nc" id="L29">      throw e;</span>
+<span class="nc" id="L30">    }</span>
+<span class="nc" id="L31">    return connection;</span>
+  }
+
+  public static void closeConnection(Connection connection) {
+<span class="nc bnc" id="L35" title="All 2 branches missed.">    if (connection != null) {</span>
+      try {
+<span class="nc" id="L37">        connection.close();</span>
+<span class="nc" id="L38">        System.out.println(&quot;Connection to SQLite has been closed.&quot;);</span>
+<span class="nc" id="L39">      } catch (SQLException e) {</span>
+<span class="nc" id="L40">        System.err.println(&quot;Failed to close the database connection.&quot;);</span>
+<span class="nc" id="L41">        e.printStackTrace();</span>
+<span class="nc" id="L42">      }</span>
+    }
+<span class="nc" id="L44">  }</span>
+
+  public static void main(String[] args) {
+<span class="nc" id="L47">    Connection connection = null;</span>
+    try {
+<span class="nc" id="L49">      connection = SQLiteConnection.connect();</span>
+      // Perform database operations here
+
+<span class="nc" id="L52">    } catch (SQLException e) {</span>
+<span class="nc" id="L53">      System.err.println(&quot;An error occurred while working with the database.&quot;);</span>
+    } finally {
+<span class="nc" id="L55">      SQLiteConnection.closeConnection(connection);</span>
+    }
+<span class="nc" id="L57">  }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

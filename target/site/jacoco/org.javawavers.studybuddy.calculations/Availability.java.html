@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="el"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Availability.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">studybuddy</a> &gt; <a href="index.source.html" class="el_package">org.javawavers.studybuddy.calculations</a> &gt; <span class="el_source">Availability.java</span></div><h1>Availability.java</h1><pre class="source lang-java linenums">package org.javawavers.studybuddy.calculations;
+
+import static org.javawavers.studybuddy.courses.StaticUser.staticUser;
+
+import java.time.LocalDate;
+import java.time.format.TextStyle;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Locale;
+/**
+ * The {@code Availability} class is responsible for managing the availability of study time
+ * for each day of the week and handling specific non-available dates.
+ * This class provides methods to:
+ * Set the available study hours per day of the week.
+ * Mark specific dates as non-available for studying.
+ * Check if a specific day is available for scheduling tasks.
+ * Retrieve total available study hours for a given day.
+ * Merge repetitive tasks in a schedule.
+ * Reduce available study hours based on tasks assigned.
+*/
+
+public class Availability {
+  /**
+   * A table for the available studying time for each day of the week
+   * The first element of the table is never used.
+   * Each number from 1 to 7 represents a day of the week starting with Monday
+   */
+<span class="fc" id="L28">  private static int[] avPerDay = new int[8];</span>
+
+  /*
+   * Gives the ability to the user to insert certain dates that there
+   * is no available time for studying
+   */
+<span class="fc" id="L34">  private static LinkedList&lt;LocalDate&gt; dates = new LinkedList&lt;&gt;();</span>
+
+  /**
+   *Default constructor.
+    */
+
+<span class="nc" id="L40">  public Availability() {}</span>
+
+  /**
+   * Setting the availability per day of the week.
+   */
+  public static void setAvailability(int i, int av) {
+<span class="nc bnc" id="L46" title="All 4 branches missed.">    if (i &lt;= 0 || i &gt; 7) {</span>
+<span class="nc" id="L47">      throw new IllegalArgumentException(&quot; Ο αριθμός πρέπει να είναι μεταξύ του 1και του 7&quot;);</span>
+    }
+<span class="nc" id="L49">    avPerDay[i] = av;</span>
+<span class="nc" id="L50">  }</span>
+
+  /**
+   * Sets the availability per day of the week using the values from the
+   * {@code StaticUser}.
+   */
+  public static void setAvPerDay() {
+<span class="nc" id="L57">    avPerDay = staticUser.getAvPerDay();</span>
+<span class="nc" id="L58">  }</span>
+
+  /**
+   * Marks a specific date as non-available for studying.
+   *
+   * @param l the {@code LocalDate} to mark as non-available
+   */
+  public static void setNonAvailability(LocalDate l) {
+    // checks if a date is already used
+    try {
+<span class="nc bnc" id="L68" title="All 2 branches missed.">      if (l == null) {</span>
+<span class="nc" id="L69">        throw new IllegalArgumentException(&quot;Date cannot be null&quot;);</span>
+      }
+
+<span class="nc bnc" id="L72" title="All 2 branches missed.">      if (!dates.contains(l)) {</span>
+<span class="nc" id="L73">        dates.add(l); // Insert a day that there is no availability for studying</span>
+      } else {
+        // Throwing an exception instead of just printing a message for consistency
+<span class="nc" id="L76">        throw new IllegalArgumentException(&quot;The date &quot; + l + &quot; has already been registered.&quot;);</span>
+      }
+<span class="nc" id="L78">    } catch (IllegalArgumentException e) {</span>
+<span class="nc" id="L79">      System.err.println(&quot;Error: &quot; + e.getMessage());</span>
+<span class="nc" id="L80">    }</span>
+
+<span class="nc" id="L82">  }</span>
+
+  /**
+   * Checks if the day that the program asserts a task to the user is set as
+   * non-available
+   * and returns true if the day is Available.
+   */
+
+  public static boolean checkAvailability(int day) {
+<span class="fc" id="L91">    LocalDate taskDate = LocalDate.now().plusDays(day);</span>
+<span class="pc bpc" id="L92" title="1 of 2 branches missed.">    return !dates.contains(taskDate);</span>
+  }
+
+  /**
+   * Retrieves the total available study hours for a specific day.
+   *
+   * @param i the number of days from today (e.g., 0 for today, 1 for tomorrow,
+   *          etc.)
+   * @return the total available study hours for the specified day
+   * @throws IllegalArgumentException if the day name is invalid
+   */
+
+  public static int getTotalAvailableHours(int i) {
+<span class="nc" id="L105">    LocalDate today = LocalDate.now(); // The date of the day that we currently are</span>
+    // The date that we want to assert the tasks
+<span class="nc" id="L107">    LocalDate examDate = today.plusDays(i);</span>
+
+    // Name of the day as a String type Data
+<span class="nc" id="L110">    String dayName =</span>
+<span class="nc" id="L111">        examDate.getDayOfWeek().getDisplayName(TextStyle.FULL, Locale.forLanguageTag(&quot;el&quot;));</span>
+
+<span class="nc bnc" id="L113" title="All 8 branches missed.">    return switch (dayName) {</span>
+<span class="nc" id="L114">      case &quot;Δευτέρα&quot; -&gt; avPerDay[1];</span>
+<span class="nc" id="L115">      case &quot;Τρίτη&quot; -&gt; avPerDay[2];</span>
+<span class="nc" id="L116">      case &quot;Τετάρτη&quot; -&gt; avPerDay[3];</span>
+<span class="nc" id="L117">      case &quot;Πέμπτη&quot; -&gt; avPerDay[4];</span>
+<span class="nc" id="L118">      case &quot;Παρασκευή&quot; -&gt; avPerDay[5];</span>
+<span class="nc" id="L119">      case &quot;Σάββατο&quot; -&gt; avPerDay[6];</span>
+<span class="nc" id="L120">      case &quot;Κυριακή&quot; -&gt; avPerDay[7];</span>
+<span class="nc" id="L121">      default -&gt; throw new IllegalArgumentException(&quot;Ημέρα μη έγκυρη: &quot; + dayName);</span>
+    };
+  }
+  /**
+   * Merges repetitive tasks (of type 2) for a specific column in the schedule.
+   * When multiple repetitive tasks for the same subject exist, they are merged
+   * into one task, and their total hours are updated.
+   *
+   * @param schedule the 2D array representing the schedule
+   * @param tasks    the list of tasks
+   * @param col      the column index in the schedule to process
+   */
+
+  public static void mergeRepTasks(int[][] schedule, List&lt;Task&gt; tasks, int col) {
+    // Get a list of subject names from the tasks
+<span class="nc" id="L136">    List&lt;String&gt; subjectNames =</span>
+<span class="nc" id="L137">        tasks.stream()</span>
+<span class="nc" id="L138">            .map(Task::getSubject) // Apply the getSubject() method on each Task to extract the</span>
+            // subject name
+<span class="nc" id="L140">            .toList(); // Collect the results into a new list</span>
+<span class="nc" id="L141">    int[] rowsInd = new int[2];</span>
+<span class="nc bnc" id="L142" title="All 2 branches missed.">    for (String s : subjectNames) {</span>
+<span class="nc" id="L143">      int num = 0;</span>
+<span class="nc" id="L144">      int pointerIndex = 0;</span>
+<span class="nc bnc" id="L145" title="All 2 branches missed.">      for (int row = 0; row &lt; 12; row++) {</span>
+<span class="nc" id="L146">        int taskIndex = schedule[row][col]; // Get the task index from the schedule</span>
+<span class="nc bnc" id="L147" title="All 2 branches missed.">        if (taskIndex != 0) { // Check if there is a task in this slot</span>
+<span class="nc" id="L148">          Task task = tasks.get(taskIndex); // Retrieve the task from the tasks list</span>
+
+          // Check if the task is a repetition task (type 2)
+<span class="nc bnc" id="L151" title="All 2 branches missed.">          if (task.getTaskType() == 2) {</span>
+<span class="nc" id="L152">            String subjectName = task.getSubject(); // Get the subject name</span>
+<span class="nc bnc" id="L153" title="All 2 branches missed.">            if (subjectName.equals(s)) {</span>
+<span class="nc" id="L154">              num++;</span>
+            }
+<span class="nc bnc" id="L156" title="All 2 branches missed.">            if (num == 1) {</span>
+<span class="nc" id="L157">              pointerIndex = taskIndex;</span>
+<span class="nc bnc" id="L158" title="All 2 branches missed.">            } else if (num == 2) {</span>
+<span class="nc" id="L159">              rowsInd[0] = row;</span>
+<span class="nc bnc" id="L160" title="All 2 branches missed.">            } else if (num == 3) {</span>
+<span class="nc" id="L161">              rowsInd[1] = row;</span>
+<span class="nc" id="L162">              tasks</span>
+<span class="nc" id="L163">                  .get(pointerIndex)</span>
+<span class="nc" id="L164">                  .setTaskHours(tasks.get(pointerIndex).getTaskHours() + 2.0 / 3.0);</span>
+              // clear the slots whose tasks are merged into the first one
+<span class="nc bnc" id="L166" title="All 2 branches missed.">              for (int i = 0; i &lt; 2; i++) {</span>
+<span class="nc" id="L167">                schedule[rowsInd[i]][col] = 0;</span>
+              }
+              // continues to the next rows in case there are more revision tasks that can be
+              // merged
+<span class="nc" id="L171">              num = 0;</span>
+            }
+          }
+        }
+      }
+<span class="nc" id="L176">    }</span>
+<span class="nc" id="L177">    TaskAssignment.setValSchedule(schedule);</span>
+<span class="nc" id="L178">  }</span>
+
+  /**
+   * This method reduces the available hours for a specific day based on the tasks
+   * scheduled in a given column.
+   */
+  public static void reduceRepAvailability(int col, List&lt;Task&gt; tasks) {
+<span class="nc" id="L185">    int[][] schedule = TaskAssignment.getValSchedule();</span>
+<span class="nc bnc" id="L186" title="All 2 branches missed.">    for (int row = 0; row &lt; 12; row++) {</span>
+<span class="nc" id="L187">      double reducedHours = 0.0;</span>
+<span class="nc bnc" id="L188" title="All 2 branches missed.">      if (schedule[row][col] != 0) {</span>
+<span class="nc" id="L189">        reducedHours = tasks.get(schedule[row][col]).getTaskHours();</span>
+      }
+<span class="nc" id="L191">      TaskAssignment.setRemainingHours(TaskAssignment.getRemainingHours() - reducedHours);</span>
+    }
+<span class="nc" id="L193">  }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

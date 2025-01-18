@@ -1,0 +1,426 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="el"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AvailabilityPage.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">studybuddy</a> &gt; <a href="index.source.html" class="el_package">org.javawavers.studybuddy.ui_ux</a> &gt; <span class="el_source">AvailabilityPage.java</span></div><h1>AvailabilityPage.java</h1><pre class="source lang-java linenums">package org.javawavers.studybuddy.ui_ux;
+
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
+
+import org.javawavers.studybuddy.calculations.Availability;
+import static org.javawavers.studybuddy.courses.StaticUser.staticUser;
+
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.DialogPane;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.stage.Screen;
+import javafx.stage.Stage;
+import javafx.util.converter.IntegerStringConverter;
+import org.javawavers.studybuddy.courses.StaticUser;
+import org.javawavers.studybuddy.database.ActiveUser;
+import org.javawavers.studybuddy.database.DataInserter;
+
+public class AvailabilityPage {
+  // int [] avPerDay = new int[8];
+  private DatePicker datePicker;
+
+<span class="nc" id="L38">  private VBox leftPane = new VBox(10);</span>
+<span class="nc" id="L39">  private VBox rightPane = new VBox(10);</span>
+<span class="nc" id="L40">  private HBox btnsBox = new HBox(10);</span>
+<span class="nc" id="L41">  private TextField[] dayFields = new TextField[7];</span>
+<span class="nc" id="L42">  int[] avPerDay = new int[8];</span>
+<span class="nc" id="L43">  private String[] days = {</span>
+    &quot;Δευτέρα&quot;, &quot;Τρίτη&quot;, &quot;Τετάρτη&quot;, &quot;Πέμπτη&quot;, &quot;Παρασκευή&quot;, &quot;Σάββατο&quot;, &quot;Κυριακή&quot;
+  };
+  private Stage popUpStage;
+  private SceneManager sceneManager;
+
+<span class="nc" id="L49">  public AvailabilityPage(Stage popUpStage) {</span>
+<span class="nc" id="L50">    this.popUpStage = popUpStage;</span>
+<span class="nc" id="L51">  }</span>
+
+<span class="nc" id="L53">  public AvailabilityPage(SceneManager sceneManager) {</span>
+<span class="nc" id="L54">    this.sceneManager = sceneManager;</span>
+<span class="nc" id="L55">  }</span>
+
+  public VBox availabilityPage() {
+
+<span class="nc" id="L59">    VBox availPage = new VBox();</span>
+<span class="nc" id="L60">    leftFrame();</span>
+<span class="nc" id="L61">    rightFrame();</span>
+
+<span class="nc" id="L63">    HBox mainPanes = dayPickPanes();</span>
+<span class="nc" id="L64">    HBox btnPane = btnsFrame();</span>
+
+<span class="nc" id="L66">    HBox.setHgrow(mainPanes, Priority.ALWAYS);</span>
+<span class="nc" id="L67">    HBox.setHgrow(btnPane, Priority.ALWAYS);</span>
+
+<span class="nc" id="L69">    availPage.getChildren().addAll(mainPanes, btnPane);</span>
+
+<span class="nc" id="L71">    return availPage;</span>
+  }
+
+  private HBox dayPickPanes() {
+<span class="nc" id="L75">    HBox mainPane = new HBox(20);</span>
+<span class="nc" id="L76">    mainPane.setPadding(new Insets(30));</span>
+
+<span class="nc" id="L78">    leftPane.setAlignment(Pos.CENTER_LEFT);</span>
+<span class="nc" id="L79">    rightPane.setAlignment(Pos.TOP_RIGHT);</span>
+
+<span class="nc" id="L81">    VBox.setVgrow(leftPane, Priority.ALWAYS);</span>
+<span class="nc" id="L82">    VBox.setVgrow(rightPane, Priority.ALWAYS);</span>
+
+<span class="nc" id="L84">    leftPane.setFillWidth(true);</span>
+<span class="nc" id="L85">    rightPane.setFillWidth(true);</span>
+<span class="nc" id="L86">    leftPane.setMaxHeight(Double.MAX_VALUE);</span>
+<span class="nc" id="L87">    rightPane.setMaxHeight(Double.MAX_VALUE);</span>
+
+<span class="nc" id="L89">    mainPane.getChildren().addAll(leftPane, rightPane);</span>
+<span class="nc" id="L90">    return mainPane;</span>
+  }
+
+  private VBox rightFrame() {
+
+<span class="nc" id="L95">    Label dayLabel = new Label(&quot;Συγκεκριμένη Ημέρα&quot;);</span>
+<span class="nc" id="L96">    dayLabel.setAlignment(Pos.CENTER);</span>
+<span class="nc" id="L97">    dayLabel.setStyle(&quot;-fx-background-color: #50D1C6;&quot;);</span>
+<span class="nc" id="L98">    dayLabel.setFont(new Font(&quot;System Bold&quot;, 14));</span>
+
+<span class="nc" id="L100">    datePicker = new DatePicker();</span>
+<span class="nc" id="L101">    datePicker.setPromptText(&quot;Eπιλεξτε μη-διαθεσιμη ημερομηνια&quot;);</span>
+
+<span class="nc" id="L103">    rightPane.getChildren().addAll(dayLabel, datePicker);</span>
+<span class="nc" id="L104">    return rightPane;</span>
+  }
+
+  private VBox leftFrame() {
+
+<span class="nc" id="L109">    Label avalLabel = new Label(&quot;Διαθεσιμότητα&quot;);</span>
+<span class="nc" id="L110">    avalLabel.setAlignment(Pos.CENTER);</span>
+<span class="nc" id="L111">    avalLabel.setStyle(&quot;-fx-background-color: #50D1C6;&quot;);</span>
+<span class="nc" id="L112">    avalLabel.setFont(new Font(&quot;System Bold&quot;, 14));</span>
+
+<span class="nc" id="L114">    GridPane daysPane = new GridPane();</span>
+<span class="nc" id="L115">    daysPane.setHgap(10);</span>
+<span class="nc" id="L116">    daysPane.setVgap(10);</span>
+
+<span class="nc bnc" id="L118" title="All 2 branches missed.">    for (int i = 0; i &lt; days.length; i++) {</span>
+<span class="nc" id="L119">      Label dayLabel = createDayLabel(days[i]);</span>
+<span class="nc" id="L120">      TextField hoursField = createHoursField();</span>
+
+<span class="nc" id="L122">      dayFields[i] = hoursField;</span>
+<span class="nc" id="L123">      daysPane.add(dayLabel, 0, i);</span>
+<span class="nc" id="L124">      daysPane.add(hoursField, 1, i);</span>
+    }
+
+<span class="nc" id="L127">    leftPane.getChildren().addAll(avalLabel, daysPane);</span>
+<span class="nc" id="L128">    return leftPane;</span>
+  }
+
+  private HBox btnsFrame() {
+<span class="nc" id="L132">    Button okBtn = new Button(&quot;OK&quot;);</span>
+<span class="nc" id="L133">    okBtn.setStyle(</span>
+        &quot;-fx-background-color: #50D1C6; -fx-background-radius: 30px; -fx-text-fill: white; -fx-font-size: 14px;&quot;);
+
+<span class="nc" id="L136">    okBtn.setOnAction(</span>
+        event -&gt; {
+<span class="nc" id="L138">          List&lt;String&gt; errors = new ArrayList&lt;&gt;();</span>
+<span class="nc" id="L139">          boolean countFields = true;</span>
+
+<span class="nc bnc" id="L141" title="All 2 branches missed.">          for (int i = 1; i &lt; avPerDay.length; i++) {</span>
+<span class="nc" id="L142">            avPerDay[i] = parseTextFieldValue(dayFields[i - 1]);</span>
+<span class="nc bnc" id="L143" title="All 2 branches missed.">            if (avPerDay[i] &gt; 10) {</span>
+<span class="nc" id="L144">              errors.add(&quot;• Oι διαθέσιμες ώρες μέσα σε μια μέρα πρέπει να είναι λιγότερες απο 10&quot;);</span>
+            }
+<span class="nc bnc" id="L146" title="All 4 branches missed.">            if (avPerDay[i] &gt; 0 &amp;&amp; avPerDay[i] &lt; 10) {</span>
+<span class="nc" id="L147">              countFields = false;</span>
+            }
+          }
+<span class="nc bnc" id="L150" title="All 2 branches missed.">          if (countFields) {</span>
+<span class="nc" id="L151">            Alert confirmAlert = new Alert(Alert.AlertType.CONFIRMATION);</span>
+<span class="nc" id="L152">            confirmAlert.setTitle(&quot;Επιβεβαίωση&quot;);</span>
+<span class="nc" id="L153">            confirmAlert.setHeaderText(null);</span>
+<span class="nc" id="L154">            confirmAlert.setContentText(</span>
+                &quot;Όλα τα πεδία είναι κενά. Είστε σίγουρος/η ότι θέλετε να συνεχίσετε;&quot;);
+    
+<span class="nc" id="L157">            DialogPane dialogPane = confirmAlert.getDialogPane();</span>
+<span class="nc" id="L158">            dialogPane.getStylesheets().add(getClass().getResource(&quot;/alert.css&quot;).toExternalForm());</span>
+
+<span class="nc" id="L160">            confirmAlert.showAndWait().ifPresent(response -&gt; {</span>
+<span class="nc bnc" id="L161" title="All 2 branches missed.">              if (response.getText().equalsIgnoreCase(&quot;Cancel&quot;)) {</span>
+<span class="nc" id="L162">                return;</span>
+              }
+<span class="nc" id="L164">            });</span>
+          }
+          // test for registration or login
+<span class="nc" id="L167">          boolean flag = true;</span>
+<span class="nc bnc" id="L168" title="All 2 branches missed.">          if (staticUser.getAvPerDay() == null) {</span>
+<span class="nc" id="L169">            flag = false;</span>
+          }
+          // static user for availability
+<span class="nc" id="L172">          staticUser.setAvPerDay(avPerDay);</span>
+
+<span class="nc" id="L174">          LocalDate setNoAvailability = datePicker.getValue();</span>
+<span class="nc bnc" id="L175" title="All 4 branches missed.">          if (setNoAvailability != null &amp;&amp; setNoAvailability.isBefore(LocalDate.now())) {</span>
+<span class="nc" id="L176">            errors.add(</span>
+                &quot;• Πρέπει να επιλέξεις ημερομηνία μη-διαθεσιμότητας μετά τη σημερινή ημερομηνία.&quot;);
+          }
+<span class="nc bnc" id="L179" title="All 2 branches missed.">          if (!errors.isEmpty()) {</span>
+<span class="nc" id="L180">            Alert alert = new Alert(Alert.AlertType.WARNING);</span>
+<span class="nc" id="L181">            alert.setTitle(&quot;Η φόρμα δεν έχει ολοκληρωθεί&quot;);</span>
+<span class="nc" id="L182">            alert.setHeaderText(null);</span>
+<span class="nc" id="L183">            String errorMessage = String.join(&quot;\n&quot;, errors);</span>
+<span class="nc" id="L184">            alert.setContentText(errorMessage);</span>
+<span class="nc" id="L185">            alert</span>
+<span class="nc" id="L186">                .getDialogPane()</span>
+<span class="nc" id="L187">                .getStylesheets()</span>
+<span class="nc" id="L188">                .add(getClass().getResource(&quot;/alert.css&quot;).toExternalForm());</span>
+<span class="nc" id="L189">            alert.showAndWait();</span>
+<span class="nc" id="L190">            return;</span>
+          } else {
+<span class="nc" id="L192">            Alert successAlert = new Alert(Alert.AlertType.INFORMATION);</span>
+<span class="nc" id="L193">            successAlert.setTitle(&quot;Εισαγωγή Διαθεσιμότητας Επιτυχής&quot;);</span>
+<span class="nc" id="L194">            successAlert.setHeaderText(null);</span>
+<span class="nc" id="L195">            successAlert.setContentText(&quot;Η Διαθεσιμότητα προστέθηκε!!&quot;);</span>
+<span class="nc" id="L196">            DialogPane dialogPane = successAlert.getDialogPane();</span>
+<span class="nc" id="L197">            dialogPane.getStyleClass().add(&quot;success-alert&quot;);</span>
+<span class="nc" id="L198">            dialogPane</span>
+<span class="nc" id="L199">                  .getStylesheets()</span>
+<span class="nc" id="L200">                  .add(Objects.requireNonNull(getClass().getResource(&quot;/success.css&quot;)).toExternalForm());</span>
+<span class="nc" id="L201">            successAlert.showAndWait();</span>
+
+            // checks for empty availability
+<span class="nc" id="L204">            int c = 0;</span>
+<span class="nc bnc" id="L205" title="All 2 branches missed.">            for (int i = 1; i &lt; avPerDay.length; i++){</span>
+<span class="nc bnc" id="L206" title="All 2 branches missed.">              if (avPerDay[i] != 0) {</span>
+<span class="nc" id="L207">                c++;</span>
+              }
+
+            } // inserts for the first time or it update the already inserted one
+<span class="nc bnc" id="L211" title="All 2 branches missed.">            if (flag == false) {</span>
+<span class="nc" id="L212">              DataInserter.insertAvailability(avPerDay[1], avPerDay[2], avPerDay[3],</span>
+<span class="nc" id="L213">                      avPerDay[4], avPerDay[5], avPerDay[6], avPerDay[7], StaticUser.staticUser.getUserId());</span>
+<span class="nc" id="L214">              StaticUser.staticUser.setAvPerDay(avPerDay);</span>
+            } else {
+<span class="nc bnc" id="L216" title="All 2 branches missed.">              if (c &gt; 1) {</span>
+<span class="nc" id="L217">                DataInserter.updateAvailability(avPerDay[1], avPerDay[2], avPerDay[3],</span>
+<span class="nc" id="L218">                        avPerDay[4], avPerDay[5], avPerDay[6], avPerDay[7], StaticUser.staticUser.getUserId());</span>
+<span class="nc" id="L219">                StaticUser.staticUser.setAvPerDay(avPerDay);</span>
+              }
+            }
+          }
+
+<span class="nc bnc" id="L224" title="All 2 branches missed.">          if (setNoAvailability != null) {</span>
+<span class="nc" id="L225">            Availability.setNonAvailability(setNoAvailability);</span>
+<span class="nc" id="L226">            DataInserter.insertNonAvDate(setNoAvailability, StaticUser.staticUser.getUserId());</span>
+<span class="nc" id="L227">            StaticUser.staticUser.addNonAvailDays(setNoAvailability);</span>
+          }
+<span class="nc" id="L229">          ActiveUser.loadData(staticUser.getEmail(), staticUser.getPassword());</span>
+
+<span class="nc bnc" id="L231" title="All 2 branches missed.">          for (TextField dayField : dayFields) {</span>
+<span class="nc" id="L232">            dayField.clear();</span>
+          }
+<span class="nc" id="L234">          datePicker.setValue(null);</span>
+<span class="nc bnc" id="L235" title="All 2 branches missed.">          if (popUpStage != null) {</span>
+<span class="nc" id="L236">            popUpStage.close();</span>
+          }
+<span class="nc" id="L238">        });</span>
+<span class="nc" id="L239">    okBtn.setAlignment(Pos.BASELINE_LEFT);</span>
+<span class="nc" id="L240">    btnsBox.getChildren().add(okBtn);</span>
+<span class="nc" id="L241">    btnsBox.setPadding(new Insets(30));</span>
+<span class="nc" id="L242">    return btnsBox;</span>
+  }
+
+  private Label createDayLabel(String day) {
+<span class="nc" id="L246">    Label label = new Label(day);</span>
+<span class="nc" id="L247">    label.setStyle(&quot;-fx-background-color: #CF308C; -fx-background-radius: 20px;&quot;);</span>
+<span class="nc" id="L248">    label.setTextFill(javafx.scene.paint.Color.web(&quot;#f8f4f4&quot;));</span>
+<span class="nc" id="L249">    label.setFont(new Font(&quot;System Bold&quot;, 14));</span>
+<span class="nc" id="L250">    label.setAlignment(Pos.CENTER_RIGHT);</span>
+<span class="nc" id="L251">    return label;</span>
+  }
+
+  private TextField createHoursField() {
+<span class="nc" id="L255">    TextField hoursField = new TextField();</span>
+<span class="nc" id="L256">    hoursField.setStyle(&quot;-fx-background-radius: 20px;&quot;);</span>
+    // restriction for input to accept only numbers
+<span class="nc" id="L258">    hoursField.setTextFormatter(</span>
+        new TextFormatter&lt;&gt;(
+            new IntegerStringConverter(),
+            null,
+            change -&gt; {
+<span class="nc bnc" id="L263" title="All 2 branches missed.">              if (change.getControlNewText().matches(&quot;\\d*&quot;)) {</span>
+<span class="nc" id="L264">                return change;</span>
+              }
+<span class="nc" id="L266">              return null;</span>
+            }));
+<span class="nc" id="L268">    return hoursField;</span>
+  }
+
+  // Check if the text is empty or contains only spaces, then return the value 0 for each day
+  private Integer parseTextFieldValue(TextField textField) {
+<span class="nc bnc" id="L273" title="All 2 branches missed.">    if (textField != null) {</span>
+<span class="nc" id="L274">      String text = textField.getText();</span>
+<span class="nc bnc" id="L275" title="All 4 branches missed.">      if (text == null || text.trim().isEmpty()) {</span>
+<span class="nc" id="L276">        return 0;</span>
+      } else {
+<span class="nc" id="L278">        return Integer.parseInt(text);</span>
+      }
+    }
+<span class="nc" id="L281">    return 0;</span>
+  }
+
+  public Scene availStartingPage(SceneManager sceneManager) {
+<span class="nc" id="L285">    VBox availViewWithBtn = new VBox();</span>
+
+<span class="nc" id="L287">    HBox nameLbl = new HBox(20);</span>
+<span class="nc" id="L288">    Label name = new Label(&quot;Διαθεσιμότητα&quot;);</span>
+<span class="nc" id="L289">    name.setStyle(labelStyle());</span>
+<span class="nc" id="L290">    nameLbl.getChildren().add(name);</span>
+<span class="nc" id="L291">    nameLbl.setPadding(new Insets(20));</span>
+<span class="nc" id="L292">    availViewWithBtn.getChildren().add(nameLbl);</span>
+
+<span class="nc" id="L294">    VBox availView = availabilityPage();</span>
+<span class="nc" id="L295">    availViewWithBtn.getChildren().add(availView);</span>
+
+<span class="nc" id="L297">    HBox btns = new HBox(15);</span>
+<span class="nc" id="L298">    btns.setPadding(new Insets(20));</span>
+<span class="nc" id="L299">    Button prevBtn = new Button(&quot;Προηγούμενο&quot;);</span>
+<span class="nc" id="L300">    prevBtn.setStyle(btnStyle());</span>
+<span class="nc" id="L301">    prevBtn.setOnAction(</span>
+        e -&gt; {
+<span class="nc" id="L303">          AssignmentPage assignPage = new AssignmentPage();</span>
+<span class="nc" id="L304">          sceneManager.switchScene(assignPage.assignmentStartingPage(sceneManager));</span>
+<span class="nc" id="L305">        });</span>
+
+<span class="nc" id="L307">    Button nextBtn = new Button(&quot;Επόμενο&quot;);</span>
+<span class="nc" id="L308">    nextBtn.setStyle(btnStyle());</span>
+<span class="nc" id="L309">    nextBtn.setOnAction(</span>
+        e -&gt; {
+          // System.out.println(&quot;Το κουμπί πατήθηκε!&quot;);
+<span class="nc" id="L312">          RegisterPage register = new RegisterPage();</span>
+<span class="nc" id="L313">          String storedUsername = register.storedUsername;</span>
+<span class="nc" id="L314">          Alert successAlert = new Alert(Alert.AlertType.INFORMATION);</span>
+<span class="nc" id="L315">            successAlert.setTitle(&quot;Εισαγωγή Διαθεσιμότητας Επιτυχής&quot;);</span>
+<span class="nc" id="L316">            successAlert.setHeaderText(null);</span>
+<span class="nc" id="L317">            successAlert.setContentText(&quot;🎉 Καλώς ήρθες, &quot;+ storedUsername +  &quot;🎉\n&quot; + //</span>
+                            &quot;Νέα χρονιά, νέες ευκαιρίες και νέοι στόχοι! ✨\n&quot; + //
+                            &quot;Ετοιμάσου για μια εμπειρία γεμάτη έμπνευση, οργάνωση και πρόοδο! 🚀\n&quot; + //
+                            &quot;\n&quot; + //
+                            &quot;Μαζί θα κάνουμε αυτή τη χρονιά την καλύτερη!\n&quot; + //
+                            &quot;Πάτα το κουμπί και ξεκινάμε! 💪&quot;);
+<span class="nc" id="L323">            DialogPane dialogPane = successAlert.getDialogPane();</span>
+<span class="nc" id="L324">            dialogPane.getStyleClass().add(&quot;success-alert&quot;);</span>
+<span class="nc" id="L325">            dialogPane</span>
+<span class="nc" id="L326">                  .getStylesheets()</span>
+<span class="nc" id="L327">                  .add(Objects.requireNonNull(getClass().getResource(&quot;/success.css&quot;)).toExternalForm());</span>
+<span class="nc" id="L328">            successAlert.showAndWait();</span>
+<span class="nc" id="L329">          MainFrame mainframe = new MainFrame();</span>
+<span class="nc" id="L330">          sceneManager.switchScene(mainframe.mainFrame(sceneManager));</span>
+<span class="nc" id="L331">        });</span>
+<span class="nc" id="L332">    btns.getChildren().addAll(prevBtn, nextBtn);</span>
+<span class="nc" id="L333">    availViewWithBtn.getChildren().add(btns);</span>
+<span class="nc" id="L334">    HBox btnBox = new HBox(20);</span>
+<span class="nc" id="L335">    btnBox.setPadding(new Insets(20));</span>
+
+<span class="nc" id="L337">    Scene scene =</span>
+        new Scene(
+            availViewWithBtn,
+<span class="nc" id="L340">            Screen.getPrimary().getVisualBounds().getWidth(),</span>
+<span class="nc" id="L341">            Screen.getPrimary().getVisualBounds().getHeight());</span>
+<span class="nc" id="L342">    return scene;</span>
+  }
+
+  private String btnStyle() {
+<span class="nc" id="L346">    return &quot;-fx-background-color: linear-gradient(#FAD7A0, #F7B267);&quot;</span>
+        + &quot;-fx-background-radius: 8,7,6;&quot;
+        + &quot;-fx-background-insets: 0,1,2;&quot;
+        + &quot;-fx-text-fill: #5A3D2B;&quot;
+        + &quot;-fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.3), 5, 0, 2, 2);&quot;
+        + &quot;-fx-font-weight: bold;&quot;
+        + &quot;-fx-padding: 10 20;&quot;
+        + &quot;-fx-border-color: #D98A4B;&quot;
+        + &quot;-fx-border-radius: 6;&quot;;
+  }
+
+  private String labelStyle() {
+<span class="nc" id="L358">    return &quot;-fx-background-color: rgba(181, 99, 241, 0.81);&quot;</span>
+        + &quot; -fx-padding: 5;&quot;
+        + &quot; -fx-border-width: 1px;&quot;
+        + &quot; -fx-border-radius: 4px;&quot;
+        + &quot; -fx-background-radius: 4px;&quot;
+        + &quot;-fx-font-family: Arial;&quot;;
+  }
+}
+// δημιουργια labels για τις ημέρες
+    /*    Label monday = createDayLabel(&quot;Δευτέρα&quot;);
+            Label tuesday = createDayLabel(&quot;Τρίτη&quot;);
+            Label wednesday = createDayLabel(&quot;Τετάρτη&quot;);
+            Label thursday = createDayLabel(&quot;Πέπμτη&quot;);
+            Label friday = createDayLabel(&quot;Παρασκευή&quot;);
+            Label saturday = createDayLabel(&quot;Σάββατο&quot;);
+            Label sunday = createDayLabel(&quot;Κυριακή&quot;);
+    //δημιοργια text fields για τις ημερες
+            TextField mondayField = createHoursField(92);
+            TextField tuesdayField = createHoursField(134);
+            TextField wednesdayField = createHoursField(176);
+            TextField thursdayField = createHoursField(221);
+            TextField fridayField = createHoursField(263);
+            TextField saturdayField = createHoursField(305);
+            TextField sundayField = createHoursField(352);
+
+
+            // root.getChildren().addAll(label1, label2, monday, tuesday, wednesday, thursday, friday, saturday, sunday,
+            //      mondayField, tuesdayField, wednesdayField, thursdayField, fridayField, saturdayField, sundayField,
+            //    datePicker);*/
+
+// αποθηκευση τιμων που εισαγει ο χρηστης
+// κληση της μεθοδου parseTextFieldValue για να ελενξουμε την τιμη που εισαγει ο χρηστης
+  /*      avperday[1] = parseTextFieldValue(mondayField);
+          avperday[2] = parseTextFieldValue(tuesdayField);
+          avperday[3] = parseTextFieldValue(wednesdayField);
+          avperday[4] = parseTextFieldValue(thursdayField);
+          avperday[5] = parseTextFieldValue(fridayField);
+          avperday[6] = parseTextFieldValue(saturdayField);
+          avperday[7] = parseTextFieldValue(sundayField);
+
+          List&lt;String&gt; errors = new ArrayList&lt;&gt;();
+
+          for (int i = 1; i &lt;= 7; i++) {
+              Availability.setAvailability(i, avperday[i]);
+              if (avperday[i] &gt; 7) {
+                  errors.add(&quot;• Oι διαθέσιμες ώρες μέσα σε μια μέρα πρέπει να είναι λιγότερες απο 7&quot;);
+              }
+          }
+          LocalDate setNoAvailicility = datePicker.getValue();
+          if (setNoAvailicility != null) {
+              Availability.setNonAvailability(setNoAvailicility);
+          }
+
+          availabilityMap.put(&quot;Δευτέρα&quot;, avperday[1]);
+          availabilityMap.put(&quot;Τρίτη&quot;, avperday[2]);
+          availabilityMap.put(&quot;Τετάρτη&quot;, avperday[3]);
+          availabilityMap.put(&quot;Πέμπτη&quot;, avperday[4]);
+          availabilityMap.put(&quot;Παρασκευή&quot;, avperday[5]);
+          availabilityMap.put(&quot;Σάββατο&quot;, avperday[6]);
+          availabilityMap.put(&quot;Κυριακή&quot;, avperday[7]);
+          //availabilityMap.put(&quot;Συγκεκριμένη Ημέρα&quot;, setNoAvailicility);
+
+  //εκτυπωση των αποτελεσματων των ημερων(για το test)
+          System.out.println(Arrays.toString(avperday));
+
+          if (setNoAvailicility == null || setNoAvailicility.isBefore(LocalDate.now())) {
+              errors.add(&quot;• Πρέπει να επιλέξεις ημερομηνία μη-διαθεσιμότητας μετά τη σημερινή ημερομηνία.&quot;);
+          }*/
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

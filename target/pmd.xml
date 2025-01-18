@@ -1,8 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<pmd xmlns="http://pmd.sourceforge.net/report/2.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pmd.sourceforge.net/report/2.0.0 http://pmd.sourceforge.net/report_2_0_0.xsd" version="6.55.0" timestamp="2025-01-18T20:29:29.320">
+<pmd xmlns="http://pmd.sourceforge.net/report/2.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pmd.sourceforge.net/report/2.0.0 http://pmd.sourceforge.net/report_2_0_0.xsd" version="6.55.0" timestamp="2025-01-18T20:34:42.976">
 <file name="C:\Users\Zpela\Documents\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\StudyBuddyApp.java">
-<violation beginline="49" endline="49" begincolumn="7" endcolumn="7" rule="UnnecessarySemicolon" ruleset="Code Style" package="org.javawavers.studybuddy" class="StudyBuddyApp" method="start" externalInfoUrl="https://pmd.github.io/pmd-6.55.0/pmd_rules_java_codestyle.html#unnecessarysemicolon" priority="3">
+<violation beginline="44" endline="44" begincolumn="9" endcolumn="36" rule="UnnecessaryFullyQualifiedName" ruleset="Code Style" package="org.javawavers.studybuddy" class="StudyBuddyApp" method="start" externalInfoUrl="https://pmd.github.io/pmd-6.55.0/pmd_rules_java_codestyle.html#unnecessaryfullyqualifiedname" priority="4">
+Unnecessary use of fully qualified name 'DataBaseManager.createTables' due to existing static import 'org.javawavers.studybuddy.database.DataBaseManager.createTables'
+</violation>
+<violation beginline="54" endline="54" begincolumn="7" endcolumn="7" rule="UnnecessarySemicolon" ruleset="Code Style" package="org.javawavers.studybuddy" class="StudyBuddyApp" method="start" externalInfoUrl="https://pmd.github.io/pmd-6.55.0/pmd_rules_java_codestyle.html#unnecessarysemicolon" priority="3">
 Unnecessary semicolon
+</violation>
+<violation beginline="64" endline="64" begincolumn="16" endcolumn="25" rule="UnusedLocalVariable" ruleset="Best Practices" package="org.javawavers.studybuddy" class="StudyBuddyApp" method="main" variable="connection" externalInfoUrl="https://pmd.github.io/pmd-6.55.0/pmd_rules_java_bestpractices.html#unusedlocalvariable" priority="3">
+Avoid unused local variables such as 'connection'.
+</violation>
+<violation beginline="64" endline="64" begincolumn="16" endcolumn="25" rule="CloseResource" ruleset="Error Prone" package="org.javawavers.studybuddy" class="StudyBuddyApp" method="main" variable="connection" externalInfoUrl="https://pmd.github.io/pmd-6.55.0/pmd_rules_java_errorprone.html#closeresource" priority="3">
+Ensure that resources like this Connection object are closed after use
 </violation>
 </file>
 <file name="C:\Users\Zpela\Documents\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\calculations\Availability.java">
@@ -30,11 +39,6 @@ Avoid unnecessary constructors - the compiler will generate these for you
 </violation>
 <violation beginline="22" endline="23" begincolumn="10" endcolumn="3" rule="UncommentedEmptyConstructor" ruleset="Documentation" package="org.javawavers.studybuddy.calculations" class="CreateWeekDay" method="CreateWeekDay" externalInfoUrl="https://pmd.github.io/pmd-6.55.0/pmd_rules_java_documentation.html#uncommentedemptyconstructor" priority="3">
 Document empty constructor
-</violation>
-</file>
-<file name="C:\Users\Zpela\Documents\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\calculations\Day.java">
-<violation beginline="5" endline="5" begincolumn="1" endcolumn="43" rule="UnnecessaryImport" ruleset="Code Style" package="org.javawavers.studybuddy.calculations" class="Day" externalInfoUrl="https://pmd.github.io/pmd-6.55.0/pmd_rules_java_codestyle.html#unnecessaryimport" priority="4">
-Unused import 'org.javawavers.studybuddy.courses.*'
 </violation>
 </file>
 <file name="C:\Users\Zpela\Documents\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\calculations\PrintSchedule.java">
@@ -97,39 +101,39 @@ Useless parentheses.
 <violation beginline="36" endline="36" begincolumn="10" endcolumn="18" rule="UncommentedEmptyConstructor" ruleset="Documentation" package="org.javawavers.studybuddy.courses" class="User" method="User" externalInfoUrl="https://pmd.github.io/pmd-6.55.0/pmd_rules_java_documentation.html#uncommentedemptyconstructor" priority="3">
 Document empty constructor
 </violation>
-<violation beginline="114" endline="114" begincolumn="14" endcolumn="21" rule="UnusedFormalParameter" ruleset="Best Practices" package="org.javawavers.studybuddy.courses" class="User" method="User" variable="username" externalInfoUrl="https://pmd.github.io/pmd-6.55.0/pmd_rules_java_bestpractices.html#unusedformalparameter" priority="3">
+<violation beginline="115" endline="115" begincolumn="14" endcolumn="21" rule="UnusedFormalParameter" ruleset="Best Practices" package="org.javawavers.studybuddy.courses" class="User" method="User" variable="username" externalInfoUrl="https://pmd.github.io/pmd-6.55.0/pmd_rules_java_bestpractices.html#unusedformalparameter" priority="3">
 Avoid unused constructor parameters such as 'username'.
 </violation>
 </file>
 <file name="C:\Users\Zpela\Documents\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\database\ActiveUser.java">
-<violation beginline="26" endline="550" begincolumn="25" endcolumn="1" rule="UseUtilityClass" ruleset="Design" package="org.javawavers.studybuddy.database" class="ActiveUser" externalInfoUrl="https://pmd.github.io/pmd-6.55.0/pmd_rules_java_design.html#useutilityclass" priority="3">
+<violation beginline="26" endline="552" begincolumn="25" endcolumn="1" rule="UseUtilityClass" ruleset="Design" package="org.javawavers.studybuddy.database" class="ActiveUser" externalInfoUrl="https://pmd.github.io/pmd-6.55.0/pmd_rules_java_design.html#useutilityclass" priority="3">
 All methods are static.  Consider using a utility class instead. Alternatively, you could add a private constructor or make the class abstract to silence this warning.
 </violation>
-<violation beginline="99" endline="99" begincolumn="11" endcolumn="24" rule="UnnecessaryLocalBeforeReturn" ruleset="Code Style" package="org.javawavers.studybuddy.database" class="ActiveUser" method="getUserId" externalInfoUrl="https://pmd.github.io/pmd-6.55.0/pmd_rules_java_codestyle.html#unnecessarylocalbeforereturn" priority="3">
+<violation beginline="101" endline="101" begincolumn="11" endcolumn="24" rule="UnnecessaryLocalBeforeReturn" ruleset="Code Style" package="org.javawavers.studybuddy.database" class="ActiveUser" method="getUserId" externalInfoUrl="https://pmd.github.io/pmd-6.55.0/pmd_rules_java_codestyle.html#unnecessarylocalbeforereturn" priority="3">
 Consider simply returning the value vs storing it in local variable 'userId'
 </violation>
-<violation beginline="224" endline="224" begincolumn="18" endcolumn="28" rule="UnusedLocalVariable" ruleset="Best Practices" package="org.javawavers.studybuddy.database" class="ActiveUser" method="getExamForSubject" variable="subjectName" externalInfoUrl="https://pmd.github.io/pmd-6.55.0/pmd_rules_java_bestpractices.html#unusedlocalvariable" priority="3">
+<violation beginline="226" endline="226" begincolumn="18" endcolumn="28" rule="UnusedLocalVariable" ruleset="Best Practices" package="org.javawavers.studybuddy.database" class="ActiveUser" method="getExamForSubject" variable="subjectName" externalInfoUrl="https://pmd.github.io/pmd-6.55.0/pmd_rules_java_bestpractices.html#unusedlocalvariable" priority="3">
 Avoid unused local variables such as 'subjectName'.
 </violation>
-<violation beginline="304" endline="304" begincolumn="14" endcolumn="15" rule="UnusedLocalVariable" ruleset="Best Practices" package="org.javawavers.studybuddy.database" class="ActiveUser" method="getExam" variable="id" externalInfoUrl="https://pmd.github.io/pmd-6.55.0/pmd_rules_java_bestpractices.html#unusedlocalvariable" priority="3">
+<violation beginline="306" endline="306" begincolumn="14" endcolumn="15" rule="UnusedLocalVariable" ruleset="Best Practices" package="org.javawavers.studybuddy.database" class="ActiveUser" method="getExam" variable="id" externalInfoUrl="https://pmd.github.io/pmd-6.55.0/pmd_rules_java_bestpractices.html#unusedlocalvariable" priority="3">
 Avoid unused local variables such as 'id'.
 </violation>
-<violation beginline="330" endline="330" begincolumn="18" endcolumn="28" rule="UnusedLocalVariable" ruleset="Best Practices" package="org.javawavers.studybuddy.database" class="ActiveUser" method="getExam" variable="subjectName" externalInfoUrl="https://pmd.github.io/pmd-6.55.0/pmd_rules_java_bestpractices.html#unusedlocalvariable" priority="3">
+<violation beginline="332" endline="332" begincolumn="18" endcolumn="28" rule="UnusedLocalVariable" ruleset="Best Practices" package="org.javawavers.studybuddy.database" class="ActiveUser" method="getExam" variable="subjectName" externalInfoUrl="https://pmd.github.io/pmd-6.55.0/pmd_rules_java_bestpractices.html#unusedlocalvariable" priority="3">
 Avoid unused local variables such as 'subjectName'.
 </violation>
-<violation beginline="391" endline="391" begincolumn="48" endcolumn="75" rule="UseLocaleWithCaseConversions" ruleset="Error Prone" package="org.javawavers.studybuddy.database" class="ActiveUser" method="getTasks" externalInfoUrl="https://pmd.github.io/pmd-6.55.0/pmd_rules_java_errorprone.html#uselocalewithcaseconversions" priority="3">
+<violation beginline="393" endline="393" begincolumn="48" endcolumn="75" rule="UseLocaleWithCaseConversions" ruleset="Error Prone" package="org.javawavers.studybuddy.database" class="ActiveUser" method="getTasks" externalInfoUrl="https://pmd.github.io/pmd-6.55.0/pmd_rules_java_errorprone.html#uselocalewithcaseconversions" priority="3">
 When doing a String.toLowerCase()/toUpperCase() call, use a Locale
 </violation>
-<violation beginline="432" endline="432" begincolumn="21" endcolumn="33" rule="UnusedLocalVariable" ruleset="Best Practices" package="org.javawavers.studybuddy.database" class="ActiveUser" method="getAssignments" variable="completedDate" externalInfoUrl="https://pmd.github.io/pmd-6.55.0/pmd_rules_java_bestpractices.html#unusedlocalvariable" priority="3">
+<violation beginline="434" endline="434" begincolumn="21" endcolumn="33" rule="UnusedLocalVariable" ruleset="Best Practices" package="org.javawavers.studybuddy.database" class="ActiveUser" method="getAssignments" variable="completedDate" externalInfoUrl="https://pmd.github.io/pmd-6.55.0/pmd_rules_java_bestpractices.html#unusedlocalvariable" priority="3">
 Avoid unused local variables such as 'completedDate'.
 </violation>
-<violation beginline="432" endline="432" begincolumn="38" endcolumn="98" rule="UselessParentheses" ruleset="Code Style" package="org.javawavers.studybuddy.database" class="ActiveUser" method="getAssignments" externalInfoUrl="https://pmd.github.io/pmd-6.55.0/pmd_rules_java_codestyle.html#uselessparentheses" priority="4">
+<violation beginline="434" endline="434" begincolumn="38" endcolumn="98" rule="UselessParentheses" ruleset="Code Style" package="org.javawavers.studybuddy.database" class="ActiveUser" method="getAssignments" externalInfoUrl="https://pmd.github.io/pmd-6.55.0/pmd_rules_java_codestyle.html#uselessparentheses" priority="4">
 Useless parentheses.
 </violation>
-<violation beginline="497" endline="497" begincolumn="48" endcolumn="75" rule="UseLocaleWithCaseConversions" ruleset="Error Prone" package="org.javawavers.studybuddy.database" class="ActiveUser" method="getTasksForDay" externalInfoUrl="https://pmd.github.io/pmd-6.55.0/pmd_rules_java_errorprone.html#uselocalewithcaseconversions" priority="3">
+<violation beginline="499" endline="499" begincolumn="48" endcolumn="75" rule="UseLocaleWithCaseConversions" ruleset="Error Prone" package="org.javawavers.studybuddy.database" class="ActiveUser" method="getTasksForDay" externalInfoUrl="https://pmd.github.io/pmd-6.55.0/pmd_rules_java_errorprone.html#uselocalewithcaseconversions" priority="3">
 When doing a String.toLowerCase()/toUpperCase() call, use a Locale
 </violation>
-<violation beginline="529" endline="529" begincolumn="48" endcolumn="75" rule="UseLocaleWithCaseConversions" ruleset="Error Prone" package="org.javawavers.studybuddy.database" class="ActiveUser" method="getCompletedTasks" externalInfoUrl="https://pmd.github.io/pmd-6.55.0/pmd_rules_java_errorprone.html#uselocalewithcaseconversions" priority="3">
+<violation beginline="531" endline="531" begincolumn="48" endcolumn="75" rule="UseLocaleWithCaseConversions" ruleset="Error Prone" package="org.javawavers.studybuddy.database" class="ActiveUser" method="getCompletedTasks" externalInfoUrl="https://pmd.github.io/pmd-6.55.0/pmd_rules_java_errorprone.html#uselocalewithcaseconversions" priority="3">
 When doing a String.toLowerCase()/toUpperCase() call, use a Locale
 </violation>
 </file>
@@ -142,7 +146,7 @@ Consider simply returning the value vs storing it in local variable 'connection'
 </violation>
 </file>
 <file name="C:\Users\Zpela\Documents\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\database\DeleteData.java">
-<violation beginline="13" endline="97" begincolumn="25" endcolumn="1" rule="UseUtilityClass" ruleset="Design" package="org.javawavers.studybuddy.database" class="DeleteData" externalInfoUrl="https://pmd.github.io/pmd-6.55.0/pmd_rules_java_design.html#useutilityclass" priority="3">
+<violation beginline="13" endline="114" begincolumn="25" endcolumn="1" rule="UseUtilityClass" ruleset="Design" package="org.javawavers.studybuddy.database" class="DeleteData" externalInfoUrl="https://pmd.github.io/pmd-6.55.0/pmd_rules_java_design.html#useutilityclass" priority="3">
 All methods are static.  Consider using a utility class instead. Alternatively, you could add a private constructor or make the class abstract to silence this warning.
 </violation>
 </file>
@@ -279,9 +283,6 @@ Consider simply returning the value vs storing it in local variable 'scene'
 </violation>
 </file>
 <file name="C:\Users\Zpela\Documents\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\Calendar.java">
-<violation beginline="33" endline="33" begincolumn="1" endcolumn="48" rule="UnnecessaryImport" ruleset="Code Style" package="org.javawavers.studybuddy.ui_ux" class="Calendar" externalInfoUrl="https://pmd.github.io/pmd-6.55.0/pmd_rules_java_codestyle.html#unnecessaryimport" priority="4">
-Unused import 'org.javawavers.studybuddy.calculations.*'
-</violation>
 <violation beginline="34" endline="34" begincolumn="1" endcolumn="46" rule="UnnecessaryImport" ruleset="Code Style" package="org.javawavers.studybuddy.ui_ux" class="Calendar" externalInfoUrl="https://pmd.github.io/pmd-6.55.0/pmd_rules_java_codestyle.html#unnecessaryimport" priority="4">
 Unused import 'org.javawavers.studybuddy.courses.Exam'
 </violation>

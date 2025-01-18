@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="el"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Styles.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">studybuddy</a> &gt; <a href="index.source.html" class="el_package">org.javawavers.studybuddy.ui_ux</a> &gt; <span class="el_source">Styles.java</span></div><h1>Styles.java</h1><pre class="source lang-java linenums">package org.javawavers.studybuddy.ui_ux;
+
+<span class="nc" id="L3">public class Styles {</span>
+
+<span class="nc" id="L5">  public static enum TaskType {</span>
+<span class="nc" id="L6">    TODAY(&quot;rgba(204, 77, 240, 1)&quot;),</span>
+<span class="nc" id="L7">    WEEK(&quot;rgba(255, 215, 0, 0.93)&quot;),</span>
+<span class="nc" id="L8">    OVERDUE(&quot;rgba(244, 78, 78, 1)&quot;),</span>
+<span class="nc" id="L9">    COMPLETED(&quot;rgba(101, 225, 101, 0.9)&quot;);</span>
+
+    private final String color;
+
+<span class="nc" id="L13">    TaskType(String color) {</span>
+<span class="nc" id="L14">      this.color = color;</span>
+<span class="nc" id="L15">    }</span>
+
+    public String getColor() {
+<span class="nc" id="L18">      return color;</span>
+    }
+  }
+
+  public static final String LABEL_STYLE(String color) {
+<span class="nc" id="L23">    return &quot;-fx-font-size: 16px;&quot;</span>
+        + &quot; -fx-font-weight: bold; -fx-padding: 5;&quot;
+        + &quot; -fx-background-color: &quot;
+        + color
+        + &quot;;&quot;
+        + &quot; -fx-background-radius: 8,7,6;&quot;;
+  }
+
+  public static final String MENU_BTN_STYLE =
+      &quot;-fx-border-color: #F7B267; &quot;
+          + &quot;-fx-background-color: #F7B267; &quot;
+          + &quot;-fx-border-width: 1px; &quot;
+          + &quot;fx-text-fill: black; &quot;
+          + &quot;fx-font-size: 14px; &quot;
+          + &quot;fx-alignment: CENTER-LEFT; &quot;
+          + &quot;-fx-border-radius: 5px; &quot;
+          + &quot;-fx-padding: 10px; &quot;;
+
+  public static final String MENU_BTN_INSIDE_STYLE =
+      &quot;-fx-border-color: #F7B267; &quot;
+          + &quot;-fx-background-color: #F7B267; &quot;
+          + &quot;-fx-border-width: 1px; &quot;
+          + &quot;fx-text-fill: black; &quot;
+          + &quot;fx-font-size: 14px; &quot;
+          + &quot;fx-alignment: CENTER-LEFT; &quot;
+          + &quot;-fx-border-radius: 5px; &quot;
+          + &quot;-fx-padding: 10px 20px; &quot;;
+
+  public static final String MENU_BTN_SELECTED =
+      &quot;-fx-border-color: #F9C288; &quot;
+          + &quot;-fx-background-color: #F9C288; &quot;
+          + &quot;-fx-border-width: 1px; &quot;
+          + &quot;fx-text-fill: black; &quot;
+          + &quot;fx-font-size: 14px; &quot;
+          + &quot;fx-alignment: CENTER-LEFT; &quot;
+          + &quot;-fx-border-radius: 5px; &quot;
+          + &quot;-fx-padding: 10px; &quot;;
+
+  public static final String MENU_BTN_INSIDE_SELECTED =
+      &quot;-fx-border-color: #F9C288; &quot;
+          + &quot;-fx-background-color: #F9C288; &quot;
+          + &quot;-fx-border-width: 1px; &quot;
+          + &quot;fx-text-fill: black; &quot;
+          + &quot;fx-font-size: 14px; &quot;
+          + &quot;fx-alignment: CENTER-LEFT; &quot;
+          + &quot;-fx-border-radius: 5px; &quot;
+          + &quot;-fx-padding: 10px 20px; &quot;;
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

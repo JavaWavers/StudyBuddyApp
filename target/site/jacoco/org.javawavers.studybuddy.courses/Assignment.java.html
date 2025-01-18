@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="el"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Assignment.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">studybuddy</a> &gt; <a href="index.source.html" class="el_package">org.javawavers.studybuddy.courses</a> &gt; <span class="el_source">Assignment.java</span></div><h1>Assignment.java</h1><pre class="source lang-java linenums">package org.javawavers.studybuddy.courses;
+
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+
+/**
+ * The {@code Assignment} class represents an assignment that is part of a course.
+ * It extends the {@code SubjectElement} class and includes additional fields such as
+ * estimated hours to complete, difficulty, and completed date.
+ *This class provides functionality to validate estimated hours, set and get assignment
+ * details, and check if the deadline is approaching soon.
+ *Features:
+ *Constructors to initialize assignments with or without parameters.
+ *Deadline validation based on estimated hours and maximum hours allowed.
+ *Deadline warning messages for approaching deadlines.
+ */
+public class Assignment extends SubjectElement {
+  private int estimateHours;
+  private LocalDate completedDate;
+  private int difficulty;
+  private int assignmentId;
+
+  // different types of constructors
+  /**
+   * Default constructor. Creates an empty assignment with no title or deadline.
+   */
+  public Assignment() {
+<span class="fc" id="L28">    super(null, null);</span>
+<span class="fc" id="L29">  }</span>
+
+  /**
+   * Parameterized constructor. Creates an assignment with specified details.
+   *
+   * @param title The title of the assignment.
+   * @param deadline The deadline for the assignment.
+   * @param estimateHours The estimated hours needed to complete the assignment.
+   * @param difficulty The difficulty level of the assignment.
+   * @throws IllegalArgumentException if the estimated hours exceed the maximum allowed hours
+   *         based on the deadline.
+   */
+  public Assignment(String title, LocalDate deadline, int estimateHours, int difficulty) {
+<span class="fc" id="L42">    super(deadline, title);</span>
+<span class="fc bfc" id="L43" title="All 2 branches covered.">    if (validEstHours(estimateHours, deadLine)) {</span>
+<span class="fc" id="L44">      this.estimateHours = estimateHours;</span>
+    } else {
+<span class="fc" id="L46">      System.out.println(&quot;Οι ώρες πρέπει να είναι μικρότερες από:&quot; + maxHours);</span>
+<span class="fc" id="L47">      throw new IllegalArgumentException(</span>
+              &quot;Invalid estimate hours: Hours must fit within the given deadline.&quot;);
+    }
+<span class="fc" id="L50">    this.difficulty = difficulty;</span>
+<span class="fc" id="L51">  }</span>
+
+  private static int maxHours;
+
+  /**
+   * Validates the estimated hours for the assignment.
+   *
+   * @param estimateHours The estimated hours to complete the assignment.
+   * @param deadLine The deadline for the assignment.
+   * @return {@code true} if the estimated hours are less than the maximum allowed,
+   *     otherwise {@code false}.
+   */
+  private static boolean validEstHours(int estimateHours, LocalDate deadLine) {
+<span class="fc" id="L64">    LocalDate today = LocalDate.now();</span>
+<span class="fc" id="L65">    maxHours = (int) ChronoUnit.DAYS.between(today, deadLine) * 14;</span>
+<span class="fc bfc" id="L66" title="All 2 branches covered.">    return (estimateHours &lt; maxHours);</span>
+  }
+
+  // getters
+  /**
+   * Returns the title of the assignment.
+   *
+   * @return The title of the assignment.
+   */
+  public String getTitle() {
+<span class="fc" id="L76">    return super.getName();</span>
+  }
+
+  /**
+   * Returns the date the assignment was completed.
+   *
+   * @return The completed date of the assignment, or {@code null} if not set.
+   */
+  public LocalDate getCompletedDate() {
+<span class="nc" id="L85">    return completedDate;</span>
+  }
+
+  public int getAssignmentId() {
+<span class="fc" id="L89">    return assignmentId;</span>
+  }
+
+  public LocalDate getDeadline() {
+<span class="fc" id="L93">    return super.getDate();</span>
+  }
+
+  public int getEstimateHours() {
+<span class="fc" id="L97">    return estimateHours;</span>
+  }
+
+
+  // setters
+  /**
+   * Sets the title of the assignment.
+   *
+   * @param title The new title of the assignment.
+   */
+  public void setTitle(String title) {
+<span class="nc" id="L108">    super.setName(title);</span>
+<span class="nc" id="L109">  }</span>
+
+  public void setCompletedDate(LocalDate completedDate) {
+<span class="nc" id="L112">    this.completedDate = completedDate;</span>
+<span class="nc" id="L113">  }</span>
+
+  /**
+   * Sets the deadline for the assignment.
+   *
+   * @param deadLine The new deadline for the assignment.
+   */
+  public void setDeadline(LocalDate deadLine) {
+<span class="nc" id="L121">    super.setDate(deadLine);</span>
+<span class="nc" id="L122">  }</span>
+
+  public void setEstimateHours(int estimateHours) {
+<span class="nc" id="L125">    this.estimateHours = estimateHours;</span>
+<span class="nc" id="L126">  }</span>
+
+  public void setAssignmentId(int assignmentId) {
+<span class="nc" id="L129">    this.assignmentId = assignmentId;</span>
+<span class="nc" id="L130">  }</span>
+
+
+  @Override
+  public void isDeadLineSoonMessage() {
+    // Calculate the remaining days until the exam date
+<span class="nc" id="L136">    long remainingDays = ChronoUnit.DAYS.between(LocalDate.now(), getDeadline());</span>
+
+<span class="nc bnc" id="L138" title="All 4 branches missed.">    if (remainingDays &lt;= 10 &amp;&amp; remainingDays &gt; 0) {</span>
+<span class="nc" id="L139">      System.out.println(&quot;Απομένουν μόνο &quot; + remainingDays + &quot; ημέρες μέχρι την εξέταση!&quot;);</span>
+<span class="nc bnc" id="L140" title="All 2 branches missed.">    } else if (remainingDays == 0) {</span>
+<span class="nc" id="L141">      System.out.println(&quot;Η εξέταση είναι σήμερα! Καλή επιτυχία!&quot;);</span>
+<span class="nc bnc" id="L142" title="All 2 branches missed.">    } else if (remainingDays &lt; 0) {</span>
+<span class="nc" id="L143">      System.out.println(&quot;Η εξέταση έχει ήδη περάσει.&quot;);</span>
+    }
+<span class="nc" id="L145">  }</span>
+
+  @Override
+  // returns true if the deadline is in less than 5 days
+  public boolean isDeadLineSoon() {
+<span class="fc" id="L150">    long remainingDays = ChronoUnit.DAYS.between(LocalDate.now(), getDeadline());</span>
+<span class="fc bfc" id="L151" title="All 2 branches covered.">    return remainingDays &lt;= 5;</span>
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
