@@ -16,6 +16,9 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.javawavers.studybuddy.StudyBuddyApp;
+import org.javawavers.studybuddy.courses.StaticUser;
+
+import static org.javawavers.studybuddy.courses.StaticUser.staticUser;
 
 public class MenuPage {
   private VBox leftBoxMenu = new VBox(15);
@@ -111,7 +114,7 @@ public class MenuPage {
         userImgView.setFitWidth(20);
         userImgView.setFitHeight(20);
 
-        String userName = new RegisterPage().storedUsername;
+        String userName = staticUser.getUsername();
         if (userName == null) {
           userName = "Guest";
         }
