@@ -371,7 +371,7 @@ public class RegisterPage {
             StaticUser.staticUser.setUsername(storedUsername);
             StaticUser.staticUser.setPassword(storedPassword);
             StaticUser.staticUser.setEmail(storedEmail);
-            StaticUser.staticUser.setUserID(ActiveUser.getUserID(storedEmail, storedPassword));
+            StaticUser.staticUser.setUserId(ActiveUser.getUserId(storedEmail, storedPassword));
           }
         });
   }

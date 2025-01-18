@@ -18,6 +18,7 @@ public class Assignment extends SubjectElement {
   private int estimateHours;
   private LocalDate completedDate;
   private int difficulty;
+  private int assignmentId;
 
   // different types of constructors
   /**
@@ -84,6 +85,10 @@ public class Assignment extends SubjectElement {
     return completedDate;
   }
 
+  public int getAssignmentId() {
+    return assignmentId;
+  }
+
   public LocalDate getDeadline() {
     return super.getDate();
   }
@@ -119,6 +124,11 @@ public class Assignment extends SubjectElement {
   public void setEstimateHours(int estimateHours) {
     this.estimateHours = estimateHours;
   }
+
+  public void setAssignmentId(int assignmentId) {
+    this.assignmentId = assignmentId;
+  }
+
 
   @Override
   public void isDeadLineSoonMessage() {

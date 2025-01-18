@@ -27,6 +27,7 @@ public class ScheduledTask {
   private LocalDate taskDate;
   private final String subjectName;
   private final String taskType;
+  private int taskId;
 
   /**
    * Enum representing the status of a task.
@@ -188,6 +189,15 @@ public class ScheduledTask {
 
   public String getTaskType() {
     return taskType;
+  }
+
+  //Getter and Setter for Task id
+  public void setTaskId(int taskId) {
+    this.taskId = taskId;
+  }
+
+  public int getTaskId() {
+    return taskId;
   }
 
   // Method to check if the task is complete, return true when task is completed

@@ -210,12 +210,12 @@ public class AvailabilityPage {
             } // inserts for the first time or it update the already inserted one
             if (flag == false) {
               DataInserter.insertAvailability(avPerDay[1], avPerDay[2], avPerDay[3],
-                      avPerDay[4], avPerDay[5], avPerDay[6], avPerDay[7], StaticUser.staticUser.getUserID());
+                      avPerDay[4], avPerDay[5], avPerDay[6], avPerDay[7], StaticUser.staticUser.getUserId());
               StaticUser.staticUser.setAvPerDay(avPerDay);
             } else {
               if (c > 1) {
                 DataInserter.updateAvailability(avPerDay[1], avPerDay[2], avPerDay[3],
-                        avPerDay[4], avPerDay[5], avPerDay[6], avPerDay[7], StaticUser.staticUser.getUserID());
+                        avPerDay[4], avPerDay[5], avPerDay[6], avPerDay[7], StaticUser.staticUser.getUserId());
                 StaticUser.staticUser.setAvPerDay(avPerDay);
               }
             }
@@ -223,7 +223,7 @@ public class AvailabilityPage {
 
           if (setNoAvailability != null) {
             Availability.setNonAvailability(setNoAvailability);
-            DataInserter.insertNonAvDate(setNoAvailability, StaticUser.staticUser.getUserID());
+            DataInserter.insertNonAvDate(setNoAvailability, StaticUser.staticUser.getUserId());
             StaticUser.staticUser.addNonAvailDays(setNoAvailability);
           }
           ActiveUser.loadData(staticUser.getEmail(), staticUser.getPassword());

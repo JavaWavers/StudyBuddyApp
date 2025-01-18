@@ -3,6 +3,7 @@ package org.javawavers.studybuddy.courses;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import org.javawavers.studybuddy.database.DeleteData;
 import org.javawavers.studybuddy.calculations.Day;
 import org.javawavers.studybuddy.calculations.Task;
 import org.javawavers.studybuddy.calculations.Week;
@@ -245,6 +246,7 @@ public class User {
    */
   public void removeSubject(Subject subj) {
     subjects.remove(subj);
+    DeleteData.deleteSubject(subj);
   }
 
   /**
@@ -269,6 +271,7 @@ public class User {
    */
   public void removeAssignment(Assignment assign) {
     assignments.remove(assign);
+    DeleteData.deleteAssignment(assign);
   }
 
   /**
@@ -290,6 +293,7 @@ public class User {
    */
   public void removeExam(Exam exam) {
     exams.remove(exam);
+    DeleteData.deleteExam(exam);
   }
 
   /**
@@ -311,6 +315,7 @@ public class User {
    */
   public void removeNonAvailDays(LocalDate date) {
     nonAvailDays.remove(date);
+    DeleteData.deleteNonAvDay(date);
   }
 
   /**

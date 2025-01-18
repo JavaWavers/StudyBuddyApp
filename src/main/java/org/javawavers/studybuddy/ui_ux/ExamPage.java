@@ -194,8 +194,8 @@ public class ExamPage {
                   .getStylesheets()
                   .add(Objects.requireNonNull(getClass().getResource("/success.css")).toExternalForm());
             successAlert.showAndWait();
-            DataInserter.insertSubject(courseName, diffi, courseType.toString(), StaticUser.staticUser.getUserID());
-            int subjectID = ActiveUser.getSubjectID(StaticUser.staticUser.getUserID(), courseName);
+            DataInserter.insertSubject(courseName, diffi, courseType.toString(), StaticUser.staticUser.getUserId());
+            int subjectID = ActiveUser.getSubjectId(StaticUser.staticUser.getUserId(), courseName);
             System.out.println("subjectID:" + subjectID);
             DataInserter.insertExam(deadline, pages, revision, time, subjectID);
             StaticUser.staticUser.addSubject(subject1);

@@ -136,7 +136,7 @@ public class AssignmentPage {
           // add the assignment to the static user
           staticUser.addAssignment(assignment1);
 
-          DataInserter.insertAssignment(title, localDeadline, estimateHour, difficulty, null, StaticUser.staticUser.getUserID());
+          DataInserter.insertAssignment(title, localDeadline, estimateHour, difficulty, null, StaticUser.staticUser.getUserId());
           StaticUser.staticUser.addAssignment(assignment1);
 
           // ExamPage exampage = new ExamPage();

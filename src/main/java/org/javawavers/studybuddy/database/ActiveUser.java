@@ -175,8 +175,8 @@ public class ActiveUser {
 
   /** returns the lit of Subjects for a specific user. */
   public static List<Subject> getSubjects(int userId) {
-    String sql = "SELECT subjectName, difficultyLevel, subjectType,"
-        + " subjectId FROM Subject WHERE userId = ?;";
+    String sql = "SELECT subjectName, difficultyLevel, "
+        + "subjectType, subjectID FROM Subject WHERE userID = ?;";
     List<Subject> subjects = new ArrayList<>();
     List<Exam> ex = new ArrayList<>();
 

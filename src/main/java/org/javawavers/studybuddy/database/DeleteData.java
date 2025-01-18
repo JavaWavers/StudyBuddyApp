@@ -1,18 +1,21 @@
 package org.javawavers.studybuddy.database;
 
-import org.javawavers.studybuddy.courses.*;
-
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import org.javawavers.studybuddy.courses.Assignment;
+import org.javawavers.studybuddy.courses.Exam;
+import org.javawavers.studybuddy.courses.ScheduledTask;
+import org.javawavers.studybuddy.courses.Subject;
+
 
 public class DeleteData {
     public static void deleteExam(Exam exam) {
         String sql = "DELETE FROM Exam WHERE examID = ?";
         try (Connection c = DataBaseManager.connect();
              PreparedStatement ps = c.prepareStatement(sql)) {
-            ps.setInt(1, exam.getExamID());
+            ps.setInt(1, exam.getExamId());
 
             int rowsAffected = ps.executeUpdate();
             if (rowsAffected > 0) {
@@ -77,12 +80,10 @@ public class DeleteData {
     }
 
     public static void deleteNonAvDay(LocalDate date) {
-        String sql = "DELETE FROM NonAvDates WHERE date = ? AND userID = ?";
+        String sql = "DELETE FROM NonAvDates WHERE date = ?";
         try (Connection c = DataBaseManager.connect();
              PreparedStatement ps = c.prepareStatement(sql)) {
             ps.setString(1, date.toString());
-            ps.setInt(2, StaticUser.staticUser.getUserID());
-
             int rowsAffected = ps.executeUpdate();
             if (rowsAffected > 0) {
                 System.out.println("NonAvDate διαγράφτηκε με επιτυχία.");
@@ -94,4 +95,5 @@ public class DeleteData {
         }
     }
 }
+
 
