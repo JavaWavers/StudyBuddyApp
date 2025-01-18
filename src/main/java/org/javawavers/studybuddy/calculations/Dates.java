@@ -155,24 +155,4 @@ public class Dates {
     }
     return exD;
   }
-
-  /**
-   * Retrieves the assignment deadline associated with a specific task's subject.
-   *
-   * @param task the {@code Task} whose subject's assignment deadline is needed.
-   * @param assignments the list of assignment {@code Dates}.
-   * @return the {@code LocalDate} representing the assignment deadline, or {@code null} if not found.
-   */
-  public static LocalDate getAssDate(Task task, List<Dates> assignments) {
-    String subj = task.getSubject(); // keeps the name of the subject in order to find the deadline
-    LocalDate assD = null; // keeps the exam deadline
-    // Iterate through the list of assignments to find the one that matches for the
-    // task's subject
-    for (Dates assDate : assignments) {
-      if (subj.equals(assDate.getSubName())) {
-        assD = assDate.getDate();
-      }
-    }
-    return assD;
-  }
 }

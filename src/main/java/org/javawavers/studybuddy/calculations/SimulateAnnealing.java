@@ -93,11 +93,11 @@ public class SimulateAnnealing {
    * @throws IllegalArgumentException if the subject has no exams.
    */
   private static void subTasks(Subject subject) {
-    if (Subject.getExams() == null || Subject.getExams().isEmpty()) {
+    if (subject.getExams() == null || subject.getExams().isEmpty()) {
       throw new IllegalArgumentException("Cannot create tasks: No exams found for the subject.");
     }
     // setting the difficulty level
-    CalculativeAlgorithm.setPagesPerMin(Subject.getExams().get(0).getTimePer20Slides());
+    CalculativeAlgorithm.setPagesPerMin(subject.getExams().get(0).getTimePer20Slides());
     // studying tasks
     int taskType1 = CalculativeAlgorithm.studyingTasks(subject);
     // Task creation for each task type

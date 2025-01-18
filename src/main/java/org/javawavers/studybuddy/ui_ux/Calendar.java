@@ -39,12 +39,12 @@ import org.javawavers.studybuddy.database.ActiveUser;
 
 public class Calendar {
   private LocalDate currentWeekStart;
-  // αρχικοποιουμε την μεταβλητη count
+  // initialize the variable count
   int count = 0;
   private ArrayList<Week> totalWeeks;
 
-  // αρχικοποιουμε τις λιστες και τα vbox τα οποια χρησιμευουν στην δυναμικη επεξεργασια και
-  // εμφανιση των task
+  // initialize the lists and VBoxes, which are used for dynamic processing
+  // and displaying the tasks
   public static List<String> notStartedYet = new ArrayList<>();
   public static List<String> completed = new ArrayList<>();
   private static final GridPane calendarGrid = new GridPane();
@@ -53,22 +53,22 @@ public class Calendar {
   private VBox completedTasksBox = new VBox(10);
 
   public Node calendar() {
-    // Αρχικοποιουμε ολα τα panel
+    // initialize all panels
     VBox centerPanel = createCenterPanel();
     centerPanel.setPadding(new Insets(20));
     return centerPanel;
   }
 
-  // μεθοδος για την δημιουργια του κεντρικου panel
+  // method for the creation of hte central panel
   private VBox createCenterPanel() {
     VBox centerPanel = new VBox(10);
     centerPanel.setPadding(new Insets(20));
     centerPanel.setStyle("-fx-background-color: white;");
 
-    /*Δημιουργουμε ενα hbox για την διαταξη τον στοιχειων σε οριζοντια θεση
-     *οριζουμε την θεση του οριζουμε την σημερινη μερα καθως και την εβδομαδα την οποια διανυει ο χρηστης
-     *με την datetimeformater οριζουμε τον τροπο με τον οποιο θα εμφανιζεται το weeklabel
-     *δημιουργουμε δυο κουμπια τα οποια θα ειναι για την πλοηγηση του χρηστη στις εβδομαδες και να μπορει να δει το προγραμμα του
+    /* create an HBox for arranging the elements in a horizontal position
+     * define the position, set the current day, as well as the week the user is currently in
+     * with the DateTimeFormatter, we define the format in which the week label will be displayed
+     * create two buttons for navigating through the weeks and for the user to view their schedule
      */
     HBox weekSwitcher = new HBox(10);
     weekSwitcher.setTranslateY(40);
@@ -78,13 +78,13 @@ public class Calendar {
     currentWeekStart = LocalDate.now().with(ChronoField.DAY_OF_WEEK, 1);
     final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d MMM yyyy");
 
-    // αρχικοποιουμε την μεταβλητη weeklabel
+    // initialize variable weeklabel
     Label weekLabel = new Label(formatWeekLabel(currentWeekStart, formatter));
     weekLabel.setFont(Font.font("System", FontWeight.BOLD, 16));
     weekLabel.setStyle("-fx-text-fill: black;");
 
     // HBox.setHgrow(weekLabel, Priority.ALWAYS);
-    // βαζουμε τα κουμπια για να πλοηγειτε ο χρηστης στις εβδομαδες
+    // place the buttons for the user to navigate through the weeks
     Button prevButton = new Button("<");
     prevButton.setStyle(
         "-fx-background-color: #CF308C; -fx-text-fill: white; -fx-font-size: 14px; -fx-background-radius: 30px;");
@@ -104,9 +104,16 @@ public class Calendar {
         System.out.println("call subject in createCalandar");
         System.out.println(sub);
     }
-    createCalendarGrid(calendarGrid, count, subject, totalWeeks);
-    // μεταβλητη count η οποια μολις ο χρηστης παταει το κουμπι που παει τις εβδομαδες μπροστα
-    // αυξανεται αλλιως μειωνεται οταν count == 0 τοτε θα εεμφανιζετε το κουμπι today
+    /*createCalendarGrid(calendarGrid, count, subject, totalWeeks);///////////////////////////////////////////
+    System.out.println("test calendar" + staticUser.getTotalWeeks());
+    if (staticUser.getTotalWeeks() !=  null) {
+        PrintWeeks printWeek = new PrintWeeks();
+        printWeek.printWeeks(staticUser.getTotalWeeks());
+    }
+*/
+
+    // variable count, which increases when the user presses the button to move the weeks forward
+    //  and decreases otherwise. When count == 0, the 'Today' button will be displayed
     prevButton.setOnAction(
         event -> {
           if (count > 0) {
@@ -169,7 +176,7 @@ public class Calendar {
           createCalendarGrid(calendarGrid, 0, SimulateAnnealing.getSubjects(), totalWeeks);
         });
 
-    // κουμπι για να βαζει ο χρηστης την διαθεσημοτητα
+    // button for the user to insert availability
     Button availabilityButton = new Button("Availiability");
     availabilityButton.setStyle(
         "-fx-background-color: #CF308C; -fx-background-radius: 30px; -fx-border-color: black; -fx-border-radius: 30px;");
@@ -177,7 +184,7 @@ public class Calendar {
     availabilityButton.setTextFill(Color.WHITE);
     availabilityButton.setPrefWidth(160);
 
-    // οριζουμε οταν ο ζρηστης παταει πανω στο κουμπι να ανοιγει την σελιδα popupdia
+    // define that when the user clicks the button, the popup page will open
     availabilityButton.setOnAction(
         event -> {
           Stage popUpStage = new Stage();
@@ -199,19 +206,19 @@ public class Calendar {
           popUpStage.show();
         });
 
-    // οριζουμε την θεση του κουμπιου availiability
+    // define the availabilty's button position
     StackPane availabilityPane = new StackPane(availabilityButton);
     availabilityPane.setPrefSize(150, 30);
     availabilityPane.setLayoutX(centerPanel.getWidth() - 300);
     availabilityPane.setLayoutY(200);
 
-    // κουμπι για Refresh του προογραμματος
+    // button for refreshing the program
     Button refreshButton = new Button();
     refreshButton.setStyle(
         "-fx-background-color: #CF308C; -fx-text-fill: white; -fx-font-size: 14px; -fx-background-radius: 30px;");
     refreshButton.setPrefSize(30, 30);
 
-    // προσθηκη εικονιδιου στο κουμπι για κυκλικα βελη
+    // add an icon to the button for circular arrows
     SVGPath refreshIcon = new SVGPath();
     refreshIcon.setContent(
         "M12 2V5C7.58 5 4 8.58 4 13C4 15.27 5.05 17.36 6.77 18.63L8.22 17.18C7.04 16.17 6.27 14.67 6.27 13C6.27 9.8 8.8 7.27 12 7.27V10L16 6L12 2ZM18.23 4.37L16.78 5.82C17.96 6.83 18.73 8.33 18.73 10C18.73 13.2 16.2 15.73 13 15.73V12L9 16L13 20V17C17.42 17 21 13.42 21 9C21 6.73 19.95 4.64 18.23 4.37Z");
@@ -307,7 +314,7 @@ public class Calendar {
           }
         });
 
-    // βαζουμε ολα τα στοιχεια του κεντρου μαζι και τα επιστρεφουμε
+    // group all the elements of the center together and return them
     centerPanel
         .getChildren()
         .addAll(weekSwitcher, todayButton, calendarGrid, availabilityPane, refreshButton);
@@ -315,7 +322,7 @@ public class Calendar {
     return centerPanel;
   }
 
-  // δημιουργουμε τα checkbox
+  // create the checkboxes
   /* private HBox createCheckBox(String taskName) {
       HBox checkBoxBox = new HBox(10);
       checkBoxBox.setAlignment(Pos.CENTER_LEFT);
@@ -349,8 +356,8 @@ public class Calendar {
       return checkBoxBox;
     }
   */
-  // δημιουργουμε το ημερολογιο
-  // δεν υπαρχει schedule
+  // create the calendar
+  // there is no schedule
 
   private void createCalendarGrid(
       GridPane grid, int weeknumber, List<Subject> subject, List<Week> weeks) {
@@ -420,14 +427,12 @@ public class Calendar {
                 String taskDescription = "κενο";
                 taskDescription = s.toString();
                 LocalDate examDate = null;
-                List<Exam> exams = Subject.getExams();
+                //List<Exam> exams = s.getExams();
 
                 if (subject != null) {
                   for (Subject subj : subject) {
                     if (taskDescription.contains(subj.getCourseName())) {
-                      for (Exam exam : exams) {
-                        examDate = exam.getExamDate();
-                      }
+                        examDate = subj.getExams().get(0).getExamDate();
                       break;
                     }
                   }

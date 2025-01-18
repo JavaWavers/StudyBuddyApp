@@ -9,7 +9,19 @@ import org.javawavers.studybuddy.calculations.Week;
 import org.javawavers.studybuddy.courses.ScheduledTask;
 import org.javawavers.studybuddy.courses.Subject;
 
-
+/**
+ * This class calculates the distribution of tasks across various subjects as a percentage.
+ * It processes the task data by iterating through weeks, days, and tasks associated with
+ * each subject. The resulting percentage distribution is returned as a HashMap where the
+ * key is the subject name, and the value is the percentage of tasks for that subject.
+ * The distribution is calculated by counting the number of tasks for each subject relative
+ * to the total number of tasks and computing the percentage for each.
+ * The class uses the static user data provided by
+ * {@link org.javawavers.studybuddy.courses.StaticUser} to access the total weeks and subjects.
+ * This class is intended to be used for generating statistics or visualizations regarding
+ * how tasks are distributed across subjects.
+ * The percentage values will be stored in the {@code subjectDist} map.
+ */
 public class SubjDistributionCalc {
   // Stores the percentage distribution of tasks for each subject
   private static HashMap<String, Double> subjectDist;

@@ -3,57 +3,117 @@ package org.javawavers.studybuddy.courses;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
+/**
+ * The {@code Exam} class represents an examination event for a specific course or subject.
+ * It extends the {@code SubjectElement} class and includes additional fields such as
+ * the number of pages to study, revision per pages, and time required per 20 slides.
+ * This class provides functionality to manage exam details, calculate study time,
+ * and check for upcoming deadlines.
+ *Features:
+ * Multiple constructors for different initialization scenarios.
+ * Methods to set and get exam details, including pages, revisions, and time per slides.
+ * Warning messages and deadline checks for upcoming exams.
+ */
 public class Exam extends SubjectElement {
 
   private int pages;
-  private int revisionPerXPages;
+  private int revisionPerPages;
   private double timePer20Slides;
-  private int examID;
 
   // Constructors for different versions of Exam class
+  /**
+   * Constructs an {@code Exam} object with a specified exam date and number of pages.
+   *
+   * @param examDate The date of the exam.
+   * @param pages The number of pages to study for the exam.
+   */
   public Exam(LocalDate examDate, int pages) {
     super(examDate, null);
     this.pages = pages;
   }
 
+  /**
+   * Constructs an {@code Exam} object with a subject, exam date, and number of pages.
+   *
+   * @param subject The subject associated with the exam.
+   * @param examDate The date of the exam.
+   * @param pages The number of pages to study for the exam.
+   */
   public Exam(Subject subject, LocalDate examDate, int pages) {
     super(examDate, subject.getCourseName());
     this.pages = pages;
   }
 
+  /**
+   * Constructs an {@code Exam} object with a subject, exam date, pages, and name.
+   *
+   * @param subject The subject associated with the exam.
+   * @param examDate The date of the exam.
+   * @param pages The number of pages to study for the exam.
+   * @param name The name of the exam.
+   */
   public Exam(Subject subject, LocalDate examDate, int pages, String name) {
     super(examDate, subject.getCourseName());
     this.pages = pages;
     this.name = name;
   }
 
+  /**
+   * Constructs an {@code Exam} object with a subject, exam date, pages, name,
+   * revisions per page, and time required per 20 slides.
+   *
+   * @param subject The subject associated with the exam.
+   * @param examDate The date of the exam.
+   * @param pages The number of pages to study for the exam.
+   * @param name The name of the exam.
+   * @param revisionPerPages The number of revisions required per page.
+   * @param timePer20Slides The estimated time (in minutes) required for 20 slides.
+   */
   public Exam(
       Subject subject,
       LocalDate examDate,
       int pages,
       String name,
-      int revisionPerXPages,
+      int revisionPerPages,
       int timePer20Slides) {
     super(examDate, subject.getCourseName());
     this.pages = pages;
     this.name = name;
-    this.revisionPerXPages = revisionPerXPages;
+    this.revisionPerPages = revisionPerPages;
     this.timePer20Slides = timePer20Slides;
   }
 
-  public Exam(int pages, int revisionPerXPages, LocalDate examDate, double timePer20Slides) {
+  /**
+   * Constructs an {@code Exam} object with pages, revisions, exam date, and time for 20 slides.
+   *
+   * @param pages The number of pages to study for the exam.
+   * @param revisionPerPages The number of revisions required per page.
+   * @param examDate The date of the exam.
+   * @param timePer20Slides The estimated time (in minutes) required for 20 slides.
+   */
+  public Exam(int pages, int revisionPerPages, LocalDate examDate, double timePer20Slides) {
     super(examDate, null);
     this.pages = pages;
-    this.revisionPerXPages = revisionPerXPages;
+    this.revisionPerPages = revisionPerPages;
     this.timePer20Slides = timePer20Slides;
   }
 
   // getters & setters
-  // getSubjectName does not need to be overridden
+
+  /**
+   * Sets the exam date.
+   *
+   * @param examDate The new exam date.
+   */
   public void setExamDate(LocalDate examDate) {
     super.setDate(examDate);
   }
 
+  /**
+   * Returns the exam date.
+   *
+   * @return The exam date.
+   */
   public LocalDate getExamDate() {
     return super.getDate();
   }
@@ -66,20 +126,12 @@ public class Exam extends SubjectElement {
     this.pages = pages;
   }
 
-  public void setExamId(int examID) {
-    this.examID = examID;
+  public int getRevisionPerPages() {
+    return revisionPerPages;
   }
 
-  public int getExamID() {
-    return examID;
-  }
-
-  public int getRevisionPerXPages() {
-    return revisionPerXPages;
-  }
-
-  public void setRevisionPerXPages(int revisionPerXPages) {
-    this.revisionPerXPages = revisionPerXPages;
+  public void setRevisionPerPages(int revisionPerPages) {
+    this.revisionPerPages = revisionPerPages;
   }
 
   public double getTimePer20Slides() {
@@ -105,8 +157,8 @@ public class Exam extends SubjectElement {
       builder.append("\nΣελίδες: '").append(pages).append("'");
     }
 
-    if (revisionPerXPages != 0) {
-      builder.append("\nΕπανάληψη ανά: '").append(revisionPerXPages).append("σελίδες'");
+    if (revisionPerPages != 0) {
+      builder.append("\nΕπανάληψη ανά: '").append(revisionPerPages).append("σελίδες'");
     }
 
     if (timePer20Slides != 0.0) {
