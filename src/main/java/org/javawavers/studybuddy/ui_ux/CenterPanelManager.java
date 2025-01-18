@@ -22,34 +22,57 @@ public class CenterPanelManager {
    */
   // Method that changes center Panel
   public void changeCenterPanel(String panelName) {
+    try {
+      centerPane.getChildren().clear();
 
-    centerPane.getChildren().clear();
+      ExamPage examPage = new ExamPage();
+      DashboardPage dashboard = new DashboardPage();
+      Calendar calendar = new Calendar();
+      AssignmentPage assignmentPage = new AssignmentPage();
 
-    ExamPage examPage = new ExamPage();
-    DashboardPage dashboard = new DashboardPage();
-    Calendar calendar = new Calendar();
-    AssignmentPage assignmentPage = new AssignmentPage();
-    HomePage homePage = new HomePage();
-    LoginPage loginPage = new LoginPage();
-
-    // Depending on which Menu Button is pressed it changes the center Panel
-    switch (panelName) {
-      case "Courses":
-        break;
-      case "Exam":
-        centerPane.getChildren().setAll(examPage.createExamPanel());
-        break;
-      case "Assignments":
-        centerPane.getChildren().setAll(assignmentPage.assignmentPanel());
-        break;
-      case "Calendar":
-        centerPane.getChildren().setAll(calendar.calendar());
-        break;
-      case "Dashboard":
-        centerPane.getChildren().setAll(dashboard.createDashboard());
-        break;
-      default:
-        break;
+      // Depending on which Menu Button is pressed it changes the center Panel
+      switch (panelName) {
+        case "Courses":
+          break;
+        case "Exam":
+          if (examPage.createExamPanel() != null) {
+            centerPane.getChildren().setAll(examPage.createExamPanel());
+          } else {
+            throw new NullPointerException("Η σελίδα Exam είναι null.");
+          }
+          break;
+        case "Assignments":
+          if (assignmentPage.assignmentPanel() != null) {
+            centerPane.getChildren().setAll(assignmentPage.assignmentPanel());
+          } else {
+            throw new NullPointerException("Η σελίδα Assignment είναι null.");
+          }
+          break;
+        case "Calendar":
+          if (calendar.calendar() != null) {
+            centerPane.getChildren().setAll(calendar.calendar());
+          } else {
+            throw new NullPointerException("Η σελίδα Calendar είναι null.");
+          }
+          break;
+        case "Dashboard":
+          if (dashboard.createDashboard() != null) {
+            centerPane.getChildren().setAll(dashboard.createDashboard());
+          } else {
+            throw new NullPointerException("Η σελίδα Dashboard είναι null.");
+          }
+          break;
+        default:
+          throw new IllegalArgumentException("Δεν είναι σωστό το όνομα του panel " + panelName);
+      }
+    } catch (NullPointerException e) {
+      System.err.println("Σφάλμα: " + e.getMessage());
+      e.printStackTrace();
+    } catch (IllegalArgumentException e) {
+      System.err.println("Λάνθασμένη κλήση panel: " + e.getMessage());
+    } catch (Exception e) {
+      System.err.println("Απροσδόκητο σφάλμα κατά την αλλαγή του panel: " + e.getMessage());
+      e.printStackTrace();
     }
   }
 

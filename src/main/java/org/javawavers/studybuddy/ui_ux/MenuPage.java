@@ -122,8 +122,8 @@ public class MenuPage {
         if (logoutImgUrl != null) {
           Image logoutImg = new Image(logoutImgUrl.toExternalForm());
           ImageView logoutImgView = new ImageView(logoutImg);
-          logoutImgView.setFitWidth(20);
-          logoutImgView.setFitHeight(20);
+          logoutImgView.setFitWidth(18);
+          logoutImgView.setFitHeight(18);
           Button btnLogout = new Button();
           btnLogout.setGraphic(logoutImgView);
           btnLogout.setStyle("-fx-background-color: transparent;");
