@@ -29,7 +29,7 @@ public class User {
   List<Task> tasks;
   List<Day> days;
   List<ScheduledTask> scheduledTasks = new ArrayList<>();
-
+  List<ScheduledTask> completedTasks = new ArrayList<>();
   /**
    * Default constructor.
    */
@@ -64,6 +64,7 @@ public class User {
     this.subjects = subjects;
     this.assignments = assignments;
     this.exams = exams;
+
   }
 
   /**
@@ -230,6 +231,13 @@ public class User {
     this.scheduledTasks = tasks;
   }
 
+  public List<ScheduledTask> getCompletedTasks() {
+    return  completedTasks;
+  }
+
+  public void setCompletedTasks(List<ScheduledTask> completedTasks) {
+    this.completedTasks = completedTasks;
+  }
   /**
    * Adds a subject to the user's list of subjects.
    *
@@ -237,6 +245,10 @@ public class User {
    */
   public void addSubject(Subject subj) {
     subjects.add(subj);
+  }
+
+  public void addCompletedTask(ScheduledTask task) {
+    completedTasks.add(task);
   }
 
   /**
@@ -247,6 +259,11 @@ public class User {
   public void removeSubject(Subject subj) {
     subjects.remove(subj);
     DeleteData.deleteSubject(subj);
+  }
+
+  public void removeCompleteTask(ScheduledTask task) {
+    completedTasks.remove(task);
+    DeleteData.deleteCompletedTask(task);
   }
 
   /**

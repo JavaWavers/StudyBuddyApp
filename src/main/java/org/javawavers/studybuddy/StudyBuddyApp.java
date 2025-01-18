@@ -8,6 +8,11 @@ import org.javawavers.studybuddy.database.DataBaseManager;
 import org.javawavers.studybuddy.ui_ux.HomePage;
 import org.javawavers.studybuddy.ui_ux.SceneManager;
 
+import java.sql.Connection;
+
+import static org.javawavers.studybuddy.database.DataBaseManager.connect;
+import static org.javawavers.studybuddy.database.DataBaseManager.createTables;
+
 /*
  * TODO:
  *  fix courses menu (attention Home btn)
@@ -56,5 +61,7 @@ public class StudyBuddyApp extends Application { // exam page
 
   public static void main(String[] args) {
     launch(args);
+    Connection connection = connect();
+    createTables();
   }
 }
