@@ -14,27 +14,17 @@ public class Subject {
    * Enum representing the type of the course (e.g., theoretical, practical).
    */
   public enum SubjectType {
-    Θεωρητικό, //Theoretical
-    Θετικό, // Practical
-    Συνδυασμός, // Combination
-    Αγνωστο // Unknown
-  }
-
-  /**
-   * Enum representing the study goal for the course (e.g., average, good, excellent).
-   */
-  public enum StudyGoal {
-    AVERAGE,
-    GOOD,
-    EXCELLENT
+    Theoretical,
+    Practical,
+    Combination,
+    Unknown
   }
 
   private String courseName;
   private int difficultyLevel; // Difficulty level of the course
   private SubjectType subjectType; // Type of the course
-  private StudyGoal studyGoal; // Study goal for the course
   private List<Exam> exams = new ArrayList<>(); // List of exams
-  private List<Assignment> assignments = new ArrayList<>(); // List of assignments
+
 
   // Getters and Setters
   public String getCourseName() {
@@ -61,14 +51,6 @@ public class Subject {
     this.subjectType = subjectType;
   }
 
-  public StudyGoal getStudyGoal() {
-    return studyGoal;
-  }
-
-  public void setStudyGoal(StudyGoal studyGoal) {
-    this.studyGoal = studyGoal;
-  }
-
   public void setExams(List<Exam> exams) {
     this.exams = exams;
   }
@@ -83,8 +65,7 @@ public class Subject {
   public Subject(String courseName) {
     this.courseName = courseName;
     this.difficultyLevel = 1; // Default difficulty level
-    this.subjectType = SubjectType.Αγνωστο; // Default subject type
-    this.studyGoal = StudyGoal.GOOD; // Default study goal
+    this.subjectType = SubjectType.Unknown; // Default subject type
   }
 
   /**
@@ -98,17 +79,6 @@ public class Subject {
   }
 
   /**
-   *Constructor for setting course name,  difficulty Level, subject type, and study goal.
-   */
-  public Subject(
-      String courseName, int difficultyLevel, SubjectType subjectType, StudyGoal studyGoal) {
-    this.courseName = courseName;
-    this.difficultyLevel = difficultyLevel;
-    this.subjectType = subjectType;
-    this.studyGoal = studyGoal;
-  }
-
-  /**
    *Methods to manage exams.
    */
   public void addExam(Exam exam) { // Add an exam to the course
@@ -119,41 +89,13 @@ public class Subject {
     return exams;
   }
 
-  /**
-   *Methods to manage assignments.
-   */
-  public void addAssignment(Assignment assignment) { // Add an assignment to the course
-    assignments.add(assignment);
-  }
-
-  public List<Assignment> getAssignments() { // Retrieve the list of assignments for the course
-    return assignments;
-  }
-
-  /**
-   * Calculates the total estimated hours for all assignments in the course.
-   *
-   * @return the total estimated hours
-   */
-  public double getTotalAssHours() {
-    double sum = 0.0;
-
-    // Traverse through the assignments list
-    for (Assignment assignment : assignments) {
-      sum += assignment.getEstimateHours(); // Add the estimated hours of the current assignment
-    }
-
-    return sum;
-  }
 
   @Override
   public String toString() {
     return "Subject{" + "courseName='" + courseName + '\''
             + ", difficultyLevel=" + difficultyLevel
             + ", subjectType=" + subjectType
-            + ", studyGoal=" + studyGoal
             + ", totalExams=" + exams.size()
-            + ", totalAssignments=" + assignments.size()
             + '}';
   }
 

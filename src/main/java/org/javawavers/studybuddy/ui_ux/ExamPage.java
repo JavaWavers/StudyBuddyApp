@@ -123,7 +123,7 @@ public class ExamPage {
           }
 
           // create a subject object
-          Subject subject1 = new Subject(courseName, courseType, diffi);
+          Subject subject1 = new Subject(courseName, diffi, courseType);
           // create an exam object
 
           System.out.print("is subject null " + subject1.getCourseName());

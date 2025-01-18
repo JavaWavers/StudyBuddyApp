@@ -1,7 +1,4 @@
-package org.javawavers.studybuddy;
-
-import org.javawavers.studybuddy.calculations.Scoring;
-import org.javawavers.studybuddy.calculations.Task;
+package org.javawavers.studybuddy.calculations;
 
 import java.util.ArrayList;
 import java.util.List;
