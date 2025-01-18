@@ -3,22 +3,22 @@ package org.javawavers.studybuddy.courses;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import org.javawavers.studybuddy.database.DeleteData;
 import org.javawavers.studybuddy.calculations.Day;
 import org.javawavers.studybuddy.calculations.Task;
 import org.javawavers.studybuddy.calculations.Week;
+import org.javawavers.studybuddy.database.DeleteData;
 
 /**
- * Represents a user in the StudyBuddy app. The user can manage their subjects, assignments,
- * exams, availability, and schedules.
+ * Represents a user in the StudyBuddy app. The user can manage their subjects, assignments, exams,
+ * availability, and schedules.
  */
 public class User {
   private String username; // The username of the user
-  private String email; //The email address of the user
-  private String password; //The password of the user
-  private int userId; //The unique identifier for the user.
+  private String email; // The email address of the user
+  private String password; // The password of the user
+  private int userId; // The unique identifier for the user.
   int[] avPerDay; // availability for each day of the week
-  private Week currentWeek; //The current week being tracked by the user.
+  private Week currentWeek; // The current week being tracked by the user.
   List<LocalDate> nonAvailDays = new ArrayList<>();
   List<Subject> subjects = new ArrayList<>();
   List<Assignment> assignments = new ArrayList<>();
@@ -30,22 +30,21 @@ public class User {
   List<Day> days;
   List<ScheduledTask> scheduledTasks = new ArrayList<>();
   List<ScheduledTask> completedTasks = new ArrayList<>();
-  /**
-   * Default constructor.
-   */
+
+  /** Default constructor. */
   public User() {}
 
   /**
    * Constructor for a user logging in without a generated schedule.
    *
-   * @param username     the username of the user
-   * @param email        the email address of the user
-   * @param password     the password of the user
-   * @param avPerDay     availability for each day of the week
+   * @param username the username of the user
+   * @param email the email address of the user
+   * @param password the password of the user
+   * @param avPerDay availability for each day of the week
    * @param nonAvailDays a list of dates when the user is unavailable
-   * @param subjects     a list of subjects associated with the user
-   * @param assignments  a list of assignments associated with the user
-   * @param exams        a list of exams associated with the user
+   * @param subjects a list of subjects associated with the user
+   * @param assignments a list of assignments associated with the user
+   * @param exams a list of exams associated with the user
    */
   public User(
       String username,
@@ -64,14 +63,13 @@ public class User {
     this.subjects = subjects;
     this.assignments = assignments;
     this.exams = exams;
-
   }
 
   /**
    * Constructor for user sign-in.
    *
    * @param username the username of the user
-   * @param email    the email address of the user
+   * @param email the email address of the user
    * @param password the password of the user
    */
   public User(String username, String email, String password) {
@@ -83,9 +81,9 @@ public class User {
   /**
    * Constructor for a user with a unique ID.
    *
-   * @param userId   the unique ID of the user
+   * @param userId the unique ID of the user
    * @param username the username of the user
-   * @param email    the email address of the user
+   * @param email the email address of the user
    * @param password the password of the user
    */
   public User(int userId, String username, String email, String password) {
@@ -98,17 +96,17 @@ public class User {
   /**
    * Constructor for a user logging in with a generated program.
    *
-   * @param userId       the unique ID of the user
-   * @param username     the username of the user
-   * @param email        the email address of the user
-   * @param password     the password of the user
-   * @param avPerDay     availability for each day of the week
+   * @param userId the unique ID of the user
+   * @param username the username of the user
+   * @param email the email address of the user
+   * @param password the password of the user
+   * @param avPerDay availability for each day of the week
    * @param nonAvailDays a list of dates when the user is unavailable
-   * @param subjects     a list of subjects associated with the user
-   * @param assignments  a list of assignments associated with the user
-   * @param exams        a list of exams associated with the user
-   * @param tasks        a list of tasks assigned to the user
-   * @param days         a list of days with associated tasks for the user
+   * @param subjects a list of subjects associated with the user
+   * @param assignments a list of assignments associated with the user
+   * @param exams a list of exams associated with the user
+   * @param tasks a list of tasks assigned to the user
+   * @param days a list of days with associated tasks for the user
    */
   public User(
       int userId,
@@ -232,12 +230,13 @@ public class User {
   }
 
   public List<ScheduledTask> getCompletedTasks() {
-    return  completedTasks;
+    return completedTasks;
   }
 
   public void setCompletedTasks(List<ScheduledTask> completedTasks) {
     this.completedTasks = completedTasks;
   }
+
   /**
    * Adds a subject to the user's list of subjects.
    *
@@ -270,93 +269,72 @@ public class User {
    * Updates a subject in the user's list of subjects at the specified index.
    *
    * @param index the index of the subject to update
-   * @param subj  the updated subject
+   * @param subj the updated subject
    */
   public void updateSubject(int index, Subject subj) {
     subjects.set(index, subj);
   }
 
-  /**
-  * adds an assignment.
-   */
+  /** adds an assignment. */
   public void addAssignment(Assignment assign) {
     assignments.add(assign);
   }
 
-  /**
-  * removes an assignment.
-   */
+  /** removes an assignment. */
   public void removeAssignment(Assignment assign) {
     assignments.remove(assign);
     DeleteData.deleteAssignment(assign);
   }
 
-  /**
-   *Updates an assignment.
-   */
+  /** Updates an assignment. */
   public void updateAssignment(int index, Assignment assign) {
     assignments.set(index, assign);
   }
 
-  /**
-  * Adds an exam in the exam list.
-   */
+  /** Adds an exam in the exam list. */
   public void addExam(Exam exam) {
     exams.add(exam);
   }
 
-  /**
-  *Removes an Exam.
-   */
+  /** Removes an Exam. */
   public void removeExam(Exam exam) {
     exams.remove(exam);
     DeleteData.deleteExam(exam);
   }
 
-  /**
-   *Updates an exam.
-   */
+  /** Updates an exam. */
   public void updateExam(int index, Exam exam) {
     exams.set(index, exam);
   }
 
-  /**
-  *Add days that the user is not available to study at all.
-   */
+  /** Add days that the user is not available to study at all. */
   public void addNonAvailDays(LocalDate date) {
     nonAvailDays.add(date);
   }
 
-  /**
-   *Remove days that the user is not available to study at all.
-   */
+  /** Remove days that the user is not available to study at all. */
   public void removeNonAvailDays(LocalDate date) {
     nonAvailDays.remove(date);
     DeleteData.deleteNonAvDay(date);
   }
 
-  /**
-   *Update days that the user is not available to study at all.
-   */
+  /** Update days that the user is not available to study at all. */
   public void updateNonAvailDays(int index, LocalDate date) {
     nonAvailDays.set(index, date);
   }
 
-  /**
-  *Update the users availability (in hours) for a day.
-   */
+  /** Update the users availability (in hours) for a day. */
   public void updateAvPerDay(int index, int av) {
     avPerDay[index] = av;
   }
 
-  /**
-   * Calculates and sets the current week based on today's date.
-   */
+  /** Calculates and sets the current week based on today's date. */
   public void calculateCurrentWeek() {
     LocalDate today = LocalDate.now();
     for (Week w : totalWeeks) {
       for (Day d : w.getDaysOfWeek()) {
-        if (!d.getTodayTasks().isEmpty() && d.getTodayScheduledTask(0).getTaskDate().equals(today)) {
+        if (!d.getTodayTasks().isEmpty()
+            && d.getTodayScheduledTask(0).getTaskDate().equals(today)) {
           this.currentWeek = w;
           return;
         }

@@ -32,7 +32,6 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import org.javawavers.studybuddy.calculations.*;
-import org.javawavers.studybuddy.courses.Exam;
 import org.javawavers.studybuddy.courses.ScheduledTask;
 import org.javawavers.studybuddy.courses.Subject;
 
@@ -107,57 +106,54 @@ public class Calendar {
       createCalendarGrid(calendarGrid, 0, subject, totalWeeks);
     }
 
-
     prevButton.setOnAction(
-      event -> {
-        if (count > 0) {
-          count = count - 1;
-          if (count < totalWeeks.size()) {
-            currentWeekStart = currentWeekStart.minusWeeks(1);
+        event -> {
+          if (count > 0) {
+            count = count - 1;
+            if (count < totalWeeks.size()) {
+              currentWeekStart = currentWeekStart.minusWeeks(1);
+              weekLabel.setText(formatWeekLabel(currentWeekStart, formatter));
+              createCalendarGrid(calendarGrid, count, SimulateAnnealing.getSubjects(), totalWeeks);
+            }
+          } else {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle(null);
+            alert.setHeaderText(null);
+            alert.setContentText(
+                "Προς το παρόν, δεν υπάρχουν προηγούμενες εβδομάδες."
+                    + " Αλλά μην ανησυχείς, όλα ξεκινούν από εδώ!");
+            alert
+                .getDialogPane()
+                .getStylesheets()
+                .add(Objects.requireNonNull(getClass().getResource("/alert.css")).toExternalForm());
+            alert.getDialogPane().setMinWidth(500);
+            alert.getDialogPane().setMinHeight(300);
+            alert.showAndWait();
+          }
+        });
+    // Button to navigate in the next week with the variable count
+    nextButton.setOnAction(
+        event -> {
+          count++;
+          if (count > totalWeeks.size() - 1) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle(null);
+            alert.setHeaderText(null);
+            alert.setContentText(
+                "Πάει κι αυτό! 🎉 Ώρα για λίγη ξεκούραση τώρα! Η εξεταστική σου σταματάει εδώ");
+            alert
+                .getDialogPane()
+                .getStylesheets()
+                .add(Objects.requireNonNull(getClass().getResource("/alert.css")).toExternalForm());
+            alert.getDialogPane().setMinWidth(500);
+            alert.getDialogPane().setMinHeight(300);
+            alert.showAndWait();
+          } else {
+            currentWeekStart = currentWeekStart.plusWeeks(1);
             weekLabel.setText(formatWeekLabel(currentWeekStart, formatter));
             createCalendarGrid(calendarGrid, count, SimulateAnnealing.getSubjects(), totalWeeks);
           }
-        } else {
-          Alert alert = new Alert(Alert.AlertType.WARNING);
-          alert.setTitle(null);
-          alert.setHeaderText(null);
-          alert.setContentText("Προς το παρόν, δεν υπάρχουν προηγούμενες εβδομάδες."
-            +
-            " Αλλά μην ανησυχείς, όλα ξεκινούν από εδώ!");
-          alert
-            .getDialogPane()
-            .getStylesheets()
-            .add(Objects.requireNonNull(getClass().getResource("/alert.css")).toExternalForm());
-          alert.getDialogPane().setMinWidth(500);
-          alert.getDialogPane().setMinHeight(300);
-          alert.showAndWait();
-        }
-      });
-    //Button to navigate in the next week with the variable count
-    nextButton.setOnAction(
-      event -> {
-        count++;
-        if (count > totalWeeks.size() - 1) {
-          Alert alert = new Alert(Alert.AlertType.WARNING);
-          alert.setTitle(null);
-          alert.setHeaderText(null);
-          alert.setContentText(
-            "Πάει κι αυτό! 🎉 Ώρα για λίγη ξεκούραση τώρα! Η εξεταστική σου σταματάει εδώ");
-          alert
-            .getDialogPane()
-            .getStylesheets()
-            .add(Objects.requireNonNull(
-              getClass().getResource("/alert.css")).toExternalForm());
-          alert.getDialogPane().setMinWidth(500);
-          alert.getDialogPane().setMinHeight(300);
-          alert.showAndWait();
-        } else {
-          currentWeekStart = currentWeekStart.plusWeeks(1);
-          weekLabel.setText(formatWeekLabel(currentWeekStart, formatter));
-          createCalendarGrid(calendarGrid, count, SimulateAnnealing.getSubjects(), totalWeeks);
-
-        }
-      });
+        });
 
     weekSwitcher.setTranslateY(40);
     weekSwitcher.setAlignment(Pos.CENTER);
@@ -169,12 +165,12 @@ public class Calendar {
     todayButton.setFont(Font.font("System", FontWeight.BOLD, 14));
     todayButton.setTextFill(Color.WHITE);
     todayButton.setOnAction(
-      event -> {
-        count = 0;
-        currentWeekStart = LocalDate.now().with(ChronoField.DAY_OF_WEEK, 1);
-        weekLabel.setText(formatWeekLabel(currentWeekStart, formatter));
-        createCalendarGrid(calendarGrid, 0, SimulateAnnealing.getSubjects(), totalWeeks);
-      });
+        event -> {
+          count = 0;
+          currentWeekStart = LocalDate.now().with(ChronoField.DAY_OF_WEEK, 1);
+          weekLabel.setText(formatWeekLabel(currentWeekStart, formatter));
+          createCalendarGrid(calendarGrid, 0, SimulateAnnealing.getSubjects(), totalWeeks);
+        });
 
     // button for the user to insert availability
     Button availabilityButton = new Button("Availiability");
@@ -427,12 +423,12 @@ public class Calendar {
                 String taskDescription = "κενο";
                 taskDescription = s.toString();
                 LocalDate examDate = null;
-                //List<Exam> exams = s.getExams();
+                // List<Exam> exams = s.getExams();
 
                 if (subject != null) {
                   for (Subject subj : subject) {
                     if (taskDescription.contains(subj.getCourseName())) {
-                        examDate = subj.getExams().get(0).getExamDate();
+                      examDate = subj.getExams().get(0).getExamDate();
                       break;
                     }
                   }
