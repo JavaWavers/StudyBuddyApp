@@ -19,6 +19,7 @@ public class Exam extends SubjectElement {
   private int pages;
   private int revisionPerPages;
   private double timePer20Slides;
+  private int examID;
 
   // Constructors for different versions of Exam class
   /**
@@ -124,6 +125,14 @@ public class Exam extends SubjectElement {
 
   public void setPages(int pages) {
     this.pages = pages;
+  }
+
+  public void setExamId(int examID) {
+    this.examID = examID;
+  }
+
+  public int getExamID() {
+    return examID;
   }
 
   public int getRevisionPerPages() {
