@@ -14,12 +14,23 @@ import javafx.scene.text.Font;
 import javafx.scene.transform.Rotate;
 import javafx.stage.Screen;
 
+/**
+ * The HomePage class is responsible for creating and displaying the main page of the application.
+ * It includes the layout of the main screen, graphical components, and the navigation management
+ * between different scenes.
+ */
 public class HomePage {
   private SceneManager sceneManager;
   private HBox navBar;
   private VBox rightPanel;
   private VBox leftPanel;
 
+  /**
+   * Creates and returns the home page scene.
+   *
+   * @param sceneManager An instance of {@link SceneManager} that handles scene transitions.
+   * @return A {@link Scene} object representing the home page, or null in case of an error.
+   */
   public Scene home(SceneManager sceneManager) {
     try {
       this.sceneManager = sceneManager;
@@ -31,7 +42,6 @@ public class HomePage {
         throw new IllegalStateException("Το navBar δεν δημιουργήθηκε σωστά!");
       }
 
-      // Main content pane
       HBox mainPane = new HBox();
       mainPane.setFillHeight(true);
       HBox.setHgrow(mainPane, Priority.ALWAYS);
@@ -39,7 +49,6 @@ public class HomePage {
       mainPanel();
       mainPane = mainPanel();
 
-      // Add components to root
       home.getChildren().addAll(navBar, mainPane);
       return new Scene(
           home,
@@ -56,6 +65,11 @@ public class HomePage {
     }
   }
 
+  /**
+   * Creates the main panel of the home page, which contains the left and right panels.
+   *
+   * @return An {@link HBox} containing the main content of the page.
+   */
   private HBox mainPanel() {
     HBox centralHBox = new HBox(20);
     centralHBox.setFillHeight(true);
@@ -82,6 +96,12 @@ public class HomePage {
     return centralHBox;
   }
 
+  /**
+   * Creates the left panel, which includes the welcome message,
+   * a brief description, and a button for users to proceed.
+   *
+   * @return A {@link VBox} containing the content of the left panel.
+   */
   private VBox leftVBox() {
 
     Label welcomeLabel = new Label("Γεια σου, \nΚαλώς όρισες στο \nStudy Buddy σου!");
@@ -125,6 +145,11 @@ public class HomePage {
     return leftVBox;
   }
 
+  /**
+   * Creates the right panel, which displays an image.
+   *
+   * @return A {@link VBox} containing the content of the right panel.
+   */
   private VBox rightVBox() {
     HBox imgVBox = new HBox(10);
 
@@ -156,6 +181,11 @@ public class HomePage {
     return rightVBox;
   }
 
+  /**
+   * Creates the navigation bar of the home page.
+   *
+   * @return An {@link HBox} containing the navigation bar elements.
+   */
   private HBox navBar() {
 
     navBar = new HBox();
@@ -178,7 +208,6 @@ public class HomePage {
     HBox.setHgrow(imgBox, Priority.ALWAYS);
     imgBox.getChildren().add(logoImgView);
 
-    // Navigation items
     Button btnSeeHow = new Button("Δες Πως");
     btnSeeHow.setStyle(btnStyle());
 
@@ -215,6 +244,11 @@ public class HomePage {
     return navBar;
   }
 
+  /**
+   * Returns the CSS style for the "Log In" button.
+   *
+   * @return A {@link String} containing CSS rules for the button style.
+   */
   private String loginBtnStyle() {
     return "-fx-font-family: 'System'; "
         + "-fx-font-size: 14 px; "
@@ -226,6 +260,11 @@ public class HomePage {
         + "-fx-border-color: black;";
   }
 
+  /**
+   * Returns the CSS style for the navigation bar buttons.
+   *
+   * @return A {@link String} containing CSS rules for the button style.
+   */
   private String btnStyle() {
     return "-fx-background-color: linear-gradient(#FAD7A0, #F7B267);"
         + "-fx-background-radius: 8,7,6;"
@@ -238,6 +277,11 @@ public class HomePage {
         + "-fx-border-radius: 6;";
   }
 
+  /**
+   * Returns the CSS style for the "Try it!" button in the left panel.
+   *
+   * @return A {@link String} containing CSS rules for the button style.
+   */
   private String tryBtnStyle() {
     return "-fx-background-color: rgba(181, 99, 241, 0.81);"
         + " -fx-background-radius: 30px; "
