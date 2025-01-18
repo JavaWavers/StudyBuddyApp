@@ -3,7 +3,6 @@ C:\Users\Zpela\Documents\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\c
 C:\Users\Zpela\Documents\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\calculations\CreateWeekDay.java
 C:\Users\Zpela\Documents\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\calculations\Dates.java
 C:\Users\Zpela\Documents\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\calculations\Day.java
-C:\Users\Zpela\Documents\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\calculations\MainTest.java
 C:\Users\Zpela\Documents\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\calculations\PrintSchedule.java
 C:\Users\Zpela\Documents\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\calculations\PrintWeeks.java
 C:\Users\Zpela\Documents\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\calculations\Repetition.java
@@ -22,10 +21,18 @@ C:\Users\Zpela\Documents\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\c
 C:\Users\Zpela\Documents\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\courses\Subject.java
 C:\Users\Zpela\Documents\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\courses\SubjectElement.java
 C:\Users\Zpela\Documents\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\courses\User.java
-C:\Users\Zpela\Documents\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\database\DataDashboard.java
+C:\Users\Zpela\Documents\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\database\ActiveUser.java
+C:\Users\Zpela\Documents\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\database\DataBaseManager.java
+C:\Users\Zpela\Documents\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\database\DataInserter.java
+C:\Users\Zpela\Documents\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\database\DeleteData.java
 C:\Users\Zpela\Documents\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\database\SQLiteConnection.java
 C:\Users\Zpela\Documents\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\GitLabTes.java
+C:\Users\Zpela\Documents\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\graphs\AssDistributionCalc.java
+C:\Users\Zpela\Documents\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\graphs\BarChartCalc.java
+C:\Users\Zpela\Documents\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\graphs\LineChartCalc.java
 C:\Users\Zpela\Documents\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\graphs\ProgressCalculator.java
+C:\Users\Zpela\Documents\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\graphs\SubjDistributionCalc.java
+C:\Users\Zpela\Documents\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\graphs\SummaryBoxCalc.java
 C:\Users\Zpela\Documents\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\graphs\TaskProgess.java
 C:\Users\Zpela\Documents\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\StudyBuddyApp.java
 C:\Users\Zpela\Documents\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\AssignmentPage.java
@@ -42,3 +49,4 @@ C:\Users\Zpela\Documents\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\u
 C:\Users\Zpela\Documents\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\RegisterPage.java
 C:\Users\Zpela\Documents\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\RightPanel.java
 C:\Users\Zpela\Documents\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\SceneManager.java
+C:\Users\Zpela\Documents\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\Styles.java

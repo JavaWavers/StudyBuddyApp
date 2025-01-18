@@ -1,4 +1,29 @@
-#Sat Jan 18 20:23:37 EET 2025
+#Sat Jan 18 20:29:40 EET 2025
+C\:\\Users\\Zpela\\Documents\\StudyBuddyApp\\src\\main\\java\\org\\javawavers\\studybuddy\\calculations\\Availability.java=1737224939548
+C\:\\Users\\Zpela\\Documents\\StudyBuddyApp\\src\\main\\java\\org\\javawavers\\studybuddy\\calculations\\CalculativeAlgorithm.java=1737224939548
+C\:\\Users\\Zpela\\Documents\\StudyBuddyApp\\src\\main\\java\\org\\javawavers\\studybuddy\\calculations\\CreateWeekDay.java=1737224939549
+C\:\\Users\\Zpela\\Documents\\StudyBuddyApp\\src\\main\\java\\org\\javawavers\\studybuddy\\calculations\\Dates.java=1737224939550
+C\:\\Users\\Zpela\\Documents\\StudyBuddyApp\\src\\main\\java\\org\\javawavers\\studybuddy\\calculations\\PrintSchedule.java=1737224939550
+C\:\\Users\\Zpela\\Documents\\StudyBuddyApp\\src\\main\\java\\org\\javawavers\\studybuddy\\calculations\\PrintWeeks.java=1737224939551
+C\:\\Users\\Zpela\\Documents\\StudyBuddyApp\\src\\main\\java\\org\\javawavers\\studybuddy\\calculations\\Repetition.java=1737224939551
+C\:\\Users\\Zpela\\Documents\\StudyBuddyApp\\src\\main\\java\\org\\javawavers\\studybuddy\\calculations\\ScheduleResult.java=1737224939552
+C\:\\Users\\Zpela\\Documents\\StudyBuddyApp\\src\\main\\java\\org\\javawavers\\studybuddy\\calculations\\Scoring.java=1737224939552
+C\:\\Users\\Zpela\\Documents\\StudyBuddyApp\\src\\main\\java\\org\\javawavers\\studybuddy\\calculations\\SubjectTest.java=1737224939553
+C\:\\Users\\Zpela\\Documents\\StudyBuddyApp\\src\\main\\java\\org\\javawavers\\studybuddy\\calculations\\Validate.java=1737224939555
+C\:\\Users\\Zpela\\Documents\\StudyBuddyApp\\src\\main\\java\\org\\javawavers\\studybuddy\\calculations\\Week.java=1737224939556
+C\:\\Users\\Zpela\\Documents\\StudyBuddyApp\\src\\main\\java\\org\\javawavers\\studybuddy\\courses\\Assignment.java=1737224939556
+C\:\\Users\\Zpela\\Documents\\StudyBuddyApp\\src\\main\\java\\org\\javawavers\\studybuddy\\courses\\Exam.java=1737224939557
+C\:\\Users\\Zpela\\Documents\\StudyBuddyApp\\src\\main\\java\\org\\javawavers\\studybuddy\\courses\\ScheduledTask.java=1737224939557
+C\:\\Users\\Zpela\\Documents\\StudyBuddyApp\\src\\main\\java\\org\\javawavers\\studybuddy\\courses\\StaticUser.java=1737224939558
+C\:\\Users\\Zpela\\Documents\\StudyBuddyApp\\src\\main\\java\\org\\javawavers\\studybuddy\\courses\\Subject.java=1737224939558
+C\:\\Users\\Zpela\\Documents\\StudyBuddyApp\\src\\main\\java\\org\\javawavers\\studybuddy\\courses\\SubjectElement.java=1737224939558
+C\:\\Users\\Zpela\\Documents\\StudyBuddyApp\\src\\main\\java\\org\\javawavers\\studybuddy\\database\\ActiveUser.java=1737224939559
+C\:\\Users\\Zpela\\Documents\\StudyBuddyApp\\src\\main\\java\\org\\javawavers\\studybuddy\\database\\DataBaseManager.java=1737224939559
+C\:\\Users\\Zpela\\Documents\\StudyBuddyApp\\src\\main\\java\\org\\javawavers\\studybuddy\\database\\DataInserter.java=1737224939560
+C\:\\Users\\Zpela\\Documents\\StudyBuddyApp\\src\\main\\java\\org\\javawavers\\studybuddy\\graphs\\AssDistributionCalc.java=1737224939561
+C\:\\Users\\Zpela\\Documents\\StudyBuddyApp\\src\\main\\java\\org\\javawavers\\studybuddy\\graphs\\BarChartCalc.java=1737224939561
+C\:\\Users\\Zpela\\Documents\\StudyBuddyApp\\src\\main\\java\\org\\javawavers\\studybuddy\\graphs\\LineChartCalc.java=1737224939561
+C\:\\Users\\Zpela\\Documents\\StudyBuddyApp\\src\\main\\java\\org\\javawavers\\studybuddy\\graphs\\SubjDistributionCalc.java=1737224939562
 configuration*?=FA0E755CE33A365AB1E4BBCAB7AB4FA4ECB915A8
 module-resource*?\:checkstyle-suppressions.xml=FCB41479469DD2398CFADF8820DA218A4C696979
 module-resource*?\:checkstyle-xpath-suppressions.xml=D2D54F6FA9E59926D59EFA3B6A9A9569D697E468
