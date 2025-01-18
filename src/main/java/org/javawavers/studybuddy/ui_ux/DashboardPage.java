@@ -143,11 +143,4 @@ public class DashboardPage {
     return barChart;
   }
 
-  // Side Buttons
-  /*private Button createSideButton(String text) {
-    Button button = new Button(text);
-    button.setStyle(
-        "-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 18px;");
-    return button;
-  }*/
 }
