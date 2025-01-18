@@ -35,20 +35,22 @@ import org.javawavers.studybuddy.calculations.*;
 import org.javawavers.studybuddy.courses.ScheduledTask;
 import org.javawavers.studybuddy.courses.Subject;
 
+/**
+ * Represents the Calendar view of the application, displaying weeks and tasks.
+ * Allows navigation between weeks, viewing tasks, and updating the user's schedule.
+ */
 public class Calendar {
   private LocalDate currentWeekStart;
   // initialize the variable count
   int count = 0;
   private ArrayList<Week> totalWeeks;
 
-  // initialize the lists and VBoxes, which are used for dynamic processing
-  // and displaying the tasks
+
   public static List<String> notStartedYet = new ArrayList<>();
   public static List<String> completed = new ArrayList<>();
   private static final GridPane calendarGrid = new GridPane();
   List<Subject> subject = new ArrayList<>();
-  private VBox upcomingTasksBox = new VBox(10);
-  private VBox completedTasksBox = new VBox(10);
+
 
   public Node calendar() {
     // initialize all panels
@@ -81,7 +83,7 @@ public class Calendar {
     weekLabel.setFont(Font.font("System", FontWeight.BOLD, 16));
     weekLabel.setStyle("-fx-text-fill: black;");
 
-    // HBox.setHgrow(weekLabel, Priority.ALWAYS);
+
     // place the buttons for the user to navigate through the weeks
     Button prevButton = new Button("<");
     prevButton.setStyle(
@@ -245,67 +247,7 @@ public class Calendar {
             totalWeeks = new ArrayList<>(staticUser.getTotalWeeks());
             PrintWeeks printWeek = new PrintWeeks();
             printWeek.printWeeks(totalWeeks);
-            /*
-            int [][] schedule = SimulateAnnealing.getSchedule();
-            int colSize = schedule[0].length;
-            ArrayList<Task> bestTask = new ArrayList<>(SimulateAnnealing.getBestTask());
-            LocalDate today2 = LocalDate.now(); // Today's date
-            DayOfWeek currentDayOfWeek = today2.getDayOfWeek();
-            int daysUntilMonday = currentDayOfWeek.getValue() - DayOfWeek.MONDAY.getValue();
 
-            // Initialize the first week
-            Week currentWeek = new Week();
-
-            // Fill days before today with empty tasks
-            for (int i = 0; i < daysUntilMonday; i++) {
-              Day emptyDay = new Day(); // Day with no tasks
-              currentWeek.getDaysOfWeek().add(emptyDay);
-            }
-
-            List<ScheduledTask> scheduledTasksForDay = new ArrayList<>();
-
-            for (int dayIndex = 0; dayIndex < colSize; dayIndex++) {
-              LocalDate currentDate = today2.plusDays(dayIndex - daysUntilMonday); // Calculate current date
-
-              // Clear the scheduled tasks for the day
-              scheduledTasksForDay.clear();
-              for (int taskIndex = 0; taskIndex < schedule.length; taskIndex++) {
-                int taskId = schedule[taskIndex][dayIndex];
-                String taskType = " ";
-                if (taskId > 0) { // If there is a task for the specific slot
-                  Task task = bestTask.get(taskId); // Retrieve the Task from the list
-                  if (task.getTaskType() == 1) {
-                    taskType = "Διάβασμα";
-                  } else if (task.getTaskType() == 2) {
-                    taskType = "Επανάληψη";
-                  } else {
-                    taskType = "Εργασία";
-                  }
-
-                  ScheduledTask scheduledTask = new ScheduledTask(
-                          task.getSubject(), taskType,
-                          (int) Math.ceil(task.getTaskHours()),
-                          currentDate,
-                          new Subject(task.getSubject()) // Create Subject from the Task
-                  );
-                  scheduledTasksForDay.add(scheduledTask);
-                }
-              }
-
-              // Create a Day object for the current day
-              Day currentDay = new Day();
-              currentDay.todayTasks.addAll(scheduledTasksForDay);
-
-              // Add the day to the week
-              currentWeek.getDaysOfWeek().add(currentDay);
-
-              // If the week is complete or it's the last day, save it
-              if (currentWeek.getDaysOfWeek().size() == 7 || dayIndex == colSize - 1) {
-                totalWeeks.add(currentWeek);
-                currentWeek = new Week(); // Start a new week
-              }
-            }
-            */
             createCalendarGrid(calendarGrid, 0, subject, totalWeeks);
           }
         });
@@ -318,43 +260,16 @@ public class Calendar {
     return centerPanel;
   }
 
-  // create the checkboxes
-  /* private HBox createCheckBox(String taskName) {
-      HBox checkBoxBox = new HBox(10);
-      checkBoxBox.setAlignment(Pos.CENTER_LEFT);
 
 
-      CheckBox taskCheckBox = new CheckBox(taskName);
-      taskCheckBox.setStyle("-fx-font-size: 16px; -fx-text-fill: black;");
-
-      taskCheckBox.setOnAction(event -> {
-        if (taskCheckBox.isSelected()) {
-          if (notStartedYet.contains(taskName)) {
-            notStartedYet.remove(taskName);
-            completed.add(taskName);
-          }
-        } else {
-          if (completed.contains(taskName)) {
-            completed.remove(taskName);
-            notStartedYet.add(taskName);
-          }
-        }
-
-        //updateUpcomingTasks(upcomingTasksBox);
-        //updateCompletedTasks(completedTasksBox);
-
-
-        //System.out.println("Completed tasks: " + completed);
-      });
-
-      checkBoxBox.getChildren().add(taskCheckBox);
-
-      return checkBoxBox;
-    }
-  */
-  // create the calendar
-  // there is no schedule
-
+  /**
+   * Creates the grid for the calendar and populates it with tasks.
+   *
+   * @param grid The GridPane to hold the calendar.
+   * @param weeknumber The current week number.
+   * @param subject The list of subjects for the user.
+   * @param weeks The list of all weeks.
+   */
   private void createCalendarGrid(
       GridPane grid, int weeknumber, List<Subject> subject, List<Week> weeks) {
     grid.getChildren().removeIf(node -> node instanceof Label);
@@ -446,254 +361,16 @@ public class Calendar {
         dayCount++;
       }
     }
-    // int rowIndex = 1; // Start from the second row
-    // for (int dayIndex = 0; dayIndex < thisWeek.daysOfWeek.size(); dayIndex++) {
-    // Day currentDay = thisWeek.daysOfWeek.get(dayIndex);
-    // List<ScheduledTask> scheduledTasks = currentDay.todayTasks;
-
-    // Populate each cell with the tasks of the day
-    // for (int taskIndex = 0; taskIndex < scheduledTasks.size(); taskIndex++) {
-    // ScheduledTask task = scheduledTasks.get(taskIndex);
-
-    // Create a label for each task
-    // Label taskLabel = new Label(task.getSubject() + " - " + task.getTaskType() + " (" +
-    // task.getHours() + "h)");
-    // taskLabel.setStyle("-fx-border-color: gray; -fx-border-width: 0; -fx-padding: 5;");
-    // taskLabel.setFont(Font.font("System", FontWeight.NORMAL, 14));
-    // taskLabel.setPrefHeight(50);
-    // taskLabel.setPrefWidth(140);
-
-    // Add the task to the grid
-    // GridPane.setConstraints(taskLabel, dayIndex, rowIndex + taskIndex);
-    // grid.getChildren().add(taskLabel);
   }
-
+  /**
+   * Formats the week label displaying the range of the week.
+   *
+   * @param weekStart The start date of the week.
+   * @param formatter The DateTimeFormatter for formatting the date.
+   * @return String The formatted week label.
+   */
   private String formatWeekLabel(LocalDate weekStart, DateTimeFormatter formatter) {
     LocalDate weekEnd = weekStart.plusDays(6);
     return String.format("%s - %s", formatter.format(weekStart), formatter.format(weekEnd));
   }
 }
-
-// for (int col = 1; col <= daysinWeek; col++) {
-// for (int row = 1; row < 14; row++) {
-// 1  7
-// Label cell = new Label();
-// System.out.println("scheduuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu");
-//  cell.setStyle("-fx-border-color: gray; -fx-border-width: 0; -fx-alignment: center;");
-// cell.setFont(Font.font("System", FontWeight.NORMAL, 14));
-//  cell.setPrefSize(140, 60);
-// Label cell = new Label();
-
-// cell.setGraphic(new ImageView(image));
-// cell.setStyle("-fx-border-color: gray; -fx-border-width: 0; -fx-alignment: center;
-// -fx-pref-width: 140; -fx-pref-height: 60;");
-// cell.setFont(Font.font("System", FontWeight.NORMAL, 14));
-// cell.setPrefSize(140, 60);
-// cell.setText(SimulateAnnealing.printSchedule(row, col));
-// MainTestAlgorithm algorithm = new MainTestAlgorithm();
-// cell.setText(algorithm.run(row, col));
-// cell.setText(besttask.get(row).toString());
-// ειναι λιστα το weekschedule οχι δισδιαστατος πινακασ
-
-// if (selectedWeek != null && besttask != null &&
-//    row < selectedWeek.length && col < selectedWeek[row].length &&
-//        selectedWeek[row][col] > 0 && selectedWeek[row][col] <= besttask.size()) {
-//  System.out.println("scheduleweek" + selectedWeek[row][col]);
-
-//  int taskIndex = selectedWeek[row][col] - 1;// - 1
-
-//  if (taskIndex >= 0 && taskIndex <= besttask.size()) {
-// cell.setText(besttask.get(taskIndex).toString());
-//    String taskText = besttask.get(taskIndex).toString();
-// cell.setText(taskText);
-//    String firstWord = taskText.split(" ")[0];
-//    for (Subject subje : subject) {
-//      if (subje.getCourseName().equalsIgnoreCase(firstWord)) {
-
-// cell.setGraphic(new ImageView(image));
-//        cell.setText(firstWord);
-//        cell.setStyle("-fx-border-color: gray; -fx-border-width: 0; -fx-alignment: center;");
-//        break;
-//      }
-//    }
-//  } else {
-//  cell.setText("");
-// }
-// } else {
-//  cell.setText("");
-// }
-
-          /*final int rowFinal = row;
-                    final int colFinal = col;
-
-          //οταν ο χρηστης παταει πανω σε οποιδηποτε κελη τοτε του εμφανιζεται η σελιδα popupdiathesimotita
-                    cell.setOnMouseClicked(event -> {
-
-                      String taskDescription = "κενο";
-                      LocalDate examDate = null;
-                      List<Exam> exams = Subject.getExams();
-
-                      if (selectedWeek != null && besttask != null &&
-                              rowFinal < selectedWeek.length && colFinal < selectedWeek[rowFinal].length &&
-                              selectedWeek[rowFinal][colFinal] > 0 && selectedWeek[rowFinal][colFinal] <= besttask.size()) {
-
-                        int taskIndex = selectedWeek[rowFinal][colFinal] - 1;
-                        if (taskIndex >= 0 && taskIndex < besttask.size()) {
-                          taskDescription = besttask.get(taskIndex).toString();
-                        }
-                      }
-                      if (subject != null) {
-                        for (Subject subj : subject) {
-                          if (taskDescription.contains(subj.getCourseName())) {
-                            for (Exam exam : exams) {
-                              examDate = exam.getExamDate();
-                            }
-                            break;
-                          }
-                        }
-                      }
-
-
-                      Popupdiathesimotita popup = new Popupdiathesimotita();
-                      popup.setTaskLists(notStartedYet, completed);
-                      popup.setTaskDescription(taskDescription, examDate);
-                      Stage popupStage = new Stage();
-                      popup.start(popupStage);
-                    });
-
-                    GridPane.setConstraints(cell, col, row);
-                    grid.getChildren().add(cell);
-                  }
-
-                     */
-
-// οποτε καλειτε ανανεωνονται αναλογα με εκεινα τα δεδομενα το popup που εμφανιζετε
-  /*private void updateUpcomingTasks(VBox upcomingTasksBox) {
-    upcomingTasksBox.getChildren().clear();
-    for (String taskDescription : notStartedYet) {
-      //System.out.println("Add" + taskDescription);
-      HBox checkBoxBox = createCheckBox(taskDescription);
-      upcomingTasksBox.getChildren().add(checkBoxBox);
-    }
-  }
-
-
-  private void updateCompletedTasks(VBox completedTasksBox) {
-    completedTasksBox.getChildren().clear();
-    for (String taskDescription : completed) {
-      HBox checkBoxBox = createCheckBox(taskDescription);
-      //System.out.println("completed" + taskDescription);
-      completedTasksBox.getChildren().add(checkBoxBox);
-    }
-  }
-
-  private String formatWeekLabel(LocalDate weekStart, DateTimeFormatter formatter) {
-    LocalDate weekEnd = weekStart.plusDays(6);
-    return String.format("%s - %s", formatter.format(weekStart), formatter.format(weekEnd));
-  }
-  //δημιουργια του pop up το οποιο ανοιγει οταν ο χρηστης πατησει οποιοδηποτε απο τα κουμπια ypcomingtasks/completedtasks
-  private void showTasksPopup(String title, List<String> taskList) {
-    Stage popupStage = new Stage();
-    popupStage.initModality(Modality.APPLICATION_MODAL);
-    popupStage.setTitle(title);
-
-    VBox popupContent = new VBox(10);
-    popupContent.setPadding(new Insets(10));
-    popupContent.setAlignment(Pos.TOP_CENTER);
-    //οριζουμε τον τιτλο αναλογα με το κουμπι  που εχει πατηθει
-    Label titleLabel = new Label(title);
-    titleLabel.setStyle("-fx-font-size: 18px; -fx-font-weight: bold;");
-    //δημιουργουμε taskbox για τα task
-    VBox tasksBox = new VBox(5);
-    tasksBox.setAlignment(Pos.TOP_LEFT);
-    tasksBox.setStyle("-fx-max-height: 300px;");
-
-    //δημιουργουμε scrollpane για να μπορει ο χρηστης να κανει scroll και να δει ολα τα task τα οποια εχει να κανει εκεινη την εβδομαδα
-    ScrollPane scrollPane = new ScrollPane();
-    scrollPane.setContent(tasksBox);
-    scrollPane.setFitToWidth(true);
-    scrollPane.setPrefHeight(300);
-
-    Map<CheckBox, String> taskCheckBoxMap = new HashMap<>();
-
-    //δημιουργουμε τα checkbox
-    if (taskList != null && !taskList.isEmpty()) {
-      for (String task : taskList) {
-        CheckBox checkBox = new CheckBox(task);
-        checkBox.setStyle("-fx-font-size: 14px;");
-
-        //αν το task ειναι στην λιστα notstartedyet ειναι unselected αλλιως στην completed τα task ειναι selected
-        if (taskList == notStartedYet && !completed.contains(task)) {
-          checkBox.setSelected(false);
-        } else if (taskList == completed && notStartedYet.contains(task)) {
-          checkBox.setSelected(true);
-        }
-
-        tasksBox.getChildren().add(checkBox);
-        taskCheckBoxMap.put(checkBox, task);//map για να ελενγχουμε τα task με το checkbox
-      }
-    } else {
-      Label noTasksLabel = new Label("No tasks available");//στην περιπτωση που δεν υπαρχουν task
-      tasksBox.getChildren().add(noTasksLabel);
-    }
-    //δημιουργια κουμπιου οκ που οταν πατηθει αναλογα με το τι εχει πατησει ο χρηστης ενημερωνει τις δυο λιστες
-    Button okButton = new Button("OK");
-    okButton.setStyle("-fx-background-color: #50D1C6; -fx-background-radius: 30px; -fx-text-fill: white; -fx-font-size: 16px;");
-    okButton.setOnAction(event -> {
-
-      for (Map.Entry<CheckBox, String> entry : taskCheckBoxMap.entrySet()) {
-        CheckBox checkBox = entry.getKey();
-        String task = entry.getValue();
-
-        if (checkBox.isSelected() && taskList == notStartedYet) {
-          notStartedYet.remove(task);
-          completed.add(task);
-        } else if (!checkBox.isSelected() && taskList == completed) {
-          completed.remove(task);
-          notStartedYet.add(task);
-        }
-      }
-      popupStage.close();
-      //ενημερωνουμε τα taskboxes
-      updateUpcomingTasks(upcomingTasksBox);
-      updateCompletedTasks(completedTasksBox);
-    });
-
-    popupContent.getChildren().addAll(titleLabel, scrollPane, okButton);
-
-    Scene popupScene = new Scene(popupContent, 300, 400);
-    popupStage.setScene(popupScene);
-    popupStage.showAndWait();
-  }
-
-
-  private Button createCircularButton(String text, String color) {
-    Button button = new Button(text);
-    button.setStyle(
-        "-fx-background-color: " + color + ";" +
-            "-fx-text-fill: black; " +
-            "-fx-font-size: 18px; " +
-            "-fx-padding: 10px 20px; " +
-            "-fx-background-radius: 5px; " +
-            "-fx-border-color: black; " +
-            "-fx-border-radius: 5px; " +
-            "-fx-min-width: 200px;"
-    );
-    return button;
-  }
-
-
-
-  //αρχικοποιησει των λιστων
-  private void initializeTaskLists(List<Task> besttask) {
-    for (Task task : besttask) {
-      notStartedYet.add(task.toString());
-    }
-
-    completed = new ArrayList<>();
-
-    updateUpcomingTasks(upcomingTasksBox);
-    updateCompletedTasks(completedTasksBox);
-  }
-
-   */

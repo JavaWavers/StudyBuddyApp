@@ -10,8 +10,7 @@ import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.PieChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Label;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Priority;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -21,95 +20,44 @@ import org.javawavers.studybuddy.graphs.LineChartCalc;
 import org.javawavers.studybuddy.graphs.SubjDistributionCalc;
 import org.javawavers.studybuddy.graphs.SummaryBoxCalc;
 
-/**
- * Represents the Dashboard page of the StudyBuddy application.
- * This class is responsible for creating and displaying the dashboard UI
- * with summary boxes and charts that visualize study progress.
- */
 public class DashboardPage {
-
-  /**
-   * Creates and returns the main dashboard layout.
-   *
-   * @return A {@link Node} containing the dashboard UI.
-   */
+  // Center panel
   public Node createDashboard() {
-    GridPane gridPane = new GridPane();
-    gridPane.setPadding(new Insets(20));
-    gridPane.setHgap(20);
-    gridPane.setVgap(20);
-    gridPane.setStyle("-fx-background-color: white;");
+    VBox centerPanel = new VBox(10);
+    centerPanel.setPadding(new Insets(20));
+    centerPanel.setStyle("-fx-background-color: white;");
 
     Label overviewLabel = new Label("Overview");
     overviewLabel.setFont(Font.font("System", FontWeight.BOLD, 20));
-    overviewLabel.setStyle("-fx-text-fill: black;"
-        + "-fx-background-color: rgba(181, 99, 241, 0.81);");
+    overviewLabel.setStyle("-fx-text-fill: black;");
 
     // Summary Boxes
-    VBox summaryBox =
-        createSummaryBox("Goals Completed",
-        SummaryBoxCalc.percentageCalculatorGoals(),
-          "rgba(101, 225, 101, 0.9)");
-    VBox summaryBox1 =
-        createSummaryBox(
-        "Study Completed",
-          SummaryBoxCalc.percentageCalculatorStudying(),
-          "rgba(247, 178, 103, 0.9)");
-    VBox summaryBox2 =
-        createSummaryBox(
-        "Assignment Completed",
-          SummaryBoxCalc.percentageCalculatorAssignments(),
-          "rgba(101, 225, 101, 0.9)");
-    VBox summaryBox3 =
-        createSummaryBox(
-        "Revision Completed",
-          SummaryBoxCalc.percentageCalculatorRevision(),
-          "rgba(247, 178, 103, 0.9)");
-
-    // Summary Boxes GridPane
-    GridPane summaryPane = new GridPane();
-    summaryPane.setHgap(30);
-    summaryPane.setVgap(10);
-    summaryPane.add(summaryBox, 0, 0);
-    summaryPane.add(summaryBox1, 1, 0);
-    summaryPane.add(summaryBox2, 2, 0);
-    summaryPane.add(summaryBox3, 3, 0);
+    HBox summaryBox = new HBox(10);
+    summaryBox
+        .getChildren()
+        .addAll(
+            createSummaryBox(
+                "Goals Completed", SummaryBoxCalc.percentageCalculatorGoals(), "#57C4E5"),
+            createSummaryBox(
+                "Study Completed", SummaryBoxCalc.percentageCalculatorStudying(), "#D4915D"),
+            createSummaryBox(
+                "Assignment Completed",
+                SummaryBoxCalc.percentageCalculatorAssignments(),
+                "#57C4E5"),
+            createSummaryBox(
+                "Revision Completed", SummaryBoxCalc.percentageCalculatorRevision(), "#D4915D"));
 
     // Charts
-    LineChart<Number, Number> lineChart = createLineChart();
-    PieChart subjectsPieChart = createSubjectsPieChart();
-    PieChart assignmentPieChart = createAssignmentPieChart();
-    BarChart<String, Number> barChart = createBarChart();
+    HBox chartsBox = new HBox(10, createLineChart(), createSubjectsPieChart());
+    HBox barChartsBox = new HBox(10, createAssignmentPieChart(), createBarChart());
 
-    // Layout Configuration in GridPane
-    gridPane.add(overviewLabel, 0, 0, 2, 1); // Title spans 2 columns
-    gridPane.add(summaryPane, 0, 1, 2, 1); // Summary boxes span 2 columns
-    gridPane.add(lineChart, 0, 2);
-    gridPane.add(subjectsPieChart, 1, 2);
-    gridPane.add(assignmentPieChart, 0, 3);
-    gridPane.add(barChart, 1, 3);
-
-    // Ensuring even distribution
-    GridPane.setHgrow(summaryPane, Priority.ALWAYS);
-    GridPane.setHgrow(lineChart, Priority.ALWAYS);
-    GridPane.setHgrow(subjectsPieChart, Priority.ALWAYS);
-    GridPane.setHgrow(assignmentPieChart, Priority.ALWAYS);
-    GridPane.setHgrow(barChart, Priority.ALWAYS);
-
-    return gridPane;
+    centerPanel.getChildren().addAll(overviewLabel, summaryBox, chartsBox, barChartsBox);
+    return centerPanel;
   }
 
-  /**
-   * Creates a summary box with a title, percentage value, and background color.
-   *
-   * @param title The title of the summary box.
-   * @param percentage The percentage value to be displayed.
-   * @param color The background color of the box.
-   * @return A {@link VBox} representing the summary box.
-   */
+  // Summary box
   private VBox createSummaryBox(String title, double percentage, String color) {
     VBox box = new VBox(5);
-    box.setFillWidth(true);
     box.setStyle("-fx-background-color: " + color + "; -fx-padding: 10;");
     Label titleLabel = new Label(title);
     String value = String.valueOf(percentage);
@@ -119,11 +67,7 @@ public class DashboardPage {
     return box;
   }
 
-  /**
-   * Creates a line chart representing weekly study productivity.
-   *
-   * @return A {@link LineChart} displaying study hours over the week.
-   */
+  // Line Chart
   private LineChart<Number, Number> createLineChart() {
     NumberAxis x = new NumberAxis("Μέρα", 1, 7, 1);
     NumberAxis y = new NumberAxis("Ώρες μελέτης", 0, 10, 1);
@@ -138,11 +82,7 @@ public class DashboardPage {
     return lineChart;
   }
 
-  /**
-   * Creates a pie chart representing subject distribution.
-   *
-   * @return A {@link PieChart} displaying the percentage of time spent per subject.
-   */
+  // Pie Chart for subject distribution
   private PieChart createSubjectsPieChart() {
     PieChart pieChart = new PieChart();
     pieChart.setTitle("Subjects Distribution");
@@ -154,11 +94,7 @@ public class DashboardPage {
     return pieChart;
   }
 
-  /**
-   * Creates a pie chart representing assignment distribution.
-   *
-   * @return A {@link PieChart} displaying the percentage of time spent on assignments.
-   */
+  // Pie Chart for subject distribution
   private PieChart createAssignmentPieChart() {
     PieChart pieChart = new PieChart();
     pieChart.setTitle("Assignment Distribution");
@@ -170,18 +106,14 @@ public class DashboardPage {
     return pieChart;
   }
 
-  /**
-   * Creates a bar chart representing the weekly study distribution across different categories.
-   *
-   * @return A {@link BarChart} displaying total study hours for different categories.
-   */
+  // Bar Chart
   private BarChart<String, Number> createBarChart() {
     // Axis creation
     CategoryAxis x = new CategoryAxis();
     NumberAxis y = new NumberAxis();
     x.setLabel("Κατηγορίες διαβάσματος");
     y.setStyle("Ώρες μελέτης");
-    // Stable size
+    // stable size
     y.setAutoRanging(false);
     y.setLowerBound(0);
     y.setUpperBound(100);
@@ -210,5 +142,5 @@ public class DashboardPage {
 
     return barChart;
   }
-}
 
+}
