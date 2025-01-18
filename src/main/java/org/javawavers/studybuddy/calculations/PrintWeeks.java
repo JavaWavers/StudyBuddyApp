@@ -4,15 +4,15 @@ import java.util.List;
 import org.javawavers.studybuddy.courses.ScheduledTask;
 
 /**
- * The {@code PrintWeeks} class is responsible for printing the weekly schedule.
- * It takes a list of {@code Week} objects and prints the details of each week,
- * including the tasks assigned for each day.
+ * The {@code PrintWeeks} class is responsible for printing the weekly schedule. It takes a list of
+ * {@code Week} objects and prints the details of each week, including the tasks assigned for each
+ * day.
  */
 public class PrintWeeks {
   /**
-   * Prints the weekly schedule.
-   * For each week in the list, it iterates through its days and displays the tasks scheduled
-   * for each day. If no tasks are scheduled for a day, it prints a message indicating that.
+   * Prints the weekly schedule. For each week in the list, it iterates through its days and
+   * displays the tasks scheduled for each day. If no tasks are scheduled for a day, it prints a
+   * message indicating that.
    *
    * @param weekList A list of {@link Week} objects representing the weekly schedule.
    */

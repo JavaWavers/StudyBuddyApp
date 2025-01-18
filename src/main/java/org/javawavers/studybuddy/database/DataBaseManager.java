@@ -6,37 +6,37 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class DataBaseManager {
-    private static final String DATABASE_URL =
-            "jdbc:sqlite:src/main/java/org/javawavers/studybuddy/DataBase.db";
+  private static final String DATABASE_URL =
+      "jdbc:sqlite:src/main/java/org/javawavers/studybuddy/DataBase.db";
 
-
-    public static Connection connect() {
-        try {
-            Class.forName("org.sqlite.JDBC");
-            Connection connection = DriverManager.getConnection(DATABASE_URL);
-            return connection;
-        } catch (SQLException | ClassNotFoundException e) {
-            System.out.println("Trouble connecting:" + e);
-            return null;
-        }
+  public static Connection connect() {
+    try {
+      Class.forName("org.sqlite.JDBC");
+      Connection connection = DriverManager.getConnection(DATABASE_URL);
+      return connection;
+    } catch (SQLException | ClassNotFoundException e) {
+      System.out.println("Trouble connecting:" + e);
+      return null;
     }
+  }
 
-    public static void CreateTables() {
-        CreateUser();
-        CreateAvailability();
-        CreateNonAvDates();
-        CreateSubject();
-        CreateAssignment();
-        CreateExam();
-        CreateWeek();
-        CreateDay();
-        CreateScheduledTask();
-    }
+  public static void CreateTables() {
+    CreateUser();
+    CreateAvailability();
+    CreateNonAvDates();
+    CreateSubject();
+    CreateAssignment();
+    CreateExam();
+    CreateWeek();
+    CreateDay();
+    CreateScheduledTask();
+  }
 
-    public static void CreateUser() {
-        try (Connection c = DataBaseManager.connect();
-             Statement s = c.createStatement()) {
-            String sql = """
+  public static void CreateUser() {
+    try (Connection c = DataBaseManager.connect();
+        Statement s = c.createStatement()) {
+      String sql =
+          """
                     CREATE TABLE IF NOT EXISTS User (
                     userID INTEGER PRIMARY KEY AUTOINCREMENT,
                     name TEXT NOT NULL UNIQUE,
@@ -44,16 +44,17 @@ public class DataBaseManager {
                     email TEXT NOT NULL
                     );
                     """;
-            s.execute(sql);
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
+      s.execute(sql);
+    } catch (SQLException e) {
+      System.out.println(e.getMessage());
     }
+  }
 
-    public static void CreateSubject() {
-        try (Connection c = DataBaseManager.connect();
-             Statement s = c.createStatement()) {
-            String sql = """
+  public static void CreateSubject() {
+    try (Connection c = DataBaseManager.connect();
+        Statement s = c.createStatement()) {
+      String sql =
+          """
                     CREATE TABLE IF NOT EXISTS Subject (
                     subjectID INTEGER PRIMARY KEY AUTOINCREMENT,
                     subjectName TEXT NOT NULL,
@@ -63,16 +64,17 @@ public class DataBaseManager {
                     FOREIGN KEY (userID) REFERENCES User (userID)
                     );
                     """;
-            s.execute(sql);
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
+      s.execute(sql);
+    } catch (SQLException e) {
+      System.out.println(e.getMessage());
     }
+  }
 
-    public static void CreateAssignment() {
-        try (Connection c = DataBaseManager.connect();
-             Statement s = c.createStatement()) {
-            String sql = """
+  public static void CreateAssignment() {
+    try (Connection c = DataBaseManager.connect();
+        Statement s = c.createStatement()) {
+      String sql =
+          """
                     CREATE TABLE IF NOT EXISTS Assignment (
                     assignmentID INTEGER PRIMARY KEY AUTOINCREMENT,
                     title TEXT NOT NULL,
@@ -84,16 +86,17 @@ public class DataBaseManager {
                     FOREIGN KEY (userID) REFERENCES User (userID)
                     );
                     """;
-            s.execute(sql);
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
+      s.execute(sql);
+    } catch (SQLException e) {
+      System.out.println(e.getMessage());
     }
+  }
 
-    public static void CreateExam() {
-        try (Connection c = DataBaseManager.connect();
-             Statement s = c.createStatement()) {
-            String sql = """
+  public static void CreateExam() {
+    try (Connection c = DataBaseManager.connect();
+        Statement s = c.createStatement()) {
+      String sql =
+          """
                     CREATE TABLE IF NOT EXISTS Exam (
                     examID INTEGER PRIMARY KEY AUTOINCREMENT,
                     name TEXT,
@@ -105,17 +108,17 @@ public class DataBaseManager {
                      FOREIGN KEY (subjectID) REFERENCES Subject (subjectID)
                     );
                     """;
-            s.execute(sql);
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
+      s.execute(sql);
+    } catch (SQLException e) {
+      System.out.println(e.getMessage());
     }
+  }
 
-
-    public static void CreateScheduledTask() {
-        try (Connection c = DataBaseManager.connect();
-             Statement s = c.createStatement()) {
-            String sql = """
+  public static void CreateScheduledTask() {
+    try (Connection c = DataBaseManager.connect();
+        Statement s = c.createStatement()) {
+      String sql =
+          """
                 CREATE TABLE IF NOT EXISTS Task (
                 taskID INTEGER PRIMARY KEY AUTOINCREMENT,
                 taskName TEXT,
@@ -132,17 +135,17 @@ public class DataBaseManager {
                 FOREIGN KEY (userID) REFERENCES User (userID)
                 );
                 """;
-            s.execute(sql);
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
+      s.execute(sql);
+    } catch (SQLException e) {
+      System.out.println(e.getMessage());
     }
+  }
 
-
-    public static void CreateDay() {
-        try (Connection c = DataBaseManager.connect();
-             Statement s = c.createStatement()) {
-            String sql = """
+  public static void CreateDay() {
+    try (Connection c = DataBaseManager.connect();
+        Statement s = c.createStatement()) {
+      String sql =
+          """
                     CREATE TABLE IF NOT EXISTS Day (
                     dayID INTEGER PRIMARY KEY,
                     userID INTEGER NOT NULL,
@@ -151,32 +154,34 @@ public class DataBaseManager {
                     FOREIGN KEY (weekID) REFERENCES Week (weekID)
                     );
                     """;
-            s.execute(sql);
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
+      s.execute(sql);
+    } catch (SQLException e) {
+      System.out.println(e.getMessage());
     }
+  }
 
-    public static void CreateWeek() {
-        try (Connection c = DataBaseManager.connect();
-             Statement s = c.createStatement()) {
-            String sql = """
+  public static void CreateWeek() {
+    try (Connection c = DataBaseManager.connect();
+        Statement s = c.createStatement()) {
+      String sql =
+          """
                     CREATE TABLE IF NOT EXISTS Week (
                     weekID INTEGER PRIMARY KEY,
                     userID INNTEGER NOT NULL,
                     FOREIGN KEY (userID) REFERENCES User (userID)
                     );
                     """;
-            s.execute(sql);
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
+      s.execute(sql);
+    } catch (SQLException e) {
+      System.out.println(e.getMessage());
     }
+  }
 
-    public static void CreateAvailability() {
-        try (Connection c = DataBaseManager.connect();
-             Statement s = c.createStatement()) {
-            String sql = """
+  public static void CreateAvailability() {
+    try (Connection c = DataBaseManager.connect();
+        Statement s = c.createStatement()) {
+      String sql =
+          """
                     CREATE TABLE IF NOT EXISTS Availability (
                     mondayAv INTEGER NOT NULL,
                     tuesdayAv INTEGER NOT NULL,
@@ -189,16 +194,17 @@ public class DataBaseManager {
                     FOREIGN KEY (userID) REFERENCES User (userID)
                     );
                     """;
-            s.execute(sql);
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
+      s.execute(sql);
+    } catch (SQLException e) {
+      System.out.println(e.getMessage());
     }
+  }
 
-    public static void CreateNonAvDates() {
-        try (Connection c = DataBaseManager.connect();
-             Statement s = c.createStatement()) {
-            String sql = """
+  public static void CreateNonAvDates() {
+    try (Connection c = DataBaseManager.connect();
+        Statement s = c.createStatement()) {
+      String sql =
+          """
                     CREATE TABLE IF NOT EXISTS NonAvDates (
                     nonAvDateID INTEGER PRIMARY KEY AUTOINCREMENT,
                     date TEXT NOT NULL,
@@ -206,9 +212,9 @@ public class DataBaseManager {
                     FOREIGN KEY (userID) REFERENCES User (userID)
                     );
                     """;
-            s.execute(sql);
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
+      s.execute(sql);
+    } catch (SQLException e) {
+      System.out.println(e.getMessage());
     }
+  }
 }

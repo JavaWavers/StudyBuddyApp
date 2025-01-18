@@ -6,30 +6,26 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.DialogPane;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
-
 import org.javawavers.studybuddy.courses.Exam;
 import org.javawavers.studybuddy.courses.StaticUser;
 import org.javawavers.studybuddy.courses.Subject;
-
-import com.sun.jdi.Value;
-import org.javawavers.studybuddy.database.DataInserter;
 import org.javawavers.studybuddy.database.ActiveUser;
+import org.javawavers.studybuddy.database.DataInserter;
 
 /*
 TODO:
@@ -100,7 +96,8 @@ public class ExamPage {
           }
           String value3 = revisionField.getText();
           if (!String.valueOf(value3).matches("\\d+")) {
-            errors.add("• Η παράμετρος 'Επανάληψη ανά (σελίδες): ' μπόρει να περιέχει μόνο αριθμούς");
+            errors.add(
+                "• Η παράμετρος 'Επανάληψη ανά (σελίδες): ' μπόρει να περιέχει μόνο αριθμούς");
           } else {
             revision = Integer.parseInt(value3);
           }
@@ -142,7 +139,7 @@ public class ExamPage {
 
           if (courseName.isEmpty()) {
             errors.add("• Εισήγαγε όνομα μαθήματος");
-          }  else if (!courseName.matches("[a-zA-Zα-ωΑ-ΩάέήίΰϊϋόύώΆΈΉΊΪΫΌΎΏ]+")) {
+          } else if (!courseName.matches("[a-zA-Zα-ωΑ-ΩάέήίΰϊϋόύώΆΈΉΊΪΫΌΎΏ]+")) {
             errors.add("• Η Ονομασία του μαθήματος μπορεί να περιέχει μόνο γράμματα");
           }
 
@@ -191,10 +188,13 @@ public class ExamPage {
             DialogPane dialogPane = successAlert.getDialogPane();
             dialogPane.getStyleClass().add("success-alert");
             dialogPane
-                  .getStylesheets()
-                  .add(Objects.requireNonNull(getClass().getResource("/success.css")).toExternalForm());
+                .getStylesheets()
+                .add(
+                    Objects.requireNonNull(getClass().getResource("/success.css"))
+                        .toExternalForm());
             successAlert.showAndWait();
-            DataInserter.insertSubject(courseName, diffi, courseType.toString(), StaticUser.staticUser.getUserID());
+            DataInserter.insertSubject(
+                courseName, diffi, courseType.toString(), StaticUser.staticUser.getUserID());
             int subjectID = ActiveUser.getSubjectID(StaticUser.staticUser.getUserID(), courseName);
             System.out.println("subjectID:" + subjectID);
             DataInserter.insertExam(deadline, pages, revision, time, subjectID);

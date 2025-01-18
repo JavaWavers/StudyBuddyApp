@@ -45,14 +45,14 @@ public class ScheduledTask {
   }
 
   public ScheduledTask(
-          String taskName,
-          String taskType,
-          int hoursAllocated,
-          TaskStatus taskStatus,
-          LocalTime timeStarted,
-          LocalTime timeCompleted,
-          LocalDate taskDate,
-          String subjectName) {
+      String taskName,
+      String taskType,
+      int hoursAllocated,
+      TaskStatus taskStatus,
+      LocalTime timeStarted,
+      LocalTime timeCompleted,
+      LocalDate taskDate,
+      String subjectName) {
     this.taskName = taskName;
     this.taskType = taskType;
     this.hoursAllocated = hoursAllocated;
@@ -64,7 +64,8 @@ public class ScheduledTask {
   }
 
   // Constructor with default settings
-  /// //////////////////////////////////////////////////////////////////////////////////////////// sbiseeeee
+  /// ////////////////////////////////////////////////////////////////////////////////////////////
+  // sbiseeeee
   public ScheduledTask(
       String taskName, String taskType, int hoursAllocated, LocalDate taskDate, Subject subject) {
     this(taskName, taskType, hoursAllocated, TaskStatus.UPCOMING, null, null, taskDate, subject);

@@ -7,15 +7,13 @@ import java.util.List;
 import org.javawavers.studybuddy.courses.Subject;
 
 /**
- * This {@code Dates} class is used to store the exam date for each subject.
- * It holds information about the subject and the specific date of the exam.
- * Additionally, this class is responsible for controlling the distribution of tasks
- * for a subject up until the exam date. In other words, the exam date is the last day
- * by which all tasks must be completed and distributed.
- * The class provides functionality to sort a list of exam dates in ascending order,
- * with the earliest exam date coming first and the latest coming last.
+ * This {@code Dates} class is used to store the exam date for each subject. It holds information
+ * about the subject and the specific date of the exam. Additionally, this class is responsible for
+ * controlling the distribution of tasks for a subject up until the exam date. In other words, the
+ * exam date is the last day by which all tasks must be completed and distributed. The class
+ * provides functionality to sort a list of exam dates in ascending order, with the earliest exam
+ * date coming first and the latest coming last.
  */
-
 public class Dates {
   private String subjName;
   private LocalDate deadLine;
@@ -52,9 +50,8 @@ public class Dates {
   }
 
   /**
-   * Sorts the list of ExamDates by the exam date.
-   * The list will be sorted in ascending order,
-   * with the earliest exam date at the beginning and the latest at the end.
+   * Sorts the list of ExamDates by the exam date. The list will be sorted in ascending order, with
+   * the earliest exam date at the beginning and the latest at the end.
    */
   public static void sortList(List<Dates> list) {
 
@@ -106,14 +103,12 @@ public class Dates {
   }
 
   /**
-  *The method accepts the task that needs to be registered in the results table.
-  * From this task, we retrieve its name and check, for each ExamDates object,
-  * if the day when we want to assign the task is before the exam date.
-  * If this condition is met, the method returns true; otherwise, it returns
-  * false.
-  * It accepts the task, the number of days until the exam, AND the list of exam
-  * dates.
-  */
+   * The method accepts the task that needs to be registered in the results table. From this task,
+   * we retrieve its name and check, for each ExamDates object, if the day when we want to assign
+   * the task is before the exam date. If this condition is met, the method returns true; otherwise,
+   * it returns false. It accepts the task, the number of days until the exam, AND the list of exam
+   * dates.
+   */
   public static boolean checkDate(Task task, int day, List<Dates> elements) {
     String subj = task.getSubject(); // keeps the name of the subject in order to find the exam date
     LocalDate date = null; // keeps the exam date or the deadline
@@ -161,7 +156,8 @@ public class Dates {
    *
    * @param task the {@code Task} whose subject's assignment deadline is needed.
    * @param assignments the list of assignment {@code Dates}.
-   * @return the {@code LocalDate} representing the assignment deadline, or {@code null} if not found.
+   * @return the {@code LocalDate} representing the assignment deadline, or {@code null} if not
+   *     found.
    */
   public static LocalDate getAssDate(Task task, List<Dates> assignments) {
     String subj = task.getSubject(); // keeps the name of the subject in order to find the deadline

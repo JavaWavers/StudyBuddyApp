@@ -16,8 +16,11 @@ import org.javawavers.studybuddy.ui_ux.SceneManager;
  */
 public class StudyBuddyApp extends Application { // exam page
 
+  private static Stage primaryStage;
+
   @Override
   public void start(Stage stage) {
+    primaryStage = stage;
     SceneManager sceneManager = new SceneManager(stage);
 
     HomePage homePage = new HomePage();
@@ -32,8 +35,12 @@ public class StudyBuddyApp extends Application { // exam page
     stage.setMinWidth(1024);
     stage.setMinHeight(768);
 
-    stage.show();
     DataBaseManager.CreateTables();
+    stage.show();
+  }
+
+  public static Stage getStage() {
+    return primaryStage;
   }
 
   public static void main(String[] args) {

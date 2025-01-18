@@ -1,7 +1,5 @@
 package org.javawavers.studybuddy.calculations;
 
-
-
 import static org.javawavers.studybuddy.courses.StaticUser.staticUser;
 
 import java.util.ArrayList;
@@ -10,13 +8,12 @@ import org.javawavers.studybuddy.courses.Assignment;
 import org.javawavers.studybuddy.courses.Subject;
 
 /**
- * This class distributes three kinds of tasks (studying -1, repetition -2,
- * assignment -3) into the available days randomly. The algorithm produces 50
- *  valid results,where the tasks are distributed into the available studying
- * hours per day differently (although there are chances for the same results).
- * Then, each result gains a score based on certain criteria, described in the
- * README file. The result with the higher score is considered the final result
- * and is given to the user as a recommended studying schedule.
+ * This class distributes three kinds of tasks (studying -1, repetition -2, assignment -3) into the
+ * available days randomly. The algorithm produces 50 valid results,where the tasks are distributed
+ * into the available studying hours per day differently (although there are chances for the same
+ * results). Then, each result gains a score based on certain criteria, described in the README
+ * file. The result with the higher score is considered the final result and is given to the user as
+ * a recommended studying schedule.
  */
 public class SimulateAnnealing {
   /*
@@ -34,9 +31,7 @@ public class SimulateAnnealing {
   private static List<Dates>
       assignments; // List for each assignment that is connected with a subject
 
-  /**
-  *default constructor.
-   */
+  /** default constructor. */
   public SimulateAnnealing() {
     subjects = new ArrayList<>();
     tasks = new ArrayList<>();
@@ -45,9 +40,7 @@ public class SimulateAnnealing {
     scheduleResults = new ArrayList<>();
   }
 
-  /**
-   * Adds the user's subjects to the list and sets exams and tasks for each subject.
-   */
+  /** Adds the user's subjects to the list and sets exams and tasks for each subject. */
   public static void addSubject() {
     for (Subject s : staticUser.getSubjects()) {
       subjects.add(s);
@@ -62,7 +55,6 @@ public class SimulateAnnealing {
    * Sets the exams for each subject and adds them to the exams list.
    *
    * @param subject The subject whose exams are being added.
-   *
    * @throws IllegalArgumentException if the subject or its exams list is invalid.
    */
   private static void subExams(Subject subject) {
@@ -75,9 +67,7 @@ public class SimulateAnnealing {
     exams.add(examDate);
   }
 
-  /**
-   * Sets the assignments for the user and creates corresponding tasks.
-   */
+  /** Sets the assignments for the user and creates corresponding tasks. */
   private static void subAssignment() {
     for (Assignment a : staticUser.getAssignments()) {
       Dates assDate = new Dates(a.getName(), a.getDate());
@@ -110,9 +100,7 @@ public class SimulateAnnealing {
    * Creates tasks for assignments.
    *
    * @param name The name of the assignment.
-   *
    * @param estimateHours The estimated hours to complete the assignment.
-   *
    */
   private static void subTask2(String name, int estimateHours) {
     int taskType3 = CalculativeAlgorithm.numberOfScheduledTask(estimateHours);
@@ -150,8 +138,8 @@ public class SimulateAnnealing {
   }
 
   /**
-   * Generates and evaluates different schedule results. The best scoring schedule is selected
-   * based on the provided scoring mechanism.
+   * Generates and evaluates different schedule results. The best scoring schedule is selected based
+   * on the provided scoring mechanism.
    */
   public static void scheduleResult() {
     /*

@@ -9,15 +9,14 @@ import org.javawavers.studybuddy.calculations.Week;
 import org.javawavers.studybuddy.courses.ScheduledTask;
 import org.javawavers.studybuddy.courses.Subject;
 
-
 public class SubjDistributionCalc {
   // Stores the percentage distribution of tasks for each subject
   private static HashMap<String, Double> subjectDist;
-  /**
-   * Calculates and returns the distribution of tasks as a percentage for each subject.
-   * return A HashMap where the key is the subject name, and the value is the percentage of tasks.
-  */
 
+  /**
+   * Calculates and returns the distribution of tasks as a percentage for each subject. return A
+   * HashMap where the key is the subject name, and the value is the percentage of tasks.
+   */
   public static HashMap<String, Double> subjectsDistribution() {
     subjectDist = new HashMap<>();
     percentage();
@@ -25,11 +24,10 @@ public class SubjDistributionCalc {
   }
 
   /**
-   * Calculates the percentage of tasks assigned to each subject.
-   * The method processes the user's task data by iterating through the weeks,
-   * days, and tasks. It counts the tasks assigned to each subject and computes
-   * their percentage relative to the total number of tasks.
-   * The calculated percentages are stored in the {@code subjectDist} map.
+   * Calculates the percentage of tasks assigned to each subject. The method processes the user's
+   * task data by iterating through the weeks, days, and tasks. It counts the tasks assigned to each
+   * subject and computes their percentage relative to the total number of tasks. The calculated
+   * percentages are stored in the {@code subjectDist} map.
    */
   private static void percentage() {
     ArrayList<Week> weekList = new ArrayList<>(staticUser.getTotalWeeks());
@@ -55,7 +53,7 @@ public class SubjDistributionCalc {
         subjectDist.put(s, tasksPerSubject.get(s) / (double) totalTasks);
       }
     } else {
-      //if there are not any subjects
+      // if there are not any subjects
       subjectDist.put("none", 100.0);
     }
   }

@@ -5,14 +5,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * The Validate class is responsible for validating the schedule of tasks by performing
- * multiple checks:
- * - Ensuring that tasks are scheduled before their associated deadlines.
- * - Ensuring that tasks are scheduled within the available hours for each day.
- * - Ensuring that all assignment tasks (TaskType == 3) are scheduled, forcefully if needed.
- * The methods in this class perform these checks in sequence to guarantee that the schedule
- * is both valid and feasible based on the available time slots and deadlines for each task.
- *
+ * The Validate class is responsible for validating the schedule of tasks by performing multiple
+ * checks: - Ensuring that tasks are scheduled before their associated deadlines. - Ensuring that
+ * tasks are scheduled within the available hours for each day. - Ensuring that all assignment tasks
+ * (TaskType == 3) are scheduled, forcefully if needed. The methods in this class perform these
+ * checks in sequence to guarantee that the schedule is both valid and feasible based on the
+ * available time slots and deadlines for each task.
  */
 public class Validate {
   /**

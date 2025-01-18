@@ -3,8 +3,6 @@ package org.javawavers.studybuddy.courses;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-
-import net.sf.saxon.functions.AccessorFn;
 import org.javawavers.studybuddy.calculations.*;
 
 public class User {
@@ -23,7 +21,7 @@ public class User {
 
   List<Task> tasks;
   List<Day> days;
-  int[][] schedule;// the array with the indexes from the tasks list
+  int[][] schedule; // the array with the indexes from the tasks list
   List<ScheduledTask> scheduledTasks = new ArrayList<>();
 
   public User() {}
@@ -241,7 +239,8 @@ public class User {
     LocalDate today = LocalDate.now();
     for (Week w : totalWeeks) {
       for (Day d : w.getDaysOfWeek()) {
-        if (!d.getTodayTasks().isEmpty() && d.getTodayScheduledTask(0).getTaskDate().equals(today)) {
+        if (!d.getTodayTasks().isEmpty()
+            && d.getTodayScheduledTask(0).getTaskDate().equals(today)) {
           this.currentWeek = w;
           return;
         }

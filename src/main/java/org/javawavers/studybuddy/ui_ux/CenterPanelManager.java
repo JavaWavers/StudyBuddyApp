@@ -1,7 +1,5 @@
 package org.javawavers.studybuddy.ui_ux;
 
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
 import javafx.scene.layout.StackPane;
 
 /**
@@ -17,6 +15,7 @@ public class CenterPanelManager {
     centerPane.setMaxWidth(Double.MAX_VALUE);
     centerPane.setMaxHeight(Double.MAX_VALUE);
   }
+
   /**
    * This is the main method of the class It creates objects from all button Pages which are on the
    * Menu Using a switch it changes the page that should be presented on the center panel
@@ -32,7 +31,6 @@ public class CenterPanelManager {
     AssignmentPage assignmentPage = new AssignmentPage();
     HomePage homePage = new HomePage();
     LoginPage loginPage = new LoginPage();
-
 
     // Depending on which Menu Button is pressed it changes the center Panel
     switch (panelName) {

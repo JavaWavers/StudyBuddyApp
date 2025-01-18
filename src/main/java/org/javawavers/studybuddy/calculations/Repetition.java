@@ -6,21 +6,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * The {@code Repetition} class is responsible for generating and scheduling
- * repetition tasks. Repetition tasks are designed to reinforce learning by
- * scheduling review sessions for specific intervals after the initial study task.
+ * The {@code Repetition} class is responsible for generating and scheduling repetition tasks.
+ * Repetition tasks are designed to reinforce learning by scheduling review sessions for specific
+ * intervals after the initial study task.
  */
 public class Repetition {
 
   /**
-   * This method generates a schedule for repetitions based on the study task.
-   * A repetition task is scheduled for:
-   * - The next day after the study task.
-   * -After 1 day
-   * - After 7 days.
-   * - After 16 days.
-   * - After 35 days.
-   * - Then it doubles the interval days till the exam date.
+   * This method generates a schedule for repetitions based on the study task. A repetition task is
+   * scheduled for: - The next day after the study task. -After 1 day - After 7 days. - After 16
+   * days. - After 35 days. - Then it doubles the interval days till the exam date.
    */
   public static List<Task> generateRepetitions(
       List<Task> tasks, Task studyTask, LocalDate examDate, int day) {
@@ -56,14 +51,13 @@ public class Repetition {
   }
 
   /**
-   * Assigns repetition tasks into the existing schedule.
-   * The method ensures tasks are assigned to available slots on valid days.
+   * Assigns repetition tasks into the existing schedule. The method ensures tasks are assigned to
+   * available slots on valid days.
    *
-   * @param rep     The list of repetition tasks to assign.
-   * @param tasks   The list of all tasks to update with the new repetitions.
+   * @param rep The list of repetition tasks to assign.
+   * @param tasks The list of all tasks to update with the new repetitions.
    * @param subject The subject associated with the tasks.
-   * @return The updated list of tasks including the newly assigned repetition
-   *         tasks.
+   * @return The updated list of tasks including the newly assigned repetition tasks.
    */
   public static List<Task> assRepetitions(
       List<RepetitionTask> rep, List<Task> tasks, String subject) {
@@ -105,8 +99,8 @@ public class Repetition {
   }
 
   /**
-   * Helper class to represent a repetition task.
-   * Each repetition task includes a subject and a date.
+   * Helper class to represent a repetition task. Each repetition task includes a subject and a
+   * date.
    */
   public static class RepetitionTask {
     private String subject;
