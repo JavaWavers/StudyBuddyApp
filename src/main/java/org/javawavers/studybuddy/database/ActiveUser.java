@@ -38,6 +38,7 @@ public class ActiveUser {
       List<Exam> exams = getExam(getUserId(email, password));
       List<ScheduledTask> scheduledTasks = getTasks(getUserId(email, password));
       List<Week> weeks = getWeeks(getUserId(email, password));
+      List<ScheduledTask> completedTasks = getCompletedTasks(getUserId(email,password));
 
       StaticUser.staticUser.setUserId(getUserId(email, password));
       StaticUser.staticUser.setEmail(email);
@@ -50,6 +51,7 @@ public class ActiveUser {
       StaticUser.staticUser.setSubjects(subjects);
       StaticUser.staticUser.setDays(days);
       StaticUser.staticUser.setTasks(scheduledTasks);
+      StaticUser.staticUser.setCompletedTasks(completedTasks);
       for (Subject subject : subjects) {
         System.out.println("subject:");
         System.out.println(subject.toString());
