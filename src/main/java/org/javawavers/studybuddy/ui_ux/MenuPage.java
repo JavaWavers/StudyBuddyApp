@@ -1,5 +1,7 @@
 package org.javawavers.studybuddy.ui_ux;
 
+import static org.javawavers.studybuddy.courses.StaticUser.staticUser;
+
 import java.net.URL;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -16,9 +18,6 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.javawavers.studybuddy.StudyBuddyApp;
-import org.javawavers.studybuddy.courses.StaticUser;
-
-import static org.javawavers.studybuddy.courses.StaticUser.staticUser;
 
 public class MenuPage {
   private VBox leftBoxMenu = new VBox(15);

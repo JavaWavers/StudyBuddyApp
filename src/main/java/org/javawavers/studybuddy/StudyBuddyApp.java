@@ -1,5 +1,9 @@
 package org.javawavers.studybuddy;
 
+import static org.javawavers.studybuddy.database.DataBaseManager.connect;
+import static org.javawavers.studybuddy.database.DataBaseManager.createTables;
+
+import java.sql.Connection;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Screen;
@@ -7,11 +11,6 @@ import javafx.stage.Stage;
 import org.javawavers.studybuddy.database.DataBaseManager;
 import org.javawavers.studybuddy.ui_ux.HomePage;
 import org.javawavers.studybuddy.ui_ux.SceneManager;
-
-import java.sql.Connection;
-
-import static org.javawavers.studybuddy.database.DataBaseManager.connect;
-import static org.javawavers.studybuddy.database.DataBaseManager.createTables;
 
 /*
  * TODO:

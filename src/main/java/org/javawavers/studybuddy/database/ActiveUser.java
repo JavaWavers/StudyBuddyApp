@@ -38,7 +38,7 @@ public class ActiveUser {
       List<Exam> exams = getExam(getUserId(email, password));
       List<ScheduledTask> scheduledTasks = getTasks(getUserId(email, password));
       List<Week> weeks = getWeeks(getUserId(email, password));
-      List<ScheduledTask> completedTasks = getCompletedTasks(getUserId(email,password));
+      List<ScheduledTask> completedTasks = getCompletedTasks(getUserId(email, password));
 
       StaticUser.staticUser.setUserId(getUserId(email, password));
       StaticUser.staticUser.setEmail(email);
