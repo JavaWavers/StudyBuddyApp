@@ -169,9 +169,12 @@ public class Calendar {
     todayButton.setFont(Font.font("System", FontWeight.BOLD, 14));
     todayButton.setTextFill(Color.WHITE);
     todayButton.setOnAction(
-        event -> {
-          createCalendarGrid(calendarGrid, 0, SimulateAnnealing.getSubjects(), totalWeeks);
-        });
+      event -> {
+        count = 0;
+        currentWeekStart = LocalDate.now().with(ChronoField.DAY_OF_WEEK, 1);
+        weekLabel.setText(formatWeekLabel(currentWeekStart, formatter));
+        createCalendarGrid(calendarGrid, 0, SimulateAnnealing.getSubjects(), totalWeeks);
+      });
 
     // button for the user to insert availability
     Button availabilityButton = new Button("Availiability");

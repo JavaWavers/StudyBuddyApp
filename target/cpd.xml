@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pmd-cpd>
+   <duplication lines="29" tokens="238">
+      <file begintoken="11561" column="5" endcolumn="25" endline="410" endtoken="11798"
+            line="382"
+            path="C:\Users\Zpela\Documents\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\database\ActiveUser.java"/>
+      <file begintoken="12476" column="5" endcolumn="25" endline="548" endtoken="12713"
+            line="520"
+            path="C:\Users\Zpela\Documents\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\database\ActiveUser.java"/>
+      <codefragment><![CDATA[    List<ScheduledTask> scheduledTasks = new ArrayList<>();
+
+    try (Connection c = DataBaseManager.connect();
+         PreparedStatement ps = c.prepareStatement(sql)) {
+      ps.setInt(1, userId);
+      try (ResultSet rs = ps.executeQuery()) {
+        while (rs.next()) {
+          String taskName = rs.getString("taskName");
+          int hoursAllocated = rs.getInt("hoursAllocated");
+          String taskTypeString = rs.getString("taskStatus");
+          ScheduledTask.TaskStatus taskStatus =
+              ScheduledTask.TaskStatus.valueOf(taskTypeString.toUpperCase());
+          String dstring = rs.getString("taskDate");
+          LocalDate taskDate = LocalDate.parse(dstring, FORMATTER);
+          String subjectName = rs.getString("subjectName");
+          String taskType = rs.getString("taskType");
+          String  timeStString = rs.getString("timeStarted");
+          LocalTime timeStarted = LocalTime.parse(timeStString);
+          String timeComString = rs.getString("timeCompleted");
+          LocalTime timeCompleted = LocalTime.parse(timeComString);
+          int taskId = rs.getInt("taskId");
+          ScheduledTask t = new ScheduledTask(taskName, taskType, hoursAllocated,
+              taskStatus, timeStarted, timeCompleted, taskDate, subjectName);
+          t.setTaskId(taskId);
+          scheduledTasks.add(t);
+        }
+      }
+    } catch (SQLException e) {
+      System.err.println("Σφάλμα κατά την ανάκτηση Task : " + e.getMessage());]]></codefragment>
+   </duplication>
+   <duplication lines="28" tokens="206">
+      <file begintoken="13953" column="9" endcolumn="3" endline="128" endtoken="14158"
+            line="101"
+            path="C:\Users\Zpela\Documents\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\database\DataInserter.java"/>
+      <file begintoken="14807" column="9" endcolumn="3" endline="265" endtoken="15012"
+            line="238"
+            path="C:\Users\Zpela\Documents\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\database\DataInserter.java"/>
+      <codefragment><![CDATA[        + "timeCompleted, taskStatus, taskDate, subjectName, taskType,"
+        + "userId, dayId) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+    try (Connection c = DataBaseManager.connect();
+        PreparedStatement ps = c.prepareStatement(sql)) {
+      ps.setString(1, taskName);
+      ps.setInt(2, hoursAllocated);
+      if (timeStarted == null) {
+        System.out.println("timeStarted είναι null. Χρησιμοποιώ προεπιλεγμένη ώρα 09:00");
+        timeStarted = LocalTime.of(9, 0);
+      }
+      if (timeCompleted == null) {
+        System.out.println("timeCompleted is null, set to 11:00");
+        timeCompleted = LocalTime.of(11, 0);
+      }
+      ps.setString(3, timeStarted.format(formatter));
+      ps.setString(4, timeCompleted.format(formatter));
+      ps.setString(5, taskStatus.name());
+      ps.setString(6, taskDate.format(FORMATTER));
+      ps.setString(7, subjectName);
+      ps.setString(8, taskType);
+      ps.setInt(9, userId);
+      ps.setInt(10, dayId);
+      ps.executeUpdate();
+      System.out.println("Το task εισάχθηκε με επιτυχία.");
+    } catch (SQLException e) {
+      System.err.println("Σφάλμα κατά την εισαγωγή εργασίας.");
+    }
+  }]]></codefragment>
+   </duplication>
+   <duplication lines="15" tokens="171">
+      <file begintoken="31920" column="23" endcolumn="71" endline="194" endtoken="32090"
+            line="180"
+            path="C:\Users\Zpela\Documents\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\RegisterPage.java"/>
+      <file begintoken="32152" column="24" endcolumn="71" endline="228" endtoken="32322"
+            line="214"
+            path="C:\Users\Zpela\Documents\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\RegisterPage.java"/>
+      <codefragment><![CDATA[        .widthProperty()
+        .addListener(
+            (obs, oldVal, newVal) -> {
+              double newSize = newVal.doubleValue() / 30;
+              joinText.setFont(Font.font("Arial", FontWeight.BOLD, newSize));
+              nameField.setFont(Font.font("Arial", newSize));
+              nameLabel.setFont(Font.font("Arial", newSize));
+              emailField.setFont(Font.font("Arial", newSize));
+              emailLabel.setFont(Font.font("Arial", newSize));
+              passwordField.setFont(Font.font("Arial", newSize));
+              passwordLabel.setFont(Font.font("Arial", newSize));
+              textField.setFont(Font.font("Arial", newSize));
+              toggleButton.setFont(Font.font("Arial", newSize));
+              toggleConfirmPasswordButton.setFont(Font.font("Arial", newSize));
+              confirmPasswordField.setFont(Font.font("Arial", newSize));]]></codefragment>
+   </duplication>
+   <duplication lines="57" tokens="137">
+      <file begintoken="18605" column="3" endcolumn="14" endline="286" endtoken="18741"
+            line="230"
+            path="C:\Users\Zpela\Documents\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\AssignmentPage.java"/>
+      <file begintoken="25210" column="3" endcolumn="14" endline="344" endtoken="25346"
+            line="288"
+            path="C:\Users\Zpela\Documents\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\ExamPage.java"/>
+      <codefragment><![CDATA[  }
+
+  // titlePane style
+  private void titlePaneStyle(
+      TitledPane titledPane, double minWidth, double maxWidth, double minHeight, double maxHeight) {
+
+    titledPane.setMinWidth(minWidth);
+    titledPane.setMaxWidth(maxWidth);
+    titledPane.setMinHeight(minHeight);
+    titledPane.setMaxHeight(maxHeight);
+
+    titledPane.setStyle(
+        "-fx-background-color: rgba(101, 225, 101, 0.81);"
+            + " -fx-border-color: #000000;"
+            + " -fx-border-width: 1px;"
+            + " -fx-border-radius: 4px;"
+            + " -fx-background-radius: 4px;");
+  }
+
+  // Button Styles
+  private String btnStyle() {
+    return "-fx-background-color: linear-gradient(#FAD7A0, #F7B267);"
+        + "-fx-background-radius: 8,7,6;"
+        + "-fx-background-insets: 0,1,2;"
+        + "-fx-text-fill: #5A3D2B;"
+        + "-fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.3), 5, 0, 2, 2);"
+        + "-fx-font-weight: bold;"
+        + "-fx-padding: 10 20;"
+        + "-fx-border-color: #D98A4B;"
+        + "-fx-border-radius: 6;";
+  }
+
+  private String btnMouseEntered() {
+    return "-fx-background-color: linear-gradient(#FFE0B2, #F7B267);"
+        + "-fx-background-radius: 8,7,6;"
+        + "-fx-background-insets: 0,1,2;"
+        + "-fx-text-fill: #5A3D2B;"
+        + "-fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.3), 5, 0, 2, 2);"
+        + "-fx-font-weight: bold;"
+        + "-fx-padding: 10 20;"
+        + "-fx-border-color: #D98A4B;"
+        + "-fx-border-radius: 6;";
+  }
+
+  private String btnMousePressed() {
+    return "-fx-background-color: linear-gradient(#F7B267, #D98A4B);"
+        + "-fx-background-radius: 8,7,6;"
+        + "-fx-background-insets: 0,1,2;"
+        + "-fx-text-fill: #5A3D2B;"
+        + "-fx-font-weight: bold;"
+        + "-fx-padding: 10 20;"
+        + "-fx-border-color: #D98A4B;"
+        + "-fx-border-radius: 6;"
+        + "-fx-effect: none;";
+  }
+
+  public Scene assignmentStartingPage(SceneManager sceneManager) {]]></codefragment>
+   </duplication>
+   <duplication lines="19" tokens="137">
+      <file begintoken="27765" column="23" endcolumn="23" endline="232" endtoken="27901"
+            line="214"
+            path="C:\Users\Zpela\Documents\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\LoginPage.java"/>
+      <file begintoken="27917" column="24" endcolumn="23" endline="258" endtoken="28053"
+            line="240"
+            path="C:\Users\Zpela\Documents\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\LoginPage.java"/>
+      <codefragment><![CDATA[        .widthProperty()
+        .addListener(
+            (obs, oldVal, newVal) -> {
+              double newSize = newVal.doubleValue() / 30;
+              joinText.setFont(Font.font("Arial", FontWeight.BOLD, newSize));
+              emailLabel.setFont(Font.font("Arial", newSize));
+              emailField.setStyle("-fx-font-size: " + newSize + "px;");
+              passwordLabel.setFont(Font.font("Arial", newSize));
+              passwordField.setStyle("-fx-font-size: " + newSize + "px;");
+              passwordField.setFont(Font.font("Arial", newSize));
+              textField.setFont(Font.font("Arial", newSize));
+              toggleButton.setStyle("-fx-font-size: " + newSize + "px;");
+              loginButton.setStyle(
+                  "-fx-font-family: 'System'; "
+                      + "-fx-font-size: "
+                      + newSize
+                      + "px; "
+                      + "-fx-font-weight: bold; "
+                      + "-fx-background-color:  rgba(14, 164, 43, 0.81); "]]></codefragment>
+   </duplication>
+   <duplication lines="17" tokens="119">
+      <file begintoken="17637" column="20" endcolumn="14" endline="66" endtoken="17755"
+            line="50"
+            path="C:\Users\Zpela\Documents\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\AssignmentPage.java"/>
+      <file begintoken="23967" column="14" endcolumn="14" endline="92" endtoken="24085"
+            line="76"
+            path="C:\Users\Zpela\Documents\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\ExamPage.java"/>
+      <codefragment><![CDATA[    assignmentPanel.setPadding(new Insets(20));
+
+    // Create sections as titledPanes in order to be foldable
+    TitledPane coursePane = new TitledPane("Μάθημα", createCourseSection());
+    TitledPane infoPane = new TitledPane("Πληροφορίες", createInfoSection());
+    TitledPane evalPane = new TitledPane("Αξιολόγηση", createEvalSection());
+
+    titlePaneStyle(coursePane, 200, 400, 0, 300);
+    titlePaneStyle(infoPane, 200, 400, 0, 300);
+    titlePaneStyle(evalPane, 200, 400, 0, 300);
+
+    // "ok" Button
+    Button okBtn = new Button("OK");
+    okBtn.setStyle(btnStyle());
+    okBtn.setOnMouseEntered(e -> okBtn.setStyle(btnMouseEntered()));
+    okBtn.setOnMouseClicked(
+        e -> {]]></codefragment>
+   </duplication>
+   <duplication lines="18" tokens="103">
+      <file begintoken="17982" column="59" endcolumn="34" endline="119" endtoken="18084"
+            line="102"
+            path="C:\Users\Zpela\Documents\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\AssignmentPage.java"/>
+      <file begintoken="19772" column="98" endcolumn="34" endline="193" endtoken="19874"
+            line="177"
+            path="C:\Users\Zpela\Documents\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\AvailabilityPage.java"/>
+      <file begintoken="24558" column="87" endcolumn="34" endline="188" endtoken="24660"
+            line="171"
+            path="C:\Users\Zpela\Documents\StudyBuddyApp\src\main\java\org\javawavers\studybuddy\ui_ux\ExamPage.java"/>
+      <codefragment><![CDATA[            errors.add("• Πρέπει να προσθέσεις ένα μάθημα");
+          }
+
+          if (!errors.isEmpty()) {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Η φόρμα δεν έχει ολοκληρωθεί");
+            alert.setHeaderText(null);
+            String errorMessage = String.join("\n", errors);
+            alert.setContentText(errorMessage);
+            alert
+                .getDialogPane()
+                .getStylesheets()
+                .add(getClass().getResource("/alert.css").toExternalForm());
+            alert.showAndWait();
+            return;
+          }  else {
+            Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
+            successAlert.setTitle("Εισαγωγή Εργασίας Επιτυχής");]]></codefragment>
+   </duplication>
+</pmd-cpd>
