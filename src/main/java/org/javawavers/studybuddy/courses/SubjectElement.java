@@ -3,10 +3,9 @@ package org.javawavers.studybuddy.courses;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
-
 /**
- * Represents a general element related to a subject, such as an assignment or exam.
- * Provides functionality to manage deadlines and calculate the time remaining until the deadline.
+ * Represents a general element related to a subject, such as an assignment or exam. Provides
+ * functionality to manage deadlines and calculate the time remaining until the deadline.
  */
 public abstract class SubjectElement {
   protected String name;
@@ -16,7 +15,7 @@ public abstract class SubjectElement {
    * Constructs a SubjectElement with the given deadline and name.
    *
    * @param deadLine the deadline for the subject element
-   * @param name     the name of the subject element
+   * @param name the name of the subject element
    */
   public SubjectElement(LocalDate deadLine, String name) {
     this.deadLine = deadLine;
@@ -40,10 +39,9 @@ public abstract class SubjectElement {
   }
 
   /**
-   * Prints a message to indicate how soon the deadline is, based on the current date.
-   * - If the deadline is today, prints "The exam is today!"
-   * - If the deadline is within 10 days, prints the number of days remaining.
-   * - If the deadline has passed, prints "The exam has already passed."
+   * Prints a message to indicate how soon the deadline is, based on the current date. - If the
+   * deadline is today, prints "The exam is today!" - If the deadline is within 10 days, prints the
+   * number of days remaining. - If the deadline has passed, prints "The exam has already passed."
    */
   public void isDeadLineSoonMessage() {
     // Calculate the remaining days until the exam date

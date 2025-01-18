@@ -3,9 +3,9 @@ package org.javawavers.studybuddy.calculations;
 import org.javawavers.studybuddy.courses.Subject;
 
 /**
- * The {@code CalculativeAlgorithm} class is responsible for calculating and dividing
- * the total study time into tasks or groups that can be distributed equally over a
- * period of weeks until the due date of an exam, revision, or assignment.
+ * The {@code CalculativeAlgorithm} class is responsible for calculating and dividing the total
+ * study time into tasks or groups that can be distributed equally over a period of weeks until the
+ * due date of an exam, revision, or assignment.
  */
 public class CalculativeAlgorithm {
 

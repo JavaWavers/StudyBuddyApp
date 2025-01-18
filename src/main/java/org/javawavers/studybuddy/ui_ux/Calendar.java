@@ -31,7 +31,6 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import org.javawavers.studybuddy.calculations.*;
-import org.javawavers.studybuddy.courses.Exam;
 import org.javawavers.studybuddy.courses.ScheduledTask;
 import org.javawavers.studybuddy.courses.Subject;
 
@@ -103,12 +102,12 @@ public class Calendar {
       System.out.println(sub);
     }
     /*createCalendarGrid(calendarGrid, count, subject, totalWeeks);///////////////////////////////////////////
-    System.out.println("test calendar" + staticUser.getTotalWeeks());
-    if (staticUser.getTotalWeeks() !=  null) {
-        PrintWeeks printWeek = new PrintWeeks();
-        printWeek.printWeeks(staticUser.getTotalWeeks());
-    }
-*/
+        System.out.println("test calendar" + staticUser.getTotalWeeks());
+        if (staticUser.getTotalWeeks() !=  null) {
+            PrintWeeks printWeek = new PrintWeeks();
+            printWeek.printWeeks(staticUser.getTotalWeeks());
+        }
+    */
 
     // variable count, which increases when the user presses the button to move the weeks forward
     //  and decreases otherwise. When count == 0, the 'Today' button will be displayed
@@ -425,12 +424,12 @@ public class Calendar {
                 String taskDescription = "κενο";
                 taskDescription = s.toString();
                 LocalDate examDate = null;
-                //List<Exam> exams = s.getExams();
+                // List<Exam> exams = s.getExams();
 
                 if (subject != null) {
                   for (Subject subj : subject) {
                     if (taskDescription.contains(subj.getCourseName())) {
-                        examDate = subj.getExams().get(0).getExamDate();
+                      examDate = subj.getExams().get(0).getExamDate();
                       break;
                     }
                   }

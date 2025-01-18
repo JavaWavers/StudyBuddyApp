@@ -67,4 +67,53 @@ public class Styles {
           + "fx-alignment: CENTER-LEFT; "
           + "-fx-border-radius: 5px; "
           + "-fx-padding: 10px 20px; ";
+
+  public static final String COURSES_BTN_STYLE =
+      "-fx-background-color: linear-gradient(#FAD7A0, #F7B267);"
+          + "-fx-background-radius: 8,7,6;"
+          + "-fx-background-insets: 0,1,2;"
+          + "-fx-text-fill: #5A3D2B;"
+          + "-fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.3), 5, 0, 2, 2);"
+          + "-fx-font-weight: bold;"
+          + "-fx-padding: 10 20;"
+          + "-fx-border-color: #D98A4B;"
+          + "-fx-border-radius: 6;";
+
+  public static final String COURSES_BTN_MOUSE_ENTERED =
+      "-fx-background-color: linear-gradient(#FFE0B2, #F7B267);"
+          + "-fx-background-radius: 8,7,6;"
+          + "-fx-background-insets: 0,1,2;"
+          + "-fx-text-fill: #5A3D2B;"
+          + "-fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.3), 5, 0, 2, 2);"
+          + "-fx-font-weight: bold;"
+          + "-fx-padding: 10 20;"
+          + "-fx-border-color: #D98A4B;"
+          + "-fx-border-radius: 6;";
+
+  public static final String BLACK_BORDER =
+      "-fx-border-color: black;" + " -fx-border-width: 1;" + " -fx-padding: 10;";
+
+  public enum StyleType {
+    TITLE("rgba(101, 225, 101, 0.81)"),
+    LABEL("rgba(181, 99, 241, 0.81)");
+
+    private final String color;
+
+    StyleType(String color) {
+      this.color = color;
+    }
+
+    public String getColor() {
+      return color;
+    }
+
+    public String getStyle() {
+      return "-fx-font-size: 14px;"
+          + " -fx-padding: 5;"
+          + " -fx-background-color: "
+          + color
+          + ";"
+          + " -fx-background-radius: 6,5,4;";
+    }
+  }
 }

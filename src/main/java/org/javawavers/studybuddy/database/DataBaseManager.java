@@ -5,9 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-/**
- * this class contains all the methods for creating tables.
- */
+/** this class contains all the methods for creating tables. */
 public class DataBaseManager {
   private static final String DATABASE_URL =
       "jdbc:sqlite:src/main/java/org/javawavers/studybuddy/DataBase.db";
@@ -38,11 +36,12 @@ public class DataBaseManager {
     createCompletedScheduledTask();
   }
 
-  /** create table User.*/
+  /** create table User. */
   public static void createUser() {
     try (Connection c = DataBaseManager.connect();
-         Statement s = c.createStatement()) {
-      String sql = """
+        Statement s = c.createStatement()) {
+      String sql =
+          """
                   CREATE TABLE IF NOT EXISTS User (
                   userId INTEGER PRIMARY KEY AUTOINCREMENT,
                   name TEXT NOT NULL UNIQUE,
@@ -56,11 +55,12 @@ public class DataBaseManager {
     }
   }
 
-  /** create table Subject.*/
+  /** create table Subject. */
   public static void createSubject() {
     try (Connection c = DataBaseManager.connect();
-         Statement s = c.createStatement()) {
-      String sql = """
+        Statement s = c.createStatement()) {
+      String sql =
+          """
                   CREATE TABLE IF NOT EXISTS Subject (
                   subjectId INTEGER PRIMARY KEY AUTOINCREMENT,
                   subjectName TEXT NOT NULL,
@@ -79,8 +79,9 @@ public class DataBaseManager {
   /** create table assignment. */
   public static void createAssignment() {
     try (Connection c = DataBaseManager.connect();
-         Statement s = c.createStatement()) {
-      String sql = """
+        Statement s = c.createStatement()) {
+      String sql =
+          """
                   CREATE TABLE IF NOT EXISTS Assignment (
                   assignmentId INTEGER PRIMARY KEY AUTOINCREMENT,
                   title TEXT NOT NULL,
@@ -100,8 +101,9 @@ public class DataBaseManager {
   /** creates table exam. */
   public static void createExam() {
     try (Connection c = DataBaseManager.connect();
-         Statement s = c.createStatement()) {
-      String sql = """
+        Statement s = c.createStatement()) {
+      String sql =
+          """
                    CREATE TABLE IF NOT EXISTS Exam (
                    examId INTEGER PRIMARY KEY AUTOINCREMENT,
                    name TEXT,
@@ -122,8 +124,9 @@ public class DataBaseManager {
   /** create table scheduledtask. */
   public static void createScheduledTask() {
     try (Connection c = DataBaseManager.connect();
-         Statement s = c.createStatement()) {
-      String sql = """
+        Statement s = c.createStatement()) {
+      String sql =
+          """
                CREATE TABLE IF NOT EXISTS Task (
                taskId INTEGER PRIMARY KEY AUTOINCREMENT,
                taskName TEXT,
@@ -149,8 +152,9 @@ public class DataBaseManager {
   /** create table day. */
   public static void createDay() {
     try (Connection c = DataBaseManager.connect();
-         Statement s = c.createStatement()) {
-      String sql = """
+        Statement s = c.createStatement()) {
+      String sql =
+          """
                    CREATE TABLE IF NOT EXISTS Day (
                    dayId INTEGER PRIMARY KEY,
                     userId INTEGER NOT NULL,
@@ -165,11 +169,12 @@ public class DataBaseManager {
     }
   }
 
-  /**create table week. */
+  /** create table week. */
   public static void createWeek() {
     try (Connection c = DataBaseManager.connect();
-         Statement s = c.createStatement()) {
-      String sql = """
+        Statement s = c.createStatement()) {
+      String sql =
+          """
                    CREATE TABLE IF NOT EXISTS Week (
                    weekId INTEGER PRIMARY KEY,
                    userId INTEGER NOT NULL,
@@ -185,8 +190,9 @@ public class DataBaseManager {
   /** create table Availability. */
   public static void createAvailability() {
     try (Connection c = DataBaseManager.connect();
-         Statement s = c.createStatement()) {
-      String sql = """
+        Statement s = c.createStatement()) {
+      String sql =
+          """
                    CREATE TABLE IF NOT EXISTS Availability (
                    mondayAv INTEGER NOT NULL,
                    tuesdayAv INTEGER NOT NULL,
@@ -208,8 +214,9 @@ public class DataBaseManager {
   /** create table NonAvDates. */
   public static void createNonAvDates() {
     try (Connection c = DataBaseManager.connect();
-         Statement s = c.createStatement()) {
-      String sql = """
+        Statement s = c.createStatement()) {
+      String sql =
+          """
                    CREATE TABLE IF NOT EXISTS NonAvDates (
                    nonAvDateID INTEGER PRIMARY KEY AUTOINCREMENT,
                    date TEXT NOT NULL,
@@ -226,8 +233,9 @@ public class DataBaseManager {
   /** Create table CompletedScheduledTask. */
   public static void createCompletedScheduledTask() {
     try (Connection c = DataBaseManager.connect();
-         Statement s = c.createStatement()) {
-      String sql = """
+        Statement s = c.createStatement()) {
+      String sql =
+          """
                CREATE TABLE IF NOT EXISTS CompletedTask (
                taskId INTEGER PRIMARY KEY AUTOINCREMENT,
                taskName TEXT,

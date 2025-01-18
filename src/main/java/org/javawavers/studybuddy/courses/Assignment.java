@@ -4,15 +4,12 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
 /**
- * The {@code Assignment} class represents an assignment that is part of a course.
- * It extends the {@code SubjectElement} class and includes additional fields such as
- * estimated hours to complete, difficulty, and completed date.
- *This class provides functionality to validate estimated hours, set and get assignment
- * details, and check if the deadline is approaching soon.
- *Features:
- *Constructors to initialize assignments with or without parameters.
- *Deadline validation based on estimated hours and maximum hours allowed.
- *Deadline warning messages for approaching deadlines.
+ * The {@code Assignment} class represents an assignment that is part of a course. It extends the
+ * {@code SubjectElement} class and includes additional fields such as estimated hours to complete,
+ * difficulty, and completed date. This class provides functionality to validate estimated hours,
+ * set and get assignment details, and check if the deadline is approaching soon. Features:
+ * Constructors to initialize assignments with or without parameters. Deadline validation based on
+ * estimated hours and maximum hours allowed. Deadline warning messages for approaching deadlines.
  */
 public class Assignment extends SubjectElement {
   private int estimateHours;
@@ -21,9 +18,7 @@ public class Assignment extends SubjectElement {
   private int assignmentId;
 
   // different types of constructors
-  /**
-   * Default constructor. Creates an empty assignment with no title or deadline.
-   */
+  /** Default constructor. Creates an empty assignment with no title or deadline. */
   public Assignment() {
     super(null, null);
   }
@@ -35,8 +30,8 @@ public class Assignment extends SubjectElement {
    * @param deadline The deadline for the assignment.
    * @param estimateHours The estimated hours needed to complete the assignment.
    * @param difficulty The difficulty level of the assignment.
-   * @throws IllegalArgumentException if the estimated hours exceed the maximum allowed hours
-   *         based on the deadline.
+   * @throws IllegalArgumentException if the estimated hours exceed the maximum allowed hours based
+   *     on the deadline.
    */
   public Assignment(String title, LocalDate deadline, int estimateHours, int difficulty) {
     super(deadline, title);
@@ -45,7 +40,7 @@ public class Assignment extends SubjectElement {
     } else {
       System.out.println("Οι ώρες πρέπει να είναι μικρότερες από:" + maxHours);
       throw new IllegalArgumentException(
-              "Invalid estimate hours: Hours must fit within the given deadline.");
+          "Invalid estimate hours: Hours must fit within the given deadline.");
     }
     this.difficulty = difficulty;
   }
@@ -57,8 +52,8 @@ public class Assignment extends SubjectElement {
    *
    * @param estimateHours The estimated hours to complete the assignment.
    * @param deadLine The deadline for the assignment.
-   * @return {@code true} if the estimated hours are less than the maximum allowed,
-   *     otherwise {@code false}.
+   * @return {@code true} if the estimated hours are less than the maximum allowed, otherwise {@code
+   *     false}.
    */
   private static boolean validEstHours(int estimateHours, LocalDate deadLine) {
     LocalDate today = LocalDate.now();
@@ -97,7 +92,6 @@ public class Assignment extends SubjectElement {
     return estimateHours;
   }
 
-
   // setters
   /**
    * Sets the title of the assignment.
@@ -128,7 +122,6 @@ public class Assignment extends SubjectElement {
   public void setAssignmentId(int assignmentId) {
     this.assignmentId = assignmentId;
   }
-
 
   @Override
   public void isDeadLineSoonMessage() {

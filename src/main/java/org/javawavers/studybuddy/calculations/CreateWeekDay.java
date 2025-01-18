@@ -11,16 +11,13 @@ import org.javawavers.studybuddy.courses.Subject;
 import org.javawavers.studybuddy.database.DataInserter;
 
 /**
- * The CreateWeekDay class is responsible for managing the schedule of tasks for days and weeks.
- * It calculates weekly schedules based on a scheduling matrix and a list of tasks and persists them
- * in the database.
+ * The CreateWeekDay class is responsible for managing the schedule of tasks for days and weeks. It
+ * calculates weekly schedules based on a scheduling matrix and a list of tasks and persists them in
+ * the database.
  */
 public class CreateWeekDay {
-  /**
-  * Default constructor.
-   */
-  public CreateWeekDay() {
-  }
+  /** Default constructor. */
+  public CreateWeekDay() {}
 
   /**
    * Generates weekly schedules based on the given schedule matrix and task list, and saves the
@@ -86,7 +83,7 @@ public class CreateWeekDay {
    */
   private void fillDaysBeforeToday(int daysUntilM, Week currentWeek) {
     for (int d = 0; d < daysUntilM; d++) {
-      Day day = new Day(); //Day with no tasks
+      Day day = new Day(); // Day with no tasks
       currentWeek.getDaysOfWeek().add(day);
     }
   }
@@ -102,13 +99,14 @@ public class CreateWeekDay {
    * @param totalWeeks The list to store all generated weeks.
    * @param currentWeek The current Week object being populated.
    */
-  private void fillTotalWeeks(int[][] schedule,
-                              List<Task> bestTask,
-                              int colSize,
-                              int daysUntilMonday,
-                              LocalDate today,
-                              List<Week> totalWeeks,
-                              Week currentWeek) {
+  private void fillTotalWeeks(
+      int[][] schedule,
+      List<Task> bestTask,
+      int colSize,
+      int daysUntilMonday,
+      LocalDate today,
+      List<Week> totalWeeks,
+      Week currentWeek) {
     List<ScheduledTask> scheduledTasksForDay = new ArrayList<>();
     for (int dayIndex = 0; dayIndex < colSize; dayIndex++) {
       LocalDate currentDate = today.plusDays(dayIndex - daysUntilMonday); // Calculate current date
@@ -140,11 +138,11 @@ public class CreateWeekDay {
    * @param currentDate The current date.
    */
   private void generateTasksForDay(
-          int[][] schedule,
-          List<Task> bestTask,
-          int dayIndex,
-          List<ScheduledTask> scheduledTasksForDay,
-          LocalDate currentDate) {
+      int[][] schedule,
+      List<Task> bestTask,
+      int dayIndex,
+      List<ScheduledTask> scheduledTasksForDay,
+      LocalDate currentDate) {
 
     scheduledTasksForDay.clear();
     for (int[] s : schedule) {
@@ -155,9 +153,11 @@ public class CreateWeekDay {
         Subject subject = new Subject(task.getSubject());
         ScheduledTask scheduledTask =
             new ScheduledTask(
-              task.getSubject(), taskType,
-              (int) Math.ceil(task.getTaskHours()),
-              currentDate, subject);
+                task.getSubject(),
+                taskType,
+                (int) Math.ceil(task.getTaskHours()),
+                currentDate,
+                subject);
         scheduledTasksForDay.add(scheduledTask);
       }
     }
@@ -199,16 +199,16 @@ public class CreateWeekDay {
         DataInserter.insertDay(j, id, i);
         for (ScheduledTask t : d.getAllTasks()) {
           DataInserter.insertTask(
-                  t.getTaskName(),
-                  t.getHoursAllocated(),
-                  t.getTimeStarted(),
-                  t.getTimeCompleted(),
-                  t.getTaskStatus(),
-                  t.getTaskDate(),
-                  t.getSubjectName(),
-                  t.getTaskType(),
-                  id,
-                  j);
+              t.getTaskName(),
+              t.getHoursAllocated(),
+              t.getTimeStarted(),
+              t.getTimeCompleted(),
+              t.getTaskStatus(),
+              t.getTaskDate(),
+              t.getSubjectName(),
+              t.getTaskType(),
+              id,
+              j);
         }
         j++;
       }

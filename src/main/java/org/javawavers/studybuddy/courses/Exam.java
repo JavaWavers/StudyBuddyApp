@@ -4,15 +4,13 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
 /**
- * The {@code Exam} class represents an examination event for a specific course or subject.
- * It extends the {@code SubjectElement} class and includes additional fields such as
- * the number of pages to study, revision per pages, and time required per 20 slides.
- * This class provides functionality to manage exam details, calculate study time,
- * and check for upcoming deadlines.
- *Features:
- * Multiple constructors for different initialization scenarios.
- * Methods to set and get exam details, including pages, revisions, and time per slides.
- * Warning messages and deadline checks for upcoming exams.
+ * The {@code Exam} class represents an examination event for a specific course or subject. It
+ * extends the {@code SubjectElement} class and includes additional fields such as the number of
+ * pages to study, revision per pages, and time required per 20 slides. This class provides
+ * functionality to manage exam details, calculate study time, and check for upcoming deadlines.
+ * Features: Multiple constructors for different initialization scenarios. Methods to set and get
+ * exam details, including pages, revisions, and time per slides. Warning messages and deadline
+ * checks for upcoming exams.
  */
 public class Exam extends SubjectElement {
 
@@ -60,8 +58,8 @@ public class Exam extends SubjectElement {
   }
 
   /**
-   * Constructs an {@code Exam} object with a subject, exam date, pages, name,
-   * revisions per page, and time required per 20 slides.
+   * Constructs an {@code Exam} object with a subject, exam date, pages, name, revisions per page,
+   * and time required per 20 slides.
    *
    * @param subject The subject associated with the exam.
    * @param examDate The date of the exam.
@@ -71,12 +69,12 @@ public class Exam extends SubjectElement {
    * @param timePer20Slides The estimated time (in minutes) required for 20 slides.
    */
   public Exam(
-          Subject subject,
-          LocalDate examDate,
-          int pages,
-          String name,
-          int revisionPerPages,
-          int timePer20Slides) {
+      Subject subject,
+      LocalDate examDate,
+      int pages,
+      String name,
+      int revisionPerPages,
+      int timePer20Slides) {
     super(examDate, subject.getCourseName());
     this.pages = pages;
     this.name = name;
@@ -155,7 +153,7 @@ public class Exam extends SubjectElement {
   @Override
   public String toString() {
     StringBuilder builder =
-            new StringBuilder(); // StringBuilder provides efficiency and flexibility
+        new StringBuilder(); // StringBuilder provides efficiency and flexibility
     builder.append("Εξέταση{Όνομα Μαθήματος: '").append(super.getName()).append("'");
 
     if (getExamDate() != null) {
@@ -172,9 +170,9 @@ public class Exam extends SubjectElement {
 
     if (timePer20Slides != 0.0) {
       builder
-              .append("\nΑπαιτούμενα λεπτά για 20 διαφάνειες: '")
-              .append(timePer20Slides)
-              .append("'");
+          .append("\nΑπαιτούμενα λεπτά για 20 διαφάνειες: '")
+          .append(timePer20Slides)
+          .append("'");
     }
 
     builder.append("}");

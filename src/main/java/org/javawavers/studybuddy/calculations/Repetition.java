@@ -6,17 +6,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * The {@code Repetition} class is responsible for generating and scheduling
- * repetition tasks to reinforce learning.
+ * The {@code Repetition} class is responsible for generating and scheduling repetition tasks to
+ * reinforce learning.
  */
 public class Repetition {
 
   /**
-   * This method generates a schedule for repetitions based on the study task.
-   * Repetitions are scheduled at fixed and doubling intervals.
+   * This method generates a schedule for repetitions based on the study task. Repetitions are
+   * scheduled at fixed and doubling intervals.
    */
   public static List<Task> generateRepetitions(
-          List<Task> tasks, Task studyTask, LocalDate examDate, int day) {
+      List<Task> tasks, Task studyTask, LocalDate examDate, int day) {
     // Validation of input parameters
     if (tasks == null) {
       throw new IllegalArgumentException("The task list can't be null.");
@@ -47,16 +47,14 @@ public class Repetition {
       return assRepetitions(rep, tasks, subject);
 
     } catch (Exception e) {
-      throw new RuntimeException("An error occurred while generating repetitions: "
-              + e.getMessage(), e);
+      throw new RuntimeException(
+          "An error occurred while generating repetitions: " + e.getMessage(), e);
     }
   }
 
-  /**
-   * Generates repetition tasks for fixed intervals.
-   */
+  /** Generates repetition tasks for fixed intervals. */
   static void intervalRep(
-          List<RepetitionTask> rep, LocalDate studyDate, LocalDate examDate, String subject) {
+      List<RepetitionTask> rep, LocalDate studyDate, LocalDate examDate, String subject) {
     try {
       int[] fixedIntervals = {1, 7, 16, 35};
       for (int f : fixedIntervals) {
@@ -66,16 +64,14 @@ public class Repetition {
         }
       }
     } catch (Exception e) {
-      throw new RuntimeException("Error while generating fixed interval repetitions: "
-              + e.getMessage(), e);
+      throw new RuntimeException(
+          "Error while generating fixed interval repetitions: " + e.getMessage(), e);
     }
   }
 
-  /**
-   * Generates repetition tasks for doubling intervals.
-   */
+  /** Generates repetition tasks for doubling intervals. */
   static void doubleIntervalRep(
-          List<RepetitionTask> rep, LocalDate studyDate, LocalDate examDate, String subject) {
+      List<RepetitionTask> rep, LocalDate studyDate, LocalDate examDate, String subject) {
     try {
       int interval = 35;
       while (true) {
@@ -88,16 +84,14 @@ public class Repetition {
         }
       }
     } catch (Exception e) {
-      throw new RuntimeException("Error while generating doubling interval repetitions: "
-              + e.getMessage(), e);
+      throw new RuntimeException(
+          "Error while generating doubling interval repetitions: " + e.getMessage(), e);
     }
   }
 
-  /**
-   * Assigns repetition tasks into the existing schedule.
-   */
+  /** Assigns repetition tasks into the existing schedule. */
   public static List<Task> assRepetitions(
-          List<RepetitionTask> rep, List<Task> tasks, String subject) {
+      List<RepetitionTask> rep, List<Task> tasks, String subject) {
     int[][] schedule = TaskAssignment.getValSchedule();
     if (schedule == null) {
       throw new IllegalStateException("Schedule is not initialized.");
@@ -127,16 +121,14 @@ public class Repetition {
       TaskAssignment.setValSchedule(schedule);
       return tasks;
     } catch (IndexOutOfBoundsException e) {
-      throw new RuntimeException("Index out of bounds when assigning repetition tasks: "
-              + e.getMessage(), e);
+      throw new RuntimeException(
+          "Index out of bounds when assigning repetition tasks: " + e.getMessage(), e);
     } catch (Exception e) {
       throw new RuntimeException("Error while assigning repetition tasks: " + e.getMessage(), e);
     }
   }
 
-  /**
-   * Helper class to represent a repetition task.
-   */
+  /** Helper class to represent a repetition task. */
   public static class RepetitionTask {
     private String subject;
     private LocalDate date;

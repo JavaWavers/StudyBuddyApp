@@ -1,13 +1,11 @@
 package org.javawavers.studybuddy.ui_ux;
 
+import static org.javawavers.studybuddy.courses.StaticUser.staticUser;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
-import org.javawavers.studybuddy.courses.Assignment;
-import static org.javawavers.studybuddy.courses.StaticUser.staticUser;
-
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -23,13 +21,10 @@ import javafx.scene.control.TitledPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
+import org.javawavers.studybuddy.courses.Assignment;
 import org.javawavers.studybuddy.courses.StaticUser;
 import org.javawavers.studybuddy.database.DataInserter;
 
-/*
-TODO :
- * same as ExamPage
- */
 public class AssignmentPage {
   public static ArrayList<Assignment> assignments = new ArrayList<>();
   private TextField namField, assignmentField, estimateHours, difficultyField;
@@ -80,7 +75,7 @@ public class AssignmentPage {
 
           if (title.isEmpty()) {
             errors.add("• Όρισε τον Τίτλο της εργασίας");
-          }  else if (!title.matches("[a-zA-Zα-ωΑ-ΩάέήίΰϊϋόύώΆΈΉΊΪΫΌΎΏ]+")) {
+          } else if (!title.matches("[a-zA-Zα-ωΑ-ΩάέήίΰϊϋόύώΆΈΉΊΪΫΌΎΏ]+")) {
             errors.add("• Η Ονομασία της εργασίας μπορεί να περιέχει μόνο γράμματα");
           }
 
@@ -114,7 +109,7 @@ public class AssignmentPage {
                 .add(getClass().getResource("/alert.css").toExternalForm());
             alert.showAndWait();
             return;
-          }  else {
+          } else {
             Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
             successAlert.setTitle("Εισαγωγή Εργασίας Επιτυχής");
             successAlert.setHeaderText(null);
@@ -122,8 +117,10 @@ public class AssignmentPage {
             DialogPane dialogPane = successAlert.getDialogPane();
             dialogPane.getStyleClass().add("success-alert");
             dialogPane
-                  .getStylesheets()
-                  .add(Objects.requireNonNull(getClass().getResource("/success.css")).toExternalForm());
+                .getStylesheets()
+                .add(
+                    Objects.requireNonNull(getClass().getResource("/success.css"))
+                        .toExternalForm());
             successAlert.showAndWait();
           }
           localDeadline = LocalDate.parse(deadline);
@@ -136,7 +133,13 @@ public class AssignmentPage {
           // add the assignment to the static user
           staticUser.addAssignment(assignment1);
 
-          DataInserter.insertAssignment(title, localDeadline, estimateHour, difficulty, null, StaticUser.staticUser.getUserId());
+          DataInserter.insertAssignment(
+              title,
+              localDeadline,
+              estimateHour,
+              difficulty,
+              null,
+              StaticUser.staticUser.getUserId());
           StaticUser.staticUser.addAssignment(assignment1);
 
           // ExamPage exampage = new ExamPage();

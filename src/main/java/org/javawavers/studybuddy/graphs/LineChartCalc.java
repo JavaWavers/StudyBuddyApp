@@ -8,11 +8,10 @@ import org.javawavers.studybuddy.calculations.Week;
 import org.javawavers.studybuddy.courses.ScheduledTask;
 
 /**
- * The {@code LineChartCalc} class calculates the data required to visualize
- * a user's weekly progress.
- * It provides a method to calculate the total number of completed task hours for each day
- * of the current week. This data can be used to generate a line chart or other visualizations
- * to track progress.
+ * The {@code LineChartCalc} class calculates the data required to visualize a user's weekly
+ * progress. It provides a method to calculate the total number of completed task hours for each day
+ * of the current week. This data can be used to generate a line chart or other visualizations to
+ * track progress.
  */
 public class LineChartCalc {
 

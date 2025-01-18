@@ -5,16 +5,14 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 /**
- * The {@code ScheduledTask} class represents a scheduled task for a specific subject or course.
- * It includes details such as task name, type, allocated study hours, task status,
- * start and completion times, and associated dates.
- *The class also provides methods to manage the task's status, calculate time variance,
- * and track progress. It supports various constructors for flexibility in creating tasks.
- * Features:
- * Support for different task types and statuses (e.g., COMPLETED, IN_PROGRESS).
- * Automatic time tracking for start and completion times based on task status.
- * Time variance calculation between start and completion times.
- * Flexible constructors to accommodate tasks with or without specific subjects.
+ * The {@code ScheduledTask} class represents a scheduled task for a specific subject or course. It
+ * includes details such as task name, type, allocated study hours, task status, start and
+ * completion times, and associated dates. The class also provides methods to manage the task's
+ * status, calculate time variance, and track progress. It supports various constructors for
+ * flexibility in creating tasks. Features: Support for different task types and statuses (e.g.,
+ * COMPLETED, IN_PROGRESS). Automatic time tracking for start and completion times based on task
+ * status. Time variance calculation between start and completion times. Flexible constructors to
+ * accommodate tasks with or without specific subjects.
  */
 public class ScheduledTask {
 
@@ -31,14 +29,14 @@ public class ScheduledTask {
 
   /**
    * Enum representing the status of a task.
+   *
    * <ul>
-   *   <li>{@code COMPLETED}: The task has been completed.</li>
-   *   <li>{@code IN_PROGRESS}: The task is currently being worked on.</li>
-   *   <li>{@code LATE}: The task is overdue and not yet completed.</li>
-   *   <li>{@code UPCOMING}: The task is scheduled for a future date.</li>
+   *   <li>{@code COMPLETED}: The task has been completed.
+   *   <li>{@code IN_PROGRESS}: The task is currently being worked on.
+   *   <li>{@code LATE}: The task is overdue and not yet completed.
+   *   <li>{@code UPCOMING}: The task is scheduled for a future date.
    * </ul>
    */
-
   public enum TaskStatus {
     COMPLETED,
     IN_PROGRESS,
@@ -48,10 +46,9 @@ public class ScheduledTask {
 
   // Constructor
 
-
   /**
-   * Constructs a {@code ScheduledTask} object with full details, including subject
-   * and time tracking.
+   * Constructs a {@code ScheduledTask} object with full details, including subject and time
+   * tracking.
    *
    * @param taskName The name of the task.
    * @param taskType The type of the task (e.g., "Homework", "Exam Preparation").
@@ -94,14 +91,14 @@ public class ScheduledTask {
    * @param subjectName The name of the subject associated with the task.
    */
   public ScheduledTask(
-          String taskName,
-          String taskType,
-          int hoursAllocated,
-          TaskStatus taskStatus,
-          LocalTime timeStarted,
-          LocalTime timeCompleted,
-          LocalDate taskDate,
-          String subjectName) {
+      String taskName,
+      String taskType,
+      int hoursAllocated,
+      TaskStatus taskStatus,
+      LocalTime timeStarted,
+      LocalTime timeCompleted,
+      LocalDate taskDate,
+      String subjectName) {
     this.taskName = taskName;
     this.taskType = taskType;
     this.hoursAllocated = hoursAllocated;
@@ -150,8 +147,8 @@ public class ScheduledTask {
   }
 
   /**
-   * Sets the current status of the task. Automatically updates the start or
-   * completion time if applicable.
+   * Sets the current status of the task. Automatically updates the start or completion time if
+   * applicable.
    *
    * @param taskStatus The new status of the task.
    */
@@ -191,7 +188,7 @@ public class ScheduledTask {
     return taskType;
   }
 
-  //Getter and Setter for Task id
+  // Getter and Setter for Task id
   public void setTaskId(int taskId) {
     this.taskId = taskId;
   }
@@ -215,8 +212,8 @@ public class ScheduledTask {
   /**
    * Calculates the time variance between the start and completion times.
    *
-   * @return A string representation of the duration in hours and minutes, or a message
-   *      if the start or completion time is not set.
+   * @return A string representation of the duration in hours and minutes, or a message if the start
+   *     or completion time is not set.
    */
   public String timeVariance() {
     if (timeStarted != null && timeCompleted != null) {
@@ -238,7 +235,7 @@ public class ScheduledTask {
         + taskType
         + ",\nΣυνιστώμενες ώρες μελέτης: "
         + hoursAllocated
-        + ", Κατάσταση Εργασίας: " + taskStatus
-        ;
+        + ", Κατάσταση Εργασίας: "
+        + taskStatus;
   }
 }

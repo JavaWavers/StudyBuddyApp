@@ -3,10 +3,6 @@ package org.javawavers.studybuddy.ui_ux;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
-import org.javawavers.studybuddy.courses.StaticUser;
-import org.javawavers.studybuddy.courses.User;
-
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -26,6 +22,8 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Screen;
+import org.javawavers.studybuddy.courses.StaticUser;
+import org.javawavers.studybuddy.courses.User;
 import org.javawavers.studybuddy.database.ActiveUser;
 import org.javawavers.studybuddy.database.DataInserter;
 
@@ -396,7 +394,8 @@ public class RegisterPage {
       errors.add("• Το όνομα μπορεί να περιέχει μόνο γράμματα,αριθμούς,παύλες και κάτω παύλες");
     }
     // error if the email doesn't contain @
-    if (storedEmail.isEmpty() || !storedEmail.matches("^[a-zA-Z0-9._%+-]{2,}@[a-zA-Z0-9.-]{2,}\\.[a-zA-Z]{2,}$")) {
+    if (storedEmail.isEmpty()
+        || !storedEmail.matches("^[a-zA-Z0-9._%+-]{2,}@[a-zA-Z0-9.-]{2,}\\.[a-zA-Z]{2,}$")) {
       System.out.println("storedEmail");
       errors.add("• Εισήγαγε ένα έγκυρο email");
     }

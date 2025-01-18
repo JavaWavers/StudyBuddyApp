@@ -6,18 +6,17 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- * This class is responsible for assigning tasks to a schedule. The tasks include
- * studying, revision, and assignments. It allocates the tasks based on the available
- * hours for each day and also manages the merging of repetition tasks and assignment deadlines.
- * The task assignment follows a randomized process, and the goal is to ensure that all tasks are
- * scheduled within the given time slots.
- * The assignment process involves checking for available time, handling repetitions for study
- * tasks, ensuring that tasks are scheduled within their respective deadlines, and providing a
- * fallback mechanism if no dedicated slot is available for assignments.
+ * This class is responsible for assigning tasks to a schedule. The tasks include studying,
+ * revision, and assignments. It allocates the tasks based on the available hours for each day and
+ * also manages the merging of repetition tasks and assignment deadlines. The task assignment
+ * follows a randomized process, and the goal is to ensure that all tasks are scheduled within the
+ * given time slots. The assignment process involves checking for available time, handling
+ * repetitions for study tasks, ensuring that tasks are scheduled within their respective deadlines,
+ * and providing a fallback mechanism if no dedicated slot is available for assignments.
  */
 public class TaskAssignment {
-  private static int[][] valSchedule;  // table for the task indexes
-  private static double remainingHours;  // stores the remaining hours for the day
+  private static int[][] valSchedule; // table for the task indexes
+  private static double remainingHours; // stores the remaining hours for the day
   private static List<Task> tasks;
 
   // Accessor methods for valSchedule
@@ -46,13 +45,12 @@ public class TaskAssignment {
   }
 
   /**
-   * Assigns tasks to a schedule based on available hours and deadlines.
-   * The tasks are randomly shuffled and then allocated to time slots for each day.
-   * The method checks for task types, available hours, and deadlines (such as exam
-   * or assignment dates).
+   * Assigns tasks to a schedule based on available hours and deadlines. The tasks are randomly
+   * shuffled and then allocated to time slots for each day. The method checks for task types,
+   * available hours, and deadlines (such as exam or assignment dates).
    *
    * @param assTasks The list of tasks to be assigned.
-   * @param colSize  The number of columns (days) in the schedule.
+   * @param colSize The number of columns (days) in the schedule.
    * @return A 2D array representing the task schedule after assignments are made.
    * @throws IllegalStateException if there is an error with task assignment.
    */
@@ -75,7 +73,7 @@ public class TaskAssignment {
       }
     }
 
-    int taskIndex = 0;  // Start from the first task
+    int taskIndex = 0; // Start from the first task
     if (tasks.isEmpty()) {
       throw new IllegalStateException("The task list is empty, and no task can be added.");
     }
@@ -93,12 +91,12 @@ public class TaskAssignment {
       // Check if there is any availability for the day
       boolean flagNav = Availability.checkAvailability(col);
       if (flagNav) {
-        for (int row = 0; row < 12; row++) {  // Max 12 tasks per day
+        for (int row = 0; row < 12; row++) { // Max 12 tasks per day
           if (taskIndex >= taskLength) {
             break;
           }
 
-          if (remainingHours >= 2.0) {  // Each task requires 2 hours
+          if (remainingHours >= 2.0) { // Each task requires 2 hours
             boolean flagEx = false;
             boolean flagAss = false;
 

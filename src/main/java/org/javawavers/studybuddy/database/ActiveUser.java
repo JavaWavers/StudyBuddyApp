@@ -20,9 +20,7 @@ import org.javawavers.studybuddy.courses.StaticUser;
 import org.javawavers.studybuddy.courses.Subject;
 import org.javawavers.studybuddy.courses.User;
 
-/**
- * the class containing all the methods for loading data from the database.
- */
+/** the class containing all the methods for loading data from the database. */
 public class ActiveUser {
   private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
   public static int connectedId = -1;
@@ -83,14 +81,13 @@ public class ActiveUser {
     } else {
       System.out.println("Username or password is incorrect");
     }
-
   }
 
   /** returns userId from their email land password. */
   public static int getUserId(String email, String password) {
     String query = "SELECT userId FROM User WHERE email = ? AND password = ?";
     try (Connection c = DataBaseManager.connect();
-         PreparedStatement ps = c.prepareStatement(query)) {
+        PreparedStatement ps = c.prepareStatement(query)) {
       ps.setString(1, email);
       ps.setString(2, password);
       try (ResultSet resultSet = ps.executeQuery()) {
@@ -110,7 +107,7 @@ public class ActiveUser {
     String query = "SELECT userId, email, name FROM User WHERE email = ? AND password = ?";
 
     try (Connection c = DataBaseManager.connect();
-         PreparedStatement ps = c.prepareStatement(query)) {
+        PreparedStatement ps = c.prepareStatement(query)) {
       ps.setString(1, email);
       ps.setString(2, password);
 
@@ -136,7 +133,7 @@ public class ActiveUser {
     int subjectId = -1;
 
     try (Connection c = DataBaseManager.connect();
-         PreparedStatement ps = c.prepareStatement(sql)) {
+        PreparedStatement ps = c.prepareStatement(sql)) {
       ps.setInt(1, userId);
       ps.setString(2, courseName);
       try (ResultSet rs = ps.executeQuery()) {
@@ -144,8 +141,8 @@ public class ActiveUser {
           subjectId = rs.getInt("subjectId");
           System.out.println("Βρέθηκε subjectId: " + subjectId);
         } else {
-          System.err.println("Δεν βρέθηκε subjectId για τον χρήστη: "
-              + userId + ", μάθημα: " + courseName);
+          System.err.println(
+              "Δεν βρέθηκε subjectId για τον χρήστη: " + userId + ", μάθημα: " + courseName);
         }
       }
     } catch (SQLException e) {
@@ -160,7 +157,7 @@ public class ActiveUser {
     List<Integer> subjectId = new ArrayList<>();
 
     try (Connection c = DataBaseManager.connect();
-         PreparedStatement ps = c.prepareStatement(sql)) {
+        PreparedStatement ps = c.prepareStatement(sql)) {
       ps.setInt(1, userId);
       try (ResultSet rs = ps.executeQuery()) {
         while (rs.next()) {
@@ -175,13 +172,14 @@ public class ActiveUser {
 
   /** returns the lit of Subjects for a specific user. */
   public static List<Subject> getSubjects(int userId) {
-    String sql = "SELECT subjectName, difficultyLevel, "
-        + "subjectType, subjectID FROM Subject WHERE userID = ?;";
+    String sql =
+        "SELECT subjectName, difficultyLevel, "
+            + "subjectType, subjectID FROM Subject WHERE userID = ?;";
     List<Subject> subjects = new ArrayList<>();
     List<Exam> ex = new ArrayList<>();
 
     try (Connection c = DataBaseManager.connect();
-         PreparedStatement ps = c.prepareStatement(sql)) {
+        PreparedStatement ps = c.prepareStatement(sql)) {
       ps.setInt(1, userId);
       try (ResultSet rs = ps.executeQuery()) {
         while (rs.next()) {
@@ -208,11 +206,12 @@ public class ActiveUser {
   /** returns the list of exams for a specific user. */
   public static List<Exam> getExamForSubject(int subjectId) {
     List<Exam> exams = new ArrayList<>();
-    String sql = "SELECT e.deadline, e.pages, e.revisionPerxPages, e.minutesPer20Slides,"
-        + " s.subjectName FROM Exam e, Subject s "
-        + "WHERE e.subjectId = s.subjectId AND e.subjectId = ?;";
+    String sql =
+        "SELECT e.deadline, e.pages, e.revisionPerxPages, e.minutesPer20Slides,"
+            + " s.subjectName FROM Exam e, Subject s "
+            + "WHERE e.subjectId = s.subjectId AND e.subjectId = ?;";
     try (Connection c = DataBaseManager.connect();
-         PreparedStatement ps = c.prepareStatement(sql)) {
+        PreparedStatement ps = c.prepareStatement(sql)) {
       ps.setInt(1, subjectId);
       try (ResultSet rs = ps.executeQuery()) {
         while (rs.next()) {
@@ -237,7 +236,7 @@ public class ActiveUser {
     String sql = "SELECT date FROM NonAvDates WHERE userId = ?;";
     List<LocalDate> nonAvDates = new ArrayList<>();
     try (Connection c = DataBaseManager.connect();
-         PreparedStatement ps = c.prepareStatement(sql)) {
+        PreparedStatement ps = c.prepareStatement(sql)) {
       ps.setInt(1, userId);
       try (ResultSet rs = ps.executeQuery()) {
         while (rs.next()) {
@@ -254,14 +253,15 @@ public class ActiveUser {
 
   /** returns the array containing the availability for each day of the week. */
   public static int[] getAvailability(int userId) {
-    String sql = """
+    String sql =
+        """
            SELECT mondayAv, tuesdayAv, wednesdayAv, thursdayAv, fridayAv, saturdayAv, sundayAv
            FROM Availability
            WHERE userId = ?;
            """;
     int[] availability = new int[8];
     try (Connection c = DataBaseManager.connect();
-         PreparedStatement ps = c.prepareStatement(sql)) {
+        PreparedStatement ps = c.prepareStatement(sql)) {
       ps.setInt(1, userId);
       try (ResultSet rs = ps.executeQuery()) {
         if (rs.next()) {
@@ -282,7 +282,7 @@ public class ActiveUser {
     List<Day> days = new ArrayList<>();
 
     try (Connection c = DataBaseManager.connect();
-         PreparedStatement ps = c.prepareStatement(sql)) {
+        PreparedStatement ps = c.prepareStatement(sql)) {
       ps.setInt(1, userId);
       try (ResultSet rs = ps.executeQuery()) {
         while (rs.next()) {
@@ -308,13 +308,15 @@ public class ActiveUser {
     if (subjectId.isEmpty()) {
       return exams; // returns an empty list if there are no subjectId's
     }
-    String sql = "SELECT e.deadline, e.pages, e.revisionPerxPages,"
-        + " e.minutesPer20Slides, e.examId, s.subjectName "
-        + "FROM Exam e JOIN Subject s ON e.subjectId = s.subjectId WHERE e.subjectId IN ("
-        + subjectId.stream().map(id -> "?").collect(Collectors.joining(",")) + ")";
+    String sql =
+        "SELECT e.deadline, e.pages, e.revisionPerxPages,"
+            + " e.minutesPer20Slides, e.examId, s.subjectName "
+            + "FROM Exam e JOIN Subject s ON e.subjectId = s.subjectId WHERE e.subjectId IN ("
+            + subjectId.stream().map(id -> "?").collect(Collectors.joining(","))
+            + ")";
 
     try (Connection c = DataBaseManager.connect();
-         PreparedStatement ps = c.prepareStatement(sql)) {
+        PreparedStatement ps = c.prepareStatement(sql)) {
       int index = 1;
       for (int id : subjectId) {
         ps.setInt(index++, id);
@@ -340,47 +342,47 @@ public class ActiveUser {
     return exams;
   }
 
-
   /*   public static List<Exam> getExam(int userID) {
-        List<Exam> exams = new ArrayList<>();
-        List<Integer> subjectID = getSubjectID(userID);
-        String sql = "SELECT e.deadline, e.pages, e.revisionPerXPages, e.minutesPer20Slides,
-         + s.subjectName FROM Exam e JOIN Subject s ON e.subjectID = s.subjectID
-         + WHERE e.subjectID = ?;";
+      List<Exam> exams = new ArrayList<>();
+      List<Integer> subjectID = getSubjectID(userID);
+      String sql = "SELECT e.deadline, e.pages, e.revisionPerXPages, e.minutesPer20Slides,
+       + s.subjectName FROM Exam e JOIN Subject s ON e.subjectID = s.subjectID
+       + WHERE e.subjectID = ?;";
 
-        try (Connection c = DataBaseManager.connect();
-             PreparedStatement ps = c.prepareStatement(sql)) {
+      try (Connection c = DataBaseManager.connect();
+           PreparedStatement ps = c.prepareStatement(sql)) {
 
-            for (int id : subjectID) {
-                ps.setInt(1, id);
-                try (ResultSet rs = ps.executeQuery()) {
-                    while (rs.next()) {
-                        String dateString = rs.getString("deadline");
-                        LocalDate deadline = LocalDate.parse(dateString, FORMATTER);
-                        int pages = rs.getInt("pages");
-                        int revisionPerXPages = rs.getInt("revisionPerXPages");
-                        double minutesPer20Slides = rs.getDouble("minutesPer20Slides");
-                        String subjectName = rs.getString("subjectName");
-                        Exam exam = new Exam(pages, revisionPerXPages,
-                         + deadline, minutesPer20Slides);
-                        exams.add(exam);
-                    }
-                }
-            }
-        } catch (SQLException e) {
-            System.err.println("Σφάλμα κατά την ανάκτηση exams: " + e.getMessage());
-        }
-        return exams;
-    }*/
+          for (int id : subjectID) {
+              ps.setInt(1, id);
+              try (ResultSet rs = ps.executeQuery()) {
+                  while (rs.next()) {
+                      String dateString = rs.getString("deadline");
+                      LocalDate deadline = LocalDate.parse(dateString, FORMATTER);
+                      int pages = rs.getInt("pages");
+                      int revisionPerXPages = rs.getInt("revisionPerXPages");
+                      double minutesPer20Slides = rs.getDouble("minutesPer20Slides");
+                      String subjectName = rs.getString("subjectName");
+                      Exam exam = new Exam(pages, revisionPerXPages,
+                       + deadline, minutesPer20Slides);
+                      exams.add(exam);
+                  }
+              }
+          }
+      } catch (SQLException e) {
+          System.err.println("Σφάλμα κατά την ανάκτηση exams: " + e.getMessage());
+      }
+      return exams;
+  }*/
 
   /** returns the list of scheduled tasks. */
   public static List<ScheduledTask> getTasks(int userId) {
-    String sql = "SELECT taskName, hoursAllocated, taskStatus, taskDate, subjectName,"
-        + "taskType, timeStarted, timeCompleted, taskId FROM Task WHERE userId = ?;";
+    String sql =
+        "SELECT taskName, hoursAllocated, taskStatus, taskDate, subjectName,"
+            + "taskType, timeStarted, timeCompleted, taskId FROM Task WHERE userId = ?;";
     List<ScheduledTask> scheduledTasks = new ArrayList<>();
 
     try (Connection c = DataBaseManager.connect();
-         PreparedStatement ps = c.prepareStatement(sql)) {
+        PreparedStatement ps = c.prepareStatement(sql)) {
       ps.setInt(1, userId);
       try (ResultSet rs = ps.executeQuery()) {
         while (rs.next()) {
@@ -393,13 +395,21 @@ public class ActiveUser {
           LocalDate taskDate = LocalDate.parse(dstring, FORMATTER);
           String subjectName = rs.getString("subjectName");
           String taskType = rs.getString("taskType");
-          String  timeStString = rs.getString("timeStarted");
+          String timeStString = rs.getString("timeStarted");
           LocalTime timeStarted = LocalTime.parse(timeStString);
           String timeComString = rs.getString("timeCompleted");
           LocalTime timeCompleted = LocalTime.parse(timeComString);
           int taskId = rs.getInt("taskId");
-          ScheduledTask t = new ScheduledTask(taskName, taskType, hoursAllocated,
-              taskStatus, timeStarted, timeCompleted, taskDate, subjectName);
+          ScheduledTask t =
+              new ScheduledTask(
+                  taskName,
+                  taskType,
+                  hoursAllocated,
+                  taskStatus,
+                  timeStarted,
+                  timeCompleted,
+                  taskDate,
+                  subjectName);
           t.setTaskId(taskId);
           scheduledTasks.add(t);
         }
@@ -414,11 +424,12 @@ public class ActiveUser {
   public static List<Assignment> getAssignments(int userId) {
     List<Assignment> assignments = new ArrayList<>();
 
-    String sql = "SELECT a.title, a.deadline, a.estimateHours, a.completedDate, a.difficulty "
-        + "FROM Assignment a WHERE userId = ?";
+    String sql =
+        "SELECT a.title, a.deadline, a.estimateHours, a.completedDate, a.difficulty "
+            + "FROM Assignment a WHERE userId = ?";
 
     try (Connection connection = DataBaseManager.connect();
-         PreparedStatement ps = connection.prepareStatement(sql)) {
+        PreparedStatement ps = connection.prepareStatement(sql)) {
 
       ps.setInt(1, userId);
       try (ResultSet rs = ps.executeQuery()) {
@@ -429,9 +440,10 @@ public class ActiveUser {
           String completedDateString = rs.getString("completedDate");
           int difficulty = rs.getInt("difficulty");
           int assignmentId = rs.getInt("assignmentId");
-          LocalDate completedDate = (completedDateString != null && !completedDateString.isEmpty())
-              ? LocalDate.parse(completedDateString)
-              : null;
+          LocalDate completedDate =
+              (completedDateString != null && !completedDateString.isEmpty())
+                  ? LocalDate.parse(completedDateString)
+                  : null;
           Assignment assignment = new Assignment(title, deadline, estimateHours, difficulty);
           assignment.setAssignmentId(assignmentId);
           assignments.add(assignment);
@@ -451,7 +463,7 @@ public class ActiveUser {
     List<Week> weeks = new ArrayList<>();
 
     try (Connection c = DataBaseManager.connect();
-         PreparedStatement ps = c.prepareStatement(sql)) {
+        PreparedStatement ps = c.prepareStatement(sql)) {
       ps.setInt(1, userId);
 
       try (ResultSet rs = ps.executeQuery()) {
@@ -471,37 +483,42 @@ public class ActiveUser {
 
   /** returns the scheduled tasks for a specific day. */
   public static List<ScheduledTask> getTasksForDay(int dayId) {
-    String sql = "SELECT taskName, hoursAllocated, timeStarted, timeCompleted,"
-        + " taskStatus, taskDate, subjectName, taskType FROM Task WHERE dayId = ?";
+    String sql =
+        "SELECT taskName, hoursAllocated, timeStarted, timeCompleted,"
+            + " taskStatus, taskDate, subjectName, taskType FROM Task WHERE dayId = ?";
     List<ScheduledTask> scheduledTasks = new ArrayList<>();
 
     try (Connection c = DataBaseManager.connect();
-         PreparedStatement ps = c.prepareStatement(sql)) {
+        PreparedStatement ps = c.prepareStatement(sql)) {
       ps.setInt(1, dayId);
 
       try (ResultSet rs = ps.executeQuery()) {
         while (rs.next()) {
           String taskName = rs.getString("taskName");
           int hoursAllocated = rs.getInt("hoursAllocated");
-          String timeStartedString =
-              rs.getString("timeStarted");
+          String timeStartedString = rs.getString("timeStarted");
           LocalTime timeStarted =
               LocalTime.parse(timeStartedString, DateTimeFormatter.ofPattern("HH:mm"));
-          String timeCompletedString =
-              rs.getString("timeCompleted");
+          String timeCompletedString = rs.getString("timeCompleted");
           LocalTime timeCompleted =
               LocalTime.parse(timeCompletedString, DateTimeFormatter.ofPattern("HH:mm"));
-          String taskTypeString =
-              rs.getString("taskStatus");
+          String taskTypeString = rs.getString("taskStatus");
           ScheduledTask.TaskStatus taskStatus =
               ScheduledTask.TaskStatus.valueOf(taskTypeString.toUpperCase());
-          String dstring =
-              rs.getString("taskDate");
+          String dstring = rs.getString("taskDate");
           LocalDate taskDate = LocalDate.parse(dstring, FORMATTER);
           String subjectName = rs.getString("subjectName");
           String taskType = rs.getString("taskType");
-          ScheduledTask t = new ScheduledTask(taskName, taskType, hoursAllocated,
-              taskStatus, timeStarted, timeCompleted, taskDate, subjectName);
+          ScheduledTask t =
+              new ScheduledTask(
+                  taskName,
+                  taskType,
+                  hoursAllocated,
+                  taskStatus,
+                  timeStarted,
+                  timeCompleted,
+                  taskDate,
+                  subjectName);
           scheduledTasks.add(t);
         }
       }
@@ -513,12 +530,13 @@ public class ActiveUser {
 
   /** a list for all the completed tasks. */
   public static List<ScheduledTask> getCompletedTasks(int userId) {
-    String sql = "SELECT taskName, hoursAllocated, taskStatus, taskDate, subjectName,"
-        + "taskType, timeStarted, timeCompleted, taskId FROM CompletedTask WHERE userId = ?;";
+    String sql =
+        "SELECT taskName, hoursAllocated, taskStatus, taskDate, subjectName,"
+            + "taskType, timeStarted, timeCompleted, taskId FROM CompletedTask WHERE userId = ?;";
     List<ScheduledTask> scheduledTasks = new ArrayList<>();
 
     try (Connection c = DataBaseManager.connect();
-         PreparedStatement ps = c.prepareStatement(sql)) {
+        PreparedStatement ps = c.prepareStatement(sql)) {
       ps.setInt(1, userId);
       try (ResultSet rs = ps.executeQuery()) {
         while (rs.next()) {
@@ -531,13 +549,21 @@ public class ActiveUser {
           LocalDate taskDate = LocalDate.parse(dstring, FORMATTER);
           String subjectName = rs.getString("subjectName");
           String taskType = rs.getString("taskType");
-          String  timeStString = rs.getString("timeStarted");
+          String timeStString = rs.getString("timeStarted");
           LocalTime timeStarted = LocalTime.parse(timeStString);
           String timeComString = rs.getString("timeCompleted");
           LocalTime timeCompleted = LocalTime.parse(timeComString);
           int taskId = rs.getInt("taskId");
-          ScheduledTask t = new ScheduledTask(taskName, taskType, hoursAllocated,
-              taskStatus, timeStarted, timeCompleted, taskDate, subjectName);
+          ScheduledTask t =
+              new ScheduledTask(
+                  taskName,
+                  taskType,
+                  hoursAllocated,
+                  taskStatus,
+                  timeStarted,
+                  timeCompleted,
+                  taskDate,
+                  subjectName);
           t.setTaskId(taskId);
           scheduledTasks.add(t);
         }

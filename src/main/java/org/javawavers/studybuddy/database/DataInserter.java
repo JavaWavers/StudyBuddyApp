@@ -8,7 +8,7 @@ import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import org.javawavers.studybuddy.courses.ScheduledTask;
 
-/** this class contains the methods for alla the inserts.*/
+/** this class contains the methods for alla the inserts. */
 public class DataInserter {
   DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
   private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -17,7 +17,7 @@ public class DataInserter {
   public static void insertUser(String username, String password, String email) {
     String sql = "INSERT INTO User (name, password, email) VALUES (?, ?, ?);";
     try (Connection c = DataBaseManager.connect();
-         PreparedStatement ps = c.prepareStatement(sql)) {
+        PreparedStatement ps = c.prepareStatement(sql)) {
       ps.setString(1, username);
       ps.setString(2, password);
       ps.setString(3, email);
@@ -29,12 +29,13 @@ public class DataInserter {
   }
 
   /** insert in table Subject. */
-  public static void insertSubject(String subjectName, int difficultyLevel,
-                                   String subjectType, int userId) {
-    String sql = "INSERT INTO Subject (subjectName, difficultyLevel, "
-        + "subjectType, userId) VALUES (?, ?, ?, ?);";
+  public static void insertSubject(
+      String subjectName, int difficultyLevel, String subjectType, int userId) {
+    String sql =
+        "INSERT INTO Subject (subjectName, difficultyLevel, "
+            + "subjectType, userId) VALUES (?, ?, ?, ?);";
     try (Connection c = DataBaseManager.connect();
-         PreparedStatement ps = c.prepareStatement(sql)) {
+        PreparedStatement ps = c.prepareStatement(sql)) {
       ps.setString(1, subjectName);
       ps.setInt(2, difficultyLevel);
       ps.setString(3, subjectType);
@@ -47,12 +48,18 @@ public class DataInserter {
   }
 
   /** insert assignment. */
-  public static void insertAssignment(String title, LocalDate deadline, int estimateHours,
-                                      int difficulty, LocalDate completedDate, int userId) {
-    String sql = "INSERT INTO Assignment (title, deadline, estimateHours,"
-        + " difficulty, completedDate, userId) VALUES (?, ?, ?, ?, ?, ?);";
+  public static void insertAssignment(
+      String title,
+      LocalDate deadline,
+      int estimateHours,
+      int difficulty,
+      LocalDate completedDate,
+      int userId) {
+    String sql =
+        "INSERT INTO Assignment (title, deadline, estimateHours,"
+            + " difficulty, completedDate, userId) VALUES (?, ?, ?, ?, ?, ?);";
     try (Connection c = DataBaseManager.connect();
-         PreparedStatement ps = c.prepareStatement(sql)) {
+        PreparedStatement ps = c.prepareStatement(sql)) {
       ps.setString(1, title);
       ps.setString(2, deadline.format(FORMATTER));
       ps.setInt(3, estimateHours);
@@ -67,12 +74,17 @@ public class DataInserter {
   }
 
   /** insert exam. */
-  public static void insertExam(LocalDate deadline, int pages,
-                                int revisionPerxPages, double minutesPer20Slides, int subjectId) {
-    String sql = "INSERT INTO Exam (deadline, pages, revisionPerxPages, "
-        + "minutesPer20Slides, subjectId) VALUES (?, ?, ?, ?, ?);";
+  public static void insertExam(
+      LocalDate deadline,
+      int pages,
+      int revisionPerxPages,
+      double minutesPer20Slides,
+      int subjectId) {
+    String sql =
+        "INSERT INTO Exam (deadline, pages, revisionPerxPages, "
+            + "minutesPer20Slides, subjectId) VALUES (?, ?, ?, ?, ?);";
     try (Connection c = DataBaseManager.connect();
-         PreparedStatement ps = c.prepareStatement(sql)) {
+        PreparedStatement ps = c.prepareStatement(sql)) {
       ps.setString(1, deadline.format(FORMATTER));
       ps.setInt(2, pages);
       ps.setInt(3, revisionPerxPages);
@@ -86,20 +98,22 @@ public class DataInserter {
   }
 
   /** insert task. */
-  public static void insertTask(String taskName,
-                                int hoursAllocated,
-                                LocalTime timeStarted,
-                                LocalTime timeCompleted,
-                                ScheduledTask.TaskStatus taskStatus,
-                                LocalDate taskDate,
-                                String subjectName,
-                                String taskType,
-                                int userId,
-                                int dayId) {
+  public static void insertTask(
+      String taskName,
+      int hoursAllocated,
+      LocalTime timeStarted,
+      LocalTime timeCompleted,
+      ScheduledTask.TaskStatus taskStatus,
+      LocalDate taskDate,
+      String subjectName,
+      String taskType,
+      int userId,
+      int dayId) {
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
-    String sql = "INSERT INTO Task (taskName, hoursAllocated, timeStarted,"
-        + "timeCompleted, taskStatus, taskDate, subjectName, taskType,"
-        + "userId, dayId) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+    String sql =
+        "INSERT INTO Task (taskName, hoursAllocated, timeStarted,"
+            + "timeCompleted, taskStatus, taskDate, subjectName, taskType,"
+            + "userId, dayId) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
     try (Connection c = DataBaseManager.connect();
         PreparedStatement ps = c.prepareStatement(sql)) {
       ps.setString(1, taskName);
@@ -131,7 +145,7 @@ public class DataInserter {
   public static void insertDay(int dayId, int userId, int weekId) {
     String sql = "INSERT INTO Day (dayId, userId, weekId) VALUES (?, ?, ?);";
     try (Connection c = DataBaseManager.connect();
-         PreparedStatement ps = c.prepareStatement(sql)) {
+        PreparedStatement ps = c.prepareStatement(sql)) {
       ps.setInt(1, dayId);
       ps.setInt(2, userId);
       ps.setInt(3, weekId);
@@ -146,7 +160,7 @@ public class DataInserter {
   public static void insertWeek(int weekId, int userId) {
     String sql = "INSERT INTO Week (weekId, userId) VALUES (?, ?);";
     try (Connection c = DataBaseManager.connect();
-         PreparedStatement ps = c.prepareStatement(sql)) {
+        PreparedStatement ps = c.prepareStatement(sql)) {
       ps.setInt(1, weekId);
       ps.setInt(2, userId);
       ps.executeUpdate();
@@ -157,13 +171,20 @@ public class DataInserter {
   }
 
   /** insert availability. */
-  public static void insertAvailability(int mondayAv, int tuesdayAv,
-                                        int wednesdayAv, int thursdayAv, int fridayAv,
-                                        int saturdayAv, int sundayAv, int userId) {
-    String sql = "INSERT INTO Availability (mondayAv, tuesdayAv, wednesdayAv, "
-        + "thursdayAv, fridayAv, saturdayAv, sundayAv, userId) VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
+  public static void insertAvailability(
+      int mondayAv,
+      int tuesdayAv,
+      int wednesdayAv,
+      int thursdayAv,
+      int fridayAv,
+      int saturdayAv,
+      int sundayAv,
+      int userId) {
+    String sql =
+        "INSERT INTO Availability (mondayAv, tuesdayAv, wednesdayAv, "
+            + "thursdayAv, fridayAv, saturdayAv, sundayAv, userId) VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
     try (Connection c = DataBaseManager.connect();
-         PreparedStatement ps = c.prepareStatement(sql)) {
+        PreparedStatement ps = c.prepareStatement(sql)) {
       ps.setInt(1, mondayAv);
       ps.setInt(2, tuesdayAv);
       ps.setInt(3, wednesdayAv);
@@ -183,7 +204,7 @@ public class DataInserter {
   public static void insertNonAvDate(LocalDate date, int userId) {
     String sql = "INSERT INTO NonAvDates (date, userId) VALUES (?, ?);";
     try (Connection c = DataBaseManager.connect();
-         PreparedStatement ps = c.prepareStatement(sql)) {
+        PreparedStatement ps = c.prepareStatement(sql)) {
       ps.setString(1, date.format(FORMATTER));
       ps.setInt(2, userId);
       ps.executeUpdate();
@@ -194,14 +215,21 @@ public class DataInserter {
   }
 
   /** update availability. */
-  public static void updateAvailability(int mondayAv, int tuesdayAv,
-                                        int wednesdayAv, int thursdayAv, int fridayAv,
-                                        int saturdayAv, int sundayAv, int userId) {
-    String sql = "UPDATE Availability "
-        + "SET mondayAv = ?, tuesdayAv = ?, wednesdayAv = ?, thursdayAv = ?, "
-        + "fridayAv = ?, saturdayAv = ?, sundayAv = ? WHERE userId = ?;";
+  public static void updateAvailability(
+      int mondayAv,
+      int tuesdayAv,
+      int wednesdayAv,
+      int thursdayAv,
+      int fridayAv,
+      int saturdayAv,
+      int sundayAv,
+      int userId) {
+    String sql =
+        "UPDATE Availability "
+            + "SET mondayAv = ?, tuesdayAv = ?, wednesdayAv = ?, thursdayAv = ?, "
+            + "fridayAv = ?, saturdayAv = ?, sundayAv = ? WHERE userId = ?;";
     try (Connection c = DataBaseManager.connect();
-         PreparedStatement ps = c.prepareStatement(sql)) {
+        PreparedStatement ps = c.prepareStatement(sql)) {
       ps.setInt(1, mondayAv);
       ps.setInt(2, tuesdayAv);
       ps.setInt(3, wednesdayAv);
@@ -223,22 +251,24 @@ public class DataInserter {
   }
 
   /** insert completed task. */
-  public static void insertCompletedTask(String taskName,
-                                  int hoursAllocated,
-                                  LocalTime timeStarted,
-                                  LocalTime timeCompleted,
-                                  ScheduledTask.TaskStatus taskStatus,
-                                  LocalDate taskDate,
-                                  String subjectName,
-                                  String taskType,
-                                  int userId,
-                                  int dayId) {
+  public static void insertCompletedTask(
+      String taskName,
+      int hoursAllocated,
+      LocalTime timeStarted,
+      LocalTime timeCompleted,
+      ScheduledTask.TaskStatus taskStatus,
+      LocalDate taskDate,
+      String subjectName,
+      String taskType,
+      int userId,
+      int dayId) {
     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
-    String sql = "INSERT INTO CompletedTask (taskName, hoursAllocated, timeStarted,"
-        + "timeCompleted, taskStatus, taskDate, subjectName, taskType,"
-        + "userId, dayId) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+    String sql =
+        "INSERT INTO CompletedTask (taskName, hoursAllocated, timeStarted,"
+            + "timeCompleted, taskStatus, taskDate, subjectName, taskType,"
+            + "userId, dayId) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
     try (Connection c = DataBaseManager.connect();
-         PreparedStatement ps = c.prepareStatement(sql)) {
+        PreparedStatement ps = c.prepareStatement(sql)) {
       ps.setString(1, taskName);
       ps.setInt(2, hoursAllocated);
       if (timeStarted == null) {

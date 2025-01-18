@@ -1,14 +1,11 @@
 package org.javawavers.studybuddy.ui_ux;
 
-import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
-
-import org.javawavers.studybuddy.calculations.Availability;
 import static org.javawavers.studybuddy.courses.StaticUser.staticUser;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -27,6 +24,7 @@ import javafx.scene.text.Font;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.util.converter.IntegerStringConverter;
+import org.javawavers.studybuddy.calculations.Availability;
 import org.javawavers.studybuddy.courses.StaticUser;
 import org.javawavers.studybuddy.database.ActiveUser;
 import org.javawavers.studybuddy.database.DataInserter;
@@ -153,15 +151,18 @@ public class AvailabilityPage {
             confirmAlert.setHeaderText(null);
             confirmAlert.setContentText(
                 "Όλα τα πεδία είναι κενά. Είστε σίγουρος/η ότι θέλετε να συνεχίσετε;");
-    
+
             DialogPane dialogPane = confirmAlert.getDialogPane();
             dialogPane.getStylesheets().add(getClass().getResource("/alert.css").toExternalForm());
 
-            confirmAlert.showAndWait().ifPresent(response -> {
-              if (response.getText().equalsIgnoreCase("Cancel")) {
-                return;
-              }
-            });
+            confirmAlert
+                .showAndWait()
+                .ifPresent(
+                    response -> {
+                      if (response.getText().equalsIgnoreCase("Cancel")) {
+                        return;
+                      }
+                    });
           }
           // test for registration or login
           boolean flag = true;
@@ -196,26 +197,41 @@ public class AvailabilityPage {
             DialogPane dialogPane = successAlert.getDialogPane();
             dialogPane.getStyleClass().add("success-alert");
             dialogPane
-                  .getStylesheets()
-                  .add(Objects.requireNonNull(getClass().getResource("/success.css")).toExternalForm());
+                .getStylesheets()
+                .add(
+                    Objects.requireNonNull(getClass().getResource("/success.css"))
+                        .toExternalForm());
             successAlert.showAndWait();
 
             // checks for empty availability
             int c = 0;
-            for (int i = 1; i < avPerDay.length; i++){
+            for (int i = 1; i < avPerDay.length; i++) {
               if (avPerDay[i] != 0) {
                 c++;
               }
-
             } // inserts for the first time or it update the already inserted one
             if (flag == false) {
-              DataInserter.insertAvailability(avPerDay[1], avPerDay[2], avPerDay[3],
-                      avPerDay[4], avPerDay[5], avPerDay[6], avPerDay[7], StaticUser.staticUser.getUserId());
+              DataInserter.insertAvailability(
+                  avPerDay[1],
+                  avPerDay[2],
+                  avPerDay[3],
+                  avPerDay[4],
+                  avPerDay[5],
+                  avPerDay[6],
+                  avPerDay[7],
+                  StaticUser.staticUser.getUserId());
               StaticUser.staticUser.setAvPerDay(avPerDay);
             } else {
               if (c > 1) {
-                DataInserter.updateAvailability(avPerDay[1], avPerDay[2], avPerDay[3],
-                        avPerDay[4], avPerDay[5], avPerDay[6], avPerDay[7], StaticUser.staticUser.getUserId());
+                DataInserter.updateAvailability(
+                    avPerDay[1],
+                    avPerDay[2],
+                    avPerDay[3],
+                    avPerDay[4],
+                    avPerDay[5],
+                    avPerDay[6],
+                    avPerDay[7],
+                    StaticUser.staticUser.getUserId());
                 StaticUser.staticUser.setAvPerDay(avPerDay);
               }
             }
@@ -312,20 +328,28 @@ public class AvailabilityPage {
           RegisterPage register = new RegisterPage();
           String storedUsername = register.storedUsername;
           Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
-            successAlert.setTitle("Εισαγωγή Διαθεσιμότητας Επιτυχής");
-            successAlert.setHeaderText(null);
-            successAlert.setContentText("🎉 Καλώς ήρθες, "+ storedUsername +  "🎉\n" + //
-                            "Νέα χρονιά, νέες ευκαιρίες και νέοι στόχοι! ✨\n" + //
-                            "Ετοιμάσου για μια εμπειρία γεμάτη έμπνευση, οργάνωση και πρόοδο! 🚀\n" + //
-                            "\n" + //
-                            "Μαζί θα κάνουμε αυτή τη χρονιά την καλύτερη!\n" + //
-                            "Πάτα το κουμπί και ξεκινάμε! 💪");
-            DialogPane dialogPane = successAlert.getDialogPane();
-            dialogPane.getStyleClass().add("success-alert");
-            dialogPane
-                  .getStylesheets()
-                  .add(Objects.requireNonNull(getClass().getResource("/success.css")).toExternalForm());
-            successAlert.showAndWait();
+          successAlert.setTitle("Εισαγωγή Διαθεσιμότητας Επιτυχής");
+          successAlert.setHeaderText(null);
+          successAlert.setContentText(
+              "🎉 Καλώς ήρθες, "
+                  + storedUsername
+                  + "🎉\n"
+                  + //
+                  "Νέα χρονιά, νέες ευκαιρίες και νέοι στόχοι! ✨\n"
+                  + //
+                  "Ετοιμάσου για μια εμπειρία γεμάτη έμπνευση, οργάνωση και πρόοδο! 🚀\n"
+                  + //
+                  "\n"
+                  + //
+                  "Μαζί θα κάνουμε αυτή τη χρονιά την καλύτερη!\n"
+                  + //
+                  "Πάτα το κουμπί και ξεκινάμε! 💪");
+          DialogPane dialogPane = successAlert.getDialogPane();
+          dialogPane.getStyleClass().add("success-alert");
+          dialogPane
+              .getStylesheets()
+              .add(Objects.requireNonNull(getClass().getResource("/success.css")).toExternalForm());
+          successAlert.showAndWait();
           MainFrame mainframe = new MainFrame();
           sceneManager.switchScene(mainframe.mainFrame(sceneManager));
         });
