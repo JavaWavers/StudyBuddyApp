@@ -193,6 +193,5 @@ mvn javafx:run
 
 Αυτό το έργο διατίθεται υπό την άδεια [MIT](LICENSE). Μπορείτε να διαβάσετε το πλήρες κείμενο της άδειας στο αρχείο `LICENSE` που περιλαμβάνεται σε αυτό το αποθετήριο.
 
-<a href="https://javawavers.github.io/StudyBuddyApp/docs/apidocs/index.html" target="_blank">View Javadoc</a>
 
 
