@@ -1,11 +1,15 @@
 package org.javawavers.studybuddy.ui_ux;
 
-import static org.javawavers.studybuddy.courses.StaticUser.staticUser;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+
+import org.javawavers.studybuddy.courses.Assignment;
+import org.javawavers.studybuddy.courses.StaticUser;
+import static org.javawavers.studybuddy.courses.StaticUser.staticUser;
+import org.javawavers.studybuddy.database.DataInserter;
+
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -21,13 +25,10 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
-import org.javawavers.studybuddy.courses.Assignment;
-import org.javawavers.studybuddy.courses.StaticUser;
-import org.javawavers.studybuddy.database.DataInserter;
 
 public class AssignmentPage {
   public static ArrayList<Assignment> assignments = new ArrayList<>();
-  private TextField namField, assignmentField, estimateHours, difficultyField;
+  private TextField nameField, assignmentField, estimateHours, difficultyField;
   ComboBox<String> coursesList;
   private DatePicker datePicker;
   private static String title = "";
@@ -67,11 +68,18 @@ public class AssignmentPage {
   }
 
   private void handleOkBtn() {
+    title = nameField.getText();
     estimate = estimateHours.getText();
     String value = difficultyField.getText();
     deadline = datePicker.getValue() != null ? datePicker.getValue().toString() : null;
 
     List<String> errors = new ArrayList<>();
+    if (title.isEmpty()) {
+      errors.add("• Εισήγαγε όνομα εργασίας");
+    } else if (!title.matches("[a-zA-Zα-ωΑ-ΩάέήίΰϊϋόύώΆΈΉΊΪΫΌΎΏ]+")) {
+      errors.add("• Η Ονομασία της εργασίας μπορεί να περιέχει μόνο γράμματα");
+    }
+
     if (!String.valueOf(value).matches("\\d+")) {
       errors.add("• Η δυσκολία μπόρει να περιέχει μόνο αριθμούς");
     } else {
@@ -134,13 +142,6 @@ public class AssignmentPage {
     // Subject course = exampage.coursename;
     // course.addAssignment(assignment1);
 
-    namField.clear();
-    assignmentField.clear();
-    estimateHours.clear();
-    difficultyField.clear();
-    datePicker.setValue(null);
-    coursesList.setValue("");
-
     // System.out.println(courseName);
     System.out.println(title);
     System.out.println(estimate);
@@ -148,7 +149,16 @@ public class AssignmentPage {
     System.out.println(deadline);
     System.out.println(courseType);
 
+    clearFields();
     okBtn.setStyle(Styles.COURSES_BTN_MOUSE_ENTERED);
+  }
+
+  private void clearFields() {
+    nameField.clear();
+    estimateHours.clear();
+    difficultyField.clear();
+    datePicker.setValue(null);
+    coursesList.setValue("");
   }
 
   // Section for course information
@@ -162,7 +172,7 @@ public class AssignmentPage {
 
     Label nameLabel = new Label("Tίτλος Εργασιας:");
     nameLabel.setStyle(Styles.StyleType.LABEL.getStyle());
-    TextField nameField = new TextField();
+    nameField = new TextField();
     info.add(nameLabel, 0, 1);
     info.add(nameField, 1, 1);
 

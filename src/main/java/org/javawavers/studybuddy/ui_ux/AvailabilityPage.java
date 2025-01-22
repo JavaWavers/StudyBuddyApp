@@ -1,11 +1,16 @@
 package org.javawavers.studybuddy.ui_ux;
 
-import static org.javawavers.studybuddy.courses.StaticUser.staticUser;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+
+import org.javawavers.studybuddy.calculations.Availability;
+import org.javawavers.studybuddy.courses.StaticUser;
+import static org.javawavers.studybuddy.courses.StaticUser.staticUser;
+import org.javawavers.studybuddy.database.ActiveUser;
+import org.javawavers.studybuddy.database.DataInserter;
+
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -23,10 +28,6 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.util.converter.IntegerStringConverter;
-import org.javawavers.studybuddy.calculations.Availability;
-import org.javawavers.studybuddy.courses.StaticUser;
-import org.javawavers.studybuddy.database.ActiveUser;
-import org.javawavers.studybuddy.database.DataInserter;
 
 public class AvailabilityPage {
   // int [] avPerDay = new int[8];
@@ -34,7 +35,7 @@ public class AvailabilityPage {
 
   private VBox leftPane = new VBox(10);
   private VBox rightPane = new VBox(10);
-  private HBox btnsBox = new HBox(10);
+  HBox btnsBox = new HBox(10);
   private TextField[] dayFields = new TextField[7];
   int[] avPerDay = new int[8];
   private String[] days = {
@@ -248,9 +249,9 @@ public class AvailabilityPage {
             popUpStage.close();
           }
         });
-    okBtn.setAlignment(Pos.BASELINE_LEFT);
+    btnsBox.setAlignment(Pos.CENTER_LEFT);
+    btnsBox.setPadding(new Insets(-10, 2, -10, 2));
     btnsBox.getChildren().add(okBtn);
-    btnsBox.setPadding(new Insets(30));
     return btnsBox;
   }
 
