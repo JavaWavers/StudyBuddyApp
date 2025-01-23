@@ -1,4 +1,4 @@
-package org.javawavers.studybuddy.ui_ux;
+package org.javawavers.studybuddy.uiux;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +27,9 @@ import org.javawavers.studybuddy.courses.User;
 import org.javawavers.studybuddy.database.ActiveUser;
 import org.javawavers.studybuddy.database.DataInserter;
 
+/**
+ * RegisterPage class is responsible for handling the user interface and logic of the registration page.
+ */
 public class RegisterPage {
 
   public static String storedEmail = "";
@@ -45,6 +48,12 @@ public class RegisterPage {
   private PasswordField confirmPasswordField;
   private SceneManager sceneManager;
 
+  /**
+   * Constructs and returns the registration scene.
+   *
+   * @param sceneManager The SceneManager to handle scene switching.
+   * @return The scene for the registration page.
+   */
   public Scene register(SceneManager sceneManager) {
     HBox registerPage = new HBox();
     this.sceneManager = sceneManager;
@@ -113,7 +122,7 @@ public class RegisterPage {
     userImgView.setFitWidth(32.5);
     userImgView.setFitHeight(32.5);
 
-    // Button toggleConfirmPasswordButton = new Button("👁");
+
     Button toggleConfirmPasswordButton = new Button();
 
     Button toggleButton = new Button();
@@ -145,9 +154,6 @@ public class RegisterPage {
 
     confirmPasswordField = new PasswordField();
     confirmPasswordField.setPromptText("Confirm your password");
-
-    // Button toggleConfirmPasswordButton = new Button("👁");
-    // Button toggleConfirmPasswordButton = new Button();
 
     toggleConfirmPasswordButton.setStyle("-fx-font-size: 14px;");
     Image seeImage = new Image(getClass().getResource("/seePassword.png").toExternalForm());
@@ -427,7 +433,7 @@ public class RegisterPage {
       alert
           .getDialogPane()
           .getStylesheets()
-          .add(getClass().getResource("/alert.css").toExternalForm());
+          .add(Objects.requireNonNull(getClass().getResource("/alert.css")).toExternalForm());
       alert.showAndWait();
       return false;
     }

@@ -1,4 +1,4 @@
-package org.javawavers.studybuddy.ui_ux;
+package org.javawavers.studybuddy.uiux;
 
 import static org.javawavers.studybuddy.courses.StaticUser.staticUser;
 
@@ -19,6 +19,13 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.javawavers.studybuddy.StudyBuddyApp;
 
+/**
+ * This class represents the menu page in the StudyBuddy application.
+ * The menu contains navigation buttons for various sections such as exams,
+ * assignments, calendar, dashboard, and courses.
+ * Additionally, it includes the user section for login/logout and a logo.
+ * The menu is displayed in a VBox layout, with toggling functionality for courses and options.
+ */
 public class MenuPage {
   private VBox leftBoxMenu = new VBox(15);
   private ToggleButton btnExam = new ToggleButton("Exam");
@@ -37,6 +44,11 @@ public class MenuPage {
   private ImageView arrowIconDashboard;
   VBox optionVBox = new VBox(15);
 
+  /**
+   * Constructs a MenuPage instance.
+   * @param centerPanelManager The center panel manager to change the center panel content.
+   * @param rightPanel The right panel to update its content.
+   */
   public MenuPage(CenterPanelManager centerPanelManager, RightPanel rightPanel) {
     this.centerPanelManager = centerPanelManager;
     this.rightPanel = rightPanel;

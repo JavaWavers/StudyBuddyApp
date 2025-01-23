@@ -1,9 +1,13 @@
-package org.javawavers.studybuddy.ui_ux;
+package org.javawavers.studybuddy.uiux;
 
 import static org.javawavers.studybuddy.courses.StaticUser.staticUser;
 
 import java.time.LocalDate;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
@@ -21,6 +25,10 @@ import org.javawavers.studybuddy.courses.Subject;
 import org.javawavers.studybuddy.database.ActiveUser;
 import org.javawavers.studybuddy.database.DataInserter;
 
+/**
+ * Represents a page in the user interface where the user can input and save details about an exam.
+ * The page includes fields for the course name, type, pages, exam date, difficulty, and time per 20 slides.
+ */
 public class ExamPage {
   private TextField nameField, pageField, difficulty, timePer20Slides;
   // crete static variables for the use of inputs
@@ -37,17 +45,22 @@ public class ExamPage {
   private static List<Subject> subjects = new ArrayList<Subject>();
   private Button okBtn;
 
-  public void add(Subject subject) {
-    subjects.add(subject); // Προσθέτουμε το subject στην λίστα
-    System.out.println(
-        "Added subject: " + subject.getCourseName()); // Προαιρετική εκτύπωση για έλεγχο
-  }
 
-  // subject list getter
+  /**
+   * Returns the list of subjects.
+   *
+   * @return a list of subjects
+   */
   public List<Subject> getSubjects() {
     return subjects;
   }
 
+  /**
+   * Sets up and returns the scene for the exam starting page.
+   *
+   * @param sceneManager the scene manager used to switch scenes
+   * @return the Scene object representing the exam page
+   */
   public Scene examStartingPage(SceneManager sceneManager) {
     VBox examViewWithBtn = new VBox();
 
@@ -81,6 +94,11 @@ public class ExamPage {
     return scene;
   }
 
+  /**
+   * Creates the exam panel that contains the input fields for the exam details.
+   *
+   * @return the created VBox that holds the exam form
+   */
   public Node createExamPanel() {
     // Δημιουργία του GridPane για όλη τη φόρμα
     VBox examPanel = new VBox(20);
@@ -106,6 +124,11 @@ public class ExamPage {
     return examPanel;
   }
 
+  /**
+   * Creates the course name section of the exam form where the user inputs the course name.
+   *
+   * @return a VBox containing the course name input section
+   */
   private VBox courseNameSection() {
     VBox nameVBox = new VBox(10);
     Label nameTitle = new Label("Μάθημα:");
@@ -129,6 +152,12 @@ public class ExamPage {
     return nameVBox;
   }
 
+  /**
+   * Creates the information section of the exam form where the user selects the course type,
+   * enters the number of pages, and selects the exam date.
+   *
+   * @return a VBox containing the information input section
+   */
   private VBox infoSection() {
     VBox infoVBox = new VBox(10);
     Label infoTitle = new Label("Πληροφορίες:");
@@ -244,8 +273,6 @@ public class ExamPage {
 
     System.out.print("object:" + subject1);
     System.out.println("Adding subject: " + subject1.getCourseName());
-    // subjects.add(subject1);
-    // add(subject1);
     System.out.println("Subjects in ExamPage after add: " + getSubjects().size());
 
     if (courseName.isEmpty()) {
@@ -288,7 +315,7 @@ public class ExamPage {
       alert
           .getDialogPane()
           .getStylesheets()
-          .add(getClass().getResource("/alert.css").toExternalForm());
+          .add(Objects.requireNonNull(getClass().getResource("/alert.css")).toExternalForm());
       alert.showAndWait();
       return;
     } else {

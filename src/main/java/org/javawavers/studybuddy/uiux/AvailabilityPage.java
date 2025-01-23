@@ -1,16 +1,11 @@
-package org.javawavers.studybuddy.ui_ux;
+package org.javawavers.studybuddy.uiux;
+
+import static org.javawavers.studybuddy.courses.StaticUser.staticUser;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
-import org.javawavers.studybuddy.calculations.Availability;
-import org.javawavers.studybuddy.courses.StaticUser;
-import static org.javawavers.studybuddy.courses.StaticUser.staticUser;
-import org.javawavers.studybuddy.database.ActiveUser;
-import org.javawavers.studybuddy.database.DataInserter;
-
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -28,9 +23,18 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.util.converter.IntegerStringConverter;
+import org.javawavers.studybuddy.calculations.Availability;
+import org.javawavers.studybuddy.courses.StaticUser;
+import org.javawavers.studybuddy.database.ActiveUser;
+import org.javawavers.studybuddy.database.DataInserter;
 
+/**
+ * The AvailabilityPage class handles the display and functionality of the availability page.
+ * It allows the user to set their availability
+ * for each day of the week and select a non-availability date.
+ */
 public class AvailabilityPage {
-  // int [] avPerDay = new int[8];
+
   private DatePicker datePicker;
 
   private VBox leftPane = new VBox(10);
@@ -44,14 +48,30 @@ public class AvailabilityPage {
   private Stage popUpStage;
   private SceneManager sceneManager;
 
+  /**
+   * Constructor for initializing the AvailabilityPage with a pop-up stage.
+   *
+   * @param popUpStage The stage that will be used for the pop-up.
+   */
   public AvailabilityPage(Stage popUpStage) {
     this.popUpStage = popUpStage;
   }
 
+  /**
+   * Constructor for initializing the AvailabilityPage with a SceneManager.
+   *
+   * @param sceneManager The SceneManager for switching scenes.
+   */
   public AvailabilityPage(SceneManager sceneManager) {
     this.sceneManager = sceneManager;
   }
 
+  /**
+   * Creates and returns the layout for the availability page.
+   * It combines left and right frames, along with buttons at the bottom.
+   *
+   * @return A VBox containing the complete layout for the availability page.
+   */
   public VBox availabilityPage() {
 
     VBox availPage = new VBox();
@@ -69,6 +89,11 @@ public class AvailabilityPage {
     return availPage;
   }
 
+  /**
+   * Creates the HBox for displaying the left and right panels.
+   *
+   * @return An HBox that holds the left and right panes.
+   */
   private HBox dayPickPanes() {
     HBox mainPane = new HBox(20);
     mainPane.setPadding(new Insets(30));
@@ -88,6 +113,11 @@ public class AvailabilityPage {
     return mainPane;
   }
 
+  /**
+   * Creates the right frame of the page, which contains the date picker for non-availability.
+   *
+   * @return The VBox containing the date picker for non-availability.
+   */
   private VBox rightFrame() {
 
     Label dayLabel = new Label("Ημερομηνία Μη διαθεσιμότητας");
@@ -101,6 +131,11 @@ public class AvailabilityPage {
     return rightPane;
   }
 
+  /**
+   * Creates the left frame of the page, which contains the fields for each day's availability.
+   *
+   * @return The VBox containing the labels and text fields for each day's availability.
+   */
   private VBox leftFrame() {
 
     Label avalLabel = new Label("Διαθεσιμότητα");
@@ -124,6 +159,11 @@ public class AvailabilityPage {
     return leftPane;
   }
 
+  /**
+   * Creates the button panel at the bottom of the page, with an "OK" button to submit the form.
+   *
+   * @return An HBox containing the "OK" button.
+   */
   private HBox btnsFrame() {
     Button okBtn = new Button("OK");
     okBtn.setStyle(Styles.COURSES_BTN_STYLE);
@@ -183,7 +223,7 @@ public class AvailabilityPage {
             alert
                 .getDialogPane()
                 .getStylesheets()
-                .add(getClass().getResource("/alert.css").toExternalForm());
+                .add(Objects.requireNonNull(getClass().getResource("/alert.css")).toExternalForm());
             alert.showAndWait();
             return;
           } else {
@@ -207,7 +247,7 @@ public class AvailabilityPage {
                 c++;
               }
             } // inserts for the first time or it update the already inserted one
-            if (flag == false) {
+            if (!flag) {
               DataInserter.insertAvailability(
                   avPerDay[1],
                   avPerDay[2],
@@ -250,7 +290,7 @@ public class AvailabilityPage {
           }
         });
     btnsBox.setAlignment(Pos.CENTER_LEFT);
-    btnsBox.setPadding(new Insets(-10, 2, -10, 2));
+    btnsBox.setPadding(new Insets(-10, 10, -10, 2));
     btnsBox.getChildren().add(okBtn);
     return btnsBox;
   }
@@ -292,6 +332,12 @@ public class AvailabilityPage {
     return 0;
   }
 
+  /**
+   * Creates and returns the starting page scene for the availability screen.
+   *
+   * @param sceneManager The SceneManager used for switching scenes.
+   * @return The Scene containing the availability page layout with buttons.
+   */
   public Scene availStartingPage(SceneManager sceneManager) {
     VBox availViewWithBtn = new VBox();
 

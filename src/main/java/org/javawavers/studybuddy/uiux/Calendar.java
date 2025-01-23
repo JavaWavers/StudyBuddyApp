@@ -1,4 +1,4 @@
-package org.javawavers.studybuddy.ui_ux;
+package org.javawavers.studybuddy.uiux;
 
 import static org.javawavers.studybuddy.courses.StaticUser.staticUser;
 
@@ -52,6 +52,10 @@ public class Calendar {
   List<Subject> subject = new ArrayList<>();
 
 
+  /**
+   * Represents the Calendar view of the application, displaying weeks and tasks.
+   * Allows navigation between weeks, viewing tasks, and updating the user's schedule.
+   */
   public Node calendar() {
     // initialize all panels
     VBox centerPanel = createCenterPanel();
@@ -163,7 +167,9 @@ public class Calendar {
 
     Button todayButton = new Button("Today");
     todayButton.setStyle(
-        "-fx-background-color: #CF308C; -fx-background-radius: 30px; -fx-border-color: black; -fx-border-radius: 30px;");
+        "-fx-background-color: #CF308C; -fx-background-radius: 30px; -fx-border-color: black; "
+          +
+                    "-fx-border-radius: 30px;");
     todayButton.setFont(Font.font("System", FontWeight.BOLD, 14));
     todayButton.setTextFill(Color.WHITE);
     todayButton.setOnAction(
@@ -177,7 +183,9 @@ public class Calendar {
     // button for the user to insert availability
     Button availabilityButton = new Button("Availiability");
     availabilityButton.setStyle(
-        "-fx-background-color: #CF308C; -fx-background-radius: 30px; -fx-border-color: black; -fx-border-radius: 30px;");
+        "-fx-background-color: #CF308C; -fx-background-radius: 30px; -fx-border-color: black;"
+          +
+          " -fx-border-radius: 30px;");
     availabilityButton.setFont(Font.font("System", FontWeight.BOLD, 14));
     availabilityButton.setTextFill(Color.WHITE);
     availabilityButton.setPrefWidth(160);
@@ -213,7 +221,9 @@ public class Calendar {
     // button for refreshing the program
     Button refreshButton = new Button();
     refreshButton.setStyle(
-        "-fx-background-color: #CF308C; -fx-text-fill: white; -fx-font-size: 14px; -fx-background-radius: 30px;");
+        "-fx-background-color: #CF308C; -fx-text-fill: white; -fx-font-size: 14px; "
+          +
+          "-fx-background-radius: 30px;");
     refreshButton.setPrefSize(30, 30);
 
     // add an icon to the button for circular arrows
@@ -348,7 +358,7 @@ public class Calendar {
                     }
                   }
                 }
-                Popupdiathesimotita popup = new Popupdiathesimotita();
+                TaskPopUp popup = new TaskPopUp();
                 popup.setTaskLists(notStartedYet, completed);
                 popup.setTaskDescription(taskDescription, examDate);
                 Stage popupStage = new Stage();

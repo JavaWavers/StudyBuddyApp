@@ -1,5 +1,6 @@
-package org.javawavers.studybuddy.ui_ux;
+package org.javawavers.studybuddy.uiux;
 
+import java.util.Objects;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -21,6 +22,12 @@ import javafx.scene.text.Text;
 import javafx.stage.Screen;
 import org.javawavers.studybuddy.database.ActiveUser;
 
+
+
+/**
+ * This class represents the login page of the application.
+ * It contains the layout for the login form and a welcome message.
+ */
 public class LoginPage {
 
   private HBox rightPane;
@@ -32,6 +39,13 @@ public class LoginPage {
   private Button signupButton;
   private SceneManager sceneManager;
 
+  /**
+   * Initializes and returns the login page scene.
+   * This method sets up the left and right panes, as well as event handlers.
+   *
+   * @param sceneManager the scene manager used for scene switching
+   * @return the login page scene
+   */
   public Scene login(SceneManager sceneManager) {
     HBox loginPage = new HBox();
     this.sceneManager = sceneManager;
@@ -286,6 +300,11 @@ public class LoginPage {
     leftPane.getChildren().addAll(leftSpacer, leftVBox, rightSpacer);
   }
 
+  /**
+   * Sets up the event handlers for the login and sign-up buttons.
+   * Redirects to the registration page on sign-up button click.
+   * Validates login credentials and switches to the main page on successful login.
+   */
   private void setupEventHandlers() {
     signupButton.setOnAction(
         event -> {
@@ -317,7 +336,7 @@ public class LoginPage {
       alert
           .getDialogPane()
           .getStylesheets()
-          .add(getClass().getResource("/alert.css").toExternalForm());
+          .add(Objects.requireNonNull(getClass().getResource("/alert.css")).toExternalForm());
       alert.getDialogPane().setMinWidth(500);
       alert.getDialogPane().setMinHeight(300);
       alert.showAndWait();
@@ -342,7 +361,7 @@ public class LoginPage {
       alert
           .getDialogPane()
           .getStylesheets()
-          .add(getClass().getResource("/alert.css").toExternalForm());
+          .add(Objects.requireNonNull(getClass().getResource("/alert.css")).toExternalForm());
       alert.getDialogPane().setMinWidth(500);
       alert.getDialogPane().setMinHeight(300);
       alert.showAndWait();
@@ -356,6 +375,10 @@ public class LoginPage {
     emailField.clear();
   }
 
+  /**
+   * Toggles the visibility of the password field.
+   * Changes the password field between hidden and visible.
+   */
   private void PasswordVisibility() {
     if (passwordField.isVisible()) {
       textField.setText(passwordField.getText());

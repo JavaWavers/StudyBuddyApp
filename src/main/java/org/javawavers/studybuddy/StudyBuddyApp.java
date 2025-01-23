@@ -5,8 +5,8 @@ import javafx.scene.Scene;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import org.javawavers.studybuddy.database.DataBaseManager;
-import org.javawavers.studybuddy.ui_ux.HomePage;
-import org.javawavers.studybuddy.ui_ux.SceneManager;
+import org.javawavers.studybuddy.uiux.HomePage;
+import org.javawavers.studybuddy.uiux.SceneManager;
 
 import java.sql.Connection;
 

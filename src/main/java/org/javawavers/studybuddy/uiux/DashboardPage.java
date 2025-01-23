@@ -1,4 +1,4 @@
-package org.javawavers.studybuddy.ui_ux;
+package org.javawavers.studybuddy.uiux;
 
 import java.util.HashMap;
 import javafx.geometry.Insets;

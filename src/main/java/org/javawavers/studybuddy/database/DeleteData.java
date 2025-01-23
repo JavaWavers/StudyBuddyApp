@@ -28,6 +28,11 @@ public class DeleteData {
     }
   }
 
+  /**
+   * Deletes a subject from the database.
+   *
+   * @param subject the subject to delete.
+   */
   public static void deleteSubject(Subject subject) {
     String sql = "DELETE FROM Subject WHERE subjectID = ?";
     try (Connection c = DataBaseManager.connect();
@@ -45,6 +50,11 @@ public class DeleteData {
     }
   }
 
+  /**
+   * Deletes an assignment from the database.
+   *
+   * @param assignment the assignment to delete.
+   */
   public static void deleteAssignment(Assignment assignment) {
     String sql = "DELETE FROM Assignment WHERE assignmentID = ?";
     try (Connection c = DataBaseManager.connect();
@@ -62,6 +72,11 @@ public class DeleteData {
     }
   }
 
+  /**
+   * Deletes a scheduled task from the database.
+   *
+   * @param task the task to delete.
+   */
   public static void deleteTask(ScheduledTask task) {
     String sql = "DELETE FROM Task WHERE taskID = ?";
     try (Connection c = DataBaseManager.connect();
@@ -79,6 +94,11 @@ public class DeleteData {
     }
   }
 
+  /**
+   * Deletes a non-available date from the database.
+   *
+   * @param date the date to delete.
+   */
   public static void deleteNonAvDay(LocalDate date) {
     String sql = "DELETE FROM NonAvDates WHERE date = ?";
     try (Connection c = DataBaseManager.connect();
@@ -95,6 +115,11 @@ public class DeleteData {
     }
   }
 
+  /**
+   * Deletes a completed task from the database.
+   *
+   * @param task the task to delete.
+   */
   public static void deleteCompletedTask(ScheduledTask task) {
     String sql = "DELETE FROM CompletedTask WHERE taskID = ?";
     try (Connection c = DataBaseManager.connect();

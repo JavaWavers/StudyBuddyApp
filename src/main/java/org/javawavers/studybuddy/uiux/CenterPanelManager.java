@@ -1,4 +1,4 @@
-package org.javawavers.studybuddy.ui_ux;
+package org.javawavers.studybuddy.uiux;
 
 import javafx.scene.layout.StackPane;
 

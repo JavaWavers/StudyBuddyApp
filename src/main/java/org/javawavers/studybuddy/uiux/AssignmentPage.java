@@ -1,15 +1,11 @@
-package org.javawavers.studybuddy.ui_ux;
+package org.javawavers.studybuddy.uiux;
+
+import static org.javawavers.studybuddy.courses.StaticUser.staticUser;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-
-import org.javawavers.studybuddy.courses.Assignment;
-import org.javawavers.studybuddy.courses.StaticUser;
-import static org.javawavers.studybuddy.courses.StaticUser.staticUser;
-import org.javawavers.studybuddy.database.DataInserter;
-
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -25,7 +21,14 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
+import org.javawavers.studybuddy.courses.Assignment;
+import org.javawavers.studybuddy.courses.StaticUser;
+import org.javawavers.studybuddy.database.DataInserter;
 
+/**
+ * This class represents the Assignment Page where users can input information about assignments.
+ * It handles the creation and validation of assignment forms.
+ */
 public class AssignmentPage {
   public static ArrayList<Assignment> assignments = new ArrayList<>();
   private TextField nameField, assignmentField, estimateHours, difficultyField;
@@ -35,12 +38,16 @@ public class AssignmentPage {
   private static String estimate = "";
   private static int difficulty = 0;
   private static String deadline = "";
-  private static String courseType = "";
   private static LocalDate localDeadline;
   private static int estimateHour;
-  private Button okBtn;
+  Button okBtn = new Button("OK");
 
-  // Assignment Page as Node
+
+  /**
+   * Creates the assignment panel as a VBox with form fields and a submit button.
+   *
+   * @return the assignment panel as a Node
+   */
   public Node assignmentPanel() {
     VBox assignmentPanel = new VBox(20);
     assignmentPanel.setPadding(new Insets(20));
@@ -67,6 +74,10 @@ public class AssignmentPage {
     return assignmentPanel; // returns the page
   }
 
+  /**
+   * Handles the logic when the "OK" button is clicked.
+   * This method validates the input fields and adds the assignment if valid.
+   */
   private void handleOkBtn() {
     title = nameField.getText();
     estimate = estimateHours.getText();
@@ -109,7 +120,7 @@ public class AssignmentPage {
       alert
           .getDialogPane()
           .getStylesheets()
-          .add(getClass().getResource("/alert.css").toExternalForm());
+          .add(Objects.requireNonNull(getClass().getResource("/alert.css")).toExternalForm());
       alert.showAndWait();
       return;
     } else {
@@ -126,10 +137,7 @@ public class AssignmentPage {
     }
     localDeadline = LocalDate.parse(deadline);
     estimateHour = Integer.parseInt(estimate);
-    // SimulateAnnealing simulateAnnealing = new SimulateAnnealing();
-    // Subject sub = new Subject();
 
-    // simulateAnnealing.subAss2(title, localDeadline, estimateHour);
     Assignment assignment1 = new Assignment(title, localDeadline, estimateHour, difficulty);
     // add the assignment to the static user
     staticUser.addAssignment(assignment1);
@@ -138,30 +146,31 @@ public class AssignmentPage {
         title, localDeadline, estimateHour, difficulty, null, StaticUser.staticUser.getUserId());
     StaticUser.staticUser.addAssignment(assignment1);
 
-    // ExamPage exampage = new ExamPage();
-    // Subject course = exampage.coursename;
-    // course.addAssignment(assignment1);
 
-    // System.out.println(courseName);
     System.out.println(title);
     System.out.println(estimate);
     System.out.println(difficulty);
     System.out.println(deadline);
-    System.out.println(courseType);
 
     clearFields();
     okBtn.setStyle(Styles.COURSES_BTN_MOUSE_ENTERED);
   }
 
+  /**
+   * Clears all input fields on the form.
+   */
   private void clearFields() {
     nameField.clear();
     estimateHours.clear();
     difficultyField.clear();
     datePicker.setValue(null);
-    coursesList.setValue("");
   }
 
-  // Section for course information
+  /**
+   * Creates the section of the form where the user inputs information about the assignment.
+   *
+   * @return a VBox containing the information section
+   */
   private VBox infoSection() {
     VBox infoVBox = new VBox(10);
     Label infoTitle = new Label("Πληροφορίες:");
@@ -196,7 +205,11 @@ public class AssignmentPage {
     return infoVBox;
   }
 
-  // Section for course evaluation
+  /**
+   * Creates the section of the form where the user evaluates the difficulty of the assignment.
+   *
+   * @return a VBox containing the evaluation section
+   */
   private VBox evalSection() {
     VBox evalVBox = new VBox(10);
     Label evalTitle = new Label("Αξιολόγηση:");
@@ -220,6 +233,12 @@ public class AssignmentPage {
     return evalVBox;
   }
 
+  /**
+   * Creates the starting page for the assignment view.
+   *
+   * @param sceneManager the scene manager to handle scene transitions
+   * @return the assignment starting page scene
+   */
   public Scene assignmentStartingPage(SceneManager sceneManager) {
     VBox assignViewWithBtn = new VBox();
 
@@ -247,7 +266,6 @@ public class AssignmentPage {
     nextBtn.setStyle(Styles.COURSES_BTN_STYLE);
     nextBtn.setOnAction(
         e -> {
-          // System.out.println("Το κουμπί πατήθηκε!");
           AvailabilityPage availabilityPage = new AvailabilityPage(sceneManager);
           sceneManager.switchScene(availabilityPage.availStartingPage(sceneManager));
         });

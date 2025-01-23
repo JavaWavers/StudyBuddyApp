@@ -1,4 +1,4 @@
-package org.javawavers.studybuddy.ui_ux;
+package org.javawavers.studybuddy.uiux;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -13,11 +13,24 @@ import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
-public class Popupdiathesimotita extends Application {
+/**
+ * This class represents a popup window that displays task details, including the task description,
+ * due date, remaining days until the task deadline, and a checkbox to mark the task as finished.
+ * The popup also allows users to move the task between "Not Started Yet" and "Completed" lists.
+ */
+public class TaskPopUp extends Application {
 
   private List<String> notStartedYet;
   private List<String> completed;
 
+  /**
+   * Sets the lists of tasks that are "Not Started Yet" and "Completed".
+   *
+   * @param notStartedYet A list of tasks that have not been started yet.
+   *
+   * @param completed A list of tasks that have been completed.
+   *
+   */
   public void setTaskLists(List<String> notStartedYet, List<String> completed) {
     this.notStartedYet = notStartedYet;
     this.completed = completed;
@@ -29,6 +42,12 @@ public class Popupdiathesimotita extends Application {
   private long daysLeft = -1;
   private String exam;
 
+  /**
+   * Sets the description of the task and its associated exam date.
+   *
+   * @param description The task's description.
+   * @param examDate The exam date related to the task.
+   */
   public void setTaskDescription(String description, LocalDate examDate) {
     this.taskDescription = description;
     this.examDate = examDate;
@@ -148,6 +167,11 @@ public class Popupdiathesimotita extends Application {
     primaryStage.show();
   }
 
+
+  /**
+   * Main entry point to launch the JavaFX application.
+   * @param args Command-line arguments (not used).
+   */
   public static void main(String[] args) {
     launch(args);
   }

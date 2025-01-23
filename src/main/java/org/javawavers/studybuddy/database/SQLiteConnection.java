@@ -4,12 +4,22 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+/**
+ * This class manages the connection to the SQLite database.
+ * It provides methods to connect to and disconnect from the database.
+ */
 public class SQLiteConnection {
 
   // Path to the SQLite database file
   private static final String DATABASE_URL =
       "jdbc:sqlite:src/main/resources/org/javawavers/studybuddy/DataBase.db";
 
+  /**
+   * Establishes a connection to the SQLite database.
+   *
+   * @return a {@link Connection} object representing the database connection.
+   * @throws SQLException if there is an error establishing the connection.
+   */
   public static Connection connect() throws SQLException {
     Connection connection = null;
     try {
@@ -31,6 +41,12 @@ public class SQLiteConnection {
     return connection;
   }
 
+  /**
+   * Closes the connection to the SQLite database.
+   * This method is called to safely release the database resources.
+   *
+   * @param connection the {@link Connection} object to be closed.
+   */
   public static void closeConnection(Connection connection) {
     if (connection != null) {
       try {
@@ -43,6 +59,12 @@ public class SQLiteConnection {
     }
   }
 
+  /**
+   * Main method to test the connection to the database.
+   * It establishes a connection and then closes it after operations are done.
+   *
+   * @param args command-line arguments (not used in this example).
+   */
   public static void main(String[] args) {
     Connection connection = null;
     try {
