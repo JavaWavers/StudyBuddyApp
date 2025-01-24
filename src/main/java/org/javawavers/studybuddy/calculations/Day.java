@@ -5,8 +5,7 @@ import java.util.List;
 import org.javawavers.studybuddy.courses.*;
 
 public class Day {
-  public List<ScheduledTask> todayTasks;
-
+  private List<ScheduledTask> todayTasks;
   public Day(List<ScheduledTask> todayTasks) {
     this.todayTasks = todayTasks;
   }
@@ -26,7 +25,4 @@ public class Day {
     return todayTasks.get(index);
   }
 
-  public List<ScheduledTask> getAllTasks() {
-    return todayTasks;
-  }
 }

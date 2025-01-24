@@ -115,17 +115,18 @@ public class CreateWeekDay {
 
       // Create a Day object and add tasks
       Day currentDay = new Day();
-      currentDay.todayTasks.addAll(scheduledTasksForDay);
+      currentDay.getTodayTasks().addAll(scheduledTasksForDay);
 
       // Add the day to the week
       currentWeek.getDaysOfWeek().add(currentDay);
-
+      System.out.println("/////////////////////////////" + currentDate);
       // Save the week if complete or if it's the last day
       if (currentWeek.getDaysOfWeek().size() == 7 || dayIndex == colSize - 1) {
         totalWeeks.add(currentWeek);
         currentWeek = new Week();
       }
     }
+
   }
 
   /**
@@ -197,7 +198,7 @@ public class CreateWeekDay {
       DataInserter.insertWeek(i, id);
       for (Day d : w.getDaysOfWeek()) {
         DataInserter.insertDay(j, id, i);
-        for (ScheduledTask t : d.getAllTasks()) {
+        for (ScheduledTask t : d.getTodayTasks()) {
           DataInserter.insertTask(
               t.getTaskName(),
               t.getHoursAllocated(),

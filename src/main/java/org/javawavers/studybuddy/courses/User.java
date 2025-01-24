@@ -18,7 +18,8 @@ public class User {
   private String password; // The password of the user
   private int userId; // The unique identifier for the user.
   int[] avPerDay; // availability for each day of the week
-  private Week currentWeek; // The current week being tracked by the user.
+  private Week currentWeek;  // The current week being tracked by the user.
+  private Day currentDay;
   List<LocalDate> nonAvailDays = new ArrayList<>();
   List<Subject> subjects = new ArrayList<>();
   List<Assignment> assignments = new ArrayList<>();
@@ -214,7 +215,13 @@ public class User {
   }
 
   public Week getCurrentWeek() {
+    calculateCurrentWeek();
     return currentWeek;
+  }
+
+  public Day getCurrentDay() {
+    calculateCurrentDay();
+    return currentDay;
   }
 
   public void setCurrentWeek(Week currentWeek) {
@@ -329,7 +336,7 @@ public class User {
   }
 
   /** Calculates and sets the current week based on today's date. */
-  public void calculateCurrentWeek() {
+  private void calculateCurrentWeek() {
     LocalDate today = LocalDate.now();
     for (Week w : totalWeeks) {
       for (Day d : w.getDaysOfWeek()) {
@@ -337,6 +344,22 @@ public class User {
             && d.getTodayScheduledTask(0).getTaskDate().equals(today)) {
           this.currentWeek = w;
           return;
+        }
+      }
+    }
+  }
+
+  /** Calculates and sets the current Day based on today's date. */
+  private void calculateCurrentDay() {
+    LocalDate today = LocalDate.now();
+    for (Week w : totalWeeks) {
+      for (Day d : w.getDaysOfWeek()) {
+        if (!d.getTodayTasks().isEmpty()
+          && d.getTodayScheduledTask(0).getTaskDate().equals(today)) {
+          this.currentDay = d;
+          System.out.println("/////////////////////////////////////////////////////////////////////////" + currentDay);
+        } else {
+          System.out.println("calculateCurrentDay//////////////////////" + d.getTodayScheduledTask(0).getTaskDate() );
         }
       }
     }

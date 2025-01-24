@@ -4,6 +4,7 @@ import static org.javawavers.studybuddy.courses.StaticUser.staticUser;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -16,7 +17,10 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import org.javawavers.studybuddy.calculations.Day;
+import org.javawavers.studybuddy.calculations.Week;
 import org.javawavers.studybuddy.courses.Assignment;
+import org.javawavers.studybuddy.courses.ScheduledTask;
 import org.javawavers.studybuddy.courses.Subject;
 
 // import static Calendar.completed;
@@ -33,13 +37,27 @@ public class RightPanel {
   private VBox upcomingTasksBox = new VBox(10);
   private VBox completedTasksBox = new VBox(10);
 
+  private static int countWeek = 1;
+  private static int countDays = 1;
+
   public RightPanel() {
     this.rightPane = rightPaneStyle();
   }
 
+  public static void countWeekDays() {
+    if (countWeek > staticUser.getTotalWeeks().size() - 1) {
+      countWeek = 1;
+    } else if (countDays >= 7) {
+      countDays = 1;
+      countWeek++;
+    } else {
+      countDays++;
+    }
+  }
   public ScrollPane rightPanel() {
     CenterPanelManager centerPanelManager = new CenterPanelManager();
-
+    System.out.println("eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee" + staticUser.getTotalWeeks().get(1).getTheDay(4).getTodayTasks().get(1).getTaskDate());
+    System.out.println("eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee" + staticUser.getTotalWeeks().get(1).getTheDay(5).getTodayTasks().get(1).getTaskDate());
     if (rightPane == null) {
       rightPane = rightPaneStyle();
     }
@@ -88,48 +106,30 @@ public class RightPanel {
     }
   }
 
-  private String[] getSubjectsArray() {
-    List<Subject> subjects = staticUser.getSubjects();
-    subjects.forEach(subject -> System.out.println(subject.getCourseName()));
-    return subjects.stream().map(Subject::getCourseName).toArray(String[]::new);
-  }
-
-  int[] avPerDay = staticUser.getAvPerDay();
-  String[] avPerDayArray = Arrays.stream(avPerDay).mapToObj(String::valueOf).toArray(String[]::new);
-
-  List<LocalDate> nonAvailDays = staticUser.getNonAvailDays();
-  DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-  String[] nonAvPerDay =
-      nonAvailDays.stream().map(date -> date.format(formatter)).toArray(String[]::new);
-
-  private String[] getAssignimentsArray() {
-    List<Assignment> ass = staticUser.getAssignments();
-    ass.forEach(Assigniment -> System.out.println(ass.get(0).getTitle()));
-    return ass.stream().map(Assignment::getTitle).toArray(String[]::new);
-  }
 
   private VBox tasksPane() {
     VBox tasksPane = new VBox(10);
 
     tasksPane
-        .getChildren()
-        .addAll(
-            TasksVBox(
-                "Σημερινά Tasks",
-                new String[] {"Task 1", "Task 2", "Task 3", "4", "5", "6", "7", "8", "9,", "10"},
-                Styles.TaskType.TODAY),
-            TasksVBox(
-                "Εβδομαδιαία Tasks",
-                new String[] {"Task A", "Task B", "Task C", "Task D"},
-                Styles.TaskType.WEEK),
-            TasksVBox(
-                "Εκκρεμότητες",
-                new String[] {"Overdue Task 1", "Overdue Task 2"},
-                Styles.TaskType.OVERDUE),
-            TasksVBox(
-                "Ολοκληρωμένα Tasks",
-                new String[] {"Completed Task X", "Completed Task Y"},
-                Styles.TaskType.COMPLETED));
+      .getChildren()
+      .addAll(
+        TasksVBox(
+          "Σημερινά Tasks",
+          todayTasks(),
+          //new String[] {"Task 1", "Task 2", "Task 3", "4", "5", "6", "7", "8", "9,", "10"},
+          Styles.TaskType.TODAY),
+        TasksVBox(
+          "Εβδομαδιαία Tasks",
+          new String[] {"Task A", "Task B", "Task C", "Task D"},
+          Styles.TaskType.WEEK),
+        TasksVBox(
+          "Εκκρεμότητες",
+          new String[] {"Overdue Task 1", "Overdue Task 2"},
+          Styles.TaskType.OVERDUE),
+        TasksVBox(
+          "Ολοκληρωμένα Tasks",
+          new String[] {"Completed Task X", "Completed Task Y"},
+          Styles.TaskType.COMPLETED));
     return tasksPane;
   }
 
@@ -137,17 +137,17 @@ public class RightPanel {
     VBox coursePane = new VBox(10);
 
     coursePane
-        .getChildren()
-        .addAll(
-            TasksVBox(
-                "Μαθήματα",
-                getSubjectsArray(),
-                Styles.TaskType
-                    .TODAY), // εδώ που είναι το new String βάζουμε μια μέθοδο που επιστρέφει τα
-            // μαθήματα)
-            TasksVBox("Εργασίες", getAssignimentsArray(), Styles.TaskType.WEEK),
-            TasksVBox("Διαθεσιμότητα Ημερών", avPerDayArray, Styles.TaskType.OVERDUE),
-            TasksVBox("Μη διαθεσιμότητα", nonAvPerDay, Styles.TaskType.COMPLETED));
+      .getChildren()
+      .addAll(
+        TasksVBox(
+          "Μαθήματα",
+          getSubjectsArray(),
+          Styles.TaskType
+            .TODAY), // εδώ που είναι το new String βάζουμε μια μέθοδο που επιστρέφει τα
+        // μαθήματα)
+        TasksVBox("Εργασίες", getAssignmentsArray(), Styles.TaskType.WEEK),
+        TasksVBox("Διαθεσιμότητα Ημερών", getAvPerDayArray(), Styles.TaskType.OVERDUE),
+        TasksVBox("Μη διαθεσιμότητα", getNonAvPerDayArray(), Styles.TaskType.COMPLETED));
     return coursePane;
   }
 
@@ -165,6 +165,64 @@ public class RightPanel {
     taskPane.setFillWidth(true);
     taskPane.setMaxHeight(Screen.getPrimary().getVisualBounds().getHeight() / 4);
     return taskPane;
+  }
+
+  private String[] getAssignmentsArray() {
+    List<Assignment> ass = staticUser.getAssignments();
+    return ass.stream().map(Assignment::getTitle).toArray(String[]::new);
+  }
+
+  private String[] getSubjectsArray() {
+    List<Subject> subjects = staticUser.getSubjects();
+    return subjects.stream().map(Subject::getCourseName).toArray(String[]::new);
+  }
+
+  private String[] getAvPerDayArray() {
+    int[] avPerDay = staticUser.getAvPerDay();
+    return Arrays.stream(avPerDay)
+      .skip(1) // Skips the first element, as it does not correspond to a day's data.
+      .mapToObj(String::valueOf)
+      .toArray(String[]::new);
+  }
+
+  private String[] getNonAvPerDayArray() {
+    List<LocalDate> nonAvailDays = staticUser.getNonAvailDays();
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    return nonAvailDays.stream().map(date -> date.format(formatter)).toArray(String[]::new);
+  }
+
+  private String[] todayTasks() {
+    LocalDate today = LocalDate.now(); // Η σημερινή ημερομηνία
+    Day curDay = null;
+
+    // Εύρεση της ημέρας που περιέχει εργασίες με ημερομηνία "σήμερα"
+    for (Week w : staticUser.getTotalWeeks()) {
+      for (Day d : w.getDaysOfWeek()) {
+        for (ScheduledTask s : d.getTodayTasks()) {
+          if (s != null && ChronoUnit.DAYS.between(today, s.getTaskDate()) == 0) {
+            curDay = d; // Η σημερινή ημέρα βρέθηκε
+            break; // Βγες από τον εσωτερικό βρόχο
+          }
+        }
+        if (curDay != null) {
+          break; // Βγες από τον βρόχο των ημερών
+        }
+      }
+      if (curDay != null) {
+        break; // Βγες από τον βρόχο των εβδομάδων
+      }
+    }
+
+    // Αν βρέθηκε ημέρα, επέστρεψε τις εργασίες της
+    if (curDay != null) {
+      return curDay.getTodayTasks()
+        .stream()
+        .map(task -> task.toString()) // Μετατροπή σε String
+        .toArray(String[]::new); // Επιστροφή ως String[]
+    }
+
+    // Αν δεν βρέθηκε ημέρα, επέστρεψε κενό array
+    return new String[0];
   }
 
   // Pelagia
@@ -209,7 +267,7 @@ public class RightPanel {
   }
 }
 
-    // Create the checkbox
+// Create the checkbox
   /*  if (taskList != null && !taskList.isEmpty()) {
         for (String task : taskList) {
           CheckBox checkBox = new CheckBox(task);

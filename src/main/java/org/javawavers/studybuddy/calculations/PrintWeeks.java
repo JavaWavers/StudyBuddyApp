@@ -25,10 +25,10 @@ public class PrintWeeks {
       // Print the days of the week
       for (Day day : week.getDaysOfWeek()) {
         System.out.println("  Day " + dayNumber + ":");
-        if (day.todayTasks.isEmpty()) {
+        if (day.getTodayTasks().isEmpty()) {
           System.out.println("    No tasks scheduled.");
         } else {
-          for (ScheduledTask task : day.todayTasks) {
+          for (ScheduledTask task : day.getTodayTasks()) {
             System.out.println("    " + task.toString());
           }
         }

@@ -19,7 +19,7 @@ public class BarChartCalc {
    */
   public static int calcTotalHours() {
     int totalHours = 0;
-    staticUser.calculateCurrentWeek(); // Determine the current week
+    staticUser.getCurrentWeek(); // Determine the current week
     Week currentWeek = staticUser.getCurrentWeek();
     if (currentWeek != null) {
       // Iterate over all days in the current week
@@ -40,7 +40,7 @@ public class BarChartCalc {
    */
   public static int calcStudyHours() {
     int studyHours = 0;
-    staticUser.calculateCurrentWeek(); // Determine the current week
+    staticUser.getCurrentWeek(); // Determine the current week
     Week currentWeek = staticUser.getCurrentWeek();
     if (currentWeek != null) {
       // Iterate over all days in the current week
@@ -64,7 +64,7 @@ public class BarChartCalc {
    */
   public static int calcAssignmentHours() {
     int assignmentHours = 0;
-    staticUser.calculateCurrentWeek(); // Determine the current week
+    staticUser.getCurrentWeek(); // Determine the current week
     Week currentWeek = staticUser.getCurrentWeek();
     if (currentWeek != null) {
       // Iterate over all days in the current week
@@ -88,7 +88,7 @@ public class BarChartCalc {
    */
   public static int calcRevisionHours() {
     int revisionHours = 0;
-    staticUser.calculateCurrentWeek(); // Determine the current week
+    staticUser.getCurrentWeek(); // Determine the current week
     Week currentWeek = staticUser.getCurrentWeek();
     if (currentWeek != null) {
       // Iterate over all days in the current week

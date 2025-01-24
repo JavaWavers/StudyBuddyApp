@@ -26,7 +26,7 @@ public class LineChartCalc {
    */
   public static HashMap<Integer, Integer> weekProgress() {
     HashMap<Integer, Integer> progress = new HashMap<>();
-    staticUser.calculateCurrentWeek();
+    staticUser.getCurrentWeek();
     Week currentWeek = staticUser.getCurrentWeek();
     if (currentWeek != null) {
       int dayNumb = 1;

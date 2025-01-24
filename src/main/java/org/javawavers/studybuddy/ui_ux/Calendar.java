@@ -42,7 +42,7 @@ import org.javawavers.studybuddy.courses.Subject;
 public class Calendar {
   private LocalDate currentWeekStart;
   // initialize the variable count
-  int count = 0;
+  static int count = 0;
   private ArrayList<Week> totalWeeks;
 
 
@@ -51,6 +51,9 @@ public class Calendar {
   private static final GridPane calendarGrid = new GridPane();
   List<Subject> subject = new ArrayList<>();
 
+  public static int getCount(){
+    return count;
+  }
 
   public Node calendar() {
     // initialize all panels
