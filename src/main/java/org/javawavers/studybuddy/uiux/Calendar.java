@@ -207,7 +207,7 @@ public class Calendar {
           popUpStage.setX(centerX);
           popUpStage.setY(centerY);
 
-          Scene popUpScene = new Scene(availPageLayout, 600, 400);
+          Scene popUpScene = new Scene(availPageLayout, 600, 450);
           popUpStage.setScene(popUpScene);
           popUpStage.show();
         });

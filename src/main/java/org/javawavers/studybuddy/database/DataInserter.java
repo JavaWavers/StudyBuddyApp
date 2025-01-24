@@ -166,7 +166,8 @@ public class DataInserter {
       ps.executeUpdate();
       System.out.println("Η εβδομάδα εισάχθηκε με επιτυχία.");
     } catch (SQLException e) {
-      System.err.println("Σφάλμα κατά την εισαγωγή εβδομάδας.");
+      System.err.println("Σφάλμα κατά την εισαγωγή εβδομάδας." + e.getMessage());
+      e.printStackTrace();
     }
   }
 

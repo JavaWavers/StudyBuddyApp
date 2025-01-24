@@ -39,7 +39,7 @@ public class AvailabilityPage {
 
   private VBox leftPane = new VBox(10);
   private VBox rightPane = new VBox(10);
-  HBox btnsBox = new HBox(10);
+  HBox btnsBox = new HBox(20);
   private TextField[] dayFields = new TextField[7];
   int[] avPerDay = new int[8];
   private String[] days = {
@@ -96,7 +96,7 @@ public class AvailabilityPage {
    */
   private HBox dayPickPanes() {
     HBox mainPane = new HBox(20);
-    mainPane.setPadding(new Insets(30));
+    mainPane.setPadding(new Insets(20));
 
     leftPane.setAlignment(Pos.CENTER_LEFT);
     rightPane.setAlignment(Pos.TOP_RIGHT);
@@ -290,7 +290,7 @@ public class AvailabilityPage {
           }
         });
     btnsBox.setAlignment(Pos.CENTER_LEFT);
-    btnsBox.setPadding(new Insets(-10, 10, -10, 2));
+    btnsBox.setPadding(new Insets(20));
     btnsBox.getChildren().add(okBtn);
     return btnsBox;
   }

@@ -89,21 +89,32 @@ public class RightPanel {
 
   private String[] getSubjectsArray() {
     List<Subject> subjects = staticUser.getSubjects();
+    if (subjects == null || subjects.isEmpty()) {
+      return new String[]{"Δεν έχεις συμπληρώσει μαθήματα"};
+    }
     subjects.forEach(subject -> System.out.println(subject.getCourseName()));
     return subjects.stream().map(Subject::getCourseName).toArray(String[]::new);
   }
 
   int[] avPerDay = staticUser.getAvPerDay();
-  String[] avPerDayArray = Arrays.stream(avPerDay).mapToObj(String::valueOf).toArray(String[]::new);
+  String[] avPerDayArray =
+    (avPerDay == null || avPerDay.length == 0)
+      ? new String[]{"Δεν έχεις συμπληρώσει διαθεσιμότητα"}
+      : Arrays.stream(avPerDay).mapToObj(String::valueOf).toArray(String[]::new);
 
   List<LocalDate> nonAvailDays = staticUser.getNonAvailDays();
   DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
   String[] nonAvPerDay =
-                 nonAvailDays.stream().map(date -> date.format(formatter)).toArray(String[]::new);
+    (nonAvailDays == null || nonAvailDays.isEmpty())
+      ? new String[]{"Δεν έχεις συμπληρώσει μη διαθεσιμότητα"}
+      : nonAvailDays.stream().map(date -> date.format(formatter)).toArray(String[]::new);
 
   private String[] getAssignimentsArray() {
     List<Assignment> ass = staticUser.getAssignments();
-    ass.forEach(Assigniment -> System.out.println(ass.get(0).getTitle()));
+    if (ass == null || ass.isEmpty()) {
+      return new String[]{"Δεν έχεις συμπληρώσει εργασίες"};
+    }
+    ass.forEach(assignment -> System.out.println(assignment.getTitle()));
     return ass.stream().map(Assignment::getTitle).toArray(String[]::new);
   }
 

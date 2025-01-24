@@ -55,7 +55,7 @@ public class AssignmentPage {
     assignmentPanel.getChildren().addAll(infoSection(), evalSection());
 
     // "ok" Button
-    Button okBtn = new Button("OK");
+    okBtn = new Button("OK");
     okBtn.setStyle(Styles.COURSES_BTN_STYLE);
     okBtn.setOnMouseEntered(e -> okBtn.setStyle(Styles.COURSES_BTN_MOUSE_ENTERED));
     okBtn.setOnMouseClicked(
@@ -140,7 +140,7 @@ public class AssignmentPage {
 
     Assignment assignment1 = new Assignment(title, localDeadline, estimateHour, difficulty);
     // add the assignment to the static user
-    staticUser.addAssignment(assignment1);
+   staticUser.addAssignment(assignment1);
 
     DataInserter.insertAssignment(
         title, localDeadline, estimateHour, difficulty, null, StaticUser.staticUser.getUserId());
@@ -200,8 +200,8 @@ public class AssignmentPage {
     info.setStyle(Styles.BLACK_BORDER);
     infoVBox.getChildren().addAll(infoTitle, info);
 
-    infoVBox.setMaxWidth(400);
-    infoVBox.setPrefWidth(400);
+    infoVBox.setMaxWidth(500);
+    infoVBox.setPrefWidth(500);
     return infoVBox;
   }
 
@@ -227,8 +227,8 @@ public class AssignmentPage {
     eval.setStyle(Styles.BLACK_BORDER);
     evalVBox.getChildren().addAll(evalTitle, eval);
 
-    evalVBox.setMaxWidth(400);
-    evalVBox.setPrefWidth(400);
+    evalVBox.setMaxWidth(500);
+    evalVBox.setPrefWidth(500);
 
     return evalVBox;
   }

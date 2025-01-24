@@ -64,7 +64,6 @@ public class StudyBuddyApp extends Application { // exam page
     } catch (Exception e) {
       System.err.println("Πρόβλημα κατά την εκκίνηση της εφαρμογής: " + e.getMessage());
       e.printStackTrace();
-      ;
     }
   }
 
