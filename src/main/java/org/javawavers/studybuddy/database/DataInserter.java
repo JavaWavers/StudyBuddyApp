@@ -22,9 +22,9 @@ public class DataInserter {
       ps.setString(2, password);
       ps.setString(3, email);
       ps.executeUpdate();
-      System.out.println("Τα δεδομένα χρήστη εισάχθηκαν με επιτυχία.");
+      System.out.println("Τα δεδομένα χρήστη εισάχθηκαν με επιτυχία στη βάση δεδομένων");
     } catch (SQLException e) {
-      System.err.println("Σφάλμα κατά την εισαγωγή χρήστη: ");
+      System.err.println("Σφάλμα κατά την εισαγωγή χρήστη στη βάση δεδομένων");
     }
   }
 
@@ -41,9 +41,9 @@ public class DataInserter {
       ps.setString(3, subjectType);
       ps.setInt(4, userId);
       ps.executeUpdate();
-      System.out.println("Τα δεδομένα μαθήματος εισάχθηκε με επιτυχία.");
+      System.out.println("Τα δεδομένα μαθήματος εισάχθηκε με επιτυχία στη βάση δεδομένων");
     } catch (SQLException e) {
-      System.err.println("Σφάλμα κατά την εισαγωγή μαθήματος.");
+      System.err.println("Σφάλμα κατά την εισαγωγή μαθήματος στη βάση δεδομένων");
     }
   }
 
@@ -67,9 +67,9 @@ public class DataInserter {
       ps.setString(5, completedDate == null ? null : completedDate.format(FORMATTER));
       ps.setInt(6, userId);
       ps.executeUpdate();
-      System.out.println("Η εργασία εισάχθηκε με επιτυχία.");
+      System.out.println("Η εργασία εισάχθηκε με επιτυχία στη βάση δεδομένων");
     } catch (SQLException e) {
-      System.err.println("Σφάλμα κατά την εισαγωγή εργασίας: ");
+      System.err.println("Σφάλμα κατά την εισαγωγή εργασίας στη βάση δεδομένων");
     }
   }
 
@@ -91,9 +91,9 @@ public class DataInserter {
       ps.setDouble(4, minutesPer20Slides);
       ps.setInt(5, subjectId);
       ps.executeUpdate();
-      System.out.println("Η εξέταση εισάχθηκε με επιτυχία.");
+      System.out.println("Η εξέταση εισάχθηκε με επιτυχία στη βάση δεδομένων");
     } catch (SQLException e) {
-      System.err.println("Σφάλμα κατά την εισαγωγή εξέτασης.");
+      System.err.println("Σφάλμα κατά την εισαγωγή εξέτασης στη βάση δεδομένων");
     }
   }
 
@@ -135,9 +135,9 @@ public class DataInserter {
       ps.setInt(9, userId);
       ps.setInt(10, dayId);
       ps.executeUpdate();
-      System.out.println("Το task εισάχθηκε με επιτυχία.");
+      System.out.println("Το task εισάχθηκε με επιτυχία στη βάση δεδομένων");
     } catch (SQLException e) {
-      System.err.println("Σφάλμα κατά την εισαγωγή εργασίας.");
+      System.err.println("Σφάλμα κατά την εισαγωγή εργασίας στη βάση δεδομένων");
     }
   }
 
@@ -150,9 +150,9 @@ public class DataInserter {
       ps.setInt(2, userId);
       ps.setInt(3, weekId);
       ps.executeUpdate();
-      System.out.println("Η ημέρα εισάχθηκε με επιτυχία.");
+      System.out.println("Η ημέρα εισάχθηκε με επιτυχία στη βάση δεδομένων");
     } catch (SQLException e) {
-      System.err.println("Σφάλμα κατά την εισαγωγή ημέρας.");
+      System.err.println("Σφάλμα κατά την εισαγωγή ημέρας στη βάση δεδομένων");
     }
   }
 
@@ -164,9 +164,9 @@ public class DataInserter {
       ps.setInt(1, weekId);
       ps.setInt(2, userId);
       ps.executeUpdate();
-      System.out.println("Η εβδομάδα εισάχθηκε με επιτυχία.");
+      System.out.println("Η εβδομάδα εισάχθηκε με επιτυχία στη βάση δεδομένων");
     } catch (SQLException e) {
-      System.err.println("Σφάλμα κατά την εισαγωγή εβδομάδας." + e.getMessage());
+      System.err.println("Σφάλμα κατά την εισαγωγή εβδομάδας στη βάση δεδομένων" + e.getMessage());
       e.printStackTrace();
     }
   }
@@ -195,9 +195,9 @@ public class DataInserter {
       ps.setInt(7, sundayAv);
       ps.setInt(8, userId);
       ps.executeUpdate();
-      System.out.println("Η διαθεσιμότητα εισάχθηκε με επιτυχία.");
+      System.out.println("Η διαθεσιμότητα εισάχθηκε με επιτυχία στη βάση δεδομένων");
     } catch (SQLException e) {
-      System.err.println("Σφάλμα κατά την εισαγωγή διαθεσιμότητας.");
+      System.err.println("Σφάλμα κατά την εισαγωγή διαθεσιμότητας στη βάση δεδομένων");
     }
   }
 
@@ -209,9 +209,9 @@ public class DataInserter {
       ps.setString(1, date.format(FORMATTER));
       ps.setInt(2, userId);
       ps.executeUpdate();
-      System.out.println("Η μη διαθέσιμη ημερομηνία εισάχθηκε με επιτυχία.");
+      System.out.println("Η μη διαθέσιμη ημερομηνία εισάχθηκε με επιτυχία στη βάση δεδομένων");
     } catch (SQLException e) {
-      System.err.println("Σφάλμα κατά την εισαγωγή μη διαθέσιμης ημερομηνίας: ");
+      System.err.println("Σφάλμα κατά την εισαγωγή μη διαθέσιμης ημερομηνίας στη βάση δεδομένων ");
     }
   }
 
@@ -242,12 +242,12 @@ public class DataInserter {
 
       int rowsUpdated = ps.executeUpdate();
       if (rowsUpdated > 0) {
-        System.out.println("Η διαθεσιμότητα ενημερώθηκε με επιτυχία.");
+        System.out.println("Η διαθεσιμότητα ενημερώθηκε με επιτυχία στη βάση δεδομένων");
       } else {
-        System.out.println("Δεν βρέθηκε χρήστης με το συγκεκριμένο Id.");
+        System.out.println("Δεν βρέθηκε χρήστης με το συγκεκριμένο Id στη βάση δεδομένων");
       }
     } catch (SQLException e) {
-      System.err.println("Σφάλμα κατά την ενημέρωση διαθεσιμότητας: " + e.getMessage());
+      System.err.println("Σφάλμα κατά την ενημέρωση διαθεσιμότητας στη βάση δεδομένων: " + e.getMessage());
     }
   }
 
@@ -289,9 +289,9 @@ public class DataInserter {
       ps.setInt(9, userId);
       ps.setInt(10, dayId);
       ps.executeUpdate();
-      System.out.println("Το task εισάχθηκε με επιτυχία.");
+      System.out.println("Το task εισάχθηκε με επιτυχία στη βάση δεδομένων");
     } catch (SQLException e) {
-      System.err.println("Σφάλμα κατά την εισαγωγή εργασίας.");
+      System.err.println("Σφάλμα κατά την εισαγωγή εργασίας στη βάση δεδομένων");
     }
   }
 }
