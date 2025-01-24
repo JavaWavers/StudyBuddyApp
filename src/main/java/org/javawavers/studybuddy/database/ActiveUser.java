@@ -99,7 +99,7 @@ public class ActiveUser {
         }
       }
     } catch (SQLException e) {
-      System.err.println("Σφάλμα κατά την αναζήτηση κωδικου χρήστη: " + e.getMessage());
+      System.err.println("Σφάλμα κατά την αναζήτηση κωδικου χρήστη στη βάση δεδομένων: " + e.getMessage());
     }
     return -1;
   }
@@ -123,7 +123,7 @@ public class ActiveUser {
         }
       }
     } catch (SQLException e) {
-      System.err.println("Σφάλμα κατά την αναζήτηση χρήστη: " + e.getMessage());
+      System.err.println("Σφάλμα κατά την αναζήτηση χρήστη στη βάση δεδομένων: " + e.getMessage());
     }
     return null; // If the authentication fails
   }
@@ -144,11 +144,11 @@ public class ActiveUser {
           System.out.println("Βρέθηκε subjectId: " + subjectId);
         } else {
           System.err.println(
-              "Δεν βρέθηκε subjectId για τον χρήστη: " + userId + ", μάθημα: " + courseName);
+              "Δεν βρέθηκε subjectId για τον χρήστη στη βάση δεδομένων: " + userId + ", μάθημα: " + courseName);
         }
       }
     } catch (SQLException e) {
-      System.err.println("Σφάλμα κατά την ανάκτηση του κωδικου μαθήματος: " + e.getMessage());
+      System.err.println("Σφάλμα κατά την ανάκτηση του κωδικου μαθήματος στη βάση δεδομένων: " + e.getMessage());
     }
     return subjectId;
   }
@@ -167,7 +167,7 @@ public class ActiveUser {
         }
       }
     } catch (SQLException e) {
-      System.err.println("Σφάλμα κατά την ανάκτηση των μαθημάτων: " + e.getMessage());
+      System.err.println("Σφάλμα κατά την ανάκτηση των μαθημάτων στη βάση δεδομένων: " + e.getMessage());
     }
     return subjectId;
   }
@@ -200,7 +200,7 @@ public class ActiveUser {
         }
       }
     } catch (SQLException e) {
-      System.err.println("Σφάλμα κατά την ανάκτηση των μαθημάτων: " + e.getMessage());
+      System.err.println("Σφάλμα κατά την ανάκτηση των μαθημάτων στη βάση δεδομένων: " + e.getMessage());
     }
     return subjects;
   }
@@ -228,7 +228,7 @@ public class ActiveUser {
         }
       }
     } catch (SQLException e) {
-      System.err.println("Σφάλμα κατά την ανάκτηση exams: " + e.getMessage());
+      System.err.println("Σφάλμα κατά την ανάκτηση exams στη βάση δεδομένων: " + e.getMessage());
     }
     return exams;
   }
@@ -248,7 +248,7 @@ public class ActiveUser {
         }
       }
     } catch (SQLException e) {
-      System.err.println("Σφάλμα κατά την ανάκτηση μη διαθέσιμων ημερομηνιών: " + e.getMessage());
+      System.err.println("Σφάλμα κατά την ανάκτηση μη διαθέσιμων ημερομηνιών στη βάση δεδομένων: " + e.getMessage());
     }
     return nonAvDates;
   }
@@ -273,7 +273,7 @@ public class ActiveUser {
         }
       }
     } catch (SQLException e) {
-      System.err.println("Σφάλμα κατά την ανάκτηση της διαθεσιμότητας: " + e.getMessage());
+      System.err.println("Σφάλμα κατά την ανάκτηση της διαθεσιμότητας στη βάση δεδομένων: " + e.getMessage());
     }
     return availability;
   }
@@ -294,7 +294,7 @@ public class ActiveUser {
         }
       }
     } catch (SQLException e) {
-      System.err.println("Σφάλμα κατά την ανάκτηση ημερών " + e.getMessage());
+      System.err.println("Σφάλμα κατά την ανάκτηση ημερών στη βάση δεδομένων" + e.getMessage());
     }
     return days;
   }
@@ -303,10 +303,6 @@ public class ActiveUser {
   public static List<Exam> getExam(int userId) {
     List<Exam> exams = new ArrayList<>();
     List<Integer> subjectId = getSubjectId(userId);
-    for (int id : subjectId) {
-      System.out.println("subjectIds in getExam: ");
-      System.out.println("subjectId: " + subjectId);
-    }
     if (subjectId.isEmpty()) {
       return exams; // returns an empty list if there are no subjectId's
     }
@@ -339,7 +335,7 @@ public class ActiveUser {
         }
       }
     } catch (SQLException e) {
-      System.err.println("Σφάλμα κατά την ανάκτηση exams: " + e.getMessage());
+      System.err.println("Σφάλμα κατά την ανάκτηση exams στη βάση δεδομένων: " + e.getMessage());
     }
     return exams;
   }
@@ -417,7 +413,7 @@ public class ActiveUser {
         }
       }
     } catch (SQLException e) {
-      System.err.println("Σφάλμα κατά την ανάκτηση Task : " + e.getMessage());
+      System.err.println("Σφάλμα κατά την ανάκτηση Task στη βάση δεδομένων: " + e.getMessage());
     }
     return scheduledTasks;
   }
@@ -451,10 +447,10 @@ public class ActiveUser {
           assignments.add(assignment);
         }
       } catch (SQLException e) {
-        System.err.println("Σφάλμα κατά την ανάκτηση εργασιών :" + e.getMessage());
+        System.err.println("Σφάλμα κατά την ανάκτηση εργασιών στη βάση δεδομένων:" + e.getMessage());
       }
     } catch (Exception e) {
-      System.err.println("Σφάλμα κατά την ανάκτηση εργασιών :" + e.getMessage());
+      System.err.println("Σφάλμα κατά την ανάκτηση εργασιών στη βάση δεδομένων:" + e.getMessage());
     }
     return assignments;
   }
@@ -478,7 +474,7 @@ public class ActiveUser {
         }
       }
     } catch (SQLException e) {
-      System.err.println("Σφάλμα κατά την ανάκτηση εβδομάδων: " + e.getMessage());
+      System.err.println("Σφάλμα κατά την ανάκτηση εβδομάδων στη βάση δεδομένων: " + e.getMessage());
     }
     return weeks;
   }
@@ -525,7 +521,7 @@ public class ActiveUser {
         }
       }
     } catch (SQLException e) {
-      System.err.println("Σφάλμα κατά την ανάκτηση των tasks για την ημέρα: " + e.getMessage());
+      System.err.println("Σφάλμα κατά την ανάκτηση των tasks για την ημέρα στη βάση δεδομένων: " + e.getMessage());
     }
     return scheduledTasks;
   }
@@ -571,7 +567,7 @@ public class ActiveUser {
         }
       }
     } catch (SQLException e) {
-      System.err.println("Σφάλμα κατά την ανάκτηση CompletedTask : " + e.getMessage());
+      System.err.println("Σφάλμα κατά την ανάκτηση CompletedTask στη βάση δεδομένων: " + e.getMessage());
     }
     return scheduledTasks;
   }

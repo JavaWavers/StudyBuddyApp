@@ -19,12 +19,12 @@ public class DeleteData {
 
       int rowsAffected = ps.executeUpdate();
       if (rowsAffected > 0) {
-        System.out.println("Η εξέταση διαγράφτηκε με επιτυχία.");
+        System.out.println("Η εξέταση διαγράφτηκε με επιτυχία στη βάση δεδομένων.");
       } else {
-        System.out.println("Δεν βρέθηκε εξέταση με αυτό το ID.");
+        System.out.println("Δεν βρέθηκε εξέταση με αυτό το ID στη βάση δεδομένων.");
       }
     } catch (SQLException e) {
-      System.err.println("Σφάλμα κατά την διαγραφή εξέτασης: " + e.getMessage());
+      System.err.println("Σφάλμα κατά την διαγραφή εξέτασης στη βάση δεδομένων: " + e.getMessage());
     }
   }
 
@@ -41,12 +41,12 @@ public class DeleteData {
 
       int rowsAffected = ps.executeUpdate();
       if (rowsAffected > 0) {
-        System.out.println("Το μάθημα διαγράφτηκε με επιτυχία.");
+        System.out.println("Το μάθημα διαγράφτηκε με επιτυχία στη βάση δεδομένων.");
       } else {
-        System.out.println("Δεν βρέθηκε μάθημα με αυτό το ID.");
+        System.out.println("Δεν βρέθηκε μάθημα με αυτό το ID στη βάση δεδομένων.");
       }
     } catch (SQLException e) {
-      System.err.println("Σφάλμα κατά την διαγραφή μαθήματος: " + e.getMessage());
+      System.err.println("Σφάλμα κατά την διαγραφή μαθήματος στη βάση δεδομένων: " + e.getMessage());
     }
   }
 
@@ -63,12 +63,12 @@ public class DeleteData {
 
       int rowsAffected = ps.executeUpdate();
       if (rowsAffected > 0) {
-        System.out.println("Η assignment διαγράφτηκε με επιτυχία.");
+        System.out.println("Η assignment διαγράφτηκε με επιτυχία στη βάση δεδομένων.");
       } else {
-        System.out.println("Δεν βρέθηκε assignment με αυτό το ID.");
+        System.out.println("Δεν βρέθηκε assignment με αυτό το ID στη βάση δεδομένων.");
       }
     } catch (SQLException e) {
-      System.err.println("Σφάλμα κατά την διαγραφή assignment: " + e.getMessage());
+      System.err.println("Σφάλμα κατά την διαγραφή assignment στη βάση δεδομένων: " + e.getMessage());
     }
   }
 
@@ -85,12 +85,12 @@ public class DeleteData {
 
       int rowsAffected = ps.executeUpdate();
       if (rowsAffected > 0) {
-        System.out.println("ScheduledTask διαγράφτηκε με επιτυχία.");
+        System.out.println("ScheduledTask διαγράφτηκε με επιτυχία στη βάση δεδομένων.");
       } else {
-        System.out.println("Δεν βρέθηκε ScheduledTask με αυτό το ID.");
+        System.out.println("Δεν βρέθηκε ScheduledTask με αυτό το ID στη βάση δεδομένων.");
       }
     } catch (SQLException e) {
-      System.err.println("Σφάλμα κατά την διαγραφή ScheduledTask: " + e.getMessage());
+      System.err.println("Σφάλμα κατά την διαγραφή ScheduledTask στη βάση δεδομένων: " + e.getMessage());
     }
   }
 
@@ -106,12 +106,12 @@ public class DeleteData {
       ps.setString(1, date.toString());
       int rowsAffected = ps.executeUpdate();
       if (rowsAffected > 0) {
-        System.out.println("NonAvDate διαγράφτηκε με επιτυχία.");
+        System.out.println("NonAvDate διαγράφτηκε με επιτυχία στη βάση δεδομένων.");
       } else {
-        System.out.println("Δεν βρέθηκε NonAvDate");
+        System.out.println("Δεν βρέθηκε NonAvDate στη βάση δεδομένων");
       }
     } catch (SQLException e) {
-      System.err.println("Σφάλμα κατά την διαγραφή NonAvDate: " + e.getMessage());
+      System.err.println("Σφάλμα κατά την διαγραφή NonAvDate στη βάση δεδομένων: " + e.getMessage());
     }
   }
 
@@ -128,12 +128,12 @@ public class DeleteData {
 
       int rowsAffected = ps.executeUpdate();
       if (rowsAffected > 0) {
-        System.out.println("ScheduledTask διαγράφτηκε με επιτυχία.");
+        System.out.println("ScheduledTask διαγράφτηκε με επιτυχία στη βάση δεδομένων.");
       } else {
-        System.out.println("Δεν βρέθηκε ScheduledTask με αυτό το ID.");
+        System.out.println("Δεν βρέθηκε ScheduledTask με αυτό το ID στη βάση δεδομένων.");
       }
     } catch (SQLException e) {
-      System.err.println("Σφάλμα κατά την διαγραφή ScheduledTask: " + e.getMessage());
+      System.err.println("Σφάλμα κατά την διαγραφή ScheduledTask στη βάση δεδομένων: " + e.getMessage());
     }
   }
 }
