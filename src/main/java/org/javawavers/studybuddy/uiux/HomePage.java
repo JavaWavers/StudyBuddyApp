@@ -1,12 +1,15 @@
 package org.javawavers.studybuddy.uiux;
 
 import java.net.URL;
+import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.effect.SepiaTone;
@@ -225,11 +228,26 @@ public class HomePage {
     Button btnSeeHow = new Button("Δες Πως");
     btnSeeHow.setStyle(btnStyle());
 
+    btnSeeHow.setOnAction(
+      event -> {
+        notReadyYet();
+      });
+
     Button btnNewsTips = new Button("Νέα και Συμβουλές");
     btnNewsTips.setStyle(btnStyle());
 
+    btnNewsTips.setOnAction(
+      event -> {
+        notReadyYet();
+      });
+
     Button btnAboutUs = new Button("Ποιοι είμαστε");
     btnAboutUs.setStyle(btnStyle());
+
+    btnAboutUs.setOnAction(
+      event -> {
+        notReadyYet();
+      });
 
     HBox mainBtns = new HBox(15);
     HBox.setHgrow(mainBtns, Priority.ALWAYS);
@@ -257,6 +275,23 @@ public class HomePage {
     navBar.getChildren().addAll(imgBox, mainBtns, loginBox);
     return navBar;
   }
+
+  private void notReadyYet() {
+      Alert alert = new Alert(Alert.AlertType.WARNING);
+      alert.setTitle("Υπό Κατασκευή 🚧");
+      alert.setHeaderText(null);
+      alert.setContentText(
+            "Κάτι νέο έρχεται! 🚀\n\nΗ λειτουργία αυτή βρίσκεται υπό κατασκευή. "
+        + "Μείνε συντονισμένος για περισσότερες εκπλήξεις! 😄");
+      alert
+          .getDialogPane()
+          .getStylesheets()
+          .add(Objects.requireNonNull(getClass().getResource("/alert.css")).toExternalForm());
+      alert.getDialogPane().setMinWidth(500);
+      alert.getDialogPane().setMinHeight(300);
+      alert.showAndWait();
+  }
+    
 
   /**
    * Returns the CSS style for the "Log In" button.

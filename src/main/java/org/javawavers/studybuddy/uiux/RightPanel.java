@@ -1,17 +1,20 @@
 package org.javawavers.studybuddy.uiux;
 
-import static org.javawavers.studybuddy.courses.StaticUser.staticUser;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Arrays;
 import java.util.List;
-import javafx.scene.control.*;
+
+import org.javawavers.studybuddy.courses.Assignment;
+import static org.javawavers.studybuddy.courses.StaticUser.staticUser;
+import org.javawavers.studybuddy.courses.Subject;
+
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
-import org.javawavers.studybuddy.courses.Assignment;
-import org.javawavers.studybuddy.courses.Subject;
 
 
 
@@ -122,23 +125,23 @@ public class RightPanel {
     VBox tasksPane = new VBox(10);
 
     tasksPane
-         .getChildren()
-         .addAll(
+          .getChildren()
+          .addAll(
         TasksVBox(
           "Σημερινά Tasks",
-          new String[]{"Task 1", "Task 2", "Task 3", "4", "5", "6", "7", "8", "9,", "10"},
+          new String[]{"Υπό Κατασκευή 🚧"},
           Styles.TaskType.TODAY),
         TasksVBox(
           "Εβδομαδιαία Tasks",
-          new String[]{"Task A", "Task B", "Task C", "Task D"},
+          new String[]{"Υπό Κατασκευή 🚧"},
           Styles.TaskType.WEEK),
         TasksVBox(
           "Εκκρεμότητες",
-          new String[]{"Overdue Task 1", "Overdue Task 2"},
+          new String[]{"Υπό Κατασκευή 🚧"},
           Styles.TaskType.OVERDUE),
         TasksVBox(
           "Ολοκληρωμένα Tasks",
-          new String[]{"Completed Task X", "Completed Task Y"},
+          new String[]{"Υπό Κατασκευή 🚧"},
           Styles.TaskType.COMPLETED));
     return tasksPane;
   }
