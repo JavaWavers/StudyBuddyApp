@@ -143,7 +143,7 @@ public class DataInserter {
 
   /** insert Day. */
   public static void insertDay(int dayId, int userId, int weekId) {
-    String sql = "INSERT INTO Day (dayId, userId, weekId) VALUES (?, ?, ?);";
+    String sql = "INSERT OR IGNORE INTO Day (dayId, userId, weekId) VALUES (?, ?, ?);";
     try (Connection c = DataBaseManager.connect();
         PreparedStatement ps = c.prepareStatement(sql)) {
       ps.setInt(1, dayId);
@@ -158,7 +158,7 @@ public class DataInserter {
 
   /** insert week. */
   public static void insertWeek(int weekId, int userId) {
-    String sql = "INSERT INTO Week (weekId, userId) VALUES (?, ?);";
+    String sql = "INSERT OR IGNORE INTO Week (weekId, userId) VALUES (?, ?);";
     try (Connection c = DataBaseManager.connect();
         PreparedStatement ps = c.prepareStatement(sql)) {
       ps.setInt(1, weekId);

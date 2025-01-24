@@ -156,9 +156,10 @@ public class DataBaseManager {
       String sql =
           """
                    CREATE TABLE IF NOT EXISTS Day (
-                   dayId INTEGER PRIMARY KEY,
-                    userId INTEGER NOT NULL,
+                   dayId INTEGER NOT NULL,
+                   userId INTEGER NOT NULL,
                    weekId INTEGER NOT NULL,
+                   PRIMARY KEY(dayId, userId),
                    FOREIGN KEY (userId) REFERENCES User (userId),
                    FOREIGN KEY (weekId) REFERENCES Week (weekId)
                    );
@@ -176,8 +177,9 @@ public class DataBaseManager {
       String sql =
           """
                    CREATE TABLE IF NOT EXISTS Week (
-                   weekId INTEGER PRIMARY KEY,
+                   weekId INTEGER NOT NULL,
                    userId INTEGER NOT NULL,
+                   PRIMARY KEY (weekId, userId),
                    FOREIGN KEY (userId) REFERENCES User (userId)
                    );
                    """;

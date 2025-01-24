@@ -22,7 +22,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 import org.javawavers.studybuddy.courses.Assignment;
-import org.javawavers.studybuddy.courses.StaticUser;
 import org.javawavers.studybuddy.database.DataInserter;
 
 /**
@@ -143,8 +142,7 @@ public class AssignmentPage {
    staticUser.addAssignment(assignment1);
 
     DataInserter.insertAssignment(
-        title, localDeadline, estimateHour, difficulty, null, StaticUser.staticUser.getUserId());
-    StaticUser.staticUser.addAssignment(assignment1);
+        title, localDeadline, estimateHour, difficulty, null, staticUser.getUserId());
 
 
     System.out.println(title);
