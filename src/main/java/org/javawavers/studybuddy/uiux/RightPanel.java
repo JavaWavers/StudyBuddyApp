@@ -100,7 +100,7 @@ public class RightPanel {
   String[] avPerDayArray =
     (avPerDay == null || avPerDay.length == 0)
       ? new String[]{"Δεν έχεις συμπληρώσει διαθεσιμότητα"}
-      : Arrays.stream(avPerDay).mapToObj(String::valueOf).toArray(String[]::new);
+      : Arrays.stream(avPerDay).mapToObj(String::valueOf).skip(1).toArray(String[]::new);
 
   List<LocalDate> nonAvailDays = staticUser.getNonAvailDays();
   DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
