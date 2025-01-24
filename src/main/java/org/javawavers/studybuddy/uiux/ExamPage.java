@@ -20,7 +20,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
 import org.javawavers.studybuddy.courses.Exam;
-import org.javawavers.studybuddy.courses.StaticUser;
 import org.javawavers.studybuddy.courses.Subject;
 import org.javawavers.studybuddy.database.ActiveUser;
 import org.javawavers.studybuddy.database.DataInserter;
@@ -263,17 +262,8 @@ public class ExamPage {
     Subject subject1 = new Subject(courseName, diffi, courseType);
     // create an exam object
 
-    System.out.print("is subject null " + subject1.getCourseName());
-    System.out.print("is subject null " + subject1.getSubjectType());
-    System.out.print("is subject null " + subject1.getDifficultyLevel());
     Exam e1 = new Exam(pages, revision, deadline, time);
-    subject1.addExam(e1);
-    // static user add the subject
-    staticUser.addSubject(subject1);
 
-    System.out.print("object:" + subject1);
-    System.out.println("Adding subject: " + subject1.getCourseName());
-    System.out.println("Subjects in ExamPage after add: " + getSubjects().size());
 
     if (courseName.isEmpty()) {
       errors.add("• Εισήγαγε όνομα μαθήματος");
@@ -330,12 +320,12 @@ public class ExamPage {
           .add(Objects.requireNonNull(getClass().getResource("/success.css")).toExternalForm());
       successAlert.showAndWait();
       DataInserter.insertSubject(
-          courseName, diffi, courseType.toString(), StaticUser.staticUser.getUserId());
-      int subjectID = ActiveUser.getSubjectId(StaticUser.staticUser.getUserId(), courseName);
-      System.out.println("subjectID:" + subjectID);
+          courseName, diffi, courseType.toString(), staticUser.getUserId());
+      int subjectID = ActiveUser.getSubjectId(staticUser.getUserId(), courseName);
       DataInserter.insertExam(deadline, pages, revision, time, subjectID);
-      StaticUser.staticUser.addSubject(subject1);
-      StaticUser.staticUser.addExam(e1);
+      subject1.addExam(e1);
+      staticUser.addSubject(subject1);
+      staticUser.addExam(e1);
     }
 
     clearFields();

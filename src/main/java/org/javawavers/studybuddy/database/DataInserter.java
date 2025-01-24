@@ -41,9 +41,9 @@ public class DataInserter {
       ps.setString(3, subjectType);
       ps.setInt(4, userId);
       ps.executeUpdate();
-      System.out.println("Τα δεδομένα μαθήματος εισάχθηκε με επιτυχία στη βάση δεδομένων");
+      System.out.println("Τα δεδομένα μαθήματος εισάχθηκαν με επιτυχία στη βάση δεδομένων.");
     } catch (SQLException e) {
-      System.err.println("Σφάλμα κατά την εισαγωγή μαθήματος στη βάση δεδομένων");
+      System.err.println("Σφάλμα κατά την εισαγωγή μαθήματος στη βάση δεδομένων.");
     }
   }
 
