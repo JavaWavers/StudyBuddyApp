@@ -18,7 +18,8 @@ public class MainFrame {
    * This includes setting up the menu, center panel, and right panel, and returns
    * a fully constructed {@link Scene} containing the layout.
    *
-   * @param sceneManager The {@link SceneManager} used to handle scene transitions. It must not be null.
+   * @param sceneManager The {@link SceneManager} used to handle scene transitions.
+   *                    It must not be null.
    * @return The main application {@link Scene}, sized to the primary screen's dimensions.
    */
   public Scene mainFrame(SceneManager sceneManager) {
@@ -44,12 +45,10 @@ public class MainFrame {
     borderPane.setRight(rightPanel.rightPanel());
 
     // Create the scene with dimensions matching the primary screen's visual bounds.
-    Scene scene =
-        new Scene(
-            borderPane,
-            Screen.getPrimary().getVisualBounds().getWidth(),
-            Screen.getPrimary().getVisualBounds().getHeight());
 
-    return scene;
+    return new Scene(
+      borderPane,
+      Screen.getPrimary().getVisualBounds().getWidth(),
+      Screen.getPrimary().getVisualBounds().getHeight());
   }
 }

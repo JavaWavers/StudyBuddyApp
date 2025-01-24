@@ -1,6 +1,9 @@
 package org.javawavers.studybuddy.uiux;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.scene.layout.StackPane;
+
 
 /**
  * CenterPanelManager class changes the center panel of the main Page depending on the Menu Button
@@ -8,7 +11,12 @@ import javafx.scene.layout.StackPane;
  */
 public class CenterPanelManager {
   private final StackPane centerPane;
+  private static final Logger LOGGER = Logger.getLogger(CenterPanelManager.class.getName());
 
+  /**
+   * Constructor for CenterPanelManager.
+   * Initializes the center panel with maximum width and height.
+   */
   // class constructor
   public CenterPanelManager() {
     centerPane = new StackPane();
@@ -18,7 +26,7 @@ public class CenterPanelManager {
 
   /**
    * This is the main method of the class It creates objects from all button Pages which are on the
-   * Menu Using a switch it changes the page that should be presented on the center panel
+   * Menu Using a switch it changes the page that should be presented on the center panel.
    */
   // Method that changes center Panel
   public void changeCenterPanel(String panelName) {
@@ -66,18 +74,19 @@ public class CenterPanelManager {
           throw new IllegalArgumentException("Δεν είναι σωστό το όνομα του panel " + panelName);
       }
     } catch (NullPointerException e) {
-      System.err.println("Σφάλμα: " + e.getMessage());
-      e.printStackTrace();
+      LOGGER.log(Level.SEVERE, "Σφάλμα: " + e.getMessage(), e);
     } catch (IllegalArgumentException e) {
-      System.err.println("Λάνθασμένη κλήση panel: " + e.getMessage());
+      LOGGER.log(Level.WARNING, "Λάνθασμένη κλήση panel: " + e.getMessage());
     } catch (Exception e) {
-      System.err.println("Απροσδόκητο σφάλμα κατά την αλλαγή του panel: " + e.getMessage());
-      e.printStackTrace();
+      LOGGER.log(Level.SEVERE,
+          "Απροσδόκητο σφάλμα κατά την αλλαγή του panel: " + e.getMessage(), e);
     }
   }
 
   /**
-   * @return The center pane that is selected it appears on the center panel
+   * * Returns the center pane that is displayed on the UI.
+   *
+   * @return The panel name that is selected it appears on the center panel
    */
   public StackPane getCenterPane() {
     return centerPane;

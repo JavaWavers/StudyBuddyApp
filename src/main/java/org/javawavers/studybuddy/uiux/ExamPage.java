@@ -4,9 +4,7 @@ import static org.javawavers.studybuddy.courses.StaticUser.staticUser;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Objects;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -14,7 +12,13 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.DialogPane;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -26,22 +30,20 @@ import org.javawavers.studybuddy.database.DataInserter;
 
 /**
  * Represents a page in the user interface where the user can input and save details about an exam.
- * The page includes fields for the course name, type, pages, exam date, difficulty, and time per 20 slides.
+ * The page includes fields for
+ * the course name, type, pages, exam date, difficulty, and time per 20 slides.
  */
 public class ExamPage {
-  private TextField nameField, pageField, difficulty, timePer20Slides;
-  // crete static variables for the use of inputs
-  private static String courseName = "";
+  private TextField nameField;
+  private TextField pageField;
+  private TextField difficulty;
+  private TextField timePer20Slides;
   private static int pages = 0;
-  private static int revision = 0;
-  private static LocalDate deadline;
-  private static Subject.SubjectType courseType;
   private static int diffi = 0;
   private static double time = 0.0;
   private DatePicker datePicker;
   private ComboBox<Subject.SubjectType> typeCourseList;
-  private Map<String, Subject.SubjectType> typeMap = new LinkedHashMap<>();
-  private static List<Subject> subjects = new ArrayList<Subject>();
+  private static List<Subject> subjects = new ArrayList<>();
   private Button okBtn;
 
 
@@ -61,13 +63,13 @@ public class ExamPage {
    * @return the Scene object representing the exam page
    */
   public Scene examStartingPage(SceneManager sceneManager) {
-    VBox examViewWithBtn = new VBox();
 
     HBox nameLbl = new HBox(20);
     Label name = new Label("Εισαγωγή Μαθημάτων");
     name.setStyle(Styles.StyleType.TITLE.getStyle());
     nameLbl.getChildren().add(name);
     nameLbl.setPadding(new Insets(20));
+    VBox examViewWithBtn = new VBox();
     examViewWithBtn.getChildren().add(nameLbl);
 
     VBox examView = (VBox) createExamPanel();
@@ -85,12 +87,10 @@ public class ExamPage {
     btnBox.getChildren().add(nextBtn);
     examViewWithBtn.getChildren().add(btnBox);
 
-    Scene scene =
-        new Scene(
-            examViewWithBtn,
-            Screen.getPrimary().getVisualBounds().getWidth(),
-            Screen.getPrimary().getVisualBounds().getHeight());
-    return scene;
+    return new Scene(
+      examViewWithBtn,
+      Screen.getPrimary().getVisualBounds().getWidth(),
+      Screen.getPrimary().getVisualBounds().getHeight());
   }
 
   /**
@@ -110,15 +110,13 @@ public class ExamPage {
     okBtn.setStyle(Styles.COURSES_BTN_STYLE);
     okBtn.setOnMouseEntered(e -> okBtn.setStyle(Styles.COURSES_BTN_MOUSE_ENTERED));
     okBtn.setOnMouseClicked(
-        e -> {
-          handleBtnOk();
-        });
+        e -> handleBtnOk());
     okBtn.setAlignment(Pos.CENTER_LEFT);
 
     // Τοποθέτηση του κουμπιού στο GridPane
-    HBox okBtnHBox = new HBox(10, okBtn);
-    okBtnHBox.setAlignment(Pos.CENTER_LEFT);
-    examPanel.getChildren().add(okBtnHBox);
+    HBox okBtnHbox = new HBox(10, okBtn);
+    okBtnHbox.setAlignment(Pos.CENTER_LEFT);
+    examPanel.getChildren().add(okBtnHbox);
 
     return examPanel;
   }
@@ -129,7 +127,7 @@ public class ExamPage {
    * @return a VBox containing the course name input section
    */
   private VBox courseNameSection() {
-    VBox nameVBox = new VBox(10);
+
     Label nameTitle = new Label("Μάθημα:");
     nameTitle.setStyle(Styles.StyleType.TITLE.getStyle());
     GridPane nameSection = new GridPane();
@@ -143,12 +141,13 @@ public class ExamPage {
 
     nameSection.setStyle(Styles.BLACK_BORDER);
 
-    nameVBox.getChildren().addAll(nameTitle, nameSection);
+    VBox nameVbox = new VBox(10);
+    nameVbox.getChildren().addAll(nameTitle, nameSection);
 
-    nameVBox.setMaxWidth(400);
-    nameVBox.setPrefWidth(400);
+    nameVbox.setMaxWidth(400);
+    nameVbox.setPrefWidth(400);
 
-    return nameVBox;
+    return nameVbox;
   }
 
   /**
@@ -158,7 +157,7 @@ public class ExamPage {
    * @return a VBox containing the information input section
    */
   private VBox infoSection() {
-    VBox infoVBox = new VBox(10);
+
     Label infoTitle = new Label("Πληροφορίες:");
     infoTitle.setStyle(Styles.StyleType.TITLE.getStyle());
     GridPane info = new GridPane();
@@ -196,15 +195,17 @@ public class ExamPage {
     info.add(datePicker, 1, 3);
 
     info.setStyle(Styles.BLACK_BORDER);
-    infoVBox.getChildren().addAll(infoTitle, info);
 
-    infoVBox.setMaxWidth(400);
-    infoVBox.setPrefWidth(400);
-    return infoVBox;
+    VBox infoVbox = new VBox(10);
+    infoVbox.getChildren().addAll(infoTitle, info);
+
+    infoVbox.setMaxWidth(400);
+    infoVbox.setPrefWidth(400);
+    return infoVbox;
   }
 
   private VBox evalSection() {
-    VBox evalVBox = new VBox(10);
+
     Label evalTitle = new Label("Αξιολόγηση:");
     evalTitle.setStyle(Styles.StyleType.TITLE.getStyle());
     GridPane eval = new GridPane();
@@ -225,15 +226,18 @@ public class ExamPage {
     eval.add(timePer20Slides, 1, 2);
 
     eval.setStyle(Styles.BLACK_BORDER);
-    evalVBox.getChildren().addAll(evalTitle, eval);
 
-    evalVBox.setMaxWidth(400);
-    evalVBox.setPrefWidth(400);
+    VBox evalVbox = new VBox(10);
+    evalVbox.getChildren().addAll(evalTitle, eval);
 
-    return evalVBox;
+    evalVbox.setMaxWidth(400);
+    evalVbox.setPrefWidth(400);
+
+    return evalVbox;
   }
 
   private void handleBtnOk() {
+    String courseName;
     courseName = nameField.getText();
     String value = pageField.getText();
     List<String> errors = new ArrayList<>();
@@ -242,6 +246,9 @@ public class ExamPage {
     } else {
       pages = Integer.parseInt(value);
     }
+
+    LocalDate deadline;
+    Subject.SubjectType courseType;
     deadline =
         datePicker.getValue() != null ? LocalDate.parse(datePicker.getValue().toString()) : null;
     courseType = typeCourseList.getValue();
@@ -258,13 +265,6 @@ public class ExamPage {
       time = Integer.parseInt(value4);
     }
 
-    // create a subject object
-    Subject subject1 = new Subject(courseName, diffi, courseType);
-    // create an exam object
-
-    Exam e1 = new Exam(pages, revision, deadline, time);
-
-
     if (courseName.isEmpty()) {
       errors.add("• Εισήγαγε όνομα μαθήματος");
     } else if (!courseName.matches("[a-zA-Zα-ωΑ-ΩάέήίΰϊϋόύώΆΈΉΊΪΫΌΎΏ]+")) {
@@ -273,11 +273,6 @@ public class ExamPage {
 
     if (pages <= 0) {
       errors.add("• Η παράμετρος 'Σελίδες' πρέπει να είναι θετικός αριθμός.");
-    }
-
-    if (revision < 0) {
-      errors.add(
-          "• Η παράμετρος 'Επανάληψη ανά (σελίδες): ' πρέπει να είναι μη αρνητικός αριθμός.");
     }
 
     if (deadline == null || deadline.isBefore(LocalDate.now())) {
@@ -319,10 +314,17 @@ public class ExamPage {
           .getStylesheets()
           .add(Objects.requireNonNull(getClass().getResource("/success.css")).toExternalForm());
       successAlert.showAndWait();
+
+      int revision = 0;
       DataInserter.insertSubject(
           courseName, diffi, courseType.toString(), staticUser.getUserId());
-      int subjectID = ActiveUser.getSubjectId(staticUser.getUserId(), courseName);
-      DataInserter.insertExam(deadline, pages, revision, time, subjectID);
+      int subjectId = ActiveUser.getSubjectId(staticUser.getUserId(), courseName);
+      DataInserter.insertExam(deadline, pages, revision, time, subjectId);
+
+      // create an exam object
+      Exam e1 = new Exam(pages, revision, deadline, time);
+      // create a subject object
+      Subject subject1 = new Subject(courseName, diffi, courseType);
       subject1.addExam(e1);
       staticUser.addSubject(subject1);
       staticUser.addExam(e1);

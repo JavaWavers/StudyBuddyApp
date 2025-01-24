@@ -1,5 +1,8 @@
 package org.javawavers.studybuddy.uiux;
 
+import java.net.URL;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
@@ -9,10 +12,15 @@ import javafx.scene.control.Label;
 import javafx.scene.effect.SepiaTone;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.*;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.transform.Rotate;
 import javafx.stage.Screen;
+
+
 
 /**
  * The HomePage class is responsible for creating and displaying the main page of the application.
@@ -22,8 +30,8 @@ import javafx.stage.Screen;
 public class HomePage {
   private SceneManager sceneManager;
   private HBox navBar;
-  private VBox rightPanel;
-  private VBox leftPanel;
+  private static final Logger LOGGER = Logger.getLogger(HomePage.class.getName());
+
 
   /**
    * Creates and returns the home page scene.
@@ -34,8 +42,6 @@ public class HomePage {
   public Scene home(SceneManager sceneManager) {
     try {
       this.sceneManager = sceneManager;
-
-      VBox home = new VBox();
 
       navBar = navBar();
       if (navBar == null) {
@@ -49,18 +55,17 @@ public class HomePage {
       mainPanel();
       mainPane = mainPanel();
 
+      VBox home = new VBox();
       home.getChildren().addAll(navBar, mainPane);
       return new Scene(
           home,
           Screen.getPrimary().getVisualBounds().getWidth(),
           Screen.getPrimary().getVisualBounds().getHeight());
     } catch (IllegalStateException e) {
-      System.err.println("Δεν μπορεί να δημιουργηθεί η αρχική: " + e.getMessage());
-      e.printStackTrace();
+      LOGGER.log(Level.SEVERE, "Δεν μπορεί να δημιουργηθεί η αρχική: " + e.getMessage(), e);
       return null;
     } catch (Exception e) {
-      System.err.println("Απροσδόκητο σφάλμα: " + e.getMessage());
-      e.printStackTrace();
+      LOGGER.log(Level.SEVERE, "Απροσδόκητο σφάλμα: " + e.getMessage(), e);
       return null;
     }
   }
@@ -71,21 +76,21 @@ public class HomePage {
    * @return An {@link HBox} containing the main content of the page.
    */
   private HBox mainPanel() {
-    HBox centralHBox = new HBox(20);
-    centralHBox.setFillHeight(true);
-    HBox.setHgrow(centralHBox, Priority.ALWAYS);
+    HBox centralHbox = new HBox(20);
+    centralHbox.setFillHeight(true);
+    HBox.setHgrow(centralHbox, Priority.ALWAYS);
 
-    leftPanel = leftVBox();
-    rightPanel = rightVBox();
+    VBox leftPanel = new VBox(leftVbox());
+    VBox rightPanel = new VBox(rightVbox());
 
     try {
       if (leftPanel == null || rightPanel == null) {
         throw new IllegalStateException("Ένα από τα VBoxes στο main pane είναι άδειο!");
       }
-      centralHBox.getChildren().addAll(leftPanel, rightPanel);
+      centralHbox.getChildren().addAll(leftPanel, rightPanel);
     } catch (IllegalStateException e) {
-      System.err.println("Σφάλμα κατά την προσθήκη των παιδιών στο mainPane: " + e.getMessage());
-      e.printStackTrace();
+      LOGGER.log(Level.SEVERE,
+          "Σφάλμα κατά την προσθήκη των παιδιών στο mainPane: " + e.getMessage(), e);
     }
 
     Region upSpacer = new Region();
@@ -93,7 +98,7 @@ public class HomePage {
     VBox.setVgrow(upSpacer, Priority.ALWAYS);
     VBox.setVgrow(downSpacer, Priority.ALWAYS);
 
-    return centralHBox;
+    return centralHbox;
   }
 
   /**
@@ -102,7 +107,7 @@ public class HomePage {
    *
    * @return A {@link VBox} containing the content of the left panel.
    */
-  private VBox leftVBox() {
+  private VBox leftVbox() {
 
     Label welcomeLabel = new Label("Γεια σου, \nΚαλώς όρισες στο \nStudy Buddy σου!");
     welcomeLabel.setFont(new Font("Arial Narrow Bold Italic", 44));
@@ -135,14 +140,14 @@ public class HomePage {
     VBox.setVgrow(welcomeBox, Priority.ALWAYS);
     welcomeBox.getChildren().addAll(welcomeLabel, label1, tryButton);
 
-    VBox leftVBox = new VBox(10);
-    leftVBox.getChildren().addAll(welcomeBox);
-    leftVBox.setFillWidth(true);
-    VBox.setVgrow(leftVBox, Priority.ALWAYS);
-    leftVBox.setPrefWidth(Screen.getPrimary().getVisualBounds().getWidth() / 2);
+    VBox leftvBox = new VBox(10);
+    leftvBox.getChildren().addAll(welcomeBox);
+    leftvBox.setFillWidth(true);
+    VBox.setVgrow(leftvBox, Priority.ALWAYS);
+    leftvBox.setPrefWidth(Screen.getPrimary().getVisualBounds().getWidth() / 2);
 
-    leftVBox.setAlignment(Pos.CENTER_LEFT);
-    return leftVBox;
+    leftvBox.setAlignment(Pos.CENTER_LEFT);
+    return leftvBox;
   }
 
   /**
@@ -150,35 +155,38 @@ public class HomePage {
    *
    * @return A {@link VBox} containing the content of the right panel.
    */
-  private VBox rightVBox() {
-    HBox imgVBox = new HBox(10);
+  private VBox rightVbox() {
+    HBox imgVbox = new HBox(10);
 
     ImageView pcImg;
-    try {
-      Image logoWithPC = new Image(getClass().getResource("/logoWithPC.png").toExternalForm());
-      pcImg = new ImageView(logoWithPC);
+
+    URL logoUrl = getClass().getResource("/logoWithPC.png");
+    if (logoUrl != null) {
+      Image logoWithPc = new Image(logoUrl.toExternalForm());
+      pcImg = new ImageView(logoWithPc);
       pcImg.setFitWidth(500);
       pcImg.setPreserveRatio(true);
       pcImg.setRotationAxis(Rotate.Y_AXIS);
       pcImg.setRotate(-30);
-    } catch (NullPointerException e) {
+    } else {
       System.err.println("Δεν βρέθηκε η εικόνα: /logoWithPC.png");
       pcImg = new ImageView();
     }
 
-    imgVBox.setFillHeight(true);
-    HBox.setHgrow(imgVBox, Priority.ALWAYS);
-    imgVBox.setPadding(new Insets(30));
-    imgVBox.setAlignment(Pos.BASELINE_CENTER);
-    imgVBox.getChildren().add(pcImg);
 
-    VBox rightVBox = new VBox(10);
-    rightVBox.setFillWidth(true);
-    VBox.setVgrow(rightVBox, Priority.ALWAYS);
-    rightVBox.setAlignment(Pos.BASELINE_CENTER);
-    rightVBox.setPrefWidth(Screen.getPrimary().getVisualBounds().getWidth() / 2);
-    rightVBox.getChildren().addAll(imgVBox);
-    return rightVBox;
+    imgVbox.setFillHeight(true);
+    HBox.setHgrow(imgVbox, Priority.ALWAYS);
+    imgVbox.setPadding(new Insets(30));
+    imgVbox.setAlignment(Pos.BASELINE_CENTER);
+    imgVbox.getChildren().add(pcImg);
+
+    VBox rightvBox = new VBox(10);
+    rightvBox.setFillWidth(true);
+    VBox.setVgrow(rightvBox, Priority.ALWAYS);
+    rightvBox.setAlignment(Pos.BASELINE_CENTER);
+    rightvBox.setPrefWidth(Screen.getPrimary().getVisualBounds().getWidth() / 2);
+    rightvBox.getChildren().addAll(imgVbox);
+    return rightvBox;
   }
 
   /**
@@ -193,12 +201,18 @@ public class HomePage {
     navBar.setStyle("-fx-background-color: rgba(255, 200, 140, 0.81);");
     navBar.setPadding(new Insets(20));
 
-    ImageView logoImgView;
+    ImageView logoImgView = new ImageView();
+    URL logoUrl = getClass().getResource("/logo.png");
     try {
-      Image logoImg = new Image(getClass().getResource("/logo.png").toExternalForm());
-      logoImgView = new ImageView(logoImg);
-      logoImgView.setFitWidth(100);
-      logoImgView.setPreserveRatio(true);
+      if (logoUrl != null) {
+        Image logoImg = new Image(logoUrl.toExternalForm());
+        logoImgView = new ImageView(logoImg);
+        logoImgView.setFitWidth(100);
+        logoImgView.setPreserveRatio(true);
+      } else {
+        System.err.println("Δεν βρέθηκε η εικόνα: /logo.png");
+      }
+
     } catch (NullPointerException e) {
       System.err.println("Δεν βρέθηκε η εικόνα: /logo.png");
       logoImgView = new ImageView();

@@ -33,20 +33,19 @@ public class MenuPage {
   private ToggleButton btnCalendar = new ToggleButton("Calendar");
   private ToggleButton btnDashboard = new ToggleButton("Dashboard");
   private ToggleButton btnCourses = new ToggleButton("Courses");
-  private Button disconnectBtn = new Button("Αποσύνδεση");
 
   private CenterPanelManager centerPanelManager;
   private RightPanel rightPanel;
   private ImageView arrowIconCourses;
   private Image arrowRight;
   private Image arrowDown;
-  private ImageView arrowIconCalendar;
-  private ImageView arrowIconDashboard;
-  VBox optionVBox = new VBox(15);
+  VBox optionVbox = new VBox(15);
 
   /**
    * Constructs a MenuPage instance.
+   *
    * @param centerPanelManager The center panel manager to change the center panel content.
+   *
    * @param rightPanel The right panel to update its content.
    */
   public MenuPage(CenterPanelManager centerPanelManager, RightPanel rightPanel) {
@@ -111,9 +110,8 @@ public class MenuPage {
     button
         .selectedProperty()
         .addListener(
-            (obs, wasSelected, isSelected) -> {
-              button.setStyle(isSelected ? selectedStyle : defaultStyle);
-            });
+            (obs, wasSelected, isSelected) ->
+              button.setStyle(isSelected ? selectedStyle : defaultStyle));
   }
 
   private void configureUserSection() {
@@ -214,6 +212,8 @@ public class MenuPage {
     arrowRight = new Image(getClass().getResource("/arrowRight.png").toExternalForm());
     arrowDown = new Image(getClass().getResource("/arrowDown.png").toExternalForm());
 
+    ImageView arrowIconCalendar;
+    ImageView arrowIconDashboard;
     // Configure arrow icons for buttons
     arrowIconCourses = new ImageView(arrowRight);
     arrowIconCalendar = new ImageView(arrowRight);
@@ -245,22 +245,22 @@ public class MenuPage {
   }
 
   private void configureCourseDropdown() {
-    optionVBox.setVisible(false);
+    optionVbox.setVisible(false);
 
     btnCourses.setOnAction(
         e -> {
-          if (optionVBox.getChildren().isEmpty()) {
-            if (!optionVBox.getChildren().contains(btnExam)) {
-              optionVBox.getChildren().add(btnExam);
+          if (optionVbox.getChildren().isEmpty()) {
+            if (!optionVbox.getChildren().contains(btnExam)) {
+              optionVbox.getChildren().add(btnExam);
             }
-            if (!optionVBox.getChildren().contains(btnAssignment)) {
-              optionVBox.getChildren().add(btnAssignment);
+            if (!optionVbox.getChildren().contains(btnAssignment)) {
+              optionVbox.getChildren().add(btnAssignment);
             }
-            optionVBox.setVisible(true);
+            optionVbox.setVisible(true);
             arrowIconCourses.setImage(arrowDown);
 
-            if (!leftBoxMenu.getChildren().contains(optionVBox)) {
-              leftBoxMenu.getChildren().add(leftBoxMenu.getChildren().size() - 4, optionVBox);
+            if (!leftBoxMenu.getChildren().contains(optionVbox)) {
+              leftBoxMenu.getChildren().add(leftBoxMenu.getChildren().size() - 4, optionVbox);
               VBox.setMargin(btnExam, new Insets(0, 20, 0, 20));
               VBox.setMargin(btnAssignment, new Insets(0, 20, 0, 20));
             }
@@ -271,10 +271,10 @@ public class MenuPage {
   }
 
   private void closeCoursesDropdown() {
-    if (leftBoxMenu.getChildren().contains(optionVBox)) {
-      optionVBox.getChildren().clear();
-      optionVBox.setVisible(false);
-      leftBoxMenu.getChildren().remove(optionVBox);
+    if (leftBoxMenu.getChildren().contains(optionVbox)) {
+      optionVbox.getChildren().clear();
+      optionVbox.setVisible(false);
+      leftBoxMenu.getChildren().remove(optionVbox);
     }
     arrowIconCourses.setImage(arrowRight);
   }

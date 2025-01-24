@@ -2,6 +2,7 @@ package org.javawavers.studybuddy.uiux;
 
 import static org.javawavers.studybuddy.courses.StaticUser.staticUser;
 
+import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -37,12 +38,12 @@ public class AvailabilityPage {
 
   private DatePicker datePicker;
 
-  private VBox leftPane = new VBox(10);
-  private VBox rightPane = new VBox(10);
-  HBox btnsBox = new HBox(20);
-  private TextField[] dayFields = new TextField[7];
+  private final VBox leftPane = new VBox(10);
+  private final VBox rightPane = new VBox(10);
+  private final HBox btnsBox = new HBox(20);
+  private final TextField[] dayFields = new TextField[7];
   int[] avPerDay = new int[8];
-  private String[] days = {
+  private final String[] days = {
     "Δευτέρα", "Τρίτη", "Τετάρτη", "Πέμπτη", "Παρασκευή", "Σάββατο", "Κυριακή"
   };
   private Stage popUpStage;
@@ -74,7 +75,6 @@ public class AvailabilityPage {
    */
   public VBox availabilityPage() {
 
-    VBox availPage = new VBox();
     leftFrame();
     rightFrame();
 
@@ -84,6 +84,7 @@ public class AvailabilityPage {
     HBox.setHgrow(mainPanes, Priority.ALWAYS);
     HBox.setHgrow(btnPane, Priority.ALWAYS);
 
+    VBox availPage = new VBox();
     availPage.getChildren().addAll(mainPanes, btnPane);
 
     return availPage;
@@ -115,10 +116,9 @@ public class AvailabilityPage {
 
   /**
    * Creates the right frame of the page, which contains the date picker for non-availability.
-   *
-   * @return The VBox containing the date picker for non-availability.
+   * The VBox containing the date picker for non-availability.
    */
-  private VBox rightFrame() {
+  private void rightFrame() {
 
     Label dayLabel = new Label("Ημερομηνία Μη διαθεσιμότητας");
     dayLabel.setAlignment(Pos.CENTER);
@@ -128,15 +128,13 @@ public class AvailabilityPage {
     datePicker.setPromptText("Eπέλεξε μη-διαθεσιμη ημερομηνια");
 
     rightPane.getChildren().addAll(dayLabel, datePicker);
-    return rightPane;
   }
 
   /**
    * Creates the left frame of the page, which contains the fields for each day's availability.
-   *
-   * @return The VBox containing the labels and text fields for each day's availability.
+   * The VBox containing the labels and text fields for each day's availability.
    */
-  private VBox leftFrame() {
+  private void leftFrame() {
 
     Label avalLabel = new Label("Διαθεσιμότητα");
     avalLabel.setAlignment(Pos.CENTER);
@@ -156,7 +154,7 @@ public class AvailabilityPage {
     }
 
     leftPane.getChildren().addAll(avalLabel, daysPane);
-    return leftPane;
+
   }
 
   /**
@@ -190,7 +188,13 @@ public class AvailabilityPage {
                 "Όλα τα πεδία είναι κενά. Είστε σίγουρος/η ότι θέλετε να συνεχίσετε;");
 
             DialogPane dialogPane = confirmAlert.getDialogPane();
-            dialogPane.getStylesheets().add(getClass().getResource("/alert.css").toExternalForm());
+            URL alertCss = getClass().getResource("/alert.css");
+            if (alertCss != null) {
+              dialogPane.getStylesheets().add(alertCss.toExternalForm());
+            } else {
+              System.out.println("Το αρχείο alert.css δεν βρέθηκε!");
+            }
+
 
             confirmAlert
                 .showAndWait()
@@ -202,10 +206,7 @@ public class AvailabilityPage {
                     });
           }
           // test for registration or login
-          boolean flag = true;
-          if (staticUser.getAvPerDay() == null) {
-            flag = false;
-          }
+          boolean flag = staticUser.getAvPerDay() != null;
           // static user for availability
           staticUser.setAvPerDay(avPerDay);
 
@@ -246,7 +247,7 @@ public class AvailabilityPage {
               if (avPerDay[i] != 0) {
                 c++;
               }
-            } // inserts for the first time or it update the already inserted one
+            } // inserts for the first time, or it updates the already inserted one
             if (!flag) {
               DataInserter.insertAvailability(
                   avPerDay[1],
@@ -339,13 +340,13 @@ public class AvailabilityPage {
    * @return The Scene containing the availability page layout with buttons.
    */
   public Scene availStartingPage(SceneManager sceneManager) {
-    VBox availViewWithBtn = new VBox();
 
     HBox nameLbl = new HBox(20);
     Label name = new Label("Διαθεσιμότητα");
     name.setStyle(Styles.StyleType.TITLE.getStyle());
     nameLbl.getChildren().add(name);
     nameLbl.setPadding(new Insets(20));
+    VBox availViewWithBtn = new VBox();
     availViewWithBtn.getChildren().add(nameLbl);
 
     VBox availView = availabilityPage();
@@ -365,8 +366,7 @@ public class AvailabilityPage {
     nextBtn.setStyle(Styles.COURSES_BTN_STYLE);
     nextBtn.setOnAction(
         e -> {
-          RegisterPage register = new RegisterPage();
-          String storedUsername = register.storedUsername;
+          String storedUsername = RegisterPage.storedUsername;
           Alert successAlert = new Alert(Alert.AlertType.INFORMATION);
           successAlert.setTitle("Εισαγωγή Διαθεσιμότητας Επιτυχής");
           successAlert.setHeaderText(null);
@@ -398,11 +398,9 @@ public class AvailabilityPage {
     HBox btnBox = new HBox(20);
     btnBox.setPadding(new Insets(20));
 
-    Scene scene =
-        new Scene(
-            availViewWithBtn,
-            Screen.getPrimary().getVisualBounds().getWidth(),
-            Screen.getPrimary().getVisualBounds().getHeight());
-    return scene;
+    return new Scene(
+      availViewWithBtn,
+      Screen.getPrimary().getVisualBounds().getWidth(),
+      Screen.getPrimary().getVisualBounds().getHeight());
   }
 }

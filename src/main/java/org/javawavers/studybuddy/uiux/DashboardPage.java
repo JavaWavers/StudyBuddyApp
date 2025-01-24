@@ -46,22 +46,22 @@ public class DashboardPage {
 
     // Summary Boxes
     VBox summaryBox =
-      createSummaryBox(
+        createSummaryBox(
         "Goals Completed",
         SummaryBoxCalc.percentageCalculatorGoals(),
         "rgba(101, 225, 101, 0.9)");
     VBox summaryBox1 =
-      createSummaryBox(
+        createSummaryBox(
         "Study Completed",
         SummaryBoxCalc.percentageCalculatorStudying(),
         "rgba(247, 178, 103, 0.9)");
     VBox summaryBox2 =
-      createSummaryBox(
+        createSummaryBox(
         "Assignment Completed",
         SummaryBoxCalc.percentageCalculatorAssignments(),
         "rgba(101, 225, 101, 0.9)");
     VBox summaryBox3 =
-      createSummaryBox(
+        createSummaryBox(
         "Revision Completed",
         SummaryBoxCalc.percentageCalculatorRevision(),
         "rgba(247, 178, 103, 0.9)");

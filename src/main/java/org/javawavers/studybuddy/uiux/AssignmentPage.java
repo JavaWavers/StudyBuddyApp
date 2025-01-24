@@ -12,7 +12,6 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
@@ -30,15 +29,14 @@ import org.javawavers.studybuddy.database.DataInserter;
  */
 public class AssignmentPage {
   public static ArrayList<Assignment> assignments = new ArrayList<>();
-  private TextField nameField, assignmentField, estimateHours, difficultyField;
-  ComboBox<String> coursesList;
+  private TextField nameField;
+  private TextField estimateHours;
+  private TextField difficultyField;
   private DatePicker datePicker;
   private static String title = "";
-  private static String estimate = "";
-  private static int difficulty = 0;
-  private static String deadline = "";
+
   private static LocalDate localDeadline;
-  private static int estimateHour;
+
   Button okBtn = new Button("OK");
 
 
@@ -58,17 +56,15 @@ public class AssignmentPage {
     okBtn.setStyle(Styles.COURSES_BTN_STYLE);
     okBtn.setOnMouseEntered(e -> okBtn.setStyle(Styles.COURSES_BTN_MOUSE_ENTERED));
     okBtn.setOnMouseClicked(
-        e -> {
-          handleOkBtn();
-        });
+        e -> handleOkBtn());
     okBtn.setAlignment(Pos.CENTER_LEFT);
 
-    HBox okBtnHBox = new HBox(10);
-    okBtnHBox.setAlignment(Pos.CENTER_LEFT);
-    okBtnHBox.getChildren().add(okBtn);
+    HBox okBtnHbox = new HBox(10);
+    okBtnHbox.setAlignment(Pos.CENTER_LEFT);
+    okBtnHbox.getChildren().add(okBtn);
 
     // adds all the exam page parts to the panel
-    assignmentPanel.getChildren().add(okBtnHBox);
+    assignmentPanel.getChildren().add(okBtnHbox);
 
     return assignmentPanel; // returns the page
   }
@@ -78,11 +74,15 @@ public class AssignmentPage {
    * This method validates the input fields and adds the assignment if valid.
    */
   private void handleOkBtn() {
+
+    String estimate;
+    String deadline;
     title = nameField.getText();
     estimate = estimateHours.getText();
     String value = difficultyField.getText();
     deadline = datePicker.getValue() != null ? datePicker.getValue().toString() : null;
 
+    int difficulty = 0;
     List<String> errors = new ArrayList<>();
     if (title.isEmpty()) {
       errors.add("• Εισήγαγε όνομα εργασίας");
@@ -134,12 +134,13 @@ public class AssignmentPage {
           .add(Objects.requireNonNull(getClass().getResource("/success.css")).toExternalForm());
       successAlert.showAndWait();
     }
+    int estimateHour;
     localDeadline = LocalDate.parse(deadline);
     estimateHour = Integer.parseInt(estimate);
 
     Assignment assignment1 = new Assignment(title, localDeadline, estimateHour, difficulty);
     // add the assignment to the static user
-   staticUser.addAssignment(assignment1);
+    staticUser.addAssignment(assignment1);
 
     DataInserter.insertAssignment(
         title, localDeadline, estimateHour, difficulty, null, staticUser.getUserId());
@@ -170,7 +171,6 @@ public class AssignmentPage {
    * @return a VBox containing the information section
    */
   private VBox infoSection() {
-    VBox infoVBox = new VBox(10);
     Label infoTitle = new Label("Πληροφορίες:");
     infoTitle.setStyle(Styles.StyleType.TITLE.getStyle());
     GridPane info = new GridPane();
@@ -196,11 +196,12 @@ public class AssignmentPage {
     info.add(datePicker, 1, 3);
 
     info.setStyle(Styles.BLACK_BORDER);
-    infoVBox.getChildren().addAll(infoTitle, info);
+    VBox infoVbox = new VBox(10);
+    infoVbox.getChildren().addAll(infoTitle, info);
 
-    infoVBox.setMaxWidth(500);
-    infoVBox.setPrefWidth(500);
-    return infoVBox;
+    infoVbox.setMaxWidth(500);
+    infoVbox.setPrefWidth(500);
+    return infoVbox;
   }
 
   /**
@@ -209,7 +210,6 @@ public class AssignmentPage {
    * @return a VBox containing the evaluation section
    */
   private VBox evalSection() {
-    VBox evalVBox = new VBox(10);
     Label evalTitle = new Label("Αξιολόγηση:");
     evalTitle.setStyle(Styles.StyleType.TITLE.getStyle());
     GridPane eval = new GridPane();
@@ -223,12 +223,13 @@ public class AssignmentPage {
     eval.add(difficultyField, 1, 1);
 
     eval.setStyle(Styles.BLACK_BORDER);
-    evalVBox.getChildren().addAll(evalTitle, eval);
+    VBox evalVbox = new VBox(10);
+    evalVbox.getChildren().addAll(evalTitle, eval);
 
-    evalVBox.setMaxWidth(500);
-    evalVBox.setPrefWidth(500);
+    evalVbox.setMaxWidth(500);
+    evalVbox.setPrefWidth(500);
 
-    return evalVBox;
+    return evalVbox;
   }
 
   /**
@@ -238,13 +239,13 @@ public class AssignmentPage {
    * @return the assignment starting page scene
    */
   public Scene assignmentStartingPage(SceneManager sceneManager) {
-    VBox assignViewWithBtn = new VBox();
 
     HBox nameLbl = new HBox(20);
     Label name = new Label("Εισαγωγή Εργασιών");
     name.setStyle(Styles.StyleType.TITLE.getStyle());
     nameLbl.getChildren().add(name);
     nameLbl.setPadding(new Insets(20));
+    VBox assignViewWithBtn = new VBox();
     assignViewWithBtn.getChildren().add(nameLbl);
 
     VBox examView = (VBox) assignmentPanel();
@@ -270,12 +271,10 @@ public class AssignmentPage {
     btns.getChildren().addAll(prevBtn, nextBtn);
     assignViewWithBtn.getChildren().add(btns);
 
-    Scene scene =
-        new Scene(
-            assignViewWithBtn,
-            Screen.getPrimary().getVisualBounds().getWidth(),
-            Screen.getPrimary().getVisualBounds().getHeight());
-    return scene;
+    return new Scene(
+      assignViewWithBtn,
+      Screen.getPrimary().getVisualBounds().getWidth(),
+      Screen.getPrimary().getVisualBounds().getHeight());
   }
 
   public ArrayList<Assignment> getAssignments() {
@@ -290,7 +289,4 @@ public class AssignmentPage {
     return localDeadline;
   }
 
-  public int getEstimateHours() {
-    return estimateHour;
-  }
 }

@@ -10,7 +10,7 @@ public class Styles {
   /**
    * Enum representing task types with their associated color styles.
    */
-  public static enum TaskType {
+  public enum TaskType {
     TODAY("rgba(204, 77, 240, 1)"),
     WEEK("rgba(255, 215, 0, 0.93)"),
     OVERDUE("rgba(244, 78, 78, 1)"),

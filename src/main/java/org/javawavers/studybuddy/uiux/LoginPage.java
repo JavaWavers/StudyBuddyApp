@@ -47,13 +47,13 @@ public class LoginPage {
    * @return the login page scene
    */
   public Scene login(SceneManager sceneManager) {
-    HBox loginPage = new HBox();
     this.sceneManager = sceneManager;
 
     initRightPane();
     initLeftPane();
     setupEventHandlers();
 
+    HBox loginPage = new HBox();
     loginPage.getChildren().addAll(leftPane, rightPane);
     HBox.setHgrow(leftPane, Priority.ALWAYS);
     HBox.setHgrow(rightPane, Priority.ALWAYS);
@@ -62,13 +62,11 @@ public class LoginPage {
     leftPane.setPrefWidth((Screen.getPrimary().getVisualBounds().getWidth()) / 2);
     rightPane.setPrefWidth((Screen.getPrimary().getVisualBounds().getWidth()) / 2);
 
-    Scene scene =
-        new Scene(
-            loginPage,
-            Screen.getPrimary().getVisualBounds().getWidth(),
-            Screen.getPrimary().getVisualBounds().getHeight());
 
-    return scene;
+    return new Scene(
+      loginPage,
+      Screen.getPrimary().getVisualBounds().getWidth(),
+      Screen.getPrimary().getVisualBounds().getHeight());
   }
 
   private void initRightPane() {
@@ -76,11 +74,11 @@ public class LoginPage {
     rightPane.setStyle("-fx-background-color: #65E165CF;");
     rightPane.setPrefWidth(Screen.getPrimary().getVisualBounds().getWidth() / 2);
 
-    VBox rightVBox = new VBox(15);
-    rightVBox.setAlignment(Pos.CENTER);
-    rightVBox.setPadding(new Insets(30));
-    rightVBox.setFillWidth(true);
-    rightVBox.setMaxHeight(Double.MAX_VALUE);
+    VBox rightVbox = new VBox(15);
+    rightVbox.setAlignment(Pos.CENTER);
+    rightVbox.setPadding(new Insets(30));
+    rightVbox.setFillWidth(true);
+    rightVbox.setMaxHeight(Double.MAX_VALUE);
 
     Text welcomeText = new Text("Καλώς ήρθες!");
     welcomeText.setFont(Font.font("Arial", FontWeight.BOLD, 60));
@@ -149,7 +147,7 @@ public class LoginPage {
     Region downSpacer = new Region();
     VBox.setVgrow(upSpacer, Priority.ALWAYS);
     VBox.setVgrow(downSpacer, Priority.ALWAYS);
-    rightVBox
+    rightVbox
         .getChildren()
         .addAll(upSpacer, welcomeText, messageLine1, messageLine2, signupButton, downSpacer);
 
@@ -157,9 +155,9 @@ public class LoginPage {
     Region rightSpacer = new Region();
     HBox.setHgrow(leftSpacer, Priority.ALWAYS);
     HBox.setHgrow(rightSpacer, Priority.ALWAYS);
-    VBox.setVgrow(rightVBox, Priority.ALWAYS);
+    VBox.setVgrow(rightVbox, Priority.ALWAYS);
 
-    rightPane.getChildren().addAll(leftSpacer, rightVBox, rightSpacer);
+    rightPane.getChildren().addAll(leftSpacer, rightVbox, rightSpacer);
   }
 
   private void initLeftPane() {
@@ -167,11 +165,11 @@ public class LoginPage {
     leftPane.setStyle("-fx-background-color: #B563F1;");
     leftPane.setPrefWidth(Screen.getPrimary().getVisualBounds().getWidth() / 2);
 
-    VBox leftVBox = new VBox(15);
-    leftVBox.setAlignment(Pos.CENTER);
-    leftVBox.setPadding(new Insets(30));
-    leftVBox.setFillWidth(true);
-    leftVBox.setMaxHeight(Double.MAX_VALUE);
+    VBox leftVbox = new VBox(15);
+    leftVbox.setAlignment(Pos.CENTER);
+    leftVbox.setPadding(new Insets(30));
+    leftVbox.setFillWidth(true);
+    leftVbox.setMaxHeight(Double.MAX_VALUE);
 
     Text joinText = new Text("Συνδέσου ξανά!");
     joinText.setFont(Font.font("Arial", FontWeight.BOLD, 60));
@@ -194,11 +192,12 @@ public class LoginPage {
 
     Button toggleButton = new Button();
     Image seeImage1 = new Image(getClass().getResource("/seePassword.png").toExternalForm());
-    Image notseeImage2 = new Image(getClass().getResource("/notseePassword.png").toExternalForm());
+
     ImageView userImgView = new ImageView(seeImage1);
     userImgView.setFitWidth(30);
     userImgView.setFitHeight(30);
 
+    Image notseeImage2 = new Image(getClass().getResource("/notseePassword.png").toExternalForm());
     toggleButton.setGraphic(userImgView);
     toggleButton.setStyle("-fx-font-size: 12px;");
     toggleButton.setOnAction(
@@ -210,8 +209,6 @@ public class LoginPage {
           }
           PasswordVisibility();
         });
-
-    HBox passwordBox = new HBox(10, passwordField, textField, toggleButton);
 
     loginButton = new Button("Συνδέσου");
     loginButton.setStyle(
@@ -280,7 +277,9 @@ public class LoginPage {
     Region downSpacer = new Region();
     VBox.setVgrow(upSpacer, Priority.ALWAYS);
     VBox.setVgrow(downSpacer, Priority.ALWAYS);
-    leftVBox
+
+    HBox passwordBox = new HBox(10, passwordField, textField, toggleButton);
+    leftVbox
         .getChildren()
         .addAll(
             upSpacer,
@@ -297,7 +296,7 @@ public class LoginPage {
     HBox.setHgrow(leftSpacer, Priority.ALWAYS);
     HBox.setHgrow(rightSpacer, Priority.ALWAYS);
 
-    leftPane.getChildren().addAll(leftSpacer, leftVBox, rightSpacer);
+    leftPane.getChildren().addAll(leftSpacer, leftVbox, rightSpacer);
   }
 
   /**

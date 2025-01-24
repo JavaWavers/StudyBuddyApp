@@ -28,7 +28,8 @@ import org.javawavers.studybuddy.database.ActiveUser;
 import org.javawavers.studybuddy.database.DataInserter;
 
 /**
- * RegisterPage class is responsible for handling the user interface and logic of the registration page.
+ * RegisterPage class is responsible for handling the user interface
+ * and logic of the registration page.
  */
 public class RegisterPage {
 
@@ -55,13 +56,13 @@ public class RegisterPage {
    * @return The scene for the registration page.
    */
   public Scene register(SceneManager sceneManager) {
-    HBox registerPage = new HBox();
     this.sceneManager = sceneManager;
 
     initRightPane();
     initLeftPane();
     setupEventHandlers();
 
+    HBox registerPage = new HBox();
     registerPage.getChildren().addAll(leftPane, rightPane);
     HBox.setHgrow(leftPane, Priority.ALWAYS);
     HBox.setHgrow(rightPane, Priority.ALWAYS);
@@ -70,13 +71,10 @@ public class RegisterPage {
     leftPane.setPrefWidth((Screen.getPrimary().getVisualBounds().getWidth()) / 2);
     rightPane.setPrefWidth((Screen.getPrimary().getVisualBounds().getWidth()) / 2);
 
-    Scene scene =
-        new Scene(
-            registerPage,
-            Screen.getPrimary().getVisualBounds().getWidth(),
-            Screen.getPrimary().getVisualBounds().getHeight());
-
-    return scene;
+    return new Scene(
+      registerPage,
+      Screen.getPrimary().getVisualBounds().getWidth(),
+      Screen.getPrimary().getVisualBounds().getHeight());
   }
 
   private void initRightPane() {
@@ -84,11 +82,11 @@ public class RegisterPage {
     rightPane.setStyle("-fx-background-color: #B563F1;");
     rightPane.setPrefWidth(Screen.getPrimary().getVisualBounds().getWidth() / 2);
 
-    VBox rightVBox = new VBox(15);
-    rightVBox.setAlignment(Pos.CENTER);
-    rightVBox.setPadding(new Insets(30));
-    rightVBox.setFillWidth(true);
-    rightVBox.setMaxHeight(Double.MAX_VALUE);
+    VBox rightVbox = new VBox(15);
+    rightVbox.setAlignment(Pos.CENTER);
+    rightVbox.setPadding(new Insets(30));
+    rightVbox.setFillWidth(true);
+    rightVbox.setMaxHeight(Double.MAX_VALUE);
 
     Text joinText = new Text("Έλα στην παρέα μας");
     joinText.setFont(new Font("System Bold", 28));
@@ -117,7 +115,6 @@ public class RegisterPage {
     textField.setManaged(false); // to start without the code being visible
     textField.setVisible(false);
     Image seeImage1 = new Image(getClass().getResource("/seePassword.png").toExternalForm());
-    Image notseeImage2 = new Image(getClass().getResource("/notseePassword.png").toExternalForm());
     ImageView userImgView = new ImageView(seeImage1);
     userImgView.setFitWidth(32.5);
     userImgView.setFitHeight(32.5);
@@ -129,6 +126,7 @@ public class RegisterPage {
     toggleButton.setGraphic(userImgView);
     toggleButton.setStyle("-fx-font-size: 14px;");
 
+    Image notseeImage2 = new Image(getClass().getResource("/notseePassword.png").toExternalForm());
     toggleButton.setOnAction(
         e -> {
           if (userImgView.getImage().equals(seeImage1)) {
@@ -138,9 +136,6 @@ public class RegisterPage {
           }
           PasswordVisibility();
         });
-
-    // place all three of them in a HBox
-    HBox passwordBox = new HBox(5, passwordField, textField, toggleButton);
 
     // do the same for the confirmpassword
     Label confirmpasswordLabel = new Label("Confirm Password:");
@@ -157,12 +152,12 @@ public class RegisterPage {
 
     toggleConfirmPasswordButton.setStyle("-fx-font-size: 14px;");
     Image seeImage = new Image(getClass().getResource("/seePassword.png").toExternalForm());
-    Image notseeImage = new Image(getClass().getResource("/notseePassword.png").toExternalForm());
     ImageView userImgView1 = new ImageView(seeImage);
     userImgView1.setFitWidth(32.5);
     userImgView1.setFitHeight(32.5);
     toggleConfirmPasswordButton.setGraphic(userImgView1);
 
+    Image notseeImage = new Image(getClass().getResource("/notseePassword.png").toExternalForm());
     toggleConfirmPasswordButton.setOnAction(
         e -> {
           if (userImgView1.getImage().equals(seeImage)) {
@@ -172,9 +167,6 @@ public class RegisterPage {
           }
           ConfPasswordVisibility();
         });
-
-    HBox confirmPasswordBox =
-        new HBox(5, confirmPasswordField, confirmPasswordTextField, toggleConfirmPasswordButton);
 
     // button for the registration
     registerButton = new Button("Εγγραφή");
@@ -249,7 +241,11 @@ public class RegisterPage {
     Region downSpacer = new Region();
     VBox.setVgrow(upSpacer, Priority.ALWAYS);
     VBox.setVgrow(downSpacer, Priority.ALWAYS);
-    rightVBox
+    // place all three of them in a HBox
+    HBox passwordBox = new HBox(5, passwordField, textField, toggleButton);
+    HBox confirmPasswordBox =
+        new HBox(5, confirmPasswordField, confirmPasswordTextField, toggleConfirmPasswordButton);
+    rightVbox
         .getChildren()
         .addAll(
             upSpacer,
@@ -269,9 +265,9 @@ public class RegisterPage {
     Region rightSpacer = new Region();
     HBox.setHgrow(leftSpacer, Priority.ALWAYS);
     HBox.setHgrow(rightSpacer, Priority.ALWAYS);
-    VBox.setVgrow(rightVBox, Priority.ALWAYS);
+    VBox.setVgrow(rightVbox, Priority.ALWAYS);
 
-    rightPane.getChildren().addAll(leftSpacer, rightVBox, rightSpacer);
+    rightPane.getChildren().addAll(leftSpacer, rightVbox, rightSpacer);
   }
 
   private void initLeftPane() {
@@ -279,11 +275,11 @@ public class RegisterPage {
     leftPane.setStyle("-fx-background-color: #65E165CF;");
     leftPane.setPrefWidth(Screen.getPrimary().getVisualBounds().getWidth() / 2);
 
-    VBox leftVBox = new VBox(15);
-    leftVBox.setAlignment(Pos.CENTER);
-    leftVBox.setPadding(new Insets(30));
-    leftVBox.setFillWidth(true);
-    leftVBox.setMaxHeight(Double.MAX_VALUE);
+    VBox leftVbox = new VBox(15);
+    leftVbox.setAlignment(Pos.CENTER);
+    leftVbox.setPadding(new Insets(30));
+    leftVbox.setFillWidth(true);
+    leftVbox.setMaxHeight(Double.MAX_VALUE);
 
     Text welcomeText = new Text("Καλώς ήρθες ξανά!");
     welcomeText.setFont(new Font("System Bold", 28));
@@ -347,7 +343,7 @@ public class RegisterPage {
     Region downSpacer = new Region();
     VBox.setVgrow(upSpacer, Priority.ALWAYS);
     VBox.setVgrow(downSpacer, Priority.ALWAYS);
-    leftVBox
+    leftVbox
         .getChildren()
         .addAll(upSpacer, welcomeText, messageText1, messageText2, loginButton, downSpacer);
 
@@ -356,7 +352,7 @@ public class RegisterPage {
     HBox.setHgrow(leftSpacer, Priority.ALWAYS);
     HBox.setHgrow(rightSpacer, Priority.ALWAYS);
 
-    leftPane.getChildren().addAll(leftSpacer, leftVBox, rightSpacer);
+    leftPane.getChildren().addAll(leftSpacer, leftVbox, rightSpacer);
   }
 
   private void setupEventHandlers() {
@@ -384,7 +380,6 @@ public class RegisterPage {
     storedUsername = nameField.getText();
     storedEmail = emailField.getText();
     storedPassword = passwordField.getText();
-    String confirmPassword = confirmPasswordField.getText();
 
     // define the current user upon logging into the application
     User user = new User(storedUsername, storedEmail, storedPassword);
@@ -418,6 +413,7 @@ public class RegisterPage {
     } else if (!storedPassword.matches(".*[!@#$%^&+=].*")) {
       errors.add("• Ο Κωδικός πρόσβασης πρέπει να έχει τουλάχιστον έναν ειδικό χαρακτήρα");
     }
+    String confirmPassword = confirmPasswordField.getText();
     // error if the confirmation code is not the same
     if (!storedPassword.equals(confirmPassword)) {
       System.out.println("storedpassword confirm");
@@ -451,13 +447,6 @@ public class RegisterPage {
     return true;
   }
 
-  private void clearFields() {
-    nameField.clear();
-    emailField.clear();
-    passwordField.clear();
-    textField.clear();
-    confirmPasswordField.clear();
-  }
 
   private void PasswordVisibility() {
     if (passwordField.isVisible()) {
