@@ -427,7 +427,7 @@ public class ActiveUser {
     List<Assignment> assignments = new ArrayList<>();
 
     String sql =
-        "SELECT a.title, a.deadline, a.estimateHours, a.completedDate, a.difficulty "
+        "SELECT a.title, a.deadline, a.estimateHours, a.completedDate, a.difficulty, a.assignmentId "
             + "FROM Assignment a WHERE userId = ?";
 
     try (Connection connection = DataBaseManager.connect();
