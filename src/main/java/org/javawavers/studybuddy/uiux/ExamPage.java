@@ -1,11 +1,16 @@
 package org.javawavers.studybuddy.uiux;
 
-import static org.javawavers.studybuddy.courses.StaticUser.staticUser;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+
+import org.javawavers.studybuddy.courses.Exam;
+import static org.javawavers.studybuddy.courses.StaticUser.staticUser;
+import org.javawavers.studybuddy.courses.Subject;
+import org.javawavers.studybuddy.database.ActiveUser;
+import org.javawavers.studybuddy.database.DataInserter;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
@@ -23,10 +28,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
-import org.javawavers.studybuddy.courses.Exam;
-import org.javawavers.studybuddy.courses.Subject;
-import org.javawavers.studybuddy.database.ActiveUser;
-import org.javawavers.studybuddy.database.DataInserter;
 
 /**
  * Represents a page in the user interface where the user can input and save details about an exam.
@@ -267,8 +268,8 @@ public class ExamPage {
 
     if (courseName.isEmpty()) {
       errors.add("• Εισήγαγε όνομα μαθήματος");
-    } else if (!courseName.matches("[a-zA-Zα-ωΑ-ΩάέήίΰϊϋόύώΆΈΉΊΪΫΌΎΏ]+")) {
-      errors.add("• Η Ονομασία του μαθήματος μπορεί να περιέχει μόνο γράμματα");
+    } else if (!courseName.matches("[a-zA-Zα-ωΑ-ΩάέήίΰϊϋόύώΆΈΉΊΪΫΌΎΏ0-9 ]+")) {
+      errors.add("• Η Ονομασία του μαθήματος μπορεί να περιέχει μόνο γράμματα, αριθμούς και κενά");
     }
 
     if (pages <= 0) {

@@ -1,7 +1,5 @@
 package org.javawavers.studybuddy.uiux;
 
-import static org.javawavers.studybuddy.courses.StaticUser.staticUser;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoField;
@@ -9,6 +7,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+
+import org.javawavers.studybuddy.calculations.CreateWeekDay;
+import org.javawavers.studybuddy.calculations.Day;
+import org.javawavers.studybuddy.calculations.PrintWeeks;
+import org.javawavers.studybuddy.calculations.SimulateAnnealing;
+import org.javawavers.studybuddy.calculations.Week;
+import org.javawavers.studybuddy.courses.ScheduledTask;
+import static org.javawavers.studybuddy.courses.StaticUser.staticUser;
+import org.javawavers.studybuddy.courses.Subject;
+
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -31,9 +39,6 @@ import javafx.scene.text.FontWeight;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import org.javawavers.studybuddy.calculations.*;
-import org.javawavers.studybuddy.courses.ScheduledTask;
-import org.javawavers.studybuddy.courses.Subject;
 
 /**
  * Represents the Calendar view of the application, displaying weeks and tasks.
@@ -261,11 +266,18 @@ public class Calendar {
             createCalendarGrid(calendarGrid, 0, subject, totalWeeks);
           }
         });
+        Label refreshLabel = new Label("Πάτα εδώ για ενημέρωση προγράμματος");
+        refreshLabel.setFont(Font.font("System", FontWeight.BOLD, 14));
+        refreshLabel.setTextFill(Color.BLACK);
+        refreshLabel.setStyle("-fx-background-color: white; -fx-border-color: transparent;");
+        
 
+        HBox refreshBox = new HBox(10, refreshButton, refreshLabel);
+        refreshBox.setAlignment(Pos.CENTER_LEFT);
     // group all the elements of the center together and return them
     centerPanel
         .getChildren()
-        .addAll(weekSwitcher, todayButton, calendarGrid, availabilityPane, refreshButton);
+        .addAll(weekSwitcher, todayButton, calendarGrid, availabilityPane, refreshBox);
 
     return centerPanel;
   }

@@ -1,6 +1,9 @@
 package org.javawavers.studybuddy.uiux;
 
 import java.util.Objects;
+
+import org.javawavers.studybuddy.database.ActiveUser;
+
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -20,7 +23,6 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Screen;
-import org.javawavers.studybuddy.database.ActiveUser;
 
 
 
@@ -313,7 +315,7 @@ public class LoginPage {
 
     loginButton.setOnAction(
         event -> {
-          validateLogin();
+          //validateLogin();
           if (validateLogin()) {
             MainFrame mainFrame = new MainFrame();
             sceneManager.switchScene(mainFrame.mainFrame(sceneManager));

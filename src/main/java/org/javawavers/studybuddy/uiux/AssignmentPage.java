@@ -1,11 +1,14 @@
 package org.javawavers.studybuddy.uiux;
 
-import static org.javawavers.studybuddy.courses.StaticUser.staticUser;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+
+import org.javawavers.studybuddy.courses.Assignment;
+import static org.javawavers.studybuddy.courses.StaticUser.staticUser;
+import org.javawavers.studybuddy.database.DataInserter;
+
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -20,8 +23,6 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Screen;
-import org.javawavers.studybuddy.courses.Assignment;
-import org.javawavers.studybuddy.database.DataInserter;
 
 /**
  * This class represents the Assignment Page where users can input information about assignments.
@@ -86,8 +87,8 @@ public class AssignmentPage {
     List<String> errors = new ArrayList<>();
     if (title.isEmpty()) {
       errors.add("• Εισήγαγε όνομα εργασίας");
-    } else if (!title.matches("[a-zA-Zα-ωΑ-ΩάέήίΰϊϋόύώΆΈΉΊΪΫΌΎΏ]+")) {
-      errors.add("• Η Ονομασία της εργασίας μπορεί να περιέχει μόνο γράμματα");
+    } else if (!title.matches("[a-zA-Zα-ωΑ-ΩάέήίΰϊϋόύώΆΈΉΊΪΫΌΎΏ0-9 ]+")) {
+      errors.add("• Η Ονομασία της εργασίας μπορεί να περιέχει μόνο γράμματα, αριθμούς και κενά");
     }
 
     if (!String.valueOf(value).matches("\\d+")) {
